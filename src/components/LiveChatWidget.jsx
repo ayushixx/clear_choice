@@ -1,0 +1,129 @@
+import React, { useState } from 'react';
+import { MessageSquare, X, Send, Phone } from 'lucide-react';
+
+export default function LiveChatWidget({ setActivePage }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [messages, setMessages] = useState([
+    {
+      id: 1,
+      sender: 'bot',
+      text: 'Hi there! If you are in crisis, please click the green button to connect with a real person. Otherwise, browse our facts.',
+      time: 'Just now'
+    }
+  ]);
+  const [inputText, setInputText] = useState('');
+
+  const handleSend = (e) => {
+    e.preventDefault();
+    if (!inputText.trim()) return;
+
+    const userMsg = {
+      id: Date.now(),
+      sender: 'user',
+      text: inputText,
+      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    };
+
+    setMessages(prev => [...prev, userMsg]);
+    setInputText('');
+
+    setTimeout(() => {
+      const replyMsg = {
+        id: Date.now() + 1,
+        sender: 'bot',
+        text: 'Thank you for reaching out. A specialist counselor can assist you immediately on our 24/7 Helpline 1800-11-0031.',
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        showActions: true
+      };
+      setMessages(prev => [...prev, replyMsg]);
+    }, 1000);
+  };
+
+  return (
+    <div className="fixed bottom-6 right-6 z-40">
+      
+      {!isOpen && (
+        <button
+          onClick={() => setIsOpen(true)}
+          className="bg-[#2E031D] hover:bg-[#4E0834] text-white p-3.5 rounded-full shadow-lg transition-all flex items-center justify-center border border-white/20"
+          aria-label="Open Crisis Live Chat"
+        >
+          <MessageSquare className="w-5 h-5" />
+        </button>
+      )}
+
+      {isOpen && (
+        <div className="bg-white w-80 sm:w-88 rounded-xl shadow-2xl border border-[#2E031D]/15 overflow-hidden flex flex-col h-[440px]">
+          
+          <div className="bg-[#2E031D] text-white p-4 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="w-7 h-7 rounded-sm bg-white text-[#2E031D] flex items-center justify-center font-serif font-bold text-xs">
+                CC
+              </div>
+              <div>
+                <h4 className="font-serif font-bold text-xs leading-none">Clear Choice Support</h4>
+                <span className="text-[9px] text-[#FDF3F7]/70 font-mono">Confidential Helpline</span>
+              </div>
+            </div>
+            <button
+              onClick={() => setIsOpen(false)}
+              className="text-[#FDF3F7]/80 hover:text-white p-1"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+
+          <div className="bg-emerald-800 text-white p-2.5 text-xs flex items-center justify-between">
+            <span className="font-medium flex items-center gap-1">
+              <Phone className="w-3 h-3" /> Immediate Crisis?
+            </span>
+            <a
+              href="tel:1800110031"
+              className="bg-emerald-600 hover:bg-emerald-500 text-white px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider"
+            >
+              Connect Real Person
+            </a>
+          </div>
+
+          <div className="flex-1 p-3 overflow-y-auto space-y-2 bg-[#FDF3F7]/50 text-xs">
+            {messages.map((msg) => (
+              <div
+                key={msg.id}
+                className={`flex flex-col ${msg.sender === 'user' ? 'items-end' : 'items-start'}`}
+              >
+                <div
+                  className={`max-w-[85%] p-2.5 rounded-lg ${
+                    msg.sender === 'user'
+                      ? 'bg-[#2E031D] text-white'
+                      : 'bg-white text-[#2E031D] border border-[#2E031D]/10'
+                  }`}
+                >
+                  <p>{msg.text}</p>
+                </div>
+                <span className="text-[8px] text-[#2E031D]/50 mt-0.5 px-1">{msg.time}</span>
+              </div>
+            ))}
+          </div>
+
+          <form onSubmit={handleSend} className="p-2.5 bg-white border-t border-[#2E031D]/10 flex items-center gap-2">
+            <input
+              type="text"
+              value={inputText}
+              onChange={(e) => setInputText(e.target.value)}
+              placeholder="Type message..."
+              className="flex-1 text-xs px-3 py-1.5 border border-[#2E031D]/20 rounded-md focus:outline-none focus:border-[#2E031D]"
+            />
+            <button
+              type="submit"
+              className="bg-[#2E031D] hover:bg-[#4E0834] text-white p-1.5 rounded-md transition-colors"
+            >
+              <Send className="w-3.5 h-3.5" />
+            </button>
+          </form>
+
+        </div>
+      )}
+
+    </div>
+  );
+}

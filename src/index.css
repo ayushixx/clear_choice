@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-primary: #FFFFFF;
+    --bg-secondary: #FDF3F7;
+    --bg-card: #FFFFFF;
+    --text-primary: #2E031D;
+    --text-secondary: #4E0834;
+    --text-muted: rgba(46, 3, 29, 0.7);
+    --border-color: rgba(46, 3, 29, 0.12);
+    --accent-maroon: #781353;
+    --accent-deep: #2E031D;
+  }
+
+  .dark {
+    --bg-primary: #180210;
+    --bg-secondary: #240419;
+    --bg-card: #1F0315;
+    --text-primary: #FDF3F7;
+    --text-secondary: #F7E4EE;
+    --text-muted: rgba(253, 243, 247, 0.7);
+    --border-color: rgba(253, 243, 247, 0.15);
+    --accent-maroon: #DC2F87;
+    --accent-deep: #FDF3F7;
+  }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Inter', 'Manrope', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  h1, h2, h3, h4, h5, h6, .font-serif {
+    font-family: 'Fraunces', Georgia, serif;
+    letter-spacing: -0.025em;
+  }
+}
+
+/* Hairline borders */
+.border-editorial {
+  border-color: var(--border-color);
+}
+
+/* Minimalist Editorial Card */
+.card-doc {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  transition: all 0.25s ease;
+}
+.card-doc:hover {
+  border-color: var(--accent-maroon);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--accent-maroon);
+}

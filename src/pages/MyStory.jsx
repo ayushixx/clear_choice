@@ -1,0 +1,137 @@
+import React from 'react';
+import { Quote, ArrowRight } from 'lucide-react';
+
+export default function MyStory({ setActivePage }) {
+  return (
+    <div className="pt-32 pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
+      
+      {/* Magazine Editorial Spread */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        {/* Left Side: Title & Overview */}
+        <div className="lg:col-span-7 space-y-6">
+          <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#781353] dark:text-[#DC2F87] block border-b border-editorial pb-1">
+            Documentary Case Archive
+          </span>
+
+          <h1 className="text-4xl sm:text-6xl font-serif font-extrabold tracking-tight leading-[1.1] text-[var(--text-primary)]">
+            From Addiction to <span className="italic font-normal text-[#781353] dark:text-[#DC2F87]">Advocacy</span>
+          </h1>
+
+          <p className="text-base sm:text-lg text-muted font-light leading-relaxed">
+            A six-year personal journey through dependency, clinical rehabilitation, and establishing a life rooted in clarity, purpose, and public education.
+          </p>
+
+          <div className="pt-4 grid grid-cols-2 gap-4 border-t border-editorial text-xs">
+            <div>
+              <span className="font-mono text-muted uppercase block text-[10px]">Clean Milestone</span>
+              <span className="font-serif font-bold text-sm text-[var(--text-primary)]">2 Years Clean (2025–Present)</span>
+            </div>
+            <div>
+              <span className="font-mono text-muted uppercase block text-[10px]">Guiding Principle</span>
+              <span className="font-serif font-bold text-sm text-[var(--text-primary)]">Honesty Over Fear</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Side: Portrait Image (User Image 2) */}
+        <div className="lg:col-span-5">
+          <div className="rounded-none overflow-hidden border border-editorial bg-[var(--bg-secondary)] aspect-[4/5]">
+            <img 
+              src="/assets/mystory-portrait.jpg" 
+              alt="Founding Advocate Portrait" 
+              className="w-full h-full object-cover object-center filter contrast-[1.03]"
+            />
+          </div>
+        </div>
+
+      </div>
+
+      {/* PULL QUOTE */}
+      <section className="bg-[var(--bg-secondary)] rounded-none p-8 sm:p-12 border-l-4 border-[#781353] dark:border-[#DC2F87] max-w-4xl mx-auto space-y-3">
+        <Quote className="w-8 h-8 text-[#781353] dark:text-[#DC2F87] opacity-60" />
+        <blockquote className="text-xl sm:text-3xl font-serif italic font-bold text-[var(--text-primary)] leading-snug">
+          "Recovery begins when honesty becomes stronger than fear."
+        </blockquote>
+        <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-muted block">
+          — Clear Choice Core Principle
+        </span>
+      </section>
+
+      {/* JOURNALISTIC CHAPTERS */}
+      <section className="max-w-3xl mx-auto space-y-16">
+        
+        {/* Chapter 1 */}
+        <div className="space-y-3 border-l border-editorial pl-6 sm:pl-8">
+          <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#781353] dark:text-[#DC2F87]">
+            2017 – 2023 • Chapter 01
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[var(--text-primary)]">
+            Six Years of Addiction: The Isolation of Dependency
+          </h2>
+          <div className="text-sm sm:text-base text-muted leading-relaxed font-light space-y-4 pt-2">
+            <p>
+              Substance dependency rarely arrives with alarms; it starts quietly. Between 2017 and 2023, what began as social escape turned into a daily struggle. Over six years, my world shrank down to managing cravings and shielding loved ones from the truth.
+            </p>
+            <p>
+              Isolation became my primary defense mechanism. The hardest part was not just physical fatigue—it was the loss of self-worth and the belief that tomorrow could be different.
+            </p>
+          </div>
+        </div>
+
+        {/* Chapter 2 */}
+        <div className="space-y-3 border-l border-editorial pl-6 sm:pl-8">
+          <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#781353] dark:text-[#DC2F87]">
+            2023 – 2025 • Chapter 02
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[var(--text-primary)]">
+            Rehabilitation: The Hardest Chapter
+          </h2>
+          <div className="text-sm sm:text-base text-muted leading-relaxed font-light space-y-4 pt-2">
+            <p>
+              In early 2023, admitting that I could no longer manage alone was the hardest decision of my life. Entering rehabilitation was intimidating, but it marked the true beginning of freedom.
+            </p>
+            <p>
+              Two years in rehabilitation required unyielding commitment. Medical supervision managed detoxification, while therapy unraveled the emotional triggers beneath dependency.
+            </p>
+          </div>
+        </div>
+
+        {/* Chapter 3 */}
+        <div className="space-y-3 border-l border-editorial pl-6 sm:pl-8">
+          <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#781353] dark:text-[#DC2F87]">
+            2025 – Today • Chapter 03
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[var(--text-primary)]">
+            2 Years Clean: Transforming Survival into Advocacy
+          </h2>
+          <div className="text-sm sm:text-base text-muted leading-relaxed font-light space-y-4 pt-2">
+            <p>
+              Reaching two years clean in 2025 was not just a personal milestone; it birthed CLEAR CHOICE. Recovery is an active, daily commitment to growth, honesty, and education.
+            </p>
+            <p>
+              CLEAR CHOICE is built to dismantle stigma, provide accurate substance education, and ensure nobody walks through darkness alone.
+            </p>
+          </div>
+        </div>
+
+      </section>
+
+      {/* Understated Action Banner */}
+      <div className="bg-[#2E031D] dark:bg-[#240419] text-white p-8 sm:p-10 border border-editorial flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div>
+          <h3 className="text-xl font-serif font-bold text-white">Need Support or Have Questions?</h3>
+          <p className="text-xs text-white/80 font-light mt-1">24/7 confidential assistance is available right now.</p>
+        </div>
+        <button
+          onClick={() => { setActivePage('help'); window.scrollTo(0,0); }}
+          className="bg-white text-[#2E031D] hover:bg-[#FDF3F7] px-6 py-3 text-xs font-bold uppercase tracking-widest transition-colors whitespace-nowrap flex items-center gap-2"
+        >
+          <span>Get Crisis Support</span>
+          <ArrowRight className="w-4 h-4" />
+        </button>
+      </div>
+
+    </div>
+  );
+}
