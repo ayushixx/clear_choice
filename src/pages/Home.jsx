@@ -158,7 +158,7 @@ export default function Home({ setActivePage }) {
               <span className="text-[10px] font-mono uppercase tracking-widest text-muted block">
                 03 / Milestone
               </span>
-              <div className="text-3xl sm:text-4xl font-serif font-extrabold text-[#781353] dark:text-[#DC2F87]">
+              <div className="text-3xl sm:text-4xl font-serif font-extrabold text-[#781353] dark:text-[#E03590]">
                 2025–Today
               </div>
               <h3 className="text-sm font-semibold text-[var(--text-primary)]">

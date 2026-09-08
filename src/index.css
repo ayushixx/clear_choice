@@ -14,15 +14,15 @@
   }
 
   .dark {
-    --bg-primary: #180210;
-    --bg-secondary: #240419;
-    --bg-card: #1F0315;
-    --text-primary: #FDF3F7;
-    --text-secondary: #F7E4EE;
-    --text-muted: rgba(253, 243, 247, 0.7);
-    --border-color: rgba(253, 243, 247, 0.15);
-    --accent-maroon: #DC2F87;
-    --accent-deep: #FDF3F7;
+    --bg-primary: #0A0A0C;
+    --bg-secondary: #121216;
+    --bg-card: #16161C;
+    --text-primary: #FFFFFF;
+    --text-secondary: #E2E2E8;
+    --text-muted: rgba(255, 255, 255, 0.75);
+    --border-color: rgba(255, 255, 255, 0.14);
+    --accent-maroon: #E03590;
+    --accent-deep: #FFFFFF;
   }
 
   html {
@@ -63,14 +63,19 @@
 /* Glassmorphism Panel */
 .glass-panel {
   background: var(--bg-card);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-color);
 }
 
-/* Touch-optimized button micro-interactions */
+/* Touch-optimized button micro-interactions & touch targets */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
 .btn-tap {
-  transition: transform 0.15s ease, opacity 0.15s ease, background-color 0.2s ease;
+  transition: transform 0.15s ease, opacity 0.15s ease, background-color 0.2s ease, border-color 0.2s ease;
 }
 .btn-tap:active {
   transform: scale(0.98);
@@ -78,11 +83,14 @@
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
   background: var(--bg-primary);
 }
 ::-webkit-scrollbar-thumb {
   background: var(--accent-maroon);
+  border-radius: 3px;
 }
+

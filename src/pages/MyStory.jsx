@@ -16,12 +16,12 @@ export default function MyStory({ setActivePage }) {
           transition={{ duration: 0.5 }}
           className="lg:col-span-7 space-y-5 sm:space-y-6"
         >
-          <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#781353] dark:text-[#DC2F87] block border-b border-editorial pb-1">
+          <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#781353] dark:text-[#E03590] block border-b border-editorial pb-1">
             Documentary Case Archive
           </span>
 
           <h1 className="text-3xl sm:text-6xl font-serif font-extrabold tracking-tight leading-[1.1] text-[var(--text-primary)]">
-            From Addiction to <span className="italic font-normal text-[#781353] dark:text-[#DC2F87]">Advocacy</span>
+            From Addiction to <span className="italic font-normal text-[#781353] dark:text-[#E03590]">Advocacy</span>
           </h1>
 
           <p className="text-base sm:text-lg text-muted font-light leading-relaxed">

@@ -92,7 +92,7 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
                   }}
                   className={`text-xs font-semibold uppercase tracking-wider transition-colors relative py-1 btn-tap ${
                     isActive
-                      ? 'text-[#781353] dark:text-[#DC2F87] border-b-2 border-current'
+                      ? 'text-[#781353] dark:text-[#E03590] border-b-2 border-current'
                       : 'text-muted hover:text-[var(--text-primary)]'
                   }`}
                 >
@@ -106,7 +106,7 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
           <div className="hidden md:flex items-center space-x-4">
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-full border border-editorial text-[var(--text-primary)] hover:bg-[var(--bg-secondary)] transition-all btn-tap"
+              className="p-2 rounded-full border border-editorial text-[var(--text-primary)] hover:bg-[var(--bg-secondary)] transition-all btn-tap touch-target"
               aria-label="Toggle Theme"
               title={`Switch to ${theme === 'light' ? 'Dark' : 'Light'} Mode`}
             >
@@ -122,7 +122,7 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
                 setActivePage('help');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="bg-[#2E031D] dark:bg-[#FDF3F7] text-[#FDF3F7] dark:text-[#2E031D] px-4 py-2 text-xs font-bold uppercase tracking-widest hover:opacity-90 transition-opacity btn-tap"
+              className="bg-[#2E031D] dark:bg-[#FFFFFF] text-[#FDF3F7] dark:text-[#0A0A0C] px-4 py-2.5 text-xs font-bold uppercase tracking-widest hover:opacity-90 transition-opacity btn-tap touch-target"
             >
               Get Crisis Help
             </button>
@@ -135,22 +135,22 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
                 setActivePage('help');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="bg-[#781353] dark:bg-[#DC2F87] text-white px-3 py-1.5 text-[10px] font-mono font-bold uppercase tracking-wider btn-tap"
+              className="bg-[#781353] dark:bg-[#E03590] text-white px-3 py-2 text-[10px] font-mono font-bold uppercase tracking-wider btn-tap touch-target flex items-center justify-center"
             >
               Get Help
             </button>
 
             <button
               onClick={toggleTheme}
-              className="p-2 text-[var(--text-primary)] btn-tap"
+              className="p-2 text-[var(--text-primary)] btn-tap touch-target flex items-center justify-center"
               aria-label="Toggle Theme"
             >
-              {theme === 'light' ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4 text-amber-300" />}
+              {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5 text-amber-300" />}
             </button>
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-[var(--text-primary)] btn-tap"
+              className="p-2 text-[var(--text-primary)] btn-tap touch-target flex items-center justify-center"
               aria-label="Toggle mobile menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -184,7 +184,7 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
               
               <button
                 onClick={() => setMobileMenuOpen(false)}
-                className="p-2 text-[var(--text-primary)] btn-tap"
+                className="p-2 text-[var(--text-primary)] btn-tap touch-target"
                 aria-label="Close menu"
               >
                 <X className="w-7 h-7" />
@@ -206,14 +206,14 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
                       setMobileMenuOpen(false);
                       window.scrollTo({ top: 0, behavior: 'smooth' });
                     }}
-                    className={`w-full text-left p-3 border-l-2 transition-all btn-tap flex items-center justify-between ${
+                    className={`w-full text-left p-3.5 border-l-2 transition-all btn-tap flex items-center justify-between touch-target ${
                       isActive 
-                        ? 'border-[#781353] dark:border-[#DC2F87] bg-[var(--bg-secondary)]' 
+                        ? 'border-[#781353] dark:border-[#E03590] bg-[var(--bg-secondary)]' 
                         : 'border-transparent hover:border-editorial'
                     }`}
                   >
                     <div>
-                      <span className={`font-serif text-2xl block ${isActive ? 'font-bold text-[#781353] dark:text-[#DC2F87]' : 'font-semibold text-[var(--text-primary)]'}`}>
+                      <span className={`font-serif text-2xl block ${isActive ? 'font-bold text-[#781353] dark:text-[#E03590]' : 'font-semibold text-[var(--text-primary)]'}`}>
                         {link.label}
                       </span>
                       <span className="text-[10px] font-mono text-muted uppercase tracking-wider block">
@@ -221,7 +221,7 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
                       </span>
                     </div>
 
-                    <ArrowRight className={`w-4 h-4 ${isActive ? 'text-[#781353] dark:text-[#DC2F87]' : 'text-muted/40'}`} />
+                    <ArrowRight className={`w-4 h-4 ${isActive ? 'text-[#781353] dark:text-[#E03590]' : 'text-muted/40'}`} />
                   </motion.button>
                 );
               })}
@@ -231,7 +231,7 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
             <div className="pt-4 border-t border-editorial space-y-3">
               <a
                 href="tel:1800110031"
-                className="w-full bg-[#2E031D] dark:bg-[#FDF3F7] text-white dark:text-[#2E031D] py-3.5 text-center font-bold text-xs uppercase tracking-widest block transition-opacity btn-tap shadow-md"
+                className="w-full bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] py-4 text-center font-bold text-xs uppercase tracking-widest block transition-opacity btn-tap shadow-md touch-target"
               >
                 📞 Call Crisis Helpline: 1800-11-0031
               </a>

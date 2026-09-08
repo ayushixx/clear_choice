@@ -136,7 +136,7 @@ export default function Footer({ setActivePage, openLegalModal }) {
             </span>
             <a
               href="tel:1800110031"
-              className="text-2xl font-serif font-bold text-white hover:text-[#DC2F87] block transition-colors"
+              className="text-2xl font-serif font-bold text-white hover:text-[#E03590] block transition-colors btn-tap touch-target flex items-center justify-center"
             >
               📞 1800-11-0031
             </a>
@@ -145,10 +145,10 @@ export default function Footer({ setActivePage, openLegalModal }) {
           {/* Back to Top */}
           <button
             onClick={scrollToTop}
-            className="text-xs font-mono text-[#FDF3F7]/70 hover:text-white inline-flex items-center gap-1 py-1"
+            className="text-xs font-mono text-[#FDF3F7]/70 hover:text-white inline-flex items-center gap-1 py-2 px-3 btn-tap touch-target"
           >
             <span>Back to Top</span>
-            <ArrowUp className="w-3 h-3" />
+            <ArrowUp className="w-3.5 h-3.5" />
           </button>
         </div>
 
@@ -156,9 +156,9 @@ export default function Footer({ setActivePage, openLegalModal }) {
         <div className="flex flex-col sm:flex-row items-center justify-between text-xs text-[#FDF3F7]/60 gap-4 text-center sm:text-left">
           <p>© {new Date().getFullYear()} CLEAR CHOICE. All rights reserved.</p>
           <div className="flex items-center space-x-4">
-            <button onClick={() => openLegalModal('privacy')} className="hover:underline">Privacy Policy</button>
+            <button onClick={() => openLegalModal('privacy')} className="hover:underline py-1.5 px-2 btn-tap">Privacy Policy</button>
             <span>•</span>
-            <button onClick={() => openLegalModal('disclaimer')} className="hover:underline">Medical Disclaimer</button>
+            <button onClick={() => openLegalModal('disclaimer')} className="hover:underline py-1.5 px-2 btn-tap">Medical Disclaimer</button>
           </div>
         </div>
 

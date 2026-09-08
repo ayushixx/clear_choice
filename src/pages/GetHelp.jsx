@@ -195,7 +195,7 @@ export default function GetHelp() {
         {/* Contact Form */}
         <div className="card-doc p-6 sm:p-8 space-y-6">
           <div>
-            <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#781353] dark:text-[#DC2F87] block mb-1">
+            <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#781353] dark:text-[#E03590] block mb-1">
               Direct Confidential Inquiry
             </span>
             <h3 className="text-xl sm:text-2xl font-serif font-bold text-[var(--text-primary)]">
@@ -229,7 +229,7 @@ export default function GetHelp() {
                 onChange={(e) => setContactForm({ ...contactForm, fullName: e.target.value })}
                 placeholder="Your full name"
                 required
-                className="w-full px-3.5 py-3 bg-[var(--bg-secondary)] border border-editorial text-sm focus:outline-none focus:border-[#781353] text-[var(--text-primary)]"
+                className="w-full px-3.5 py-3.5 bg-[var(--bg-secondary)] border border-editorial text-sm focus:outline-none focus:border-[#781353] dark:focus:border-[#E03590] text-[var(--text-primary)]"
               />
             </div>
 
@@ -241,7 +241,7 @@ export default function GetHelp() {
                 onChange={(e) => setContactForm({ ...contactForm, phone: e.target.value })}
                 placeholder="Phone number"
                 required
-                className="w-full px-3.5 py-3 bg-[var(--bg-secondary)] border border-editorial text-sm focus:outline-none focus:border-[#781353] text-[var(--text-primary)]"
+                className="w-full px-3.5 py-3.5 bg-[var(--bg-secondary)] border border-editorial text-sm focus:outline-none focus:border-[#781353] dark:focus:border-[#E03590] text-[var(--text-primary)]"
               />
             </div>
 
@@ -252,7 +252,7 @@ export default function GetHelp() {
                 value={contactForm.message}
                 onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
                 placeholder="Message details..."
-                className="w-full px-3.5 py-3 bg-[var(--bg-secondary)] border border-editorial text-sm focus:outline-none focus:border-[#781353] text-[var(--text-primary)]"
+                className="w-full px-3.5 py-3.5 bg-[var(--bg-secondary)] border border-editorial text-sm focus:outline-none focus:border-[#781353] dark:focus:border-[#E03590] text-[var(--text-primary)]"
               ></textarea>
             </div>
 
@@ -260,7 +260,7 @@ export default function GetHelp() {
             <div>
               <label className="block font-semibold text-[var(--text-primary)] mb-1">Optional Document / Referral</label>
               <div className="flex items-center gap-2">
-                <label className="cursor-pointer border border-editorial bg-[var(--bg-secondary)] px-3.5 py-2 font-mono text-xs hover:border-[#781353] flex items-center gap-1.5 text-[var(--text-primary)] btn-tap">
+                <label className="cursor-pointer border border-editorial bg-[var(--bg-secondary)] px-3.5 py-2.5 font-mono text-xs hover:border-[#781353] dark:hover:border-[#E03590] flex items-center gap-1.5 text-[var(--text-primary)] btn-tap touch-target">
                   <Paperclip className="w-3.5 h-3.5" />
                   {contactFile ? contactFile.name : 'Attach File (PDF, DOCX, Image)'}
                   <input
@@ -288,7 +288,7 @@ export default function GetHelp() {
             <button
               type="submit"
               disabled={contactSubmitting}
-              className="w-full bg-[#2E031D] dark:bg-[#FDF3F7] text-white dark:text-[#2E031D] py-3.5 font-bold text-xs uppercase tracking-widest transition-colors flex items-center justify-center gap-2 disabled:opacity-50 btn-tap shadow-md"
+              className="w-full bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] py-4 font-bold text-xs uppercase tracking-widest transition-colors flex items-center justify-center gap-2 disabled:opacity-50 btn-tap shadow-md touch-target"
             >
               <Send className="w-3.5 h-3.5" /> {contactSubmitting ? 'Transmitting Securely...' : 'Send Secure Message'}
             </button>
@@ -298,7 +298,7 @@ export default function GetHelp() {
         {/* Callback Request Form */}
         <div className="bg-[var(--bg-secondary)] p-6 sm:p-8 border border-editorial space-y-6">
           <div>
-            <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#781353] dark:text-[#DC2F87] block mb-1">
+            <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#781353] dark:text-[#E03590] block mb-1">
               Discreet Consultation
             </span>
             <h3 className="text-xl sm:text-2xl font-serif font-bold text-[var(--text-primary)]">
@@ -332,7 +332,7 @@ export default function GetHelp() {
                 onChange={(e) => setCallbackForm({ ...callbackForm, name: e.target.value })}
                 placeholder="Your name"
                 required
-                className="w-full px-3.5 py-3 bg-[var(--bg-card)] border border-editorial text-sm focus:outline-none focus:border-[#781353] text-[var(--text-primary)]"
+                className="w-full px-3.5 py-3.5 bg-[var(--bg-card)] border border-editorial text-sm focus:outline-none focus:border-[#781353] dark:focus:border-[#E03590] text-[var(--text-primary)]"
               />
             </div>
 
@@ -344,7 +344,7 @@ export default function GetHelp() {
                 onChange={(e) => setCallbackForm({ ...callbackForm, phone: e.target.value })}
                 placeholder="Phone number"
                 required
-                className="w-full px-3.5 py-3 bg-[var(--bg-card)] border border-editorial text-sm focus:outline-none focus:border-[#781353] text-[var(--text-primary)]"
+                className="w-full px-3.5 py-3.5 bg-[var(--bg-card)] border border-editorial text-sm focus:outline-none focus:border-[#781353] dark:focus:border-[#E03590] text-[var(--text-primary)]"
               />
             </div>
 
@@ -354,7 +354,7 @@ export default function GetHelp() {
                 <select
                   value={callbackForm.concernType}
                   onChange={(e) => setCallbackForm({ ...callbackForm, concernType: e.target.value })}
-                  className="w-full px-3.5 py-3 bg-[var(--bg-card)] border border-editorial text-sm focus:outline-none focus:border-[#781353] text-[var(--text-primary)]"
+                  className="w-full px-3.5 py-3.5 bg-[var(--bg-card)] border border-editorial text-sm focus:outline-none focus:border-[#781353] dark:focus:border-[#E03590] text-[var(--text-primary)] font-mono"
                 >
                   <option>General Inquiry</option>
                   <option>Self Substance Support</option>
@@ -368,7 +368,7 @@ export default function GetHelp() {
                 <select
                   value={callbackForm.callbackTime}
                   onChange={(e) => setCallbackForm({ ...callbackForm, callbackTime: e.target.value })}
-                  className="w-full px-3.5 py-3 bg-[var(--bg-card)] border border-editorial text-sm focus:outline-none focus:border-[#781353] text-[var(--text-primary)]"
+                  className="w-full px-3.5 py-3.5 bg-[var(--bg-card)] border border-editorial text-sm focus:outline-none focus:border-[#781353] dark:focus:border-[#E03590] text-[var(--text-primary)] font-mono"
                 >
                   <option>Morning (9 AM - 12 PM)</option>
                   <option>Afternoon (12 PM - 4 PM)</option>
@@ -384,7 +384,7 @@ export default function GetHelp() {
                 value={callbackForm.message}
                 onChange={(e) => setCallbackForm({ ...callbackForm, message: e.target.value })}
                 placeholder="Note..."
-                className="w-full px-3.5 py-3 bg-[var(--bg-card)] border border-editorial text-sm focus:outline-none focus:border-[#781353] text-[var(--text-primary)]"
+                className="w-full px-3.5 py-3.5 bg-[var(--bg-card)] border border-editorial text-sm focus:outline-none focus:border-[#781353] dark:focus:border-[#E03590] text-[var(--text-primary)]"
               ></textarea>
             </div>
 
@@ -394,7 +394,7 @@ export default function GetHelp() {
             <button
               type="submit"
               disabled={callbackSubmitting}
-              className="w-full bg-[#781353] dark:bg-[#DC2F87] text-white py-3.5 font-bold uppercase tracking-widest transition-colors flex items-center justify-center gap-2 disabled:opacity-50 btn-tap shadow-md"
+              className="w-full bg-[#781353] dark:bg-[#E03590] text-white py-4 font-bold uppercase tracking-widest transition-colors flex items-center justify-center gap-2 disabled:opacity-50 btn-tap shadow-md touch-target"
             >
               <Clock className="w-3.5 h-3.5" /> {callbackSubmitting ? 'Requesting...' : 'Request Callback'}
             </button>
