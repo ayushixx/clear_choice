@@ -25,12 +25,18 @@
     --accent-deep: #FDF3F7;
   }
 
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
   body {
     background-color: var(--bg-primary);
     color: var(--text-primary);
     font-family: 'Inter', 'Manrope', sans-serif;
     -webkit-font-smoothing: antialiased;
     transition: background-color 0.3s ease, color 0.3s ease;
+    overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5, h6, .font-serif {
@@ -52,6 +58,22 @@
 }
 .card-doc:hover {
   border-color: var(--accent-maroon);
+}
+
+/* Glassmorphism Panel */
+.glass-panel {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-color);
+}
+
+/* Touch-optimized button micro-interactions */
+.btn-tap {
+  transition: transform 0.15s ease, opacity 0.15s ease, background-color 0.2s ease;
+}
+.btn-tap:active {
+  transform: scale(0.98);
 }
 
 /* Custom scrollbar */

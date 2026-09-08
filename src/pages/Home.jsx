@@ -1,53 +1,74 @@
 import React from 'react';
-import { Phone, ArrowRight, ChevronRight, BookOpen, FileText } from 'lucide-react';
+import { Phone, ArrowRight, ChevronRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function Home({ setActivePage }) {
   return (
-    <div className="space-y-28 pb-24">
+    <div className="space-y-20 sm:space-y-28 pb-24">
       
-      {/* HERO SECTION — FULL VIEWPORT HEIGHT DOCUMENTARY PHOTOGRAPHY */}
-      <section className="relative w-full h-screen min-h-[650px] flex items-end sm:items-center justify-start overflow-hidden">
+      {/* HERO SECTION — RESPONSIVE DOCUMENTARY PHOTOGRAPHY */}
+      <section className="relative w-full h-[90vh] min-h-[580px] sm:h-screen flex items-end sm:items-center justify-start overflow-hidden">
         
-        {/* Full Viewport Background Image with Face Visibility Preserved */}
+        {/* Full Viewport Background Image with Centered Mobile Object Position */}
         <div className="absolute inset-0 z-0">
           <img 
             src="/assets/hero-bg.jpg" 
             alt="Recovery Documentary Subject" 
-            className="w-full h-full object-cover object-top filter brightness-[0.85] contrast-[1.05]"
+            className="w-full h-full object-cover object-[center_20%] sm:object-top filter brightness-[0.82] contrast-[1.05] transition-all duration-700"
           />
-          {/* Subtle Dark Cinematic Overlay (45%) */}
+          {/* Subtle Dark Cinematic Gradient Overlays */}
           <div className="absolute inset-0 bg-black/45"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
         </div>
 
-        {/* Content Container — Mobile-First Above The Fold Layout */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pb-16 sm:pb-0 pt-28 space-y-6 text-left text-white">
+        {/* Content Container — Mobile-First Layout */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pb-14 sm:pb-0 pt-24 sm:pt-28 space-y-5 sm:space-y-6 text-left text-white">
           
-          {/* Small Publication Category Label */}
-          <div className="inline-flex items-center gap-2 text-xs font-mono font-bold tracking-widest text-white/80 uppercase border-b border-white/30 pb-1">
+          {/* Category Tag */}
+          <motion.div 
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2 text-[10px] sm:text-xs font-mono font-bold tracking-widest text-white/80 uppercase border-b border-white/30 pb-1"
+          >
             <span>RECOVERY</span>
             <span>•</span>
             <span>EDUCATION</span>
             <span>•</span>
             <span>DOCUMENTARY</span>
-          </div>
+          </motion.div>
 
           {/* Strong Editorial Serif Headline */}
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-serif font-extrabold text-white tracking-tight leading-[1.05] max-w-3xl">
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-3xl sm:text-6xl md:text-7xl font-serif font-extrabold text-white tracking-tight leading-[1.1] max-w-3xl"
+          >
             Know the Facts. <br />
             <span className="italic font-normal text-white/90">Choose Your Future.</span>
-          </h1>
+          </motion.h1>
 
           {/* Supporting Copy */}
-          <p className="text-base sm:text-xl text-white/85 font-light leading-relaxed max-w-2xl">
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-sm sm:text-xl text-white/85 font-light leading-relaxed max-w-2xl"
+          >
             A recovery journey transformed into a movement for awareness, education, and hope. Dedicated to evidence-based substance education.
-          </p>
+          </motion.p>
 
-          {/* Mobile-First Above-the-Fold Action CTAs */}
-          <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4 max-w-lg">
+          {/* Mobile Action CTAs */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 max-w-lg"
+          >
             <button
               onClick={() => { setActivePage('help'); window.scrollTo(0,0); }}
-              className="bg-white text-[#2E031D] hover:bg-[#FDF3F7] px-8 py-4 text-xs font-extrabold uppercase tracking-widest transition-all flex items-center justify-center gap-2 shadow-lg"
+              className="bg-white text-[#2E031D] hover:bg-[#FDF3F7] px-6 py-3.5 sm:px-8 sm:py-4 text-xs font-extrabold uppercase tracking-widest transition-all flex items-center justify-center gap-2 shadow-lg btn-tap"
             >
               <span>GET HELP NOW</span>
               <ArrowRight className="w-4 h-4" />
@@ -55,30 +76,41 @@ export default function Home({ setActivePage }) {
 
             <button
               onClick={() => { setActivePage('story'); window.scrollTo(0,0); }}
-              className="bg-black/40 hover:bg-black/60 text-white border border-white/40 px-8 py-4 text-xs font-semibold uppercase tracking-widest backdrop-blur-md transition-all flex items-center justify-center gap-2"
+              className="bg-black/40 hover:bg-black/60 text-white border border-white/40 px-6 py-3.5 sm:px-8 sm:py-4 text-xs font-semibold uppercase tracking-widest backdrop-blur-md transition-all flex items-center justify-center gap-2 btn-tap"
             >
               <span>Read My Story</span>
               <ChevronRight className="w-4 h-4" />
             </button>
-          </div>
+          </motion.div>
 
-          {/* Above-the-fold Lifeline Quick Line */}
-          <div className="pt-2 text-xs font-mono text-white/80 flex items-center gap-2">
+          {/* Above-the-fold Lifeline Line */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="pt-2 text-[11px] sm:text-xs font-mono text-white/80 flex items-center gap-2"
+          >
             <Phone className="w-3.5 h-3.5 text-[#DC2F87]" />
             <span>24/7 National Emergency Support: <strong>1800-11-0031</strong></span>
-          </div>
+          </motion.div>
 
         </div>
 
       </section>
 
-      {/* QUICK IMPACT STATS — EDITORIAL MONOCLE GRID */}
+      {/* QUICK IMPACT STATS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="border-y border-editorial py-12">
+        <div className="border-y border-editorial py-10 sm:py-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 divide-y md:divide-y-0 md:divide-x divide-editorial">
             
             {/* Stat 1 */}
-            <div className="space-y-2 md:pr-8">
+            <motion.div 
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="space-y-2 md:pr-8"
+            >
               <span className="text-[10px] font-mono uppercase tracking-widest text-muted block">
                 01 / Timeline
               </span>
@@ -91,10 +123,16 @@ export default function Home({ setActivePage }) {
               <p className="text-xs text-muted font-light leading-relaxed">
                 Six years spent in isolation, physical dependency, and spiritual exhaustion before taking the pivotal step toward help.
               </p>
-            </div>
+            </motion.div>
 
             {/* Stat 2 */}
-            <div className="space-y-2 pt-6 md:pt-0 md:px-8">
+            <motion.div 
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="space-y-2 pt-6 md:pt-0 md:px-8"
+            >
               <span className="text-[10px] font-mono uppercase tracking-widest text-muted block">
                 02 / Rehabilitation
               </span>
@@ -107,10 +145,16 @@ export default function Home({ setActivePage }) {
               <p className="text-xs text-muted font-light leading-relaxed">
                 Two demanding years dedicated to clinical detox, psychological counseling, and discovering coping strategies.
               </p>
-            </div>
+            </motion.div>
 
             {/* Stat 3 */}
-            <div className="space-y-2 pt-6 md:pt-0 md:pl-8">
+            <motion.div 
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="space-y-2 pt-6 md:pt-0 md:pl-8"
+            >
               <span className="text-[10px] font-mono uppercase tracking-widest text-muted block">
                 03 / Milestone
               </span>
@@ -123,7 +167,7 @@ export default function Home({ setActivePage }) {
               <p className="text-xs text-muted font-light leading-relaxed">
                 Living proof that sustained recovery is possible, transforming personal survival into an educational initiative.
               </p>
-            </div>
+            </motion.div>
 
           </div>
         </div>
@@ -146,11 +190,11 @@ export default function Home({ setActivePage }) {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           
           {/* Phase 1 */}
-          <div className="card-doc p-8 rounded-none space-y-4">
+          <div className="card-doc p-6 sm:p-8 space-y-3">
             <span className="text-[10px] font-mono font-bold text-muted uppercase tracking-widest block">
               2017 – 2023 • Phase 01
             </span>
-            <h3 className="text-2xl font-serif font-bold text-[var(--text-primary)]">
+            <h3 className="text-xl sm:text-2xl font-serif font-bold text-[var(--text-primary)]">
               Six Years of Addiction
             </h3>
             <p className="text-xs text-muted font-light leading-relaxed">
@@ -159,11 +203,11 @@ export default function Home({ setActivePage }) {
           </div>
 
           {/* Phase 2 */}
-          <div className="card-doc p-8 rounded-none space-y-4">
+          <div className="card-doc p-6 sm:p-8 space-y-3">
             <span className="text-[10px] font-mono font-bold text-muted uppercase tracking-widest block">
               2023 – 2025 • Phase 02
             </span>
-            <h3 className="text-2xl font-serif font-bold text-[var(--text-primary)]">
+            <h3 className="text-xl sm:text-2xl font-serif font-bold text-[var(--text-primary)]">
               Rehabilitation
             </h3>
             <p className="text-xs text-muted font-light leading-relaxed">
@@ -172,11 +216,11 @@ export default function Home({ setActivePage }) {
           </div>
 
           {/* Phase 3 */}
-          <div className="card-doc p-8 rounded-none space-y-4">
+          <div className="card-doc p-6 sm:p-8 space-y-3">
             <span className="text-[10px] font-mono font-bold text-muted uppercase tracking-widest block">
               2025 – Today • Phase 03
             </span>
-            <h3 className="text-2xl font-serif font-bold text-[#781353] dark:text-[#DC2F87]">
+            <h3 className="text-xl sm:text-2xl font-serif font-bold text-[#781353] dark:text-[#DC2F87]">
               2 Years Clean
             </h3>
             <p className="text-xs text-muted font-light leading-relaxed">
@@ -187,7 +231,7 @@ export default function Home({ setActivePage }) {
         </div>
       </section>
 
-      {/* CALL TO ACTION CARDS (3 MINIMAL EDITORIAL CARDS) */}
+      {/* CALL TO ACTION CARDS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         <div className="max-w-2xl space-y-2">
           <span className="text-xs font-mono font-bold uppercase tracking-widest text-muted block">
@@ -203,12 +247,12 @@ export default function Home({ setActivePage }) {
           {/* Card 1 */}
           <div 
             onClick={() => { setActivePage('facts'); window.scrollTo(0,0); }}
-            className="card-doc p-8 rounded-none cursor-pointer group space-y-4"
+            className="card-doc p-6 sm:p-8 cursor-pointer group space-y-4 btn-tap"
           >
             <span className="text-[10px] font-mono font-bold text-muted uppercase tracking-widest block">
               01 • Education
             </span>
-            <h3 className="text-2xl font-serif font-bold text-[var(--text-primary)] group-hover:text-[#781353] dark:group-hover:text-[#DC2F87] transition-colors">
+            <h3 className="text-xl sm:text-2xl font-serif font-bold text-[var(--text-primary)] group-hover:text-[#781353] dark:group-hover:text-[#DC2F87] transition-colors">
               Drug Facts Library
             </h3>
             <p className="text-xs text-muted leading-relaxed font-light">
@@ -222,12 +266,12 @@ export default function Home({ setActivePage }) {
           {/* Card 2 */}
           <div 
             onClick={() => { setActivePage('quiz'); window.scrollTo(0,0); }}
-            className="card-doc p-8 rounded-none cursor-pointer group space-y-4"
+            className="card-doc p-6 sm:p-8 cursor-pointer group space-y-4 btn-tap"
           >
             <span className="text-[10px] font-mono font-bold text-muted uppercase tracking-widest block">
               02 • Reference
             </span>
-            <h3 className="text-2xl font-serif font-bold text-[var(--text-primary)] group-hover:text-[#781353] dark:group-hover:text-[#DC2F87] transition-colors">
+            <h3 className="text-xl sm:text-2xl font-serif font-bold text-[var(--text-primary)] group-hover:text-[#781353] dark:group-hover:text-[#DC2F87] transition-colors">
               Myth vs Fact
             </h3>
             <p className="text-xs text-muted leading-relaxed font-light">
@@ -241,12 +285,12 @@ export default function Home({ setActivePage }) {
           {/* Card 3 */}
           <div 
             onClick={() => { setActivePage('help'); window.scrollTo(0,0); }}
-            className="bg-[#2E031D] text-white p-8 rounded-none cursor-pointer group space-y-4 hover:bg-[#4E0834] transition-colors"
+            className="bg-[#2E031D] text-white p-6 sm:p-8 cursor-pointer group space-y-4 hover:bg-[#4E0834] transition-colors btn-tap"
           >
             <span className="text-[10px] font-mono font-bold text-white/70 uppercase tracking-widest block">
               03 • Emergency
             </span>
-            <h3 className="text-2xl font-serif font-bold text-white">
+            <h3 className="text-xl sm:text-2xl font-serif font-bold text-white">
               Get Crisis Support
             </h3>
             <p className="text-xs text-white/80 leading-relaxed font-light">

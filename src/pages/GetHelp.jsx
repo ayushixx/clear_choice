@@ -7,6 +7,7 @@ import TurnstileWidget from '../components/TurnstileWidget';
 import { submitContactInquiry, submitCallbackRequest } from '../api/submissionsApi';
 import { trackHelplineClick } from '../services/ga4Analytics';
 import { Send, Clock, Paperclip, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function GetHelp() {
   // Selected rehab center state for highlighting on map
@@ -90,39 +91,44 @@ export default function GetHelp() {
   };
 
   return (
-    <div className="pt-32 pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
+    <div className="pt-28 sm:pt-32 pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 sm:space-y-20">
       
-      {/* CRISIS SECTION - GIANT ELEGANT TYPOGRAPHY */}
-      <section className="bg-[#2E031D] text-white p-8 sm:p-16 border border-[#2E031D] space-y-6 text-left relative overflow-hidden">
+      {/* CRISIS SECTION — GIANT ELEGANT TYPOGRAPHY */}
+      <motion.section 
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="bg-[#2E031D] text-white p-6 sm:p-16 border border-[#2E031D] space-y-5 sm:space-y-6 text-left relative overflow-hidden"
+      >
         <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#FDF3F7]/70 block">
           Immediate Crisis Support • 24/7
         </span>
 
-        <h1 className="text-4xl sm:text-6xl font-serif font-bold text-white tracking-tight">
+        <h1 className="text-3xl sm:text-6xl font-serif font-bold text-white tracking-tight">
           Need Help Right Now?
         </h1>
 
-        <p className="text-base sm:text-lg text-[#FDF3F7]/80 max-w-2xl font-light leading-relaxed">
+        <p className="text-sm sm:text-lg text-[#FDF3F7]/80 max-w-2xl font-light leading-relaxed">
           Free, confidential, immediate assistance for individuals and families. Speak directly with a trained counselor.
         </p>
 
         {/* GIANT HELPLINE NUMBER */}
-        <div className="pt-4 pb-2">
+        <div className="pt-2 sm:pt-4 pb-2">
           <a
             href="tel:1800110031"
             onClick={() => trackHelplineClick('1800-11-0031')}
-            className="text-4xl sm:text-7xl lg:text-8xl font-serif font-bold text-[#FDF3F7] hover:text-[#DC2F87] transition-colors tracking-tight block"
+            className="text-3xl sm:text-7xl lg:text-8xl font-serif font-bold text-[#FDF3F7] hover:text-[#DC2F87] transition-colors tracking-tight block btn-tap"
           >
             1800-11-0031
           </a>
         </div>
 
-        <div className="pt-2 flex flex-wrap gap-6 text-xs text-[#FDF3F7]/70 font-mono">
+        <div className="pt-2 flex flex-wrap gap-4 sm:gap-6 text-xs text-[#FDF3F7]/70 font-mono">
           <span>• 100% Confidential</span>
           <span>• Nationwide Access</span>
           <span>• 365 Days / Year</span>
         </div>
-      </section>
+      </motion.section>
 
       {/* RESOURCE DIRECTORY */}
       <section className="space-y-6">
@@ -130,25 +136,25 @@ export default function GetHelp() {
           <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#781353] dark:text-[#DC2F87] block">
             National Helplines
           </span>
-          <h2 className="text-3xl font-serif font-bold text-[var(--text-primary)]">
+          <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[var(--text-primary)]">
             Resource Directory
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {RESOURCE_DIRECTORY.map((item, idx) => (
-            <div key={idx} className="card-doc p-6 space-y-3 flex flex-col justify-between">
+            <div key={idx} className="card-doc p-5 sm:p-6 space-y-3 flex flex-col justify-between btn-tap">
               <div>
                 <span className="text-[10px] font-mono font-bold uppercase text-[#781353] dark:text-[#DC2F87] bg-[var(--bg-secondary)] px-2 py-0.5 border border-editorial inline-block mb-2">
                   {item.badge}
                 </span>
-                <h3 className="font-serif font-bold text-lg text-[var(--text-primary)]">
+                <h3 className="font-serif font-bold text-base sm:text-lg text-[var(--text-primary)]">
                   {item.title}
                 </h3>
                 <a 
                   href={`tel:${item.number.replace(/\s+/g, '')}`} 
                   onClick={() => trackHelplineClick(item.number)}
-                  className="text-xl font-serif font-bold text-[#781353] dark:text-[#DC2F87] hover:underline block mt-1"
+                  className="text-lg sm:text-xl font-serif font-bold text-[#781353] dark:text-[#DC2F87] hover:underline block mt-1"
                 >
                   {item.number}
                 </a>
@@ -160,7 +166,7 @@ export default function GetHelp() {
               <a
                 href={`tel:${item.number.replace(/\s+/g, '')}`}
                 onClick={() => trackHelplineClick(item.number)}
-                className="w-full bg-[#2E031D] dark:bg-[#FDF3F7] text-white dark:text-[#2E031D] py-2 font-bold text-xs uppercase tracking-widest text-center block transition-colors mt-4"
+                className="w-full bg-[#2E031D] dark:bg-[#FDF3F7] text-white dark:text-[#2E031D] py-2.5 font-bold text-xs uppercase tracking-widest text-center block transition-colors mt-4 btn-tap"
               >
                 Call Line
               </a>
@@ -184,15 +190,15 @@ export default function GetHelp() {
       />
 
       {/* FORMS SECTION */}
-      <section className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+      <section className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10">
         
         {/* Contact Form */}
-        <div className="card-doc p-8 space-y-6">
+        <div className="card-doc p-6 sm:p-8 space-y-6">
           <div>
             <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#781353] dark:text-[#DC2F87] block mb-1">
               Direct Confidential Inquiry
             </span>
-            <h3 className="text-2xl font-serif font-bold text-[var(--text-primary)]">
+            <h3 className="text-xl sm:text-2xl font-serif font-bold text-[var(--text-primary)]">
               Contact Form
             </h3>
             <p className="text-xs text-muted font-light mt-1">
@@ -201,14 +207,14 @@ export default function GetHelp() {
           </div>
 
           {contactSuccess && (
-            <div className="p-3 bg-emerald-950 text-emerald-200 border border-emerald-800 rounded-none text-xs flex items-center gap-2">
+            <div className="p-3.5 bg-emerald-950 text-emerald-200 border border-emerald-800 rounded-none text-xs flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 shrink-0" />
               <span>Thank you. Your message has been securely transmitted.</span>
             </div>
           )}
 
           {contactError && (
-            <div className="p-3 bg-red-950/40 text-red-200 border border-red-800 rounded-none text-xs flex items-center gap-2">
+            <div className="p-3.5 bg-red-950/40 text-red-200 border border-red-800 rounded-none text-xs flex items-center gap-2">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{contactError}</span>
             </div>
@@ -221,9 +227,9 @@ export default function GetHelp() {
                 type="text"
                 value={contactForm.fullName}
                 onChange={(e) => setContactForm({ ...contactForm, fullName: e.target.value })}
-                placeholder="Name"
+                placeholder="Your full name"
                 required
-                className="w-full px-3 py-2 bg-[var(--bg-secondary)] border border-editorial text-xs focus:outline-none focus:border-[#781353] text-[var(--text-primary)]"
+                className="w-full px-3.5 py-3 bg-[var(--bg-secondary)] border border-editorial text-sm focus:outline-none focus:border-[#781353] text-[var(--text-primary)]"
               />
             </div>
 
@@ -235,7 +241,7 @@ export default function GetHelp() {
                 onChange={(e) => setContactForm({ ...contactForm, phone: e.target.value })}
                 placeholder="Phone number"
                 required
-                className="w-full px-3 py-2 bg-[var(--bg-secondary)] border border-editorial text-xs focus:outline-none focus:border-[#781353] text-[var(--text-primary)]"
+                className="w-full px-3.5 py-3 bg-[var(--bg-secondary)] border border-editorial text-sm focus:outline-none focus:border-[#781353] text-[var(--text-primary)]"
               />
             </div>
 
@@ -246,7 +252,7 @@ export default function GetHelp() {
                 value={contactForm.message}
                 onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
                 placeholder="Message details..."
-                className="w-full px-3 py-2 bg-[var(--bg-secondary)] border border-editorial text-xs focus:outline-none focus:border-[#781353] text-[var(--text-primary)]"
+                className="w-full px-3.5 py-3 bg-[var(--bg-secondary)] border border-editorial text-sm focus:outline-none focus:border-[#781353] text-[var(--text-primary)]"
               ></textarea>
             </div>
 
@@ -254,7 +260,7 @@ export default function GetHelp() {
             <div>
               <label className="block font-semibold text-[var(--text-primary)] mb-1">Optional Document / Referral</label>
               <div className="flex items-center gap-2">
-                <label className="cursor-pointer border border-editorial bg-[var(--bg-secondary)] px-3 py-1.5 font-mono text-[11px] hover:border-[#781353] flex items-center gap-1.5 text-[var(--text-primary)]">
+                <label className="cursor-pointer border border-editorial bg-[var(--bg-secondary)] px-3.5 py-2 font-mono text-xs hover:border-[#781353] flex items-center gap-1.5 text-[var(--text-primary)] btn-tap">
                   <Paperclip className="w-3.5 h-3.5" />
                   {contactFile ? contactFile.name : 'Attach File (PDF, DOCX, Image)'}
                   <input
@@ -282,7 +288,7 @@ export default function GetHelp() {
             <button
               type="submit"
               disabled={contactSubmitting}
-              className="w-full bg-[#2E031D] dark:bg-[#FDF3F7] text-white dark:text-[#2E031D] py-3 font-bold text-xs uppercase tracking-widest transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
+              className="w-full bg-[#2E031D] dark:bg-[#FDF3F7] text-white dark:text-[#2E031D] py-3.5 font-bold text-xs uppercase tracking-widest transition-colors flex items-center justify-center gap-2 disabled:opacity-50 btn-tap shadow-md"
             >
               <Send className="w-3.5 h-3.5" /> {contactSubmitting ? 'Transmitting Securely...' : 'Send Secure Message'}
             </button>
@@ -290,12 +296,12 @@ export default function GetHelp() {
         </div>
 
         {/* Callback Request Form */}
-        <div className="bg-[var(--bg-secondary)] p-8 border border-editorial space-y-6">
+        <div className="bg-[var(--bg-secondary)] p-6 sm:p-8 border border-editorial space-y-6">
           <div>
             <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#781353] dark:text-[#DC2F87] block mb-1">
               Discreet Consultation
             </span>
-            <h3 className="text-2xl font-serif font-bold text-[var(--text-primary)]">
+            <h3 className="text-xl sm:text-2xl font-serif font-bold text-[var(--text-primary)]">
               Callback Request Form
             </h3>
             <p className="text-xs text-muted font-light mt-1">
@@ -304,14 +310,14 @@ export default function GetHelp() {
           </div>
 
           {callbackSuccess && (
-            <div className="p-3 bg-emerald-950 text-emerald-200 border border-emerald-800 rounded-none text-xs flex items-center gap-2">
+            <div className="p-3.5 bg-emerald-950 text-emerald-200 border border-emerald-800 rounded-none text-xs flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 shrink-0" />
               <span>Callback requested! A counselor will reach out at your requested time.</span>
             </div>
           )}
 
           {callbackError && (
-            <div className="p-3 bg-red-950/40 text-red-200 border border-red-800 rounded-none text-xs flex items-center gap-2">
+            <div className="p-3.5 bg-red-950/40 text-red-200 border border-red-800 rounded-none text-xs flex items-center gap-2">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{callbackError}</span>
             </div>
@@ -324,9 +330,9 @@ export default function GetHelp() {
                 type="text"
                 value={callbackForm.name}
                 onChange={(e) => setCallbackForm({ ...callbackForm, name: e.target.value })}
-                placeholder="Name"
+                placeholder="Your name"
                 required
-                className="w-full px-3 py-2 bg-[var(--bg-card)] border border-editorial text-xs focus:outline-none focus:border-[#781353] text-[var(--text-primary)]"
+                className="w-full px-3.5 py-3 bg-[var(--bg-card)] border border-editorial text-sm focus:outline-none focus:border-[#781353] text-[var(--text-primary)]"
               />
             </div>
 
@@ -338,7 +344,7 @@ export default function GetHelp() {
                 onChange={(e) => setCallbackForm({ ...callbackForm, phone: e.target.value })}
                 placeholder="Phone number"
                 required
-                className="w-full px-3 py-2 bg-[var(--bg-card)] border border-editorial text-xs focus:outline-none focus:border-[#781353] text-[var(--text-primary)]"
+                className="w-full px-3.5 py-3 bg-[var(--bg-card)] border border-editorial text-sm focus:outline-none focus:border-[#781353] text-[var(--text-primary)]"
               />
             </div>
 
@@ -348,7 +354,7 @@ export default function GetHelp() {
                 <select
                   value={callbackForm.concernType}
                   onChange={(e) => setCallbackForm({ ...callbackForm, concernType: e.target.value })}
-                  className="w-full px-3 py-2 bg-[var(--bg-card)] border border-editorial text-xs focus:outline-none focus:border-[#781353] text-[var(--text-primary)]"
+                  className="w-full px-3.5 py-3 bg-[var(--bg-card)] border border-editorial text-sm focus:outline-none focus:border-[#781353] text-[var(--text-primary)]"
                 >
                   <option>General Inquiry</option>
                   <option>Self Substance Support</option>
@@ -362,7 +368,7 @@ export default function GetHelp() {
                 <select
                   value={callbackForm.callbackTime}
                   onChange={(e) => setCallbackForm({ ...callbackForm, callbackTime: e.target.value })}
-                  className="w-full px-3 py-2 bg-[var(--bg-card)] border border-editorial text-xs focus:outline-none focus:border-[#781353] text-[var(--text-primary)]"
+                  className="w-full px-3.5 py-3 bg-[var(--bg-card)] border border-editorial text-sm focus:outline-none focus:border-[#781353] text-[var(--text-primary)]"
                 >
                   <option>Morning (9 AM - 12 PM)</option>
                   <option>Afternoon (12 PM - 4 PM)</option>
@@ -378,7 +384,7 @@ export default function GetHelp() {
                 value={callbackForm.message}
                 onChange={(e) => setCallbackForm({ ...callbackForm, message: e.target.value })}
                 placeholder="Note..."
-                className="w-full px-3 py-2 bg-[var(--bg-card)] border border-editorial text-xs focus:outline-none focus:border-[#781353] text-[var(--text-primary)]"
+                className="w-full px-3.5 py-3 bg-[var(--bg-card)] border border-editorial text-sm focus:outline-none focus:border-[#781353] text-[var(--text-primary)]"
               ></textarea>
             </div>
 
@@ -388,7 +394,7 @@ export default function GetHelp() {
             <button
               type="submit"
               disabled={callbackSubmitting}
-              className="w-full bg-[#781353] dark:bg-[#DC2F87] text-white py-3 font-bold uppercase tracking-widest transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
+              className="w-full bg-[#781353] dark:bg-[#DC2F87] text-white py-3.5 font-bold uppercase tracking-widest transition-colors flex items-center justify-center gap-2 disabled:opacity-50 btn-tap shadow-md"
             >
               <Clock className="w-3.5 h-3.5" /> {callbackSubmitting ? 'Requesting...' : 'Request Callback'}
             </button>

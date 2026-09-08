@@ -1,13 +1,17 @@
 import React from 'react';
-import { Phone, Lock, Shield } from 'lucide-react';
+import { Lock, Shield, ArrowUp } from 'lucide-react';
 
 export default function Footer({ setActivePage, openLegalModal }) {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <footer className="bg-[#2E031D] text-[#FDF3F7] pt-16 pb-12 border-t border-white/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+    <footer className="bg-[#2E031D] text-[#FDF3F7] pt-12 pb-10 border-t border-white/10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
         
-        {/* Main Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 pb-10 border-b border-white/10">
+        {/* DESKTOP FOOTER GRID (Hidden on Mobile) */}
+        <div className="hidden md:grid grid-cols-4 gap-10 pb-10 border-b border-white/10">
           
           {/* Col 1: Brand */}
           <div className="space-y-3">
@@ -24,39 +28,39 @@ export default function Footer({ setActivePage, openLegalModal }) {
             </p>
           </div>
 
-          {/* Col 2: Navigation */}
+          {/* Col 2: Desktop Navigation Links */}
           <div className="space-y-3">
             <h4 className="font-serif font-bold text-sm text-white uppercase tracking-wider">
               Navigation
             </h4>
             <ul className="space-y-2 text-xs text-[#FDF3F7]/80">
               <li>
-                <button onClick={() => { setActivePage('home'); window.scrollTo(0,0); }} className="hover:text-white transition-colors">
+                <button onClick={() => { setActivePage('home'); scrollToTop(); }} className="hover:text-white transition-colors">
                   Homepage
                 </button>
               </li>
               <li>
-                <button onClick={() => { setActivePage('story'); window.scrollTo(0,0); }} className="hover:text-white transition-colors">
+                <button onClick={() => { setActivePage('story'); scrollToTop(); }} className="hover:text-white transition-colors">
                   My Story (Addiction to Advocacy)
                 </button>
               </li>
               <li>
-                <button onClick={() => { setActivePage('facts'); window.scrollTo(0,0); }} className="hover:text-white transition-colors">
+                <button onClick={() => { setActivePage('facts'); scrollToTop(); }} className="hover:text-white transition-colors">
                   Drug Facts Library (10 Substances)
                 </button>
               </li>
               <li>
-                <button onClick={() => { setActivePage('quiz'); window.scrollTo(0,0); }} className="hover:text-white transition-colors">
+                <button onClick={() => { setActivePage('quiz'); scrollToTop(); }} className="hover:text-white transition-colors">
                   Myth vs Fact Guide
                 </button>
               </li>
               <li>
-                <button onClick={() => { setActivePage('help'); window.scrollTo(0,0); }} className="hover:text-white transition-colors">
+                <button onClick={() => { setActivePage('help'); scrollToTop(); }} className="hover:text-white transition-colors">
                   Get Help & Recovery Centers Map
                 </button>
               </li>
               <li>
-                <button onClick={() => { setActivePage('blog'); window.scrollTo(0,0); }} className="hover:text-white transition-colors">
+                <button onClick={() => { setActivePage('blog'); scrollToTop(); }} className="hover:text-white transition-colors">
                   Blog & Stories
                 </button>
               </li>
@@ -92,7 +96,7 @@ export default function Footer({ setActivePage, openLegalModal }) {
                   onClick={() => openLegalModal('privacy')}
                   className="text-[#FDF3F7]/80 hover:text-white transition-colors flex items-center gap-1.5"
                 >
-                  <Lock className="w-3.5 h-3.5 text-[#AA1E71]" />
+                  <Lock className="w-3.5 h-3.5 text-[#DC2F87]" />
                   <span>Privacy Policy (Anonymous Data)</span>
                 </button>
               </li>
@@ -101,7 +105,7 @@ export default function Footer({ setActivePage, openLegalModal }) {
                   onClick={() => openLegalModal('disclaimer')}
                   className="text-[#FDF3F7]/80 hover:text-white transition-colors flex items-center gap-1.5"
                 >
-                  <Shield className="w-3.5 h-3.5 text-[#AA1E71]" />
+                  <Shield className="w-3.5 h-3.5 text-[#DC2F87]" />
                   <span>Medical Disclaimer</span>
                 </button>
               </li>
@@ -110,8 +114,46 @@ export default function Footer({ setActivePage, openLegalModal }) {
 
         </div>
 
-        {/* Bottom copyright */}
-        <div className="flex flex-col sm:flex-row items-center justify-between text-xs text-[#FDF3F7]/60 gap-4">
+        {/* CLEAN, MINIMAL MOBILE FOOTER (Visible on Mobile Only) */}
+        <div className="md:hidden space-y-6 text-center border-b border-white/10 pb-8">
+          {/* Logo & Tagline */}
+          <div className="flex flex-col items-center gap-2">
+            <div className="w-9 h-9 bg-white text-[#2E031D] flex items-center justify-center font-serif font-bold text-sm">
+              CC
+            </div>
+            <span className="font-serif font-bold text-2xl text-white tracking-tight">
+              CLEAR CHOICE
+            </span>
+            <p className="text-xs text-[#FDF3F7]/70 max-w-xs font-light">
+              Know the Facts. Choose Your Future.
+            </p>
+          </div>
+
+          {/* Quick Helpline Dial */}
+          <div className="bg-[#4E0834]/60 p-4 border border-white/10 space-y-2">
+            <span className="text-[10px] font-mono uppercase tracking-widest text-[#FDF3F7]/70 block font-bold">
+              Immediate Confidential Crisis Support
+            </span>
+            <a
+              href="tel:1800110031"
+              className="text-2xl font-serif font-bold text-white hover:text-[#DC2F87] block transition-colors"
+            >
+              📞 1800-11-0031
+            </a>
+          </div>
+
+          {/* Back to Top */}
+          <button
+            onClick={scrollToTop}
+            className="text-xs font-mono text-[#FDF3F7]/70 hover:text-white inline-flex items-center gap-1 py-1"
+          >
+            <span>Back to Top</span>
+            <ArrowUp className="w-3 h-3" />
+          </button>
+        </div>
+
+        {/* Bottom Copyright & Legal Links */}
+        <div className="flex flex-col sm:flex-row items-center justify-between text-xs text-[#FDF3F7]/60 gap-4 text-center sm:text-left">
           <p>© {new Date().getFullYear()} CLEAR CHOICE. All rights reserved.</p>
           <div className="flex items-center space-x-4">
             <button onClick={() => openLegalModal('privacy')} className="hover:underline">Privacy Policy</button>
