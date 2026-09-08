@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import LegalModal from './components/LegalModal';
 import LiveChatWidget from './components/LiveChatWidget';
+import { motion, AnimatePresence } from 'framer-motion';
 
 import Home from './pages/Home';
 import MyStory from './pages/MyStory';
@@ -71,9 +72,19 @@ export default function App() {
         toggleTheme={toggleTheme}
       />
 
-      {/* Dynamic Main Page Content */}
+      {/* Dynamic Main Page Content with Smooth Route Transitions */}
       <main className="flex-grow">
-        {renderPage()}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activePage}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.25, ease: 'easeOut' }}
+          >
+            {renderPage()}
+          </motion.div>
+        </AnimatePresence>
       </main>
 
       {/* Floating Crisis Live Chat */}

@@ -4,6 +4,7 @@ import { REHAB_CENTERS } from '../data/rehabCenters';
 import RehabDirectory from '../components/RehabDirectory';
 import InteractiveMap from '../components/InteractiveMap';
 import TurnstileWidget from '../components/TurnstileWidget';
+import TrustBadges from '../components/TrustBadges';
 import { submitContactInquiry, submitCallbackRequest } from '../api/submissionsApi';
 import { trackHelplineClick } from '../services/ga4Analytics';
 import { Send, Clock, Paperclip, AlertCircle, CheckCircle2 } from 'lucide-react';
@@ -188,6 +189,9 @@ export default function GetHelp() {
         allCenters={REHAB_CENTERS}
         onSelectCenter={setSelectedCenter}
       />
+
+      {/* TRUST BADGES BAR */}
+      <TrustBadges />
 
       {/* FORMS SECTION */}
       <section className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10">

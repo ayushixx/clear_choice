@@ -1,6 +1,8 @@
 import React from 'react';
 import { Phone, ArrowRight, ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
+import TrustBadges from '../components/TrustBadges';
+import TestimonialsCarousel from '../components/TestimonialsCarousel';
 
 export default function Home({ setActivePage }) {
   return (
@@ -68,7 +70,7 @@ export default function Home({ setActivePage }) {
           >
             <button
               onClick={() => { setActivePage('help'); window.scrollTo(0,0); }}
-              className="bg-white text-[#2E031D] hover:bg-[#FDF3F7] px-6 py-3.5 sm:px-8 sm:py-4 text-xs font-extrabold uppercase tracking-widest transition-all flex items-center justify-center gap-2 shadow-lg btn-tap"
+              className="bg-white text-[#2E031D] hover:bg-[#FDF3F7] px-6 py-3.5 sm:px-8 sm:py-4 text-xs font-extrabold uppercase tracking-widest transition-all flex items-center justify-center gap-2 shadow-lg btn-tap touch-target"
             >
               <span>GET HELP NOW</span>
               <ArrowRight className="w-4 h-4" />
@@ -76,7 +78,7 @@ export default function Home({ setActivePage }) {
 
             <button
               onClick={() => { setActivePage('story'); window.scrollTo(0,0); }}
-              className="bg-black/40 hover:bg-black/60 text-white border border-white/40 px-6 py-3.5 sm:px-8 sm:py-4 text-xs font-semibold uppercase tracking-widest backdrop-blur-md transition-all flex items-center justify-center gap-2 btn-tap"
+              className="bg-black/40 hover:bg-black/60 text-white border border-white/40 px-6 py-3.5 sm:px-8 sm:py-4 text-xs font-semibold uppercase tracking-widest backdrop-blur-md transition-all flex items-center justify-center gap-2 btn-tap touch-target"
             >
               <span>Read My Story</span>
               <ChevronRight className="w-4 h-4" />
@@ -90,13 +92,16 @@ export default function Home({ setActivePage }) {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="pt-2 text-[11px] sm:text-xs font-mono text-white/80 flex items-center gap-2"
           >
-            <Phone className="w-3.5 h-3.5 text-[#DC2F87]" />
+            <Phone className="w-3.5 h-3.5 text-[#E03590]" />
             <span>24/7 National Emergency Support: <strong>1800-11-0031</strong></span>
           </motion.div>
 
         </div>
 
       </section>
+
+      {/* TRUST & ACCREDITATION BADGES BAR */}
+      <TrustBadges />
 
       {/* QUICK IMPACT STATS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -173,6 +178,11 @@ export default function Home({ setActivePage }) {
         </div>
       </section>
 
+      {/* RECOVERY TESTIMONIALS CAROUSEL */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <TestimonialsCarousel />
+      </section>
+
       {/* JOURNEY TIMELINE STORYTELLING */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         <div className="max-w-2xl space-y-2">
@@ -220,7 +230,7 @@ export default function Home({ setActivePage }) {
             <span className="text-[10px] font-mono font-bold text-muted uppercase tracking-widest block">
               2025 – Today • Phase 03
             </span>
-            <h3 className="text-xl sm:text-2xl font-serif font-bold text-[#781353] dark:text-[#DC2F87]">
+            <h3 className="text-xl sm:text-2xl font-serif font-bold text-[#781353] dark:text-[#E03590]">
               2 Years Clean
             </h3>
             <p className="text-xs text-muted font-light leading-relaxed">
@@ -247,12 +257,12 @@ export default function Home({ setActivePage }) {
           {/* Card 1 */}
           <div 
             onClick={() => { setActivePage('facts'); window.scrollTo(0,0); }}
-            className="card-doc p-6 sm:p-8 cursor-pointer group space-y-4 btn-tap"
+            className="card-doc p-6 sm:p-8 cursor-pointer group space-y-4 btn-tap touch-target"
           >
             <span className="text-[10px] font-mono font-bold text-muted uppercase tracking-widest block">
               01 • Education
             </span>
-            <h3 className="text-xl sm:text-2xl font-serif font-bold text-[var(--text-primary)] group-hover:text-[#781353] dark:group-hover:text-[#DC2F87] transition-colors">
+            <h3 className="text-xl sm:text-2xl font-serif font-bold text-[var(--text-primary)] group-hover:text-[#781353] dark:group-hover:text-[#E03590] transition-colors">
               Drug Facts Library
             </h3>
             <p className="text-xs text-muted leading-relaxed font-light">
@@ -266,12 +276,12 @@ export default function Home({ setActivePage }) {
           {/* Card 2 */}
           <div 
             onClick={() => { setActivePage('quiz'); window.scrollTo(0,0); }}
-            className="card-doc p-6 sm:p-8 cursor-pointer group space-y-4 btn-tap"
+            className="card-doc p-6 sm:p-8 cursor-pointer group space-y-4 btn-tap touch-target"
           >
             <span className="text-[10px] font-mono font-bold text-muted uppercase tracking-widest block">
               02 • Reference
             </span>
-            <h3 className="text-xl sm:text-2xl font-serif font-bold text-[var(--text-primary)] group-hover:text-[#781353] dark:group-hover:text-[#DC2F87] transition-colors">
+            <h3 className="text-xl sm:text-2xl font-serif font-bold text-[var(--text-primary)] group-hover:text-[#781353] dark:group-hover:text-[#E03590] transition-colors">
               Myth vs Fact
             </h3>
             <p className="text-xs text-muted leading-relaxed font-light">
@@ -285,7 +295,7 @@ export default function Home({ setActivePage }) {
           {/* Card 3 */}
           <div 
             onClick={() => { setActivePage('help'); window.scrollTo(0,0); }}
-            className="bg-[#2E031D] text-white p-6 sm:p-8 cursor-pointer group space-y-4 hover:bg-[#4E0834] transition-colors btn-tap"
+            className="bg-[#2E031D] text-white p-6 sm:p-8 cursor-pointer group space-y-4 hover:bg-[#4E0834] transition-colors btn-tap touch-target"
           >
             <span className="text-[10px] font-mono font-bold text-white/70 uppercase tracking-widest block">
               03 • Emergency
@@ -307,3 +317,4 @@ export default function Home({ setActivePage }) {
     </div>
   );
 }
+
