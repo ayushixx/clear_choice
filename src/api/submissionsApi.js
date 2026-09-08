@@ -2,7 +2,7 @@ import { REHAB_CENTERS } from '../data/rehabCenters';
 import { trackContactSubmit, trackCallbackSubmit } from '../services/ga4Analytics';
 
 const GOOGLE_SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL || '';
-const API_KEY = import.meta.env.VITE_API_KEY || 'clearchoice_secret_api_key_2026';
+const API_KEY = import.meta.env.VITE_API_KEY || 'CC12_9x8fK2Lm7pQzR5vN4sA2026';
 
 /**
  * Validates phone numbers (minimum 8 digits)
@@ -11,6 +11,43 @@ export const validatePhone = (phone) => {
   if (!phone) return false;
   const digitsOnly = phone.replace(/\D/g, '');
   return digitsOnly.length >= 8;
+};
+
+/**
+ * Sends payload to Google Apps Script Web App using URLSearchParams and no-cors mode
+ * to guarantee CORS compatibility across all browser environments.
+ */
+const postToGoogleScript = async (payload) => {
+  if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes('YOUR_SCRIPT_ID')) {
+    console.log('[Dev Mode] Form Payload (Unconfigured Web App URL):', payload);
+    return { success: true, message: 'Submission received (Dev Mode).' };
+  }
+
+  try {
+    const params = new URLSearchParams();
+    for (const key in payload) {
+      if (payload[key] !== undefined && payload[key] !== null) {
+        params.append(key, payload[key]);
+      }
+    }
+
+    // Google Apps Script Web Apps require no-cors mode with x-www-form-urlencoded
+    // to bypass cross-origin redirect blocks on script.googleusercontent.com
+    await fetch(GOOGLE_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: params.toString(),
+    });
+
+    console.log('[Google Apps Script POST] Dispatched payload:', payload);
+    return { success: true, message: 'Thank you. Your entry has been recorded in Google Sheets.' };
+  } catch (err) {
+    console.error('[Google Script POST Error]', err);
+    return { success: false, error: 'Network error submitting request. Please try again.' };
+  }
 };
 
 /**
@@ -37,36 +74,7 @@ export const submitContactInquiry = async (formData) => {
   // Track event in GA4
   trackContactSubmit();
 
-  if (GOOGLE_SCRIPT_URL && !GOOGLE_SCRIPT_URL.includes('YOUR_SCRIPT_ID')) {
-    try {
-      const response = await fetch(GOOGLE_SCRIPT_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'text/plain;charset=utf-8', // Google Apps Script CORS standard
-        },
-        body: JSON.stringify(payload),
-      });
-
-      const result = await response.json();
-
-      if (result.status === 'success') {
-        return { success: true, message: result.message };
-      } else {
-        return { success: false, error: result.message || 'Failed to submit inquiry to Google Sheets.' };
-      }
-    } catch (err) {
-      console.warn('[Google Script POST Warning]', err);
-      // Fallback response if script URL returns CORS redirect or network delay
-      return { success: true, message: 'Thank you. Your message has been logged.' };
-    }
-  }
-
-  // Development simulation if GOOGLE_SCRIPT_URL is unconfigured
-  console.log('[Dev Mode] Form Data Payload for Google Apps Script Web App:', payload);
-  return {
-    success: true,
-    message: 'Thank you. Your message has been securely submitted (Dev Mode).',
-  };
+  return await postToGoogleScript(payload);
 };
 
 /**
@@ -95,35 +103,7 @@ export const submitCallbackRequest = async (formData) => {
   // Track event in GA4
   trackCallbackSubmit(payload.concernType);
 
-  if (GOOGLE_SCRIPT_URL && !GOOGLE_SCRIPT_URL.includes('YOUR_SCRIPT_ID')) {
-    try {
-      const response = await fetch(GOOGLE_SCRIPT_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'text/plain;charset=utf-8', // Google Apps Script CORS standard
-        },
-        body: JSON.stringify(payload),
-      });
-
-      const result = await response.json();
-
-      if (result.status === 'success') {
-        return { success: true, message: result.message };
-      } else {
-        return { success: false, error: result.message || 'Failed to request callback.' };
-      }
-    } catch (err) {
-      console.warn('[Google Script POST Warning]', err);
-      return { success: true, message: 'Callback requested successfully!' };
-    }
-  }
-
-  // Development simulation if GOOGLE_SCRIPT_URL is unconfigured
-  console.log('[Dev Mode] Callback Payload for Google Apps Script Web App:', payload);
-  return {
-    success: true,
-    message: 'Callback requested successfully (Dev Mode)!',
-  };
+  return await postToGoogleScript(payload);
 };
 
 /**

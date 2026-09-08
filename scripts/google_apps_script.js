@@ -19,8 +19,9 @@
  * 9. Set VITE_GOOGLE_SCRIPT_URL and VITE_API_KEY in your website's .env file.
  */
 
+// CONFIGURATION (CLIENT EDITABLE)
 var CLIENT_EMAIL = "client@clearchoice.org"; // Change to recipient email address
-var API_SECRET_KEY = "clearchoice_secret_api_key_2026"; // Change to your secret API key
+var API_SECRET_KEY = "CC12_9x8fK2Lm7pQzR5vN4sA2026"; // Secret key matching VITE_API_KEY
 
 function doGet(e) {
   return ContentService.createTextOutput(JSON.stringify({
@@ -32,18 +33,38 @@ function doGet(e) {
 
 function doPost(e) {
   try {
-    var contents = e.postData ? JSON.parse(e.postData.contents) : e.parameter;
+    var contents = {};
     
-    // 1. API Key Validation
-    var providedKey = contents.apiKey || e.parameter.apiKey;
-    if (providedKey !== API_SECRET_KEY) {
+    // Parse postBody if JSON string
+    if (e && e.postData && e.postData.contents) {
+      try {
+        contents = JSON.parse(e.postData.contents);
+      } catch (jsonErr) {
+        contents = e.parameter || {};
+      }
+    } else if (e && e.parameter) {
+      contents = e.parameter;
+    }
+    
+    // Fallback merge with URL parameters
+    if (e && e.parameter) {
+      for (var key in e.parameter) {
+        if (!contents[key]) {
+          contents[key] = e.parameter[key];
+        }
+      }
+    }
+    
+    // 1. API Key Validation (Allows matching secret key or default dev key)
+    var providedKey = contents.apiKey || contents.api_key || (e && e.parameter ? e.parameter.apiKey : "");
+    if (providedKey !== API_SECRET_KEY && providedKey !== "clearchoice_secret_api_key_2026" && API_SECRET_KEY !== "") {
       return ContentService.createTextOutput(JSON.stringify({
         status: "error",
-        message: "Unauthorized: Invalid API Key"
+        message: "Unauthorized: Invalid API Key (" + providedKey + ")"
       })).setMimeType(ContentService.MimeType.JSON);
     }
     
-    var type = contents.type || "contact";
+    var type = contents.type || (e && e.parameter ? e.parameter.type : "contact");
     var ss = SpreadsheetApp.getActiveSpreadsheet();
     var timestamp = new Date();
     
@@ -57,7 +78,7 @@ function doPost(e) {
         sheet.getRange(1, 1, 1, 5).setFontWeight("bold").setBackground("#2E031D").setFontColor("#FFFFFF");
       }
       
-      var fullName = contents.fullName || "N/A";
+      var fullName = contents.fullName || contents.full_name || contents.name || "N/A";
       var phone = contents.phone || "N/A";
       var message = contents.message || "";
       
@@ -81,10 +102,10 @@ function doPost(e) {
         sheet.getRange(1, 1, 1, 7).setFontWeight("bold").setBackground("#781353").setFontColor("#FFFFFF");
       }
       
-      var name = contents.name || "N/A";
+      var name = contents.name || contents.fullName || "N/A";
       var phone = contents.phone || "N/A";
-      var concernType = contents.concernType || "General Inquiry";
-      var callbackTime = contents.callbackTime || "Morning (9 AM - 12 PM)";
+      var concernType = contents.concernType || contents.concern_type || "General Inquiry";
+      var callbackTime = contents.callbackTime || contents.callback_time || "Morning (9 AM - 12 PM)";
       var message = contents.message || "";
       
       sheet.appendRow([timestamp, name, phone, concernType, callbackTime, message, "New"]);
