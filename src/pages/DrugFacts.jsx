@@ -17,7 +17,7 @@ export default function DrugFacts() {
 
   return (
     <div className="pt-32 pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-      
+
       {/* Header & Search */}
       <div className="max-w-3xl space-y-4">
         <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#781353] dark:text-[#DC2F87] block">
@@ -51,14 +51,13 @@ export default function DrugFacts() {
           return (
             <div
               key={drug.id}
-              className={`card-doc transition-all duration-200 overflow-hidden flex flex-col justify-between ${
-                isOpen 
-                  ? 'border-[#781353] dark:border-[#DC2F87] col-span-1 md:col-span-2 lg:col-span-2 shadow-xs' 
+              className={`card-doc transition-all duration-200 overflow-hidden flex flex-col justify-between ${isOpen
+                  ? 'border-[#781353] dark:border-[#DC2F87] col-span-1 md:col-span-2 lg:col-span-2 shadow-xs'
                   : 'hover:border-[#781353]'
-              }`}
+                }`}
             >
               {/* Card Header (Accordion Toggle) */}
-              <div 
+              <div
                 onClick={() => toggleAccordion(drug.id)}
                 className="p-6 cursor-pointer select-none space-y-3"
               >
@@ -82,7 +81,7 @@ export default function DrugFacts() {
               {/* Accordion Expandable Content */}
               {isOpen && (
                 <div className="px-6 pb-6 pt-2 border-t border-editorial space-y-4 bg-[var(--bg-secondary)] text-xs">
-                  
+
                   {/* Short-Term Effects */}
                   <div className="space-y-1.5">
                     <span className="font-mono font-bold text-[10px] uppercase text-[#781353] dark:text-[#DC2F87] block">

@@ -1,8 +1,19 @@
 import React, { useState } from 'react';
 import { RESOURCE_DIRECTORY } from '../data/contentData';
-import { Phone, Send, Clock, ShieldCheck } from 'lucide-react';
+import { REHAB_CENTERS } from '../data/rehabCenters';
+import RehabDirectory from '../components/RehabDirectory';
+import InteractiveMap from '../components/InteractiveMap';
+import SubmissionModal from '../components/SubmissionModal';
+import { saveContactSubmission, saveCallbackSubmission } from '../services/dataStorage';
+import { Send, Clock, Database } from 'lucide-react';
 
 export default function GetHelp() {
+  // Selected rehab center state for highlighting on map
+  const [selectedCenter, setSelectedCenter] = useState(null);
+
+  // Submissions Modal State
+  const [isSubmissionModalOpen, setIsSubmissionModalOpen] = useState(false);
+
   // Contact Form State
   const [contactForm, setContactForm] = useState({ fullName: '', phone: '', message: '' });
   const [contactSuccess, setContactSuccess] = useState(false);
@@ -20,6 +31,10 @@ export default function GetHelp() {
   const handleContactSubmit = (e) => {
     e.preventDefault();
     if (!contactForm.fullName || !contactForm.phone) return;
+    
+    // Save submission to data storage service
+    saveContactSubmission(contactForm);
+
     setContactSuccess(true);
     setTimeout(() => {
       setContactForm({ fullName: '', phone: '', message: '' });
@@ -30,6 +45,10 @@ export default function GetHelp() {
   const handleCallbackSubmit = (e) => {
     e.preventDefault();
     if (!callbackForm.name || !callbackForm.phone) return;
+
+    // Save submission to data storage service
+    saveCallbackSubmission(callbackForm);
+
     setCallbackSuccess(true);
     setTimeout(() => {
       setCallbackForm({
@@ -41,6 +60,15 @@ export default function GetHelp() {
       });
       setCallbackSuccess(false);
     }, 5000);
+  };
+
+  // Smooth scroll to map when "Get Directions" is clicked on any card
+  const handleGetDirections = (center) => {
+    setSelectedCenter(center);
+    const mapElement = document.getElementById('interactive-map-section');
+    if (mapElement) {
+      mapElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
   return (
@@ -120,6 +148,20 @@ export default function GetHelp() {
         </div>
       </section>
 
+      {/* REHABILITATION CENTER DIRECTORY */}
+      <RehabDirectory
+        selectedCenter={selectedCenter}
+        onSelectCenter={setSelectedCenter}
+        onGetDirections={handleGetDirections}
+      />
+
+      {/* INTERACTIVE GOOGLE MAP */}
+      <InteractiveMap
+        selectedCenter={selectedCenter}
+        allCenters={REHAB_CENTERS}
+        onSelectCenter={setSelectedCenter}
+      />
+
       {/* FORMS SECTION */}
       <section className="grid grid-cols-1 lg:grid-cols-2 gap-10">
         
@@ -139,7 +181,7 @@ export default function GetHelp() {
 
           {contactSuccess && (
             <div className="p-3 bg-emerald-950 text-emerald-200 border border-emerald-800 rounded-none text-xs">
-              Thank you. Your message has been securely submitted.
+              Thank you. Your message has been securely submitted and logged.
             </div>
           )}
 
@@ -189,100 +231,119 @@ export default function GetHelp() {
         </div>
 
         {/* Callback Request Form */}
-        <div className="bg-[var(--bg-secondary)] p-8 border border-editorial space-y-6">
-          <div>
-            <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#781353] dark:text-[#DC2F87] block mb-1">
-              Discreet Consultation
-            </span>
-            <h3 className="text-2xl font-serif font-bold text-[var(--text-primary)]">
-              Callback Request Form
-            </h3>
-            <p className="text-xs text-muted font-light mt-1">
-              Select your preferred callback window for a discreet phone consultation.
-            </p>
+        <div className="bg-[var(--bg-secondary)] p-8 border border-editorial space-y-6 flex flex-col justify-between">
+          <div className="space-y-6">
+            <div>
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#781353] dark:text-[#DC2F87] block mb-1">
+                Discreet Consultation
+              </span>
+              <h3 className="text-2xl font-serif font-bold text-[var(--text-primary)]">
+                Callback Request Form
+              </h3>
+              <p className="text-xs text-muted font-light mt-1">
+                Select your preferred callback window for a discreet phone consultation.
+              </p>
+            </div>
+
+            {callbackSuccess && (
+              <div className="p-3 bg-emerald-950 text-emerald-200 border border-emerald-800 rounded-none text-xs">
+                Callback requested! A counselor will reach out at your requested time.
+              </div>
+            )}
+
+            <form onSubmit={handleCallbackSubmit} className="space-y-4 text-xs">
+              <div>
+                <label className="block font-semibold text-[var(--text-primary)] mb-1">Name *</label>
+                <input
+                  type="text"
+                  value={callbackForm.name}
+                  onChange={(e) => setCallbackForm({ ...callbackForm, name: e.target.value })}
+                  placeholder="Name"
+                  required
+                  className="w-full px-3 py-2 bg-[var(--bg-card)] border border-editorial text-xs focus:outline-none focus:border-[#781353] text-[var(--text-primary)]"
+                />
+              </div>
+
+              <div>
+                <label className="block font-semibold text-[var(--text-primary)] mb-1">Phone Number *</label>
+                <input
+                  type="tel"
+                  value={callbackForm.phone}
+                  onChange={(e) => setCallbackForm({ ...callbackForm, phone: e.target.value })}
+                  placeholder="Phone number"
+                  required
+                  className="w-full px-3 py-2 bg-[var(--bg-card)] border border-editorial text-xs focus:outline-none focus:border-[#781353] text-[var(--text-primary)]"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block font-semibold text-[var(--text-primary)] mb-1">Concern Type</label>
+                  <select
+                    value={callbackForm.concernType}
+                    onChange={(e) => setCallbackForm({ ...callbackForm, concernType: e.target.value })}
+                    className="w-full px-3 py-2 bg-[var(--bg-card)] border border-editorial text-xs focus:outline-none focus:border-[#781353] text-[var(--text-primary)]"
+                  >
+                    <option>General Inquiry</option>
+                    <option>Self Substance Support</option>
+                    <option>Family / Friend Support</option>
+                    <option>Substance Education</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block font-semibold text-[var(--text-primary)] mb-1">Preferred Time</label>
+                  <select
+                    value={callbackForm.callbackTime}
+                    onChange={(e) => setCallbackForm({ ...callbackForm, callbackTime: e.target.value })}
+                    className="w-full px-3 py-2 bg-[var(--bg-card)] border border-editorial text-xs focus:outline-none focus:border-[#781353] text-[var(--text-primary)]"
+                  >
+                    <option>Morning (9 AM - 12 PM)</option>
+                    <option>Afternoon (12 PM - 4 PM)</option>
+                    <option>Evening (4 PM - 8 PM)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label className="block font-semibold text-[var(--text-primary)] mb-1">Message (Optional)</label>
+                <textarea
+                  rows="2"
+                  value={callbackForm.message}
+                  onChange={(e) => setCallbackForm({ ...callbackForm, message: e.target.value })}
+                  placeholder="Note..."
+                  className="w-full px-3 py-2 bg-[var(--bg-card)] border border-editorial text-xs focus:outline-none focus:border-[#781353] text-[var(--text-primary)]"
+                ></textarea>
+              </div>
+
+              <button
+                type="submit"
+                className="w-full bg-[#781353] dark:bg-[#DC2F87] text-white py-3 font-bold uppercase tracking-widest transition-colors flex items-center justify-center gap-2"
+              >
+                <Clock className="w-3.5 h-3.5" /> Request Callback
+              </button>
+            </form>
           </div>
 
-          {callbackSuccess && (
-            <div className="p-3 bg-emerald-950 text-emerald-200 border border-emerald-800 rounded-none text-xs">
-              Callback requested! A counselor will reach out at your requested time.
-            </div>
-          )}
-
-          <form onSubmit={handleCallbackSubmit} className="space-y-4 text-xs">
-            <div>
-              <label className="block font-semibold text-[var(--text-primary)] mb-1">Name *</label>
-              <input
-                type="text"
-                value={callbackForm.name}
-                onChange={(e) => setCallbackForm({ ...callbackForm, name: e.target.value })}
-                placeholder="Name"
-                required
-                className="w-full px-3 py-2 bg-[var(--bg-card)] border border-editorial text-xs focus:outline-none focus:border-[#781353] text-[var(--text-primary)]"
-              />
-            </div>
-
-            <div>
-              <label className="block font-semibold text-[var(--text-primary)] mb-1">Phone Number *</label>
-              <input
-                type="tel"
-                value={callbackForm.phone}
-                onChange={(e) => setCallbackForm({ ...callbackForm, phone: e.target.value })}
-                placeholder="Phone number"
-                required
-                className="w-full px-3 py-2 bg-[var(--bg-card)] border border-editorial text-xs focus:outline-none focus:border-[#781353] text-[var(--text-primary)]"
-              />
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div>
-                <label className="block font-semibold text-[var(--text-primary)] mb-1">Concern Type</label>
-                <select
-                  value={callbackForm.concernType}
-                  onChange={(e) => setCallbackForm({ ...callbackForm, concernType: e.target.value })}
-                  className="w-full px-3 py-2 bg-[var(--bg-card)] border border-editorial text-xs focus:outline-none focus:border-[#781353] text-[var(--text-primary)]"
-                >
-                  <option>General Inquiry</option>
-                  <option>Self Substance Support</option>
-                  <option>Family / Friend Support</option>
-                  <option>Substance Education</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block font-semibold text-[var(--text-primary)] mb-1">Preferred Time</label>
-                <select
-                  value={callbackForm.callbackTime}
-                  onChange={(e) => setCallbackForm({ ...callbackForm, callbackTime: e.target.value })}
-                  className="w-full px-3 py-2 bg-[var(--bg-card)] border border-editorial text-xs focus:outline-none focus:border-[#781353] text-[var(--text-primary)]"
-                >
-                  <option>Morning (9 AM - 12 PM)</option>
-                  <option>Afternoon (12 PM - 4 PM)</option>
-                  <option>Evening (4 PM - 8 PM)</option>
-                </select>
-              </div>
-            </div>
-
-            <div>
-              <label className="block font-semibold text-[var(--text-primary)] mb-1">Message (Optional)</label>
-              <textarea
-                rows="2"
-                value={callbackForm.message}
-                onChange={(e) => setCallbackForm({ ...callbackForm, message: e.target.value })}
-                placeholder="Note..."
-                className="w-full px-3 py-2 bg-[var(--bg-card)] border border-editorial text-xs focus:outline-none focus:border-[#781353] text-[var(--text-primary)]"
-              ></textarea>
-            </div>
-
+          {/* Admin / Log Inspection Shortcut */}
+          <div className="pt-4 border-t border-editorial flex justify-end">
             <button
-              type="submit"
-              className="w-full bg-[#781353] dark:bg-[#DC2F87] text-white py-3 font-bold uppercase tracking-widest transition-colors flex items-center justify-center gap-2"
+              onClick={() => setIsSubmissionModalOpen(true)}
+              className="text-[11px] font-mono text-muted hover:text-[#781353] dark:hover:text-[#DC2F87] flex items-center gap-1.5 transition-colors"
             >
-              <Clock className="w-3.5 h-3.5" /> Request Callback
+              <Database className="w-3.5 h-3.5" /> Inspect Captured Form Data Log
             </button>
-          </form>
+          </div>
+
         </div>
 
       </section>
+
+      {/* Submissions Viewer Modal */}
+      <SubmissionModal
+        isOpen={isSubmissionModalOpen}
+        onClose={() => setIsSubmissionModalOpen(false)}
+      />
 
     </div>
   );
