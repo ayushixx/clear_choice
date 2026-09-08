@@ -10,6 +10,7 @@ import DrugFacts from './pages/DrugFacts';
 import MythVsFact from './pages/MythVsFact';
 import GetHelp from './pages/GetHelp';
 import Blog from './pages/Blog';
+import AdminDashboard from './pages/AdminDashboard';
 
 export default function App() {
   const [activePage, setActivePage] = useState('home');
@@ -56,6 +57,8 @@ export default function App() {
         return <GetHelp />;
       case 'blog':
         return <Blog />;
+      case 'admin':
+        return <AdminDashboard />;
       default:
         return <Home setActivePage={setActivePage} />;
     }
