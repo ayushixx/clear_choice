@@ -38,7 +38,10 @@ export default function GetHelp() {
     setContactError('');
     setContactSubmitting(true);
 
-    const result = await submitContactInquiry(contactForm, contactFile);
+    const result = await submitContactInquiry({
+      ...contactForm,
+      turnstileToken: contactTurnstileToken
+    });
 
     if (result.success) {
       setContactSuccess(true);
@@ -56,7 +59,10 @@ export default function GetHelp() {
     setCallbackError('');
     setCallbackSubmitting(true);
 
-    const result = await submitCallbackRequest(callbackForm);
+    const result = await submitCallbackRequest({
+      ...callbackForm,
+      turnstileToken: callbackTurnstileToken
+    });
 
     if (result.success) {
       setCallbackSuccess(true);

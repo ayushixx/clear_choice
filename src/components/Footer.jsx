@@ -105,15 +105,6 @@ export default function Footer({ setActivePage, openLegalModal }) {
                   <span>Medical Disclaimer</span>
                 </button>
               </li>
-              <li>
-                <button 
-                  onClick={() => { setActivePage('admin'); window.scrollTo(0,0); }}
-                  className="text-[#FDF3F7]/60 hover:text-white transition-colors flex items-center gap-1.5 pt-1"
-                >
-                  <Lock className="w-3 h-3 text-[#AA1E71]/70" />
-                  <span>Staff Portal</span>
-                </button>
-              </li>
             </ul>
           </div>
 
@@ -126,8 +117,6 @@ export default function Footer({ setActivePage, openLegalModal }) {
             <button onClick={() => openLegalModal('privacy')} className="hover:underline">Privacy Policy</button>
             <span>•</span>
             <button onClick={() => openLegalModal('disclaimer')} className="hover:underline">Medical Disclaimer</button>
-            <span>•</span>
-            <button onClick={() => { setActivePage('admin'); window.scrollTo(0,0); }} className="hover:underline">Staff Portal</button>
           </div>
         </div>
 
