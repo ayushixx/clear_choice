@@ -19,9 +19,16 @@
  * 9. Set VITE_GOOGLE_SCRIPT_URL and VITE_API_KEY in your website's .env file.
  */
 
-// CONFIGURATION (CLIENT EDITABLE)
 var CLIENT_EMAIL = "client@clearchoice.org"; // Change to recipient email address
 var API_SECRET_KEY = "clearchoice_secret_api_key_2026"; // Change to your secret API key
+
+function doGet(e) {
+  return ContentService.createTextOutput(JSON.stringify({
+    status: "online",
+    service: "CLEAR CHOICE Google Sheets & Gmail Web App Endpoint",
+    time: new Date().toISOString()
+  })).setMimeType(ContentService.MimeType.JSON);
+}
 
 function doPost(e) {
   try {
