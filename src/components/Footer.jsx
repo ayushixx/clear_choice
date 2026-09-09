@@ -56,7 +56,27 @@ export default function Footer({ setActivePage, openLegalModal }) {
               </li>
               <li>
                 <button onClick={() => { setActivePage('help'); scrollToTop(); }} className="hover:text-white transition-colors">
-                  Get Help & Recovery Centers Map
+                  Get Help Hub
+                </button>
+              </li>
+              <li>
+                <button onClick={() => { setActivePage('crisis-support'); scrollToTop(); }} className="hover:text-white transition-colors text-amber-300 font-semibold">
+                  Crisis Support (24/7 Hotline)
+                </button>
+              </li>
+              <li>
+                <button onClick={() => { setActivePage('recovery-centers'); scrollToTop(); }} className="hover:text-white transition-colors">
+                  Recovery & Rehab Centers Directory
+                </button>
+              </li>
+              <li>
+                <button onClick={() => { setActivePage('find-support'); scrollToTop(); }} className="hover:text-white transition-colors">
+                  Find Support Near You (GPS Map)
+                </button>
+              </li>
+              <li>
+                <button onClick={() => { setActivePage('contact-counselor'); scrollToTop(); }} className="hover:text-white transition-colors">
+                  Contact Counselor (Confidential)
                 </button>
               </li>
               <li>

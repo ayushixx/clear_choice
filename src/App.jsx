@@ -9,11 +9,46 @@ import Home from './pages/Home';
 import MyStory from './pages/MyStory';
 import DrugFacts from './pages/DrugFacts';
 import MythVsFact from './pages/MythVsFact';
-import GetHelp from './pages/GetHelp';
+import GetHelpHub from './pages/GetHelpHub';
+import CrisisSupport from './pages/CrisisSupport';
+import RecoveryCenters from './pages/RecoveryCenters';
+import FindSupportNearYou from './pages/FindSupportNearYou';
+import ContactCounselor from './pages/ContactCounselor';
 import Blog from './pages/Blog';
 
+const ROUTE_MAP = {
+  '/': 'home',
+  '/my-story': 'story',
+  '/drug-facts': 'facts',
+  '/myth-vs-fact': 'quiz',
+  '/get-help': 'help',
+  '/crisis-support': 'crisis-support',
+  '/recovery-centers': 'recovery-centers',
+  '/find-support': 'find-support',
+  '/contact-counselor': 'contact-counselor',
+  '/blog': 'blog'
+};
+
+const PAGE_TO_ROUTE = {
+  home: '/',
+  story: '/my-story',
+  facts: '/drug-facts',
+  quiz: '/myth-vs-fact',
+  help: '/get-help',
+  'crisis-support': '/crisis-support',
+  'recovery-centers': '/recovery-centers',
+  'find-support': '/find-support',
+  'contact-counselor': '/contact-counselor',
+  blog: '/blog'
+};
+
 export default function App() {
-  const [activePage, setActivePage] = useState('home');
+  const [activePage, setActivePage] = useState(() => {
+    const path = window.location.pathname;
+    return ROUTE_MAP[path] || 'home';
+  });
+
+  const [selectedCenter, setSelectedCenter] = useState(null);
   const [legalModal, setLegalModal] = useState({ isOpen: false, type: 'privacy' });
 
   // Light / Dark Theme state saved in localStorage
@@ -31,6 +66,24 @@ export default function App() {
     localStorage.setItem('clearchoice_theme', theme);
   }, [theme]);
 
+  // Handle browser back/forward buttons
+  useEffect(() => {
+    const handlePopState = () => {
+      const path = window.location.pathname;
+      setActivePage(ROUTE_MAP[path] || 'home');
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  const handleSetActivePage = (pageId) => {
+    setActivePage(pageId);
+    const targetRoute = PAGE_TO_ROUTE[pageId] || '/';
+    if (window.location.pathname !== targetRoute) {
+      window.history.pushState({}, '', targetRoute);
+    }
+  };
+
   const toggleTheme = () => {
     setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
   };
@@ -46,19 +99,27 @@ export default function App() {
   const renderPage = () => {
     switch (activePage) {
       case 'home':
-        return <Home setActivePage={setActivePage} />;
+        return <Home setActivePage={handleSetActivePage} />;
       case 'story':
-        return <MyStory setActivePage={setActivePage} />;
+        return <MyStory setActivePage={handleSetActivePage} />;
       case 'facts':
         return <DrugFacts />;
       case 'quiz':
-        return <MythVsFact setActivePage={setActivePage} />;
+        return <MythVsFact setActivePage={handleSetActivePage} />;
       case 'help':
-        return <GetHelp />;
+        return <GetHelpHub setActivePage={handleSetActivePage} />;
+      case 'crisis-support':
+        return <CrisisSupport setActivePage={handleSetActivePage} />;
+      case 'recovery-centers':
+        return <RecoveryCenters setActivePage={handleSetActivePage} setSelectedCenter={setSelectedCenter} />;
+      case 'find-support':
+        return <FindSupportNearYou setActivePage={handleSetActivePage} selectedCenter={selectedCenter} setSelectedCenter={setSelectedCenter} />;
+      case 'contact-counselor':
+        return <ContactCounselor setActivePage={handleSetActivePage} />;
       case 'blog':
         return <Blog />;
       default:
-        return <Home setActivePage={setActivePage} />;
+        return <Home setActivePage={handleSetActivePage} />;
     }
   };
 
@@ -67,7 +128,7 @@ export default function App() {
       {/* Navigation Bar */}
       <Navbar 
         activePage={activePage} 
-        setActivePage={setActivePage} 
+        setActivePage={handleSetActivePage} 
         theme={theme}
         toggleTheme={toggleTheme}
       />
@@ -88,11 +149,11 @@ export default function App() {
       </main>
 
       {/* Floating Crisis Live Chat */}
-      <LiveChatWidget setActivePage={setActivePage} />
+      <LiveChatWidget setActivePage={handleSetActivePage} />
 
       {/* Footer */}
       <Footer 
-        setActivePage={setActivePage} 
+        setActivePage={handleSetActivePage} 
         openLegalModal={openLegalModal} 
       />
 

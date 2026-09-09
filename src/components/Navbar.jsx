@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { Phone, Menu, X, Sun, Moon, ArrowRight, Shield } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Phone, Menu, X, Sun, Moon, ArrowRight, Shield, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import MagneticButton from './MagneticButton';
 
 export default function Navbar({ activePage, setActivePage, theme, toggleTheme }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [mobileHelpExpand, setMobileHelpExpand] = useState(false);
+  const dropdownRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,14 +27,35 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
     }
   }, [mobileMenuOpen]);
 
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   const navLinks = [
     { id: 'home', label: 'Home', subtitle: 'Overview & Mission' },
     { id: 'story', label: 'My Story', subtitle: '6 Years to Recovery' },
     { id: 'facts', label: 'Drug Facts', subtitle: 'Substance Library' },
     { id: 'quiz', label: 'Myth vs Fact', subtitle: 'Evidence & Reality' },
-    { id: 'help', label: 'Get Help', subtitle: 'Rehab Map & Directory' },
+    { id: 'help', label: 'Get Help', subtitle: 'Services & Directory', hasDropdown: true },
     { id: 'blog', label: 'Blog', subtitle: 'Articles & Stories' },
   ];
+
+  const helpSubItems = [
+    { id: 'help', label: 'Get Help Hub', subtitle: 'Decision & Intent Center' },
+    { id: 'crisis-support', label: 'Crisis Support', subtitle: 'Immediate 24/7 Hotline' },
+    { id: 'recovery-centers', label: 'Recovery Centers', subtitle: 'Rehab Directory & Search' },
+    { id: 'find-support', label: 'Find Support Near You', subtitle: 'Interactive GPS Map' },
+    { id: 'contact-counselor', label: 'Contact Counselor', subtitle: 'Confidential Inquiry & Callback' },
+  ];
+
+  const isHelpActive = ['help', 'crisis-support', 'recovery-centers', 'find-support', 'contact-counselor'].includes(activePage);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
@@ -83,6 +107,74 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
           {/* Desktop Navigation Links */}
           <div className="hidden md:flex items-center space-x-6">
             {navLinks.map((link) => {
+              if (link.hasDropdown) {
+                return (
+                  <div key={link.id} className="relative" ref={dropdownRef}>
+                    <button
+                      onMouseEnter={() => setDropdownOpen(true)}
+                      onClick={() => setDropdownOpen(!dropdownOpen)}
+                      className={`text-xs font-semibold uppercase tracking-wider transition-colors relative py-1.5 flex items-center gap-1 btn-tap ${
+                        isHelpActive
+                          ? 'text-[#781353] dark:text-[#E03590]'
+                          : 'text-muted hover:text-[var(--text-primary)]'
+                      }`}
+                    >
+                      {link.label}
+                      <ChevronDown className={`w-3.5 h-3.5 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
+                      {isHelpActive && (
+                        <motion.div
+                          layoutId="activeNavLine"
+                          className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#781353] dark:bg-[#E03590]"
+                          transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+                        />
+                      )}
+                    </button>
+
+                    {/* Desktop Dropdown Menu */}
+                    <AnimatePresence>
+                      {dropdownOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: 8, scale: 0.98 }}
+                          transition={{ duration: 0.15 }}
+                          onMouseLeave={() => setDropdownOpen(false)}
+                          className="absolute left-0 top-full mt-2 w-64 bg-[var(--bg-card)] border border-editorial shadow-xl p-2 z-50 space-y-1"
+                        >
+                          <div className="px-3 py-1.5 border-b border-editorial text-[9px] font-mono uppercase font-bold text-muted">
+                            Select Assistance Goal:
+                          </div>
+                          {helpSubItems.map((sub) => {
+                            const isSubActive = activePage === sub.id;
+                            return (
+                              <button
+                                key={sub.id}
+                                onClick={() => {
+                                  setActivePage(sub.id);
+                                  setDropdownOpen(false);
+                                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                                }}
+                                className={`w-full text-left p-2.5 transition-colors flex items-center justify-between text-xs btn-tap ${
+                                  isSubActive
+                                    ? 'bg-[var(--bg-secondary)] text-[#781353] dark:text-[#E03590] font-bold border-l-2 border-[#781353] dark:border-[#E03590]'
+                                    : 'text-[var(--text-primary)] hover:bg-[var(--bg-secondary)]'
+                                }`}
+                              >
+                                <div>
+                                  <span className="block font-serif text-xs font-bold">{sub.label}</span>
+                                  <span className="block text-[9px] font-mono text-muted">{sub.subtitle}</span>
+                                </div>
+                                <ArrowRight className="w-3 h-3 text-muted/50" />
+                              </button>
+                            );
+                          })}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              }
+
               const isActive = activePage === link.id;
               return (
                 <button
@@ -127,12 +219,12 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
 
             <MagneticButton
               onClick={() => {
-                setActivePage('help');
+                setActivePage('crisis-support');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
               className="bg-[#2E031D] dark:bg-[#FFFFFF] text-[#FDF3F7] dark:text-[#0A0A0C] px-5 py-2.5 text-xs font-bold uppercase tracking-widest hover:opacity-90 transition-opacity btn-tap touch-target shadow-md"
             >
-              Get Crisis Help
+              Crisis Hotline 24/7
             </MagneticButton>
           </div>
 
@@ -140,12 +232,12 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
           <div className="md:hidden flex items-center gap-2">
             <button
               onClick={() => {
-                setActivePage('help');
+                setActivePage('crisis-support');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
               className="bg-[#781353] dark:bg-[#E03590] text-white px-3 py-2 text-[10px] font-mono font-bold uppercase tracking-wider btn-tap touch-target flex items-center justify-center"
             >
-              Get Help
+              Crisis Help
             </button>
 
             <button
@@ -199,16 +291,68 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
               </button>
             </div>
 
-            {/* Mobile Nav Links with Staggered Animations */}
-            <div className="py-6 space-y-4 flex-1 flex flex-col justify-center">
+            {/* Mobile Nav Links with Accordion for Get Help */}
+            <div className="py-6 space-y-3 flex-1 flex flex-col justify-center">
               {navLinks.map((link, index) => {
+                if (link.id === 'help') {
+                  return (
+                    <div key={link.id} className="space-y-2">
+                      <button
+                        onClick={() => setMobileHelpExpand(!mobileHelpExpand)}
+                        className={`w-full text-left p-3.5 border-l-2 transition-all btn-tap flex items-center justify-between touch-target ${
+                          isHelpActive
+                            ? 'border-[#781353] dark:border-[#E03590] bg-[var(--bg-secondary)]' 
+                            : 'border-transparent hover:border-editorial'
+                        }`}
+                      >
+                        <div>
+                          <span className={`font-serif text-2xl block ${isHelpActive ? 'font-bold text-[#781353] dark:text-[#E03590]' : 'font-semibold text-[var(--text-primary)]'}`}>
+                            {link.label}
+                          </span>
+                          <span className="text-[10px] font-mono text-muted uppercase tracking-wider block">
+                            {link.subtitle}
+                          </span>
+                        </div>
+                        <ChevronDown className={`w-5 h-5 transition-transform ${mobileHelpExpand ? 'rotate-180' : ''}`} />
+                      </button>
+
+                      {/* Expanded Mobile Sub-Items */}
+                      {(mobileHelpExpand || isHelpActive) && (
+                        <div className="pl-4 space-y-2 border-l border-editorial ml-2 py-1">
+                          {helpSubItems.map((sub) => {
+                            const isSubActive = activePage === sub.id;
+                            return (
+                              <button
+                                key={sub.id}
+                                onClick={() => {
+                                  setActivePage(sub.id);
+                                  setMobileMenuOpen(false);
+                                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                                }}
+                                className={`w-full text-left p-2.5 transition-colors flex items-center justify-between text-xs btn-tap ${
+                                  isSubActive
+                                    ? 'text-[#781353] dark:text-[#E03590] font-bold'
+                                    : 'text-muted hover:text-[var(--text-primary)]'
+                                }`}
+                              >
+                                <span>{sub.label}</span>
+                                <ArrowRight className="w-3.5 h-3.5 opacity-60" />
+                              </button>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
+
                 const isActive = activePage === link.id;
                 return (
                   <motion.button
                     key={link.id}
                     initial={{ opacity: 0, x: -15 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.05, duration: 0.2 }}
+                    transition={{ delay: index * 0.04, duration: 0.2 }}
                     onClick={() => {
                       setActivePage(link.id);
                       setMobileMenuOpen(false);
