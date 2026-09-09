@@ -54,10 +54,12 @@
 .card-doc {
   background-color: var(--bg-card);
   border: 1px solid var(--border-color);
-  transition: all 0.25s ease;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, border-color, box-shadow;
 }
 .card-doc:hover {
   border-color: var(--accent-maroon);
+  box-shadow: 0 12px 30px -10px rgba(120, 19, 83, 0.15);
 }
 
 /* Glassmorphism Panel */
@@ -80,6 +82,27 @@
   box-shadow: 4px 4px 0px 0px var(--accent-maroon);
 }
 
+/* Glow Utilities */
+.glow-maroon {
+  box-shadow: 0 0 25px -5px rgba(120, 19, 83, 0.4);
+}
+.glow-accent {
+  box-shadow: 0 0 25px -5px rgba(224, 53, 144, 0.4);
+}
+
+/* Ambient Floating Animation */
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(1deg);
+  }
+}
+.animate-float {
+  animation: floatSlow 6s ease-in-out infinite;
+}
+
 /* Touch-optimized button micro-interactions & touch targets */
 .touch-target {
   min-height: 44px;
@@ -87,7 +110,8 @@
 }
 
 .btn-tap {
-  transition: transform 0.15s ease, opacity 0.15s ease, background-color 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.15s ease, background-color 0.2s ease, border-color 0.2s ease;
+  will-change: transform;
 }
 .btn-tap:active {
   transform: scale(0.98);
@@ -105,4 +129,5 @@
   background: var(--accent-maroon);
   border-radius: 3px;
 }
+
 

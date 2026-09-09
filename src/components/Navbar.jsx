@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Phone, Menu, X, Sun, Moon, ArrowRight, Shield } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import MagneticButton from './MagneticButton';
 
 export default function Navbar({ activePage, setActivePage, theme, toggleTheme }) {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -90,13 +91,20 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
                     setActivePage(link.id);
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   }}
-                  className={`text-xs font-semibold uppercase tracking-wider transition-colors relative py-1 btn-tap ${
+                  className={`text-xs font-semibold uppercase tracking-wider transition-colors relative py-1.5 btn-tap ${
                     isActive
-                      ? 'text-[#781353] dark:text-[#E03590] border-b-2 border-current'
+                      ? 'text-[#781353] dark:text-[#E03590]'
                       : 'text-muted hover:text-[var(--text-primary)]'
                   }`}
                 >
                   {link.label}
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeNavLine"
+                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#781353] dark:bg-[#E03590]"
+                      transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+                    />
+                  )}
                 </button>
               );
             })}
@@ -117,15 +125,15 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
               )}
             </button>
 
-            <button
+            <MagneticButton
               onClick={() => {
                 setActivePage('help');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="bg-[#2E031D] dark:bg-[#FFFFFF] text-[#FDF3F7] dark:text-[#0A0A0C] px-4 py-2.5 text-xs font-bold uppercase tracking-widest hover:opacity-90 transition-opacity btn-tap touch-target"
+              className="bg-[#2E031D] dark:bg-[#FFFFFF] text-[#FDF3F7] dark:text-[#0A0A0C] px-5 py-2.5 text-xs font-bold uppercase tracking-widest hover:opacity-90 transition-opacity btn-tap touch-target shadow-md"
             >
               Get Crisis Help
-            </button>
+            </MagneticButton>
           </div>
 
           {/* Mobile Right Controls */}

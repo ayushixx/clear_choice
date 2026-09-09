@@ -5,6 +5,8 @@ import RehabDirectory from '../components/RehabDirectory';
 import InteractiveMap from '../components/InteractiveMap';
 import TurnstileWidget from '../components/TurnstileWidget';
 import TrustBadges from '../components/TrustBadges';
+import AmbientParticles from '../components/AmbientParticles';
+import MagneticButton from '../components/MagneticButton';
 import { submitContactInquiry, submitCallbackRequest } from '../api/submissionsApi';
 import { trackHelplineClick } from '../services/ga4Analytics';
 import { Send, Clock, Paperclip, AlertCircle, CheckCircle2 } from 'lucide-react';
@@ -99,22 +101,24 @@ export default function GetHelp() {
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="bg-[#2E031D] text-white p-6 sm:p-16 border border-[#2E031D] space-y-5 sm:space-y-6 text-left relative overflow-hidden"
+        className="bg-[#2E031D] text-white p-6 sm:p-16 border border-[#2E031D] space-y-5 sm:space-y-6 text-left relative overflow-hidden neo-shadow"
       >
-        <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#FDF3F7]/70 block">
+        <AmbientParticles particleCount={16} color="rgba(224,53,144,0.35)" />
+        
+        <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#FDF3F7]/70 block relative z-10">
           Immediate Crisis Support • 24/7
         </span>
 
-        <h1 className="text-3xl sm:text-6xl font-serif font-bold text-white tracking-tight">
+        <h1 className="text-3xl sm:text-6xl font-serif font-bold text-white tracking-tight relative z-10">
           Need Help Right Now?
         </h1>
 
-        <p className="text-sm sm:text-lg text-[#FDF3F7]/80 max-w-2xl font-light leading-relaxed">
+        <p className="text-sm sm:text-lg text-[#FDF3F7]/80 max-w-2xl font-light leading-relaxed relative z-10">
           Free, confidential, immediate assistance for individuals and families. Speak directly with a trained counselor.
         </p>
 
         {/* GIANT HELPLINE NUMBER */}
-        <div className="pt-2 sm:pt-4 pb-2">
+        <div className="pt-2 sm:pt-4 pb-2 relative z-10">
           <a
             href="tel:1800110031"
             onClick={() => trackHelplineClick('1800-11-0031')}
@@ -124,7 +128,7 @@ export default function GetHelp() {
           </a>
         </div>
 
-        <div className="pt-2 flex flex-wrap gap-4 sm:gap-6 text-xs text-[#FDF3F7]/70 font-mono">
+        <div className="pt-2 flex flex-wrap gap-4 sm:gap-6 text-xs text-[#FDF3F7]/70 font-mono relative z-10">
           <span>• 100% Confidential</span>
           <span>• Nationwide Access</span>
           <span>• 365 Days / Year</span>

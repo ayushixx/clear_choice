@@ -1,36 +1,54 @@
 import React from 'react';
 import { Phone, ArrowRight, ChevronRight } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import TrustBadges from '../components/TrustBadges';
 import TestimonialsCarousel from '../components/TestimonialsCarousel';
+import AmbientParticles from '../components/AmbientParticles';
+import ScrollIndicator from '../components/ScrollIndicator';
+import MagneticButton from '../components/MagneticButton';
 
 export default function Home({ setActivePage }) {
+  const { scrollY } = useScroll();
+  const heroImageScale = useTransform(scrollY, [0, 600], [1, 1.15]);
+  const heroImageY = useTransform(scrollY, [0, 600], [0, 100]);
+  const heroTextY = useTransform(scrollY, [0, 400], [0, -30]);
+
   return (
     <div className="space-y-20 sm:space-y-28 pb-24">
       
-      {/* HERO SECTION — RESPONSIVE DOCUMENTARY PHOTOGRAPHY */}
+      {/* HERO SECTION — CINEMATIC PARALLAX & AMBIENT MOTION */}
       <section className="relative w-full h-[90vh] min-h-[580px] sm:h-screen flex items-end sm:items-center justify-start overflow-hidden">
         
-        {/* Full Viewport Background Image with Centered Mobile Object Position */}
-        <div className="absolute inset-0 z-0">
+        {/* Full Viewport Background Image with Parallax & Slow Ambient Zoom */}
+        <motion.div 
+          style={{ scale: heroImageScale, y: heroImageY }}
+          className="absolute inset-0 z-0 origin-center"
+        >
           <img 
             src="/assets/hero-bg.jpg" 
             alt="Recovery Documentary Subject" 
-            className="w-full h-full object-cover object-[center_20%] sm:object-top filter brightness-[0.82] contrast-[1.05] transition-all duration-700"
+            className="w-full h-full object-cover object-[center_20%] sm:object-top filter brightness-[0.82] contrast-[1.05]"
           />
-          {/* Subtle Dark Cinematic Gradient Overlays */}
-          <div className="absolute inset-0 bg-black/45"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
-        </div>
+          {/* Layered Cinematic Overlays & Glowing Ambient Gradient */}
+          <div className="absolute inset-0 bg-black/40"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0C] via-black/40 to-transparent"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(120,19,83,0.35),transparent_60%)]"></div>
+        </motion.div>
+
+        {/* Ambient Particles Layer */}
+        <AmbientParticles count={28} />
 
         {/* Content Container — Mobile-First Layout */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pb-14 sm:pb-0 pt-24 sm:pt-28 space-y-5 sm:space-y-6 text-left text-white">
+        <motion.div 
+          style={{ y: heroTextY }}
+          className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pb-16 sm:pb-0 pt-24 sm:pt-28 space-y-5 sm:space-y-6 text-left text-white"
+        >
           
           {/* Category Tag */}
           <motion.div 
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="inline-flex items-center gap-2 text-[10px] sm:text-xs font-mono font-bold tracking-widest text-white/80 uppercase border-b border-white/30 pb-1"
           >
             <span>RECOVERY</span>
@@ -42,10 +60,10 @@ export default function Home({ setActivePage }) {
 
           {/* Strong Editorial Serif Headline */}
           <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-3xl sm:text-6xl md:text-7xl font-serif font-extrabold text-white tracking-tight leading-[1.1] max-w-3xl"
+            transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="text-3xl sm:text-6xl md:text-7xl font-serif font-extrabold text-white tracking-tight leading-[1.1] max-w-3xl drop-shadow-md"
           >
             Know the Facts. <br />
             <span className="italic font-normal text-white/90">Choose Your Future.</span>
@@ -53,50 +71,57 @@ export default function Home({ setActivePage }) {
 
           {/* Supporting Copy */}
           <motion.p 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-sm sm:text-xl text-white/85 font-light leading-relaxed max-w-2xl"
+            transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="text-sm sm:text-xl text-white/85 font-light leading-relaxed max-w-2xl drop-shadow-sm"
           >
             A recovery journey transformed into a movement for awareness, education, and hope. Dedicated to evidence-based substance education.
           </motion.p>
 
-          {/* Mobile Action CTAs */}
+          {/* Mobile Action CTAs with Magnetic Buttons */}
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 max-w-lg"
           >
-            <button
+            <MagneticButton
               onClick={() => { setActivePage('help'); window.scrollTo(0,0); }}
-              className="bg-white text-[#2E031D] hover:bg-[#FDF3F7] px-6 py-3.5 sm:px-8 sm:py-4 text-xs font-extrabold uppercase tracking-widest transition-all flex items-center justify-center gap-2 shadow-lg btn-tap touch-target"
+              className="bg-white text-[#2E031D] hover:bg-[#FDF3F7] px-6 py-3.5 sm:px-8 sm:py-4 text-xs font-extrabold uppercase tracking-widest transition-all shadow-xl touch-target glow-maroon"
             >
-              <span>GET HELP NOW</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
+              <span className="flex items-center gap-2">
+                <span>GET HELP NOW</span>
+                <ArrowRight className="w-4 h-4" />
+              </span>
+            </MagneticButton>
 
-            <button
+            <MagneticButton
               onClick={() => { setActivePage('story'); window.scrollTo(0,0); }}
-              className="bg-black/40 hover:bg-black/60 text-white border border-white/40 px-6 py-3.5 sm:px-8 sm:py-4 text-xs font-semibold uppercase tracking-widest backdrop-blur-md transition-all flex items-center justify-center gap-2 btn-tap touch-target"
+              className="bg-black/40 hover:bg-black/60 text-white border border-white/40 px-6 py-3.5 sm:px-8 sm:py-4 text-xs font-semibold uppercase tracking-widest backdrop-blur-md transition-all touch-target"
             >
-              <span>Read My Story</span>
-              <ChevronRight className="w-4 h-4" />
-            </button>
+              <span className="flex items-center gap-2">
+                <span>Read My Story</span>
+                <ChevronRight className="w-4 h-4" />
+              </span>
+            </MagneticButton>
           </motion.div>
 
           {/* Above-the-fold Lifeline Line */}
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            transition={{ duration: 0.6, delay: 0.45 }}
             className="pt-2 text-[11px] sm:text-xs font-mono text-white/80 flex items-center gap-2"
           >
             <Phone className="w-3.5 h-3.5 text-[#E03590]" />
             <span>24/7 National Emergency Support: <strong>1800-11-0031</strong></span>
           </motion.div>
 
-        </div>
+        </motion.div>
+
+        {/* Hero Scroll Guidance Indicator */}
+        <ScrollIndicator targetId="impact-stats-section" />
 
       </section>
 
@@ -104,7 +129,7 @@ export default function Home({ setActivePage }) {
       <TrustBadges />
 
       {/* QUICK IMPACT STATS */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="impact-stats-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
         <div className="border-y border-editorial py-10 sm:py-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 divide-y md:divide-y-0 md:divide-x divide-editorial">
             
