@@ -40,12 +40,12 @@ export default function LiveChatWidget({ setActivePage }) {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-40">
+    <div className="fixed bottom-[calc(1rem+env(safe-area-inset-bottom,0px))] right-4 sm:right-6 z-40">
       
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="bg-[#2E031D] hover:bg-[#4E0834] text-white p-3.5 rounded-full shadow-lg transition-all flex items-center justify-center border border-white/20"
+          className="bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] p-3.5 rounded-full shadow-xl transition-all flex items-center justify-center border border-white/20 touch-target btn-tap"
           aria-label="Open Crisis Live Chat"
         >
           <MessageSquare className="w-5 h-5" />
@@ -53,13 +53,15 @@ export default function LiveChatWidget({ setActivePage }) {
       )}
 
       {isOpen && (
-        <div className="bg-white w-80 sm:w-88 rounded-xl shadow-2xl border border-[#2E031D]/15 overflow-hidden flex flex-col h-[440px]">
+        <div className="bg-[var(--bg-card)] w-[calc(100vw-2rem)] max-w-[340px] sm:w-88 rounded-xl shadow-2xl border border-editorial overflow-hidden flex flex-col h-[420px] sm:h-[440px]">
           
-          <div className="bg-[#2E031D] text-white p-4 flex items-center justify-between">
+          <div className="bg-[#2E031D] text-white p-3.5 flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-sm bg-white text-[#2E031D] flex items-center justify-center font-serif font-bold text-xs">
-                CC
-              </div>
+              <img 
+                src="/assets/logo.png" 
+                alt="Logo" 
+                className="h-6 w-auto object-contain filter brightness-110"
+              />
               <div>
                 <h4 className="font-serif font-bold text-xs leading-none">Clear Choice Support</h4>
                 <span className="text-[9px] text-[#FDF3F7]/70 font-mono">Confidential Helpline</span>
@@ -67,7 +69,7 @@ export default function LiveChatWidget({ setActivePage }) {
             </div>
             <button
               onClick={() => setIsOpen(false)}
-              className="text-[#FDF3F7]/80 hover:text-white p-1"
+              className="text-[#FDF3F7]/80 hover:text-white p-2 touch-target btn-tap flex items-center justify-center"
             >
               <X className="w-4 h-4" />
             </button>
@@ -79,13 +81,13 @@ export default function LiveChatWidget({ setActivePage }) {
             </span>
             <a
               href="tel:1800110031"
-              className="bg-emerald-600 hover:bg-emerald-500 text-white px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider"
+              className="bg-emerald-600 hover:bg-emerald-500 text-white px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider touch-target flex items-center justify-center"
             >
               Connect Real Person
             </a>
           </div>
 
-          <div className="flex-1 p-3 overflow-y-auto space-y-2 bg-[#FDF3F7]/50 text-xs">
+          <div className="flex-1 p-3 overflow-y-auto space-y-2 bg-[var(--bg-secondary)] text-xs">
             {messages.map((msg) => (
               <div
                 key={msg.id}
@@ -94,28 +96,28 @@ export default function LiveChatWidget({ setActivePage }) {
                 <div
                   className={`max-w-[85%] p-2.5 rounded-lg ${
                     msg.sender === 'user'
-                      ? 'bg-[#2E031D] text-white'
-                      : 'bg-white text-[#2E031D] border border-[#2E031D]/10'
+                      ? 'bg-[#2E031D] dark:bg-[#E03590] text-white'
+                      : 'bg-[var(--bg-card)] text-[var(--text-primary)] border border-editorial shadow-xs'
                   }`}
                 >
-                  <p>{msg.text}</p>
+                  <p className="leading-relaxed">{msg.text}</p>
                 </div>
-                <span className="text-[8px] text-[#2E031D]/50 mt-0.5 px-1">{msg.time}</span>
+                <span className="text-[8px] text-muted mt-0.5 px-1">{msg.time}</span>
               </div>
             ))}
           </div>
 
-          <form onSubmit={handleSend} className="p-2.5 bg-white border-t border-[#2E031D]/10 flex items-center gap-2">
+          <form onSubmit={handleSend} className="p-2.5 bg-[var(--bg-card)] border-t border-editorial flex items-center gap-2">
             <input
               type="text"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               placeholder="Type message..."
-              className="flex-1 text-xs px-3 py-1.5 border border-[#2E031D]/20 rounded-md focus:outline-none focus:border-[#2E031D]"
+              className="flex-1 text-xs px-3 py-2 bg-[var(--bg-secondary)] text-[var(--text-primary)] border border-editorial rounded-md focus:outline-none focus:border-[#781353] dark:focus:border-[#E03590]"
             />
             <button
               type="submit"
-              className="bg-[#2E031D] hover:bg-[#4E0834] text-white p-1.5 rounded-md transition-colors"
+              className="bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] p-2 rounded-md transition-colors btn-tap touch-target flex items-center justify-center min-w-[36px] min-h-[36px]"
             >
               <Send className="w-3.5 h-3.5" />
             </button>

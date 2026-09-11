@@ -75,17 +75,17 @@ export default function ContactCounselor({ setActivePage }) {
   };
 
   return (
-    <div className="pt-28 sm:pt-32 pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+    <div className="pt-20 sm:pt-32 pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
       
       {/* Navigation Breadcrumb */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between pt-4 sm:pt-0">
         <button 
           onClick={() => { setActivePage('help'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-          className="text-xs font-mono text-muted hover:text-[var(--text-primary)] flex items-center gap-1.5 transition-colors btn-tap"
+          className="text-xs font-mono text-muted hover:text-[var(--text-primary)] flex items-center gap-1.5 transition-colors btn-tap touch-target cursor-pointer"
         >
           <ArrowLeft className="w-3.5 h-3.5" /> Back to Get Help Hub
         </button>
-        <span className="text-[10px] font-mono uppercase bg-[var(--bg-secondary)] border border-editorial text-[#781353] dark:text-[#E03590] px-2.5 py-1 font-bold">
+        <span className="text-[9px] sm:text-[10px] font-mono uppercase bg-[var(--bg-secondary)] border border-editorial text-[#781353] dark:text-[#E03590] px-2.5 py-1 font-bold shrink-0">
           Confidential Channel
         </span>
       </div>
@@ -97,13 +97,13 @@ export default function ContactCounselor({ setActivePage }) {
         transition={{ duration: 0.4 }}
         className="max-w-3xl space-y-3"
       >
-        <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#781353] dark:text-[#E03590] block">
+        <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest text-[#781353] dark:text-[#E03590] block">
           Private & Secure Communication
         </span>
         <h1 className="text-3xl sm:text-5xl font-serif font-bold text-[var(--text-primary)] tracking-tight">
           Contact a Counselor
         </h1>
-        <p className="text-sm sm:text-base text-muted font-light leading-relaxed">
+        <p className="text-xs sm:text-base text-muted font-light leading-relaxed">
           Reach out directly to professional counselors for confidential guidance, treatment planning, or to schedule a private phone consultation.
         </p>
       </motion.div>
@@ -124,12 +124,12 @@ export default function ContactCounselor({ setActivePage }) {
       </div>
 
       {/* FORMS SECTION — CALM & DISTRACTION-FREE LAYOUT */}
-      <section className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10">
+      <section className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-10">
         
         {/* Contact Form */}
-        <div className="card-doc p-6 sm:p-8 space-y-6">
+        <div className="card-doc p-5 sm:p-8 space-y-5 sm:space-y-6">
           <div>
-            <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#781353] dark:text-[#E03590] block mb-1">
+            <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider text-[#781353] dark:text-[#E03590] block mb-1">
               Direct Confidential Inquiry
             </span>
             <h2 className="text-xl sm:text-2xl font-serif font-bold text-[var(--text-primary)]">
@@ -163,7 +163,7 @@ export default function ContactCounselor({ setActivePage }) {
                 onChange={(e) => setContactForm({ ...contactForm, fullName: e.target.value })}
                 placeholder="Your full name"
                 required
-                className="w-full px-3.5 py-3.5 bg-[var(--bg-secondary)] border border-editorial text-sm focus:outline-none focus:border-[#781353] dark:focus:border-[#E03590] text-[var(--text-primary)]"
+                className="w-full px-3.5 py-3 bg-[var(--bg-secondary)] border border-editorial text-sm focus:outline-none focus:border-[#781353] dark:focus:border-[#E03590] text-[var(--text-primary)] touch-target"
               />
             </div>
 
@@ -175,7 +175,7 @@ export default function ContactCounselor({ setActivePage }) {
                 onChange={(e) => setContactForm({ ...contactForm, phone: e.target.value })}
                 placeholder="Phone number"
                 required
-                className="w-full px-3.5 py-3.5 bg-[var(--bg-secondary)] border border-editorial text-sm focus:outline-none focus:border-[#781353] dark:focus:border-[#E03590] text-[var(--text-primary)]"
+                className="w-full px-3.5 py-3 bg-[var(--bg-secondary)] border border-editorial text-sm focus:outline-none focus:border-[#781353] dark:focus:border-[#E03590] text-[var(--text-primary)] touch-target"
               />
             </div>
 
@@ -186,7 +186,7 @@ export default function ContactCounselor({ setActivePage }) {
                 value={contactForm.message}
                 onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
                 placeholder="Share any details or questions..."
-                className="w-full px-3.5 py-3.5 bg-[var(--bg-secondary)] border border-editorial text-sm focus:outline-none focus:border-[#781353] dark:focus:border-[#E03590] text-[var(--text-primary)]"
+                className="w-full px-3.5 py-3 bg-[var(--bg-secondary)] border border-editorial text-sm focus:outline-none focus:border-[#781353] dark:focus:border-[#E03590] text-[var(--text-primary)]"
               ></textarea>
             </div>
 
@@ -208,7 +208,7 @@ export default function ContactCounselor({ setActivePage }) {
                   <button
                     type="button"
                     onClick={() => setContactFile(null)}
-                    className="text-[10px] text-muted hover:text-red-500 underline"
+                    className="text-[10px] text-muted hover:text-red-500 underline cursor-pointer"
                   >
                     Remove
                   </button>
@@ -222,7 +222,7 @@ export default function ContactCounselor({ setActivePage }) {
             <button
               type="submit"
               disabled={contactSubmitting}
-              className="w-full bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] py-4 font-bold text-xs uppercase tracking-widest transition-colors flex items-center justify-center gap-2 disabled:opacity-50 btn-tap shadow-md touch-target"
+              className="w-full bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] py-3.5 font-bold text-xs uppercase tracking-widest transition-colors flex items-center justify-center gap-2 disabled:opacity-50 btn-tap shadow-md touch-target cursor-pointer"
             >
               <Send className="w-3.5 h-3.5" /> {contactSubmitting ? 'Transmitting Securely...' : 'Send Secure Message'}
             </button>
@@ -230,9 +230,9 @@ export default function ContactCounselor({ setActivePage }) {
         </div>
 
         {/* Callback Request Form */}
-        <div className="bg-[var(--bg-secondary)] p-6 sm:p-8 border border-editorial space-y-6">
+        <div className="bg-[var(--bg-secondary)] p-5 sm:p-8 border border-editorial space-y-5 sm:space-y-6">
           <div>
-            <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#781353] dark:text-[#E03590] block mb-1">
+            <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider text-[#781353] dark:text-[#E03590] block mb-1">
               Discreet Consultation
             </span>
             <h2 className="text-xl sm:text-2xl font-serif font-bold text-[var(--text-primary)]">
@@ -266,7 +266,7 @@ export default function ContactCounselor({ setActivePage }) {
                 onChange={(e) => setCallbackForm({ ...callbackForm, name: e.target.value })}
                 placeholder="Your name"
                 required
-                className="w-full px-3.5 py-3.5 bg-[var(--bg-card)] border border-editorial text-sm focus:outline-none focus:border-[#781353] dark:focus:border-[#E03590] text-[var(--text-primary)]"
+                className="w-full px-3.5 py-3 bg-[var(--bg-card)] border border-editorial text-sm focus:outline-none focus:border-[#781353] dark:focus:border-[#E03590] text-[var(--text-primary)] touch-target"
               />
             </div>
 
@@ -278,7 +278,7 @@ export default function ContactCounselor({ setActivePage }) {
                 onChange={(e) => setCallbackForm({ ...callbackForm, phone: e.target.value })}
                 placeholder="Phone number"
                 required
-                className="w-full px-3.5 py-3.5 bg-[var(--bg-card)] border border-editorial text-sm focus:outline-none focus:border-[#781353] dark:focus:border-[#E03590] text-[var(--text-primary)]"
+                className="w-full px-3.5 py-3 bg-[var(--bg-card)] border border-editorial text-sm focus:outline-none focus:border-[#781353] dark:focus:border-[#E03590] text-[var(--text-primary)] touch-target"
               />
             </div>
 
@@ -288,7 +288,7 @@ export default function ContactCounselor({ setActivePage }) {
                 <select
                   value={callbackForm.concernType}
                   onChange={(e) => setCallbackForm({ ...callbackForm, concernType: e.target.value })}
-                  className="w-full px-3.5 py-3.5 bg-[var(--bg-card)] border border-editorial text-sm focus:outline-none focus:border-[#781353] dark:focus:border-[#E03590] text-[var(--text-primary)] font-mono"
+                  className="w-full px-3.5 py-3 bg-[var(--bg-card)] border border-editorial text-sm focus:outline-none focus:border-[#781353] dark:focus:border-[#E03590] text-[var(--text-primary)] font-mono touch-target"
                 >
                   <option>General Inquiry</option>
                   <option>Self Substance Support</option>
@@ -302,7 +302,7 @@ export default function ContactCounselor({ setActivePage }) {
                 <select
                   value={callbackForm.callbackTime}
                   onChange={(e) => setCallbackForm({ ...callbackForm, callbackTime: e.target.value })}
-                  className="w-full px-3.5 py-3.5 bg-[var(--bg-card)] border border-editorial text-sm focus:outline-none focus:border-[#781353] dark:focus:border-[#E03590] text-[var(--text-primary)] font-mono"
+                  className="w-full px-3.5 py-3 bg-[var(--bg-card)] border border-editorial text-sm focus:outline-none focus:border-[#781353] dark:focus:border-[#E03590] text-[var(--text-primary)] font-mono touch-target"
                 >
                   <option>Morning (9 AM - 12 PM)</option>
                   <option>Afternoon (12 PM - 4 PM)</option>
@@ -318,7 +318,7 @@ export default function ContactCounselor({ setActivePage }) {
                 value={callbackForm.message}
                 onChange={(e) => setCallbackForm({ ...callbackForm, message: e.target.value })}
                 placeholder="Note..."
-                className="w-full px-3.5 py-3.5 bg-[var(--bg-card)] border border-editorial text-sm focus:outline-none focus:border-[#781353] dark:focus:border-[#E03590] text-[var(--text-primary)]"
+                className="w-full px-3.5 py-3 bg-[var(--bg-card)] border border-editorial text-sm focus:outline-none focus:border-[#781353] dark:focus:border-[#E03590] text-[var(--text-primary)]"
               ></textarea>
             </div>
 
@@ -328,7 +328,7 @@ export default function ContactCounselor({ setActivePage }) {
             <button
               type="submit"
               disabled={callbackSubmitting}
-              className="w-full bg-[#781353] dark:bg-[#E03590] text-white py-4 font-bold uppercase tracking-widest transition-colors flex items-center justify-center gap-2 disabled:opacity-50 btn-tap shadow-md touch-target"
+              className="w-full bg-[#781353] dark:bg-[#E03590] text-white py-3.5 font-bold uppercase tracking-widest transition-colors flex items-center justify-center gap-2 disabled:opacity-50 btn-tap shadow-md touch-target cursor-pointer"
             >
               <Clock className="w-3.5 h-3.5" /> {callbackSubmitting ? 'Requesting...' : 'Request Callback'}
             </button>

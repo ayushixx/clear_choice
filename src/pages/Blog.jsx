@@ -8,26 +8,26 @@ export default function Blog() {
   const regularPosts = BLOG_POSTS.slice(1);
 
   return (
-    <div className="pt-32 pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+    <div className="pt-20 sm:pt-32 pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 sm:space-y-16">
       
       {/* Header */}
-      <div className="max-w-3xl space-y-4">
-        <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#781353] dark:text-[#DC2F87] block">
+      <div className="max-w-3xl space-y-3 sm:space-y-4 pt-4 sm:pt-0">
+        <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest text-[#781353] dark:text-[#E03590] block">
           Documentary & Editorial Journal
         </span>
-        <h1 className="text-4xl sm:text-6xl font-serif font-bold text-[var(--text-primary)] tracking-tight">
+        <h1 className="text-3xl sm:text-6xl font-serif font-bold text-[var(--text-primary)] tracking-tight">
           Blog & Stories
         </h1>
-        <p className="text-base sm:text-lg text-muted font-light leading-relaxed">
+        <p className="text-xs sm:text-lg text-muted font-light leading-relaxed">
           Authentic stories of lived experience, scientific insights, and guidance for families navigating recovery.
         </p>
       </div>
 
       {/* FEATURED STORY */}
-      <div className="card-doc p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-        <div className="lg:col-span-7 space-y-4">
+      <div className="card-doc p-5 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center">
+        <div className="lg:col-span-7 space-y-3 sm:space-y-4">
           <div className="flex items-center gap-3">
-            <span className="bg-[#781353] dark:bg-[#DC2F87] text-white text-[10px] font-mono font-bold uppercase tracking-widest px-2.5 py-0.5">
+            <span className="bg-[#781353] dark:bg-[#E03590] text-white text-[9px] sm:text-[10px] font-mono font-bold uppercase tracking-widest px-2.5 py-0.5">
               {featuredPost.category}
             </span>
             <span className="text-xs text-muted flex items-center gap-1 font-mono">
@@ -35,22 +35,22 @@ export default function Blog() {
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[var(--text-primary)] leading-tight">
+          <h2 className="text-2xl sm:text-4xl font-serif font-bold text-[var(--text-primary)] leading-tight">
             {featuredPost.title}
           </h2>
 
-          <p className="text-sm sm:text-base text-muted font-light leading-relaxed">
+          <p className="text-xs sm:text-base text-muted font-light leading-relaxed">
             {featuredPost.excerpt}
           </p>
 
-          <div className="pt-2 flex items-center justify-between">
-            <span className="text-xs font-semibold text-[#781353] dark:text-[#DC2F87] flex items-center gap-1">
+          <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <span className="text-xs font-semibold text-[#781353] dark:text-[#E03590] flex items-center gap-1">
               <User className="w-3.5 h-3.5" /> By {featuredPost.author} • {featuredPost.date}
             </span>
 
             <button
               onClick={() => setSelectedArticle(featuredPost)}
-              className="bg-[#2E031D] dark:bg-[#FDF3F7] text-white dark:text-[#2E031D] px-5 py-2.5 font-bold text-xs uppercase tracking-widest transition-colors flex items-center gap-2"
+              className="bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] px-5 py-3 font-bold text-xs uppercase tracking-widest transition-colors flex items-center justify-center gap-2 btn-tap touch-target cursor-pointer w-full sm:w-auto"
             >
               <span>Read Story</span>
               <ArrowRight className="w-4 h-4" />
@@ -58,11 +58,11 @@ export default function Blog() {
           </div>
         </div>
 
-        <div className="lg:col-span-5 bg-[var(--bg-secondary)] p-8 border border-editorial space-y-3">
-          <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#781353] dark:text-[#DC2F87] block">
+        <div className="lg:col-span-5 bg-[var(--bg-secondary)] p-5 sm:p-8 border border-editorial space-y-2 sm:space-y-3">
+          <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest text-[#781353] dark:text-[#E03590] block">
             Editorial Note
           </span>
-          <h3 className="font-serif font-bold text-xl text-[var(--text-primary)]">
+          <h3 className="font-serif font-bold text-lg sm:text-xl text-[var(--text-primary)]">
             Lived Experience Matters
           </h3>
           <p className="text-xs text-muted leading-relaxed font-light">
@@ -72,21 +72,21 @@ export default function Blog() {
       </div>
 
       {/* REGULAR STORIES GRID */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 pt-2">
         {regularPosts.map((post) => (
           <div 
             key={post.id}
-            className="card-doc p-8 flex flex-col justify-between space-y-6"
+            className="card-doc p-5 sm:p-8 flex flex-col justify-between space-y-5 sm:space-y-6"
           >
             <div className="space-y-3">
               <div className="flex items-center justify-between text-xs">
-                <span className="bg-[var(--bg-secondary)] text-[#781353] dark:text-[#DC2F87] font-mono font-bold px-2.5 py-0.5 border border-editorial uppercase tracking-wider">
+                <span className="bg-[var(--bg-secondary)] text-[#781353] dark:text-[#E03590] font-mono font-bold px-2.5 py-0.5 border border-editorial uppercase tracking-wider text-[10px]">
                   {post.category}
                 </span>
-                <span className="text-muted font-mono">{post.readTime}</span>
+                <span className="text-muted font-mono text-[10px]">{post.readTime}</span>
               </div>
 
-              <h3 className="text-2xl font-serif font-bold text-[var(--text-primary)]">
+              <h3 className="text-xl sm:text-2xl font-serif font-bold text-[var(--text-primary)]">
                 {post.title}
               </h3>
 
@@ -99,7 +99,7 @@ export default function Blog() {
               <span className="text-xs text-muted font-mono">By {post.author}</span>
               <button
                 onClick={() => setSelectedArticle(post)}
-                className="text-xs font-bold uppercase tracking-wider text-[var(--text-primary)] hover:underline flex items-center gap-1.5"
+                className="text-xs font-bold uppercase tracking-wider text-[var(--text-primary)] hover:underline flex items-center gap-1.5 btn-tap touch-target cursor-pointer"
               >
                 <span>Read Article</span> <ArrowRight className="w-4 h-4" />
               </button>
@@ -111,26 +111,26 @@ export default function Blog() {
       {/* FULL ARTICLE MODAL */}
       {selectedArticle && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fadeIn">
-          <div className="bg-[var(--bg-primary)] text-[var(--text-primary)] max-w-3xl w-full p-6 sm:p-10 border border-editorial relative max-h-[90vh] overflow-y-auto">
+          <div className="bg-[var(--bg-primary)] text-[var(--text-primary)] max-w-3xl w-full p-5 sm:p-10 border border-editorial relative max-h-[90vh] overflow-y-auto rounded-none">
             
             <button
               onClick={() => setSelectedArticle(null)}
-              className="absolute top-6 right-6 text-[var(--text-primary)] p-2 hover:bg-[var(--bg-secondary)]"
+              className="absolute top-4 right-4 text-[var(--text-primary)] p-2.5 hover:bg-[var(--bg-secondary)] touch-target btn-tap cursor-pointer flex items-center justify-center"
               aria-label="Close article"
             >
               <X className="w-5 h-5" />
             </button>
 
             <div className="space-y-4">
-              <span className="bg-[#781353] dark:bg-[#DC2F87] text-white text-xs font-mono font-bold uppercase tracking-widest px-3 py-1 inline-block">
+              <span className="bg-[#781353] dark:bg-[#E03590] text-white text-xs font-mono font-bold uppercase tracking-widest px-3 py-1 inline-block">
                 {selectedArticle.category}
               </span>
 
-              <h2 className="text-3xl sm:text-5xl font-serif font-bold text-[var(--text-primary)] leading-tight">
+              <h2 className="text-2xl sm:text-5xl font-serif font-bold text-[var(--text-primary)] leading-tight">
                 {selectedArticle.title}
               </h2>
 
-              <div className="flex items-center gap-4 text-xs text-muted font-mono border-y border-editorial py-3">
+              <div className="flex items-center gap-3 text-xs text-muted font-mono border-y border-editorial py-2.5 flex-wrap">
                 <span>By {selectedArticle.author}</span>
                 <span>•</span>
                 <span>{selectedArticle.date}</span>
@@ -139,15 +139,15 @@ export default function Blog() {
               </div>
 
               <div 
-                className="pt-4 text-sm sm:text-base leading-relaxed space-y-4 text-[var(--text-primary)]"
+                className="pt-4 text-xs sm:text-base leading-relaxed space-y-4 text-[var(--text-primary)]"
                 dangerouslySetInnerHTML={{ __html: selectedArticle.content }}
               ></div>
             </div>
 
-            <div className="mt-8 pt-6 border-t border-editorial flex justify-end">
+            <div className="mt-8 pt-4 border-t border-editorial flex justify-end">
               <button
                 onClick={() => setSelectedArticle(null)}
-                className="bg-[#2E031D] dark:bg-[#FDF3F7] text-white dark:text-[#2E031D] px-6 py-2.5 font-bold text-xs uppercase tracking-widest"
+                className="bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] px-6 py-3 font-bold text-xs uppercase tracking-widest btn-tap touch-target cursor-pointer"
               >
                 Close Article
               </button>

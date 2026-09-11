@@ -61,8 +61,8 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
     <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
       
       {/* Top Minimal Emergency Bar */}
-      <div className="bg-[#2E031D] text-[#FDF3F7] py-2 px-4 text-[11px] font-mono tracking-widest flex items-center justify-between max-w-7xl mx-auto border-b border-white/10">
-        <span className="uppercase opacity-80 hidden sm:inline flex items-center gap-1.5">
+      <div className="bg-[#2E031D] text-[#FDF3F7] py-1 px-3 sm:px-4 text-[10px] sm:text-[11px] font-mono tracking-widest flex items-center justify-between max-w-7xl mx-auto border-b border-white/10 pt-[calc(0.25rem+env(safe-area-inset-top,0px))]">
+        <span className="uppercase opacity-80 hidden sm:inline-flex items-center gap-1.5">
           <Shield className="w-3 h-3 text-[#DC2F87]" /> 24/7 Helpline & Recovery Journal
         </span>
         <a 
@@ -72,7 +72,7 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
           <span className="flex items-center gap-1.5">
             <Phone className="w-3 h-3 text-[#DC2F87]" /> 24/7 Helpline: <strong>1800-11-0031</strong>
           </span>
-          <span className="text-[10px] bg-[#DC2F87] text-white px-2 py-0.5 font-bold uppercase rounded-none sm:hidden">
+          <span className="text-[9px] bg-[#DC2F87] text-white px-2 py-0.5 font-bold uppercase rounded-none sm:hidden">
             Call Free
           </span>
         </a>
@@ -81,24 +81,26 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
       {/* Main Publication Navbar */}
       <nav className={`transition-all duration-300 ${
         isScrolled 
-          ? 'bg-[var(--bg-primary)]/90 backdrop-blur-md py-3 border-b border-editorial shadow-xs' 
-          : 'bg-[var(--bg-primary)] py-4 border-b border-editorial'
+          ? 'bg-[var(--bg-primary)]/92 backdrop-blur-md py-2 sm:py-3 border-b border-editorial shadow-xs' 
+          : 'bg-[var(--bg-primary)] py-2.5 sm:py-3.5 border-b border-editorial'
       }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 flex items-center justify-between">
           
-          {/* Brand Logo */}
+          {/* Brand Logo with Image Asset */}
           <button 
             onClick={() => { setActivePage('home'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} 
-            className="flex items-center gap-3 text-left group btn-tap"
+            className="flex items-center gap-2 sm:gap-3 text-left group btn-tap"
           >
-            <div className="w-8 h-8 rounded-none border border-current flex items-center justify-center font-serif font-bold text-xs tracking-tighter text-[#781353] dark:text-[#FDF3F7]">
-              CC
-            </div>
+            <img 
+              src="/assets/logo.png" 
+              alt="CLEAR CHOICE Logo" 
+              className="h-7 sm:h-9 w-auto object-contain filter dark:brightness-110"
+            />
             <div>
-              <span className="font-serif font-extrabold text-xl tracking-tight block leading-none text-[var(--text-primary)]">
+              <span className="font-serif font-extrabold text-base sm:text-xl tracking-tight block leading-none text-[var(--text-primary)]">
                 CLEAR CHOICE
               </span>
-              <span className="text-[9px] uppercase tracking-widest font-mono block mt-1 text-muted">
+              <span className="text-[8px] sm:text-[9px] uppercase tracking-widest font-mono block mt-0.5 text-muted">
                 A Documentary on Recovery
               </span>
             </div>
@@ -206,7 +208,7 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
           <div className="hidden md:flex items-center space-x-4">
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-full border border-editorial text-[var(--text-primary)] hover:bg-[var(--bg-secondary)] transition-all btn-tap touch-target"
+              className="p-2.5 rounded-full border border-editorial text-[var(--text-primary)] hover:bg-[var(--bg-secondary)] transition-all btn-tap touch-target flex items-center justify-center"
               aria-label="Toggle Theme"
               title={`Switch to ${theme === 'light' ? 'Dark' : 'Light'} Mode`}
             >
@@ -228,29 +230,19 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
             </MagneticButton>
           </div>
 
-          {/* Mobile Right Controls */}
-          <div className="md:hidden flex items-center gap-2">
-            <button
-              onClick={() => {
-                setActivePage('crisis-support');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-              className="bg-[#781353] dark:bg-[#E03590] text-white px-3 py-2 text-[10px] font-mono font-bold uppercase tracking-wider btn-tap touch-target flex items-center justify-center"
-            >
-              Crisis Help
-            </button>
-
+          {/* Mobile Right Controls: Hierarchy -> Theme Toggle, then Menu Button */}
+          <div className="md:hidden flex items-center gap-1">
             <button
               onClick={toggleTheme}
-              className="p-2 text-[var(--text-primary)] btn-tap touch-target flex items-center justify-center"
+              className="p-2.5 text-[var(--text-primary)] btn-tap touch-target flex items-center justify-center rounded-md hover:bg-[var(--bg-secondary)]"
               aria-label="Toggle Theme"
             >
-              {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5 text-amber-300" />}
+              {theme === 'light' ? <Moon className="w-5 h-5 text-[#2E031D]" /> : <Sun className="w-5 h-5 text-amber-300" />}
             </button>
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-[var(--text-primary)] btn-tap touch-target flex items-center justify-center"
+              className="p-2.5 text-[var(--text-primary)] btn-tap touch-target flex items-center justify-center rounded-md hover:bg-[var(--bg-secondary)]"
               aria-label="Toggle mobile menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -260,65 +252,67 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
         </div>
       </nav>
 
-      {/* FULL-SCREEN GLASSMORPHIC MOBILE OVERLAY */}
+      {/* LUXURY SLIDE-IN GLASSMORPHIC MOBILE OVERLAY */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.25, ease: 'easeOut' }}
-            className="md:hidden fixed inset-0 z-50 bg-[var(--bg-primary)]/95 backdrop-blur-xl text-[var(--text-primary)] flex flex-col justify-between p-6 overflow-y-auto"
+            initial={{ opacity: 0, x: '100%' }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: '100%' }}
+            transition={{ type: 'spring', damping: 28, stiffness: 300 }}
+            className="md:hidden fixed inset-0 z-50 bg-[var(--bg-primary)]/98 backdrop-blur-2xl text-[var(--text-primary)] flex flex-col justify-between p-5 pt-[calc(1rem+env(safe-area-inset-top,0px))] pb-[calc(1.5rem+env(safe-area-inset-bottom,0px))] overflow-y-auto"
           >
             {/* Mobile Menu Header */}
-            <div className="flex items-center justify-between border-b border-editorial pb-4">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 border border-current flex items-center justify-center font-serif font-bold text-xs">
-                  CC
-                </div>
+            <div className="flex items-center justify-between border-b border-editorial pb-3.5">
+              <div className="flex items-center gap-2.5">
+                <img 
+                  src="/assets/logo.png" 
+                  alt="CLEAR CHOICE Logo" 
+                  className="h-7 w-auto object-contain filter dark:brightness-110"
+                />
                 <div>
-                  <span className="font-serif font-extrabold text-lg tracking-tight block">CLEAR CHOICE</span>
+                  <span className="font-serif font-extrabold text-base tracking-tight block">CLEAR CHOICE</span>
                   <span className="text-[9px] font-mono text-muted uppercase tracking-widest block">Navigation Menu</span>
                 </div>
               </div>
               
               <button
                 onClick={() => setMobileMenuOpen(false)}
-                className="p-2 text-[var(--text-primary)] btn-tap touch-target"
+                className="p-2.5 text-[var(--text-primary)] btn-tap touch-target flex items-center justify-center"
                 aria-label="Close menu"
               >
-                <X className="w-7 h-7" />
+                <X className="w-6 h-6" />
               </button>
             </div>
 
             {/* Mobile Nav Links with Accordion for Get Help */}
-            <div className="py-6 space-y-3 flex-1 flex flex-col justify-center">
+            <div className="py-4 space-y-2 flex-1 flex flex-col justify-center">
               {navLinks.map((link, index) => {
                 if (link.id === 'help') {
                   return (
-                    <div key={link.id} className="space-y-2">
+                    <div key={link.id} className="space-y-1">
                       <button
                         onClick={() => setMobileHelpExpand(!mobileHelpExpand)}
-                        className={`w-full text-left p-3.5 border-l-2 transition-all btn-tap flex items-center justify-between touch-target ${
+                        className={`w-full text-left p-3 border-l-2 transition-all btn-tap flex items-center justify-between touch-target ${
                           isHelpActive
                             ? 'border-[#781353] dark:border-[#E03590] bg-[var(--bg-secondary)]' 
                             : 'border-transparent hover:border-editorial'
                         }`}
                       >
                         <div>
-                          <span className={`font-serif text-2xl block ${isHelpActive ? 'font-bold text-[#781353] dark:text-[#E03590]' : 'font-semibold text-[var(--text-primary)]'}`}>
+                          <span className={`font-serif text-xl block ${isHelpActive ? 'font-bold text-[#781353] dark:text-[#E03590]' : 'font-semibold text-[var(--text-primary)]'}`}>
                             {link.label}
                           </span>
-                          <span className="text-[10px] font-mono text-muted uppercase tracking-wider block">
+                          <span className="text-[9px] font-mono text-muted uppercase tracking-wider block">
                             {link.subtitle}
                           </span>
                         </div>
-                        <ChevronDown className={`w-5 h-5 transition-transform ${mobileHelpExpand ? 'rotate-180' : ''}`} />
+                        <ChevronDown className={`w-4 h-4 transition-transform ${mobileHelpExpand ? 'rotate-180' : ''}`} />
                       </button>
 
                       {/* Expanded Mobile Sub-Items */}
                       {(mobileHelpExpand || isHelpActive) && (
-                        <div className="pl-4 space-y-2 border-l border-editorial ml-2 py-1">
+                        <div className="pl-4 space-y-1.5 border-l border-editorial ml-2 py-1">
                           {helpSubItems.map((sub) => {
                             const isSubActive = activePage === sub.id;
                             return (
@@ -329,7 +323,7 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
                                   setMobileMenuOpen(false);
                                   window.scrollTo({ top: 0, behavior: 'smooth' });
                                 }}
-                                className={`w-full text-left p-2.5 transition-colors flex items-center justify-between text-xs btn-tap ${
+                                className={`w-full text-left p-2 transition-colors flex items-center justify-between text-xs btn-tap touch-target ${
                                   isSubActive
                                     ? 'text-[#781353] dark:text-[#E03590] font-bold'
                                     : 'text-muted hover:text-[var(--text-primary)]'
@@ -350,25 +344,25 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
                 return (
                   <motion.button
                     key={link.id}
-                    initial={{ opacity: 0, x: -15 }}
+                    initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.04, duration: 0.2 }}
+                    transition={{ delay: index * 0.03, duration: 0.2 }}
                     onClick={() => {
                       setActivePage(link.id);
                       setMobileMenuOpen(false);
                       window.scrollTo({ top: 0, behavior: 'smooth' });
                     }}
-                    className={`w-full text-left p-3.5 border-l-2 transition-all btn-tap flex items-center justify-between touch-target ${
+                    className={`w-full text-left p-3 border-l-2 transition-all btn-tap flex items-center justify-between touch-target ${
                       isActive 
                         ? 'border-[#781353] dark:border-[#E03590] bg-[var(--bg-secondary)]' 
                         : 'border-transparent hover:border-editorial'
                     }`}
                   >
                     <div>
-                      <span className={`font-serif text-2xl block ${isActive ? 'font-bold text-[#781353] dark:text-[#E03590]' : 'font-semibold text-[var(--text-primary)]'}`}>
+                      <span className={`font-serif text-xl block ${isActive ? 'font-bold text-[#781353] dark:text-[#E03590]' : 'font-semibold text-[var(--text-primary)]'}`}>
                         {link.label}
                       </span>
-                      <span className="text-[10px] font-mono text-muted uppercase tracking-wider block">
+                      <span className="text-[9px] font-mono text-muted uppercase tracking-wider block">
                         {link.subtitle}
                       </span>
                     </div>
@@ -380,15 +374,15 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
             </div>
 
             {/* Mobile Footer Action */}
-            <div className="pt-4 border-t border-editorial space-y-3">
+            <div className="pt-3 border-t border-editorial space-y-2">
               <a
                 href="tel:1800110031"
-                className="w-full bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] py-4 text-center font-bold text-xs uppercase tracking-widest block transition-opacity btn-tap shadow-md touch-target"
+                className="w-full bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] py-3 text-center font-bold text-xs uppercase tracking-widest block transition-opacity btn-tap shadow-md touch-target flex items-center justify-center"
               >
                 📞 Call Crisis Helpline: 1800-11-0031
               </a>
 
-              <div className="text-[10px] text-center font-mono text-muted">
+              <div className="text-[9px] text-center font-mono text-muted">
                 100% Free • Confidential • 24/7 Support Across India
               </div>
             </div>

@@ -16,17 +16,17 @@ export default function FindSupportNearYou({ setActivePage, selectedCenter, setS
   };
 
   return (
-    <div className="pt-28 sm:pt-32 pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+    <div className="pt-20 sm:pt-32 pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
       
       {/* Navigation Breadcrumb */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between pt-4 sm:pt-0">
         <button 
           onClick={() => { setActivePage('help'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-          className="text-xs font-mono text-muted hover:text-[var(--text-primary)] flex items-center gap-1.5 transition-colors btn-tap"
+          className="text-xs font-mono text-muted hover:text-[var(--text-primary)] flex items-center gap-1.5 transition-colors btn-tap touch-target cursor-pointer"
         >
           <ArrowLeft className="w-3.5 h-3.5" /> Back to Get Help Hub
         </button>
-        <span className="text-[10px] font-mono uppercase bg-[var(--bg-secondary)] border border-editorial text-[#781353] dark:text-[#E03590] px-2.5 py-1 font-bold">
+        <span className="text-[9px] sm:text-[10px] font-mono uppercase bg-[var(--bg-secondary)] border border-editorial text-[#781353] dark:text-[#E03590] px-2.5 py-1 font-bold shrink-0">
           GPS Location Navigator
         </span>
       </div>
@@ -38,13 +38,13 @@ export default function FindSupportNearYou({ setActivePage, selectedCenter, setS
         transition={{ duration: 0.4 }}
         className="max-w-3xl space-y-3"
       >
-        <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#781353] dark:text-[#E03590] block">
+        <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest text-[#781353] dark:text-[#E03590] block">
           Interactive Facility Map
         </span>
         <h1 className="text-3xl sm:text-5xl font-serif font-bold text-[var(--text-primary)] tracking-tight">
           Find Support Near You
         </h1>
-        <p className="text-sm sm:text-base text-muted font-light leading-relaxed">
+        <p className="text-xs sm:text-base text-muted font-light leading-relaxed">
           Locate certified rehabilitation centers, outpatient clinics, and emergency counseling facilities on an interactive map.
         </p>
       </motion.div>
@@ -66,10 +66,10 @@ export default function FindSupportNearYou({ setActivePage, selectedCenter, setS
       <section className="space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-editorial pb-4">
           <div>
-            <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#781353] dark:text-[#E03590] block">
+            <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest text-[#781353] dark:text-[#E03590] block">
               Quick Pin Selector
             </span>
-            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[var(--text-primary)]">
+            <h2 className="text-xl sm:text-3xl font-serif font-bold text-[var(--text-primary)]">
               All Listed Support Locations
             </h2>
           </div>
@@ -83,19 +83,19 @@ export default function FindSupportNearYou({ setActivePage, selectedCenter, setS
               <div
                 key={center.id}
                 onClick={() => handleSelectCenter(center)}
-                className={`p-5 cursor-pointer transition-all border flex flex-col justify-between btn-tap ${
+                className={`p-4 sm:p-5 cursor-pointer transition-all border flex flex-col justify-between btn-tap ${
                   isSelected
                     ? 'border-[#781353] dark:border-[#E03590] bg-[var(--bg-secondary)] shadow-sm'
                     : 'card-doc hover:border-[#781353]'
                 }`}
               >
                 <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-mono font-bold uppercase text-[#781353] dark:text-[#E03590] bg-[var(--bg-card)] px-2 py-0.5 border border-editorial">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-[9px] font-mono font-bold uppercase text-[#781353] dark:text-[#E03590] bg-[var(--bg-card)] px-2 py-0.5 border border-editorial shrink-0">
                       {center.city}, {center.state}
                     </span>
                     {isSelected && (
-                      <span className="text-[10px] font-mono font-bold uppercase bg-[#781353] text-white dark:bg-[#E03590] px-2 py-0.5">
+                      <span className="text-[9px] font-mono font-bold uppercase bg-[#781353] text-white dark:bg-[#E03590] px-2 py-0.5 shrink-0">
                         Selected
                       </span>
                     )}
@@ -109,11 +109,11 @@ export default function FindSupportNearYou({ setActivePage, selectedCenter, setS
                   </p>
                 </div>
 
-                <div className="pt-4 mt-3 border-t border-editorial flex items-center justify-between text-xs">
+                <div className="pt-4 mt-3 border-t border-editorial flex items-center justify-between text-xs gap-2">
                   <a
                     href={`tel:${center.phoneClean || center.phone.replace(/\s+/g, '')}`}
                     onClick={(e) => e.stopPropagation()}
-                    className="font-mono font-bold text-[#781353] dark:text-[#E03590] flex items-center gap-1 hover:underline"
+                    className="font-mono font-bold text-[#781353] dark:text-[#E03590] flex items-center gap-1 hover:underline cursor-pointer"
                   >
                     <Phone className="w-3 h-3" /> {center.phone}
                   </a>
@@ -122,7 +122,7 @@ export default function FindSupportNearYou({ setActivePage, selectedCenter, setS
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => e.stopPropagation()}
-                    className="text-[10px] font-bold uppercase text-muted hover:text-[var(--text-primary)] flex items-center gap-1"
+                    className="text-[10px] font-bold uppercase text-muted hover:text-[var(--text-primary)] flex items-center gap-1 cursor-pointer"
                   >
                     GPS <ExternalLink className="w-3 h-3" />
                   </a>

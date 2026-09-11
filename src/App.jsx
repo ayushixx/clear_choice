@@ -51,18 +51,37 @@ export default function App() {
   const [selectedCenter, setSelectedCenter] = useState(null);
   const [legalModal, setLegalModal] = useState({ isOpen: false, type: 'privacy' });
 
-  // Light / Dark Theme state saved in localStorage
+  // System preference aware Light / Dark Theme state saved in localStorage
   const [theme, setTheme] = useState(() => {
-    return localStorage.getItem('clearchoice_theme') || 'light';
+    const savedTheme = localStorage.getItem('clearchoice_theme');
+    if (savedTheme) return savedTheme;
+    if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'dark';
+    }
+    return 'light';
   });
 
   useEffect(() => {
     const root = document.documentElement;
+    const body = document.body;
+    
     if (theme === 'dark') {
       root.classList.add('dark');
+      body.classList.add('dark');
     } else {
       root.classList.remove('dark');
+      body.classList.remove('dark');
     }
+    
+    // Sync meta theme-color for mobile status bars
+    let metaThemeColor = document.querySelector('meta[name="theme-color"]');
+    if (!metaThemeColor) {
+      metaThemeColor = document.createElement('meta');
+      metaThemeColor.name = 'theme-color';
+      document.head.appendChild(metaThemeColor);
+    }
+    metaThemeColor.content = theme === 'dark' ? '#0A0A0C' : '#FFFFFF';
+
     localStorage.setItem('clearchoice_theme', theme);
   }, [theme]);
 

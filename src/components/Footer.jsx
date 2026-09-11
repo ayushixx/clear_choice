@@ -7,7 +7,7 @@ export default function Footer({ setActivePage, openLegalModal }) {
   };
 
   return (
-    <footer className="bg-[#2E031D] text-[#FDF3F7] pt-12 pb-10 border-t border-white/10">
+    <footer className="bg-[#2E031D] text-[#FDF3F7] pt-12 pb-[calc(2.5rem+env(safe-area-inset-bottom,0px))] border-t border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
         
         {/* DESKTOP FOOTER GRID (Hidden on Mobile) */}
@@ -16,9 +16,11 @@ export default function Footer({ setActivePage, openLegalModal }) {
           {/* Col 1: Brand */}
           <div className="space-y-3">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-sm bg-white text-[#2E031D] flex items-center justify-center font-serif font-bold text-sm">
-                CC
-              </div>
+              <img 
+                src="/assets/logo.png" 
+                alt="CLEAR CHOICE Logo" 
+                className="h-8 w-auto object-contain filter brightness-110"
+              />
               <span className="font-serif font-bold text-xl text-white tracking-tight">
                 CLEAR CHOICE
               </span>
@@ -35,52 +37,52 @@ export default function Footer({ setActivePage, openLegalModal }) {
             </h4>
             <ul className="space-y-2 text-xs text-[#FDF3F7]/80">
               <li>
-                <button onClick={() => { setActivePage('home'); scrollToTop(); }} className="hover:text-white transition-colors">
+                <button onClick={() => { setActivePage('home'); scrollToTop(); }} className="hover:text-white transition-colors cursor-pointer">
                   Homepage
                 </button>
               </li>
               <li>
-                <button onClick={() => { setActivePage('story'); scrollToTop(); }} className="hover:text-white transition-colors">
+                <button onClick={() => { setActivePage('story'); scrollToTop(); }} className="hover:text-white transition-colors cursor-pointer">
                   My Story (Addiction to Advocacy)
                 </button>
               </li>
               <li>
-                <button onClick={() => { setActivePage('facts'); scrollToTop(); }} className="hover:text-white transition-colors">
+                <button onClick={() => { setActivePage('facts'); scrollToTop(); }} className="hover:text-white transition-colors cursor-pointer">
                   Drug Facts Library (10 Substances)
                 </button>
               </li>
               <li>
-                <button onClick={() => { setActivePage('quiz'); scrollToTop(); }} className="hover:text-white transition-colors">
+                <button onClick={() => { setActivePage('quiz'); scrollToTop(); }} className="hover:text-white transition-colors cursor-pointer">
                   Myth vs Fact Guide
                 </button>
               </li>
               <li>
-                <button onClick={() => { setActivePage('help'); scrollToTop(); }} className="hover:text-white transition-colors">
+                <button onClick={() => { setActivePage('help'); scrollToTop(); }} className="hover:text-white transition-colors cursor-pointer">
                   Get Help Hub
                 </button>
               </li>
               <li>
-                <button onClick={() => { setActivePage('crisis-support'); scrollToTop(); }} className="hover:text-white transition-colors text-amber-300 font-semibold">
+                <button onClick={() => { setActivePage('crisis-support'); scrollToTop(); }} className="hover:text-white transition-colors text-amber-300 font-semibold cursor-pointer">
                   Crisis Support (24/7 Hotline)
                 </button>
               </li>
               <li>
-                <button onClick={() => { setActivePage('recovery-centers'); scrollToTop(); }} className="hover:text-white transition-colors">
+                <button onClick={() => { setActivePage('recovery-centers'); scrollToTop(); }} className="hover:text-white transition-colors cursor-pointer">
                   Recovery & Rehab Centers Directory
                 </button>
               </li>
               <li>
-                <button onClick={() => { setActivePage('find-support'); scrollToTop(); }} className="hover:text-white transition-colors">
+                <button onClick={() => { setActivePage('find-support'); scrollToTop(); }} className="hover:text-white transition-colors cursor-pointer">
                   Find Support Near You (GPS Map)
                 </button>
               </li>
               <li>
-                <button onClick={() => { setActivePage('contact-counselor'); scrollToTop(); }} className="hover:text-white transition-colors">
+                <button onClick={() => { setActivePage('contact-counselor'); scrollToTop(); }} className="hover:text-white transition-colors cursor-pointer">
                   Contact Counselor (Confidential)
                 </button>
               </li>
               <li>
-                <button onClick={() => { setActivePage('blog'); scrollToTop(); }} className="hover:text-white transition-colors">
+                <button onClick={() => { setActivePage('blog'); scrollToTop(); }} className="hover:text-white transition-colors cursor-pointer">
                   Blog & Stories
                 </button>
               </li>
@@ -95,7 +97,7 @@ export default function Footer({ setActivePage, openLegalModal }) {
             <div className="space-y-2">
               <a 
                 href="tel:1800110031" 
-                className="text-2xl font-serif font-bold text-white block hover:underline"
+                className="text-2xl font-serif font-bold text-white block hover:underline cursor-pointer"
               >
                 1800-11-0031
               </a>
@@ -114,7 +116,7 @@ export default function Footer({ setActivePage, openLegalModal }) {
               <li>
                 <button 
                   onClick={() => openLegalModal('privacy')}
-                  className="text-[#FDF3F7]/80 hover:text-white transition-colors flex items-center gap-1.5"
+                  className="text-[#FDF3F7]/80 hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"
                 >
                   <Lock className="w-3.5 h-3.5 text-[#DC2F87]" />
                   <span>Privacy Policy (Anonymous Data)</span>
@@ -123,7 +125,7 @@ export default function Footer({ setActivePage, openLegalModal }) {
               <li>
                 <button 
                   onClick={() => openLegalModal('disclaimer')}
-                  className="text-[#FDF3F7]/80 hover:text-white transition-colors flex items-center gap-1.5"
+                  className="text-[#FDF3F7]/80 hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"
                 >
                   <Shield className="w-3.5 h-3.5 text-[#DC2F87]" />
                   <span>Medical Disclaimer</span>
@@ -138,9 +140,11 @@ export default function Footer({ setActivePage, openLegalModal }) {
         <div className="md:hidden space-y-6 text-center border-b border-white/10 pb-8">
           {/* Logo & Tagline */}
           <div className="flex flex-col items-center gap-2">
-            <div className="w-9 h-9 bg-white text-[#2E031D] flex items-center justify-center font-serif font-bold text-sm">
-              CC
-            </div>
+            <img 
+              src="/assets/logo.png" 
+              alt="CLEAR CHOICE Logo" 
+              className="h-10 w-auto object-contain filter brightness-110"
+            />
             <span className="font-serif font-bold text-2xl text-white tracking-tight">
               CLEAR CHOICE
             </span>
@@ -156,7 +160,7 @@ export default function Footer({ setActivePage, openLegalModal }) {
             </span>
             <a
               href="tel:1800110031"
-              className="text-2xl font-serif font-bold text-white hover:text-[#E03590] block transition-colors btn-tap touch-target flex items-center justify-center"
+              className="text-2xl font-serif font-bold text-white hover:text-[#E03590] block transition-colors btn-tap touch-target flex items-center justify-center cursor-pointer"
             >
               📞 1800-11-0031
             </a>
@@ -165,7 +169,7 @@ export default function Footer({ setActivePage, openLegalModal }) {
           {/* Back to Top */}
           <button
             onClick={scrollToTop}
-            className="text-xs font-mono text-[#FDF3F7]/70 hover:text-white inline-flex items-center gap-1 py-2 px-3 btn-tap touch-target"
+            className="text-xs font-mono text-[#FDF3F7]/70 hover:text-white inline-flex items-center gap-1 py-2.5 px-4 btn-tap touch-target cursor-pointer"
           >
             <span>Back to Top</span>
             <ArrowUp className="w-3.5 h-3.5" />
@@ -176,9 +180,9 @@ export default function Footer({ setActivePage, openLegalModal }) {
         <div className="flex flex-col sm:flex-row items-center justify-between text-xs text-[#FDF3F7]/60 gap-4 text-center sm:text-left">
           <p>© {new Date().getFullYear()} CLEAR CHOICE. All rights reserved.</p>
           <div className="flex items-center space-x-4">
-            <button onClick={() => openLegalModal('privacy')} className="hover:underline py-1.5 px-2 btn-tap">Privacy Policy</button>
+            <button onClick={() => openLegalModal('privacy')} className="hover:underline py-1.5 px-2 btn-tap cursor-pointer">Privacy Policy</button>
             <span>•</span>
-            <button onClick={() => openLegalModal('disclaimer')} className="hover:underline py-1.5 px-2 btn-tap">Medical Disclaimer</button>
+            <button onClick={() => openLegalModal('disclaimer')} className="hover:underline py-1.5 px-2 btn-tap cursor-pointer">Medical Disclaimer</button>
           </div>
         </div>
 

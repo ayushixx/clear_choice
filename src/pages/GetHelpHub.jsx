@@ -50,28 +50,28 @@ export default function GetHelpHub({ setActivePage }) {
   ];
 
   return (
-    <div className="pt-28 sm:pt-32 pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+    <div className="pt-20 sm:pt-32 pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 sm:space-y-16">
       
       {/* HEADER SECTION */}
       <motion.div 
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="max-w-3xl space-y-4"
+        className="max-w-3xl space-y-3 sm:space-y-4 pt-4 sm:pt-0"
       >
-        <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#781353] dark:text-[#E03590] block">
+        <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest text-[#781353] dark:text-[#E03590] block">
           Get Help Decision Center
         </span>
         <h1 className="text-3xl sm:text-5xl lg:text-6xl font-serif font-bold text-[var(--text-primary)] tracking-tight">
           How Can We Help You Today?
         </h1>
-        <p className="text-base sm:text-lg text-muted font-light leading-relaxed">
+        <p className="text-xs sm:text-lg text-muted font-light leading-relaxed">
           Select your primary goal below to get directed immediately to the right resources, directory listings, interactive map, or private consultation forms.
         </p>
       </motion.div>
 
       {/* 4 LARGE INTENT FEATURE CARDS */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8">
         {options.map((opt, idx) => {
           const Icon = opt.icon;
           return (
@@ -80,7 +80,7 @@ export default function GetHelpHub({ setActivePage }) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: idx * 0.1 }}
-              className={`p-6 sm:p-8 border flex flex-col justify-between relative overflow-hidden transition-all duration-300 ${
+              className={`p-5 sm:p-8 border flex flex-col justify-between relative overflow-hidden transition-all duration-300 ${
                 opt.primary
                   ? 'bg-[#2E031D] text-white border-[#2E031D] neo-shadow'
                   : 'card-doc hover:border-[#781353] dark:hover:border-[#E03590]'
@@ -91,25 +91,25 @@ export default function GetHelpHub({ setActivePage }) {
               )}
 
               <div className="space-y-4 relative z-10">
-                <div className="flex items-center justify-between">
-                  <span className={`text-[10px] font-mono font-bold uppercase px-2.5 py-1 border ${
+                <div className="flex items-center justify-between gap-2">
+                  <span className={`text-[9px] sm:text-[10px] font-mono font-bold uppercase px-2.5 py-1 border ${
                     opt.primary
                       ? 'bg-white/10 text-white border-white/20'
                       : 'bg-[var(--bg-secondary)] text-[#781353] dark:text-[#E03590] border-editorial'
                   }`}>
                     {opt.badge}
                   </span>
-                  <div className={`p-3 rounded-none border ${
+                  <div className={`p-2.5 sm:p-3 rounded-none border ${
                     opt.primary
                       ? 'bg-white/10 text-[#E03590] border-white/20'
                       : 'bg-[var(--bg-secondary)] text-[#781353] dark:text-[#E03590] border-editorial'
                   }`}>
-                    <Icon className="w-6 h-6" />
+                    <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
                   </div>
                 </div>
 
                 <div>
-                  <h2 className={`text-2xl sm:text-3xl font-serif font-bold ${
+                  <h2 className={`text-xl sm:text-3xl font-serif font-bold ${
                     opt.primary ? 'text-white' : 'text-[var(--text-primary)]'
                   }`}>
                     {opt.title}
@@ -125,11 +125,11 @@ export default function GetHelpHub({ setActivePage }) {
                   opt.primary ? 'text-[#E03590]' : 'text-[#781353] dark:text-[#E03590]'
                 }`}>
                   <ShieldCheck className="w-4 h-4 shrink-0" />
-                  <span>{opt.highlight}</span>
+                  <span className="text-[11px] sm:text-xs">{opt.highlight}</span>
                 </div>
               </div>
 
-              <div className="pt-6 mt-6 border-t border-editorial/40 relative z-10">
+              <div className="pt-5 mt-5 border-t border-editorial/40 relative z-10">
                 {opt.primary ? (
                   <MagneticButton
                     onClick={() => {
@@ -147,7 +147,7 @@ export default function GetHelpHub({ setActivePage }) {
                       setActivePage(opt.id);
                       window.scrollTo({ top: 0, behavior: 'smooth' });
                     }}
-                    className="w-full bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] py-3.5 px-6 font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-colors btn-tap touch-target"
+                    className="w-full bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] py-3.5 px-6 font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-colors btn-tap touch-target cursor-pointer"
                   >
                     <span>{opt.cta}</span>
                     <ArrowRight className="w-4 h-4" />
