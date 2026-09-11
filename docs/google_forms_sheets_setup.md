@@ -19,7 +19,7 @@ This guide explains how to set up the **100% Free Google Sheets & Gmail Integrat
 3. Update the configuration variables at the top of the file:
    ```javascript
    var CLIENT_EMAIL = "your-email@client.com"; // Your notification recipient email
-   var API_SECRET_KEY = "clearchoice_secret_api_key_2026"; // Secret key matching VITE_API_KEY
+   var API_SECRET_KEY = "YOUR_SECRET_API_KEY"; // Secret key matching VITE_API_KEY
    ```
 4. Click the **Save** icon (disk icon) or press `Ctrl + S` / `Cmd + S`.
 
@@ -43,7 +43,7 @@ Add the Web App URL and API Key to your website's `.env` file (or Vercel Environ
 
 ```env
 VITE_GOOGLE_SCRIPT_URL=https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec
-VITE_API_KEY=clearchoice_secret_api_key_2026
+VITE_API_KEY=YOUR_SECRET_API_KEY
 ```
 
 ---

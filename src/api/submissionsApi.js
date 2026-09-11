@@ -2,7 +2,7 @@ import { REHAB_CENTERS } from '../data/rehabCenters';
 import { trackContactSubmit, trackCallbackSubmit } from '../services/ga4Analytics';
 
 const GOOGLE_SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL || '';
-const API_KEY = import.meta.env.VITE_API_KEY || 'CC12_9x8fK2Lm7pQzR5vN4sA2026';
+const API_KEY = import.meta.env.VITE_API_KEY || '';
 
 /**
  * Validates phone numbers (minimum 8 digits)

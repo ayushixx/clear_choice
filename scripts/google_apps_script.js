@@ -21,7 +21,7 @@
 
 // CONFIGURATION (CLIENT EDITABLE)
 var CLIENT_EMAIL = "client@clearchoice.org"; // Change to recipient email address
-var API_SECRET_KEY = "CC12_9x8fK2Lm7pQzR5vN4sA2026"; // Secret key matching VITE_API_KEY
+var API_SECRET_KEY = "YOUR_SECRET_API_KEY"; // Secret key matching VITE_API_KEY
 
 function doGet(e) {
   return ContentService.createTextOutput(JSON.stringify({
@@ -55,9 +55,9 @@ function doPost(e) {
       }
     }
     
-    // 1. API Key Validation (Allows matching secret key or default dev key)
+    // 1. API Key Validation
     var providedKey = contents.apiKey || contents.api_key || (e && e.parameter ? e.parameter.apiKey : "");
-    if (providedKey !== API_SECRET_KEY && providedKey !== "clearchoice_secret_api_key_2026" && API_SECRET_KEY !== "") {
+    if (API_SECRET_KEY !== "" && providedKey !== API_SECRET_KEY) {
       return ContentService.createTextOutput(JSON.stringify({
         status: "error",
         message: "Unauthorized: Invalid API Key (" + providedKey + ")"
