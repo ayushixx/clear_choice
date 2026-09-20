@@ -6,12 +6,12 @@ export default function LegalModal({ isOpen, modalType, onClose }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#2E031D]/80 backdrop-blur-md animate-fadeIn">
-      <div className="bg-[var(--bg-card)] text-[var(--text-primary)] max-w-2xl w-full rounded-2xl p-6 sm:p-8 shadow-2xl border border-editorial relative max-h-[90vh] overflow-y-auto">
+      <div className="bg-[var(--bg-card)] text-[var(--text-primary)] max-w-2xl w-full rounded-3xl p-6 sm:p-8 shadow-2xl border border-editorial relative max-h-[90vh] overflow-y-auto">
         
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-[var(--text-primary)] hover:text-[#781353] dark:hover:text-[#E03590] bg-[var(--bg-secondary)] p-2.5 rounded-full transition-colors touch-target btn-tap cursor-pointer flex items-center justify-center"
+          className="absolute top-4 right-4 text-[var(--text-primary)] hover:text-[#781353] dark:hover:text-[#E03590] bg-[var(--bg-secondary)] p-2.5 rounded-full transition-colors touch-target btn-tap cursor-pointer flex items-center justify-center border border-editorial"
           aria-label="Close modal"
         >
           <X className="w-5 h-5" />
@@ -20,7 +20,7 @@ export default function LegalModal({ isOpen, modalType, onClose }) {
         {modalType === 'privacy' ? (
           <div>
             <div className="flex items-center gap-3 text-[#781353] dark:text-[#E03590] mb-4">
-              <div className="p-3 bg-[var(--bg-secondary)] rounded-xl border border-editorial">
+              <div className="p-3 bg-[var(--bg-secondary)] rounded-2xl border border-editorial">
                 <Lock className="w-6 h-6 text-[#781353] dark:text-[#E03590]" />
               </div>
               <div>
@@ -30,7 +30,7 @@ export default function LegalModal({ isOpen, modalType, onClose }) {
             </div>
 
             <div className="space-y-4 text-sm leading-relaxed text-[var(--text-primary)]/90 pt-2 border-t border-editorial">
-              <div className="p-4 bg-[var(--bg-secondary)] rounded-xl border border-editorial font-medium">
+              <div className="p-4 bg-[var(--bg-secondary)] rounded-2xl border border-editorial font-medium">
                 "We do not store sensitive personal data beyond contact requests. Chats may remain anonymous."
               </div>
 
@@ -58,7 +58,7 @@ export default function LegalModal({ isOpen, modalType, onClose }) {
         ) : (
           <div>
             <div className="flex items-center gap-3 text-[#781353] dark:text-[#E03590] mb-4">
-              <div className="p-3 bg-[var(--bg-secondary)] rounded-xl border border-editorial">
+              <div className="p-3 bg-[var(--bg-secondary)] rounded-2xl border border-editorial">
                 <ShieldAlert className="w-6 h-6 text-[#781353] dark:text-[#E03590]" />
               </div>
               <div>
@@ -68,7 +68,7 @@ export default function LegalModal({ isOpen, modalType, onClose }) {
             </div>
 
             <div className="space-y-4 text-sm leading-relaxed text-[var(--text-primary)]/90 pt-2 border-t border-editorial">
-              <div className="p-4 bg-[var(--bg-secondary)] rounded-xl border border-editorial font-medium">
+              <div className="p-4 bg-[var(--bg-secondary)] rounded-2xl border border-editorial font-medium">
                 "This website does not provide medical advice. Contact emergency services immediately in a medical emergency."
               </div>
 
@@ -81,7 +81,7 @@ export default function LegalModal({ isOpen, modalType, onClose }) {
                 Always seek the advice of a qualified physician, psychiatrist, or licensed addiction recovery expert regarding medical conditions or substance dependence detox plans.
               </p>
 
-              <div className="p-4 bg-[#2E031D] text-[#FDF3F7] rounded-xl space-y-2 mt-4">
+              <div className="p-4 bg-[#2E031D] text-[#FDF3F7] rounded-2xl space-y-2 mt-4">
                 <p className="font-bold text-[#E03590] text-sm">Immediate Emergency Assistance:</p>
                 <p className="text-xs text-[#F7E4EE]/90">
                   If you or someone nearby is experiencing acute toxicity, breathing difficulties, or loss of consciousness, immediately call emergency services (112 or 102) or proceed to the nearest emergency medical facility.
@@ -94,7 +94,7 @@ export default function LegalModal({ isOpen, modalType, onClose }) {
         <div className="mt-8 pt-4 border-t border-editorial flex justify-end">
           <button
             onClick={onClose}
-            className="bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] px-6 py-2.5 rounded-lg text-sm font-semibold transition-colors btn-tap touch-target cursor-pointer"
+            className="bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] px-6 py-3 rounded-full text-xs font-bold uppercase tracking-wider transition-all btn-tap touch-target cursor-pointer shadow-md"
           >
             I Understand
           </button>

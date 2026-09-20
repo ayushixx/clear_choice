@@ -5,12 +5,18 @@ const GOOGLE_SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL || '';
 const API_KEY = import.meta.env.VITE_API_KEY || '';
 
 /**
- * Validates phone numbers (minimum 8 digits)
+ * Validates phone numbers (must contain only +, digits, spaces, hyphens, parentheses and have between 8 and 15 digits)
  */
 export const validatePhone = (phone) => {
-  if (!phone) return false;
-  const digitsOnly = phone.replace(/\D/g, '');
-  return digitsOnly.length >= 8;
+  if (!phone || typeof phone !== 'string') return false;
+  const trimmed = phone.trim();
+  // Ensure string contains only allowed phone characters
+  const validCharsRegex = /^[+]?[0-9\s\-()]+$/;
+  if (!validCharsRegex.test(trimmed)) return false;
+
+  // Extract digits and verify standard phone length (8-15 digits)
+  const digitsOnly = trimmed.replace(/\D/g, '');
+  return digitsOnly.length >= 8 && digitsOnly.length <= 15;
 };
 
 /**

@@ -38,10 +38,10 @@ export default function TrustBadges() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.08, duration: 0.4 }}
-              className="flex items-center gap-3 p-3 sm:p-4 bg-[var(--bg-card)] border border-editorial rounded-none shadow-2xs"
+              className="flex items-center gap-3 p-3.5 sm:p-4 bg-[var(--bg-card)] border border-editorial rounded-2xl shadow-xs hover:border-[#E03590] transition-colors"
             >
-              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-none bg-[#781353]/10 dark:bg-[#E03590]/15 text-[#781353] dark:text-[#E03590] flex items-center justify-center shrink-0 border border-editorial">
-                <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#781353]/10 dark:bg-[#E03590]/15 text-[#781353] dark:text-[#E03590] flex items-center justify-center shrink-0 border border-editorial">
+                <Icon className="w-5 h-5" />
               </div>
               <div className="min-w-0">
                 <h4 className="font-serif font-bold text-xs sm:text-sm text-[var(--text-primary)] truncate">

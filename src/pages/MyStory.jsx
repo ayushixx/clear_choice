@@ -7,12 +7,12 @@ import AmbientParticles from '../components/AmbientParticles';
 export default function MyStory({ setActivePage }) {
   return (
     <div className="pt-20 sm:pt-32 pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 sm:space-y-20">
-      
+
       {/* Magazine Editorial Spread */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-12 items-center pt-4 sm:pt-0">
-        
+
         {/* Left Side: Title & Overview */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
@@ -43,31 +43,31 @@ export default function MyStory({ setActivePage }) {
         </motion.div>
 
         {/* Right Side: Portrait Image */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
           className="lg:col-span-5"
         >
-          <div className="rounded-none overflow-hidden border border-editorial bg-[var(--bg-secondary)] aspect-[4/5] max-w-md mx-auto lg:max-w-none shadow-md animate-float relative">
-            <img 
-              src="/assets/mystory-portrait.jpg" 
-              alt="Founding Advocate Portrait" 
+          <div className="rounded-3xl overflow-hidden border border-editorial bg-[var(--bg-secondary)] aspect-[4/5] max-w-md mx-auto lg:max-w-none shadow-xl relative">
+            <img
+              src="/assets/mystory-portrait.jpg"
+              alt="Founding Advocate Portrait"
               className="w-full h-full object-cover object-[center_20%] sm:object-center filter contrast-[1.03]"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
           </div>
         </motion.div>
 
       </div>
 
       {/* PULL QUOTE WITH GLASSMORPHISM BORDER & GLOW */}
-      <motion.section 
+      <motion.section
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className="relative bg-[var(--bg-secondary)] rounded-none p-5 sm:p-12 border-l-4 border-[#781353] dark:border-[#E03590] max-w-4xl mx-auto space-y-3 shadow-sm overflow-hidden"
+        className="relative bg-[var(--bg-secondary)] rounded-3xl p-6 sm:p-12 border-l-4 border-[#781353] dark:border-[#E03590] max-w-4xl mx-auto space-y-3 shadow-md overflow-hidden"
       >
         <AmbientParticles count={15} />
         <Quote className="w-6 h-6 sm:w-8 sm:h-8 text-[#781353] dark:text-[#E03590] opacity-60 relative z-10" />
@@ -81,38 +81,34 @@ export default function MyStory({ setActivePage }) {
 
       {/* JOURNALISTIC CHAPTERS */}
       <section className="max-w-3xl mx-auto space-y-10 sm:space-y-16">
-        
+
         {/* Chapter 1 */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: -15 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="space-y-3 border-l border-editorial pl-4 sm:pl-8"
+          className="space-y-3 border-l-2 border-[#E03590]/40 pl-4 sm:pl-8"
         >
           <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest text-[#781353] dark:text-[#E03590]">
             2017 – 2023 • Chapter 01
           </span>
           <h2 className="text-lg sm:text-3xl font-serif font-bold text-[var(--text-primary)] leading-snug">
-            Six Years of Addiction: The Isolation of Dependency
+            Six Years of Addiction: A Period of Struggle
           </h2>
           <div className="text-xs sm:text-base text-muted leading-relaxed font-light space-y-3 pt-1">
             <p>
-              Substance dependency rarely arrives with alarms; it starts quietly. Between 2017 and 2023, what began as social escape turned into a daily struggle. Over six years, my world shrank down to managing cravings and shielding loved ones from the truth.
-            </p>
-            <p>
-              Isolation became my primary defense mechanism. The hardest part was not just physical fatigue—it was the loss of self-worth and the belief that tomorrow could be different.
-            </p>
+              What began as a gradual challenge evolved into a difficult chapter marked by uncertainty, isolation, and personal obstacles. Over time, the need for change became impossible to ignore.            </p>
           </div>
         </motion.div>
 
         {/* Chapter 2 */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: -15 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="space-y-3 border-l border-editorial pl-4 sm:pl-8"
+          className="space-y-3 border-l-2 border-[#E03590]/40 pl-4 sm:pl-8"
         >
           <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest text-[#781353] dark:text-[#E03590]">
             2023 – 2025 • Chapter 02
@@ -131,12 +127,12 @@ export default function MyStory({ setActivePage }) {
         </motion.div>
 
         {/* Chapter 3 */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: -15 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="space-y-3 border-l border-editorial pl-4 sm:pl-8"
+          className="space-y-3 border-l-2 border-[#E03590]/40 pl-4 sm:pl-8"
         >
           <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest text-[#781353] dark:text-[#E03590]">
             2025 – Today • Chapter 03
@@ -157,24 +153,24 @@ export default function MyStory({ setActivePage }) {
       </section>
 
       {/* Understated Action Banner */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="bg-[#2E031D] dark:bg-[#121216] text-white p-5 sm:p-10 border border-editorial flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 glow-maroon"
+        className="bg-[#2E031D] dark:bg-[#16161C] text-white p-6 sm:p-10 border border-editorial flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 glow-accent rounded-3xl shadow-xl"
       >
         <div>
-          <h3 className="text-base sm:text-xl font-serif font-bold text-white">Need Support or Have Questions?</h3>
-          <p className="text-xs text-white/80 font-light mt-1">24/7 confidential assistance is available right now.</p>
+          <h3 className="text-lg sm:text-2xl font-serif font-bold text-white">Need Support or Have Questions?</h3>
+          <p className="text-xs sm:text-sm text-white/80 font-light mt-1">24/7 confidential assistance is available right now.</p>
         </div>
         <MagneticButton
-          onClick={() => { setActivePage('help'); window.scrollTo(0,0); }}
-          className="bg-white text-[#2E031D] hover:bg-[#FDF3F7] px-5 py-3 text-xs font-bold uppercase tracking-widest transition-colors whitespace-nowrap w-full sm:w-auto justify-center touch-target"
+          onClick={() => { setActivePage('help'); window.scrollTo(0, 0); }}
+          className="bg-white text-[#2E031D] hover:bg-[#FDF3F7] px-6 py-3.5 text-xs font-extrabold uppercase tracking-widest transition-all whitespace-nowrap w-full sm:w-auto justify-center touch-target rounded-full shadow-lg"
         >
           <span className="flex items-center justify-center gap-2">
             <span>Get Crisis Support</span>
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-4 h-4 text-[#E03590]" />
           </span>
         </MagneticButton>
       </motion.div>

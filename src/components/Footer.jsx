@@ -154,7 +154,7 @@ export default function Footer({ setActivePage, openLegalModal }) {
           </div>
 
           {/* Quick Helpline Dial */}
-          <div className="bg-[#4E0834]/60 p-4 border border-white/10 space-y-2">
+          <div className="bg-[#4E0834]/60 p-5 rounded-2xl border border-white/10 space-y-2 shadow-sm">
             <span className="text-[10px] font-mono uppercase tracking-widest text-[#FDF3F7]/70 block font-bold">
               Immediate Confidential Crisis Support
             </span>
@@ -169,10 +169,10 @@ export default function Footer({ setActivePage, openLegalModal }) {
           {/* Back to Top */}
           <button
             onClick={scrollToTop}
-            className="text-xs font-mono text-[#FDF3F7]/70 hover:text-white inline-flex items-center gap-1 py-2.5 px-4 btn-tap touch-target cursor-pointer"
+            className="text-xs font-mono text-[#FDF3F7]/80 hover:text-white inline-flex items-center gap-2 py-3 px-5 border border-white/15 rounded-full btn-tap touch-target cursor-pointer bg-white/5"
           >
             <span>Back to Top</span>
-            <ArrowUp className="w-3.5 h-3.5" />
+            <ArrowUp className="w-4 h-4 text-[#E03590]" />
           </button>
         </div>
 

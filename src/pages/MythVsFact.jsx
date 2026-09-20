@@ -24,14 +24,14 @@ export default function MythVsFact({ setActivePage }) {
         {MYTH_VS_FACT.map((item, idx) => (
           <div 
             key={item.id}
-            className="card-doc p-5 sm:p-8 space-y-4"
+            className="card-doc p-6 sm:p-8 space-y-4 rounded-3xl"
           >
             {/* Counter Badge */}
             <div className="flex items-center justify-between border-b border-editorial pb-3 gap-2">
-              <span className="text-[11px] sm:text-xs font-mono font-bold text-[#781353] dark:text-[#E03590] uppercase tracking-wider">
+              <span className="text-[11px] sm:text-xs font-mono font-bold text-[#781353] dark:text-[#E03590] uppercase tracking-wider bg-[var(--bg-secondary)] px-3 py-1 rounded-full border border-editorial">
                 Myth 0{idx + 1}
               </span>
-              <span className="text-[9px] sm:text-[10px] font-mono text-muted uppercase">
+              <span className="text-[10px] font-mono text-muted uppercase">
                 Evidence-Based Analysis
               </span>
             </div>
@@ -44,8 +44,8 @@ export default function MythVsFact({ setActivePage }) {
             </div>
 
             {/* Fact Statement */}
-            <div className="p-3.5 sm:p-4 bg-[var(--bg-secondary)] border-l-4 border-[#781353] dark:border-[#E03590] space-y-1">
-              <span className="text-[9px] sm:text-[10px] font-mono font-bold uppercase tracking-wider text-[#781353] dark:text-[#E03590] block">
+            <div className="p-4 sm:p-5 bg-[var(--bg-secondary)] border-l-4 border-[#781353] dark:border-[#E03590] space-y-1 rounded-2xl shadow-xs">
+              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#781353] dark:text-[#E03590] block">
                 The Fact
               </span>
               <p className="text-xs sm:text-base font-semibold text-[var(--text-primary)] leading-relaxed">
@@ -69,10 +69,10 @@ export default function MythVsFact({ setActivePage }) {
         </div>
         <button
           onClick={() => { setActivePage('help'); window.scrollTo(0,0); }}
-          className="bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] px-6 py-3 text-xs font-bold uppercase tracking-widest transition-colors inline-flex items-center justify-center gap-2 btn-tap touch-target w-full sm:w-auto cursor-pointer"
+          className="bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] px-6 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all inline-flex items-center justify-center gap-2 btn-tap touch-target w-full sm:w-auto cursor-pointer shadow-md glow-accent"
         >
           <span>Connect With Support</span>
-          <ArrowRight className="w-4 h-4" />
+          <ArrowRight className="w-4 h-4 text-[#E03590] dark:text-[#781353]" />
         </button>
       </div>
 

@@ -224,17 +224,17 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
                 setActivePage('crisis-support');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="bg-[#2E031D] dark:bg-[#FFFFFF] text-[#FDF3F7] dark:text-[#0A0A0C] px-5 py-2.5 text-xs font-bold uppercase tracking-widest hover:opacity-90 transition-opacity btn-tap touch-target shadow-md"
+              className="bg-[#2E031D] dark:bg-[#FFFFFF] text-[#FDF3F7] dark:text-[#0A0A0C] px-5 py-2.5 text-xs font-bold uppercase tracking-widest hover:opacity-90 transition-opacity btn-tap touch-target shadow-md rounded-full"
             >
               Crisis Hotline 24/7
             </MagneticButton>
           </div>
 
           {/* Mobile Right Controls: Hierarchy -> Theme Toggle, then Menu Button */}
-          <div className="md:hidden flex items-center gap-1">
+          <div className="md:hidden flex items-center gap-1.5">
             <button
               onClick={toggleTheme}
-              className="p-2.5 text-[var(--text-primary)] btn-tap touch-target flex items-center justify-center rounded-md hover:bg-[var(--bg-secondary)]"
+              className="p-3 text-[var(--text-primary)] btn-tap touch-target flex items-center justify-center rounded-full border border-editorial hover:bg-[var(--bg-secondary)]"
               aria-label="Toggle Theme"
             >
               {theme === 'light' ? <Moon className="w-5 h-5 text-[#2E031D]" /> : <Sun className="w-5 h-5 text-amber-300" />}
@@ -242,7 +242,7 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2.5 text-[var(--text-primary)] btn-tap touch-target flex items-center justify-center rounded-md hover:bg-[var(--bg-secondary)]"
+              className="p-3 text-[var(--text-primary)] btn-tap touch-target flex items-center justify-center rounded-full border border-editorial hover:bg-[var(--bg-secondary)]"
               aria-label="Toggle mobile menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -256,63 +256,74 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, x: '100%' }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: '100%' }}
-            transition={{ type: 'spring', damping: 28, stiffness: 300 }}
-            className="md:hidden fixed inset-0 z-50 bg-[var(--bg-primary)]/98 backdrop-blur-2xl text-[var(--text-primary)] flex flex-col justify-between p-5 pt-[calc(1rem+env(safe-area-inset-top,0px))] pb-[calc(1.5rem+env(safe-area-inset-bottom,0px))] overflow-y-auto"
+            initial={{ opacity: 0, y: '-100%' }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: '-100%' }}
+            transition={{ type: 'spring', damping: 28, stiffness: 280 }}
+            className="md:hidden fixed inset-0 z-50 bg-[var(--bg-primary)]/98 backdrop-blur-3xl text-[var(--text-primary)] flex flex-col justify-between p-5 pt-[calc(1rem+env(safe-area-inset-top,0px))] pb-[calc(1.5rem+env(safe-area-inset-bottom,0px))] overflow-y-auto rounded-b-3xl border-b border-editorial shadow-2xl"
           >
             {/* Mobile Menu Header */}
-            <div className="flex items-center justify-between border-b border-editorial pb-3.5">
+            <div className="flex items-center justify-between border-b border-editorial pb-4">
               <div className="flex items-center gap-2.5">
                 <img 
                   src="/assets/logo.png" 
                   alt="CLEAR CHOICE Logo" 
-                  className="h-7 w-auto object-contain filter dark:brightness-110"
+                  className="h-8 w-auto object-contain filter dark:brightness-110"
                 />
                 <div>
-                  <span className="font-serif font-extrabold text-base tracking-tight block">CLEAR CHOICE</span>
-                  <span className="text-[9px] font-mono text-muted uppercase tracking-widest block">Navigation Menu</span>
+                  <span className="font-serif font-extrabold text-lg tracking-tight block">CLEAR CHOICE</span>
+                  <span className="text-[9px] font-mono text-muted uppercase tracking-widest block">Documentary & Recovery</span>
                 </div>
               </div>
               
-              <button
-                onClick={() => setMobileMenuOpen(false)}
-                className="p-2.5 text-[var(--text-primary)] btn-tap touch-target flex items-center justify-center"
-                aria-label="Close menu"
-              >
-                <X className="w-6 h-6" />
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={toggleTheme}
+                  className="p-3 text-[var(--text-primary)] btn-tap touch-target flex items-center justify-center rounded-full border border-editorial bg-[var(--bg-secondary)]"
+                  aria-label="Toggle Theme"
+                  title={`Switch to ${theme === 'light' ? 'Dark' : 'Light'} Mode`}
+                >
+                  {theme === 'light' ? <Moon className="w-5 h-5 text-[#2E031D]" /> : <Sun className="w-5 h-5 text-amber-300" />}
+                </button>
+
+                <button
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="p-3 text-[var(--text-primary)] btn-tap touch-target flex items-center justify-center rounded-full border border-editorial bg-[var(--bg-secondary)]"
+                  aria-label="Close menu"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
             </div>
 
             {/* Mobile Nav Links with Accordion for Get Help */}
-            <div className="py-4 space-y-2 flex-1 flex flex-col justify-center">
+            <div className="py-6 space-y-3 flex-1 flex flex-col justify-center">
               {navLinks.map((link, index) => {
                 if (link.id === 'help') {
                   return (
-                    <div key={link.id} className="space-y-1">
+                    <div key={link.id} className="space-y-1.5">
                       <button
                         onClick={() => setMobileHelpExpand(!mobileHelpExpand)}
-                        className={`w-full text-left p-3 border-l-2 transition-all btn-tap flex items-center justify-between touch-target ${
+                        className={`w-full text-left p-4 rounded-2xl transition-all btn-tap flex items-center justify-between touch-target ${
                           isHelpActive
-                            ? 'border-[#781353] dark:border-[#E03590] bg-[var(--bg-secondary)]' 
-                            : 'border-transparent hover:border-editorial'
+                            ? 'bg-[var(--bg-secondary)] border border-[#E03590]/40' 
+                            : 'hover:bg-[var(--bg-secondary)] border border-transparent'
                         }`}
                       >
                         <div>
-                          <span className={`font-serif text-xl block ${isHelpActive ? 'font-bold text-[#781353] dark:text-[#E03590]' : 'font-semibold text-[var(--text-primary)]'}`}>
+                          <span className={`font-serif text-2xl block ${isHelpActive ? 'font-bold text-[#781353] dark:text-[#E03590]' : 'font-semibold text-[var(--text-primary)]'}`}>
                             {link.label}
                           </span>
-                          <span className="text-[9px] font-mono text-muted uppercase tracking-wider block">
+                          <span className="text-[10px] font-mono text-muted uppercase tracking-wider block mt-0.5">
                             {link.subtitle}
                           </span>
                         </div>
-                        <ChevronDown className={`w-4 h-4 transition-transform ${mobileHelpExpand ? 'rotate-180' : ''}`} />
+                        <ChevronDown className={`w-5 h-5 transition-transform ${mobileHelpExpand ? 'rotate-180' : ''}`} />
                       </button>
 
                       {/* Expanded Mobile Sub-Items */}
                       {(mobileHelpExpand || isHelpActive) && (
-                        <div className="pl-4 space-y-1.5 border-l border-editorial ml-2 py-1">
+                        <div className="pl-3 space-y-2 border-l-2 border-[#E03590]/30 ml-3 py-2">
                           {helpSubItems.map((sub) => {
                             const isSubActive = activePage === sub.id;
                             return (
@@ -323,14 +334,17 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
                                   setMobileMenuOpen(false);
                                   window.scrollTo({ top: 0, behavior: 'smooth' });
                                 }}
-                                className={`w-full text-left p-2 transition-colors flex items-center justify-between text-xs btn-tap touch-target ${
+                                className={`w-full text-left p-3 rounded-xl transition-all flex items-center justify-between text-sm btn-tap touch-target ${
                                   isSubActive
-                                    ? 'text-[#781353] dark:text-[#E03590] font-bold'
-                                    : 'text-muted hover:text-[var(--text-primary)]'
+                                    ? 'bg-[var(--bg-secondary)] text-[#781353] dark:text-[#E03590] font-bold'
+                                    : 'text-muted hover:text-[var(--text-primary)] hover:bg-[var(--bg-secondary)]/50'
                                 }`}
                               >
-                                <span>{sub.label}</span>
-                                <ArrowRight className="w-3.5 h-3.5 opacity-60" />
+                                <div>
+                                  <span className="block font-semibold">{sub.label}</span>
+                                  <span className="block text-[10px] font-mono text-muted">{sub.subtitle}</span>
+                                </div>
+                                <ArrowRight className="w-4 h-4 opacity-70" />
                               </button>
                             );
                           })}
@@ -346,43 +360,44 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
                     key={link.id}
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.03, duration: 0.2 }}
+                    transition={{ delay: index * 0.04, duration: 0.2 }}
                     onClick={() => {
                       setActivePage(link.id);
                       setMobileMenuOpen(false);
                       window.scrollTo({ top: 0, behavior: 'smooth' });
                     }}
-                    className={`w-full text-left p-3 border-l-2 transition-all btn-tap flex items-center justify-between touch-target ${
+                    className={`w-full text-left p-4 rounded-2xl transition-all btn-tap flex items-center justify-between touch-target ${
                       isActive 
-                        ? 'border-[#781353] dark:border-[#E03590] bg-[var(--bg-secondary)]' 
-                        : 'border-transparent hover:border-editorial'
+                        ? 'bg-[var(--bg-secondary)] border border-[#E03590]/40' 
+                        : 'hover:bg-[var(--bg-secondary)] border border-transparent'
                     }`}
                   >
                     <div>
-                      <span className={`font-serif text-xl block ${isActive ? 'font-bold text-[#781353] dark:text-[#E03590]' : 'font-semibold text-[var(--text-primary)]'}`}>
+                      <span className={`font-serif text-2xl block ${isActive ? 'font-bold text-[#781353] dark:text-[#E03590]' : 'font-semibold text-[var(--text-primary)]'}`}>
                         {link.label}
                       </span>
-                      <span className="text-[9px] font-mono text-muted uppercase tracking-wider block">
+                      <span className="text-[10px] font-mono text-muted uppercase tracking-wider block mt-0.5">
                         {link.subtitle}
                       </span>
                     </div>
 
-                    <ArrowRight className={`w-4 h-4 ${isActive ? 'text-[#781353] dark:text-[#E03590]' : 'text-muted/40'}`} />
+                    <ArrowRight className={`w-5 h-5 ${isActive ? 'text-[#781353] dark:text-[#E03590]' : 'text-muted/40'}`} />
                   </motion.button>
                 );
               })}
             </div>
 
             {/* Mobile Footer Action */}
-            <div className="pt-3 border-t border-editorial space-y-2">
+            <div className="pt-4 border-t border-editorial space-y-3">
               <a
                 href="tel:1800110031"
-                className="w-full bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] py-3 text-center font-bold text-xs uppercase tracking-widest block transition-opacity btn-tap shadow-md touch-target flex items-center justify-center"
+                className="w-full bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] py-3.5 px-4 rounded-full text-center font-bold text-xs uppercase tracking-widest transition-all btn-tap shadow-lg touch-target flex items-center justify-center gap-2 glow-accent"
               >
-                📞 Call Crisis Helpline: 1800-11-0031
+                <Phone className="w-4 h-4 text-[#E03590] dark:text-[#781353]" />
+                <span>Call Helpline: 1800-11-0031</span>
               </a>
 
-              <div className="text-[9px] text-center font-mono text-muted">
+              <div className="text-[10px] text-center font-mono text-muted">
                 100% Free • Confidential • 24/7 Support Across India
               </div>
             </div>

@@ -37,15 +37,15 @@ export default function DrugFacts() {
         </p>
 
         {/* Minimal Search Input */}
-        <div className="pt-2 max-w-md relative">
+        <div className="pt-2 max-w-md relative flex items-center">
+          <Search className="w-4 h-4 text-muted absolute left-4 pointer-events-none z-10" />
           <input
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search substances (e.g., Opioids, Fentanyl)..."
-            className="w-full pl-10 pr-4 py-3 bg-[var(--bg-card)] border border-editorial text-xs focus:outline-none focus:border-[#781353] dark:focus:border-[#E03590] text-[var(--text-primary)] touch-target"
+            className="input-primary input-icon-left !pl-11 pr-4"
           />
-          <Search className="w-4 h-4 text-muted absolute left-3.5 top-1/2 -translate-y-1/2" />
         </div>
       </motion.div>
 
@@ -62,18 +62,18 @@ export default function DrugFacts() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 key={drug.id}
-                className={`card-doc transition-all duration-200 overflow-hidden flex flex-col justify-between ${isOpen
-                    ? 'border-[#781353] dark:border-[#E03590] col-span-1 md:col-span-2 lg:col-span-2 shadow-xs'
-                    : 'hover:border-[#781353] dark:hover:border-[#E03590]'
+                className={`card-doc transition-all duration-200 overflow-hidden flex flex-col justify-between rounded-3xl ${isOpen
+                    ? 'border-[#E03590] ring-2 ring-[#E03590]/40 col-span-1 md:col-span-2 lg:col-span-2 shadow-lg'
+                    : 'hover:border-[#E03590]'
                   }`}
               >
                 {/* Card Header (Accordion Toggle) */}
                 <div
                   onClick={() => toggleAccordion(drug.id)}
-                  className="p-4 sm:p-6 cursor-pointer select-none space-y-3 touch-target btn-tap"
+                  className="p-5 sm:p-6 cursor-pointer select-none space-y-3 touch-target btn-tap"
                 >
                   <div className="flex items-start justify-between gap-2">
-                    <span className="text-[9px] sm:text-[10px] font-mono uppercase font-bold text-[#781353] dark:text-[#E03590] bg-[var(--bg-secondary)] px-2.5 py-1 border border-editorial shrink-0">
+                    <span className="text-[10px] font-mono uppercase font-bold text-[#781353] dark:text-[#E03590] bg-[var(--bg-secondary)] px-3 py-1 border border-editorial rounded-full shrink-0">
                       {drug.category}
                     </span>
                     <ChevronDown className={`w-4 h-4 text-muted transition-transform shrink-0 ${isOpen ? 'rotate-180 text-[var(--text-primary)]' : ''}`} />

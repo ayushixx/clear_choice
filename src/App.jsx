@@ -54,7 +54,7 @@ export default function App() {
   // System preference aware Light / Dark Theme state saved in localStorage
   const [theme, setTheme] = useState(() => {
     const savedTheme = localStorage.getItem('clearchoice_theme');
-    if (savedTheme) return savedTheme;
+    if (savedTheme === 'dark' || savedTheme === 'light') return savedTheme;
     if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
       return 'dark';
     }
@@ -65,12 +65,16 @@ export default function App() {
     const root = document.documentElement;
     const body = document.body;
     
+    console.log('[CLEAR CHOICE DEBUG] Synchronizing Theme State:', theme);
+
     if (theme === 'dark') {
       root.classList.add('dark');
       body.classList.add('dark');
+      root.style.colorScheme = 'dark';
     } else {
       root.classList.remove('dark');
       body.classList.remove('dark');
+      root.style.colorScheme = 'light';
     }
     
     // Sync meta theme-color for mobile status bars

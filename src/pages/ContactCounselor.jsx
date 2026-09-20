@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import TurnstileWidget from '../components/TurnstileWidget';
 import TrustBadges from '../components/TrustBadges';
-import { submitContactInquiry, submitCallbackRequest } from '../api/submissionsApi';
-import { Send, Clock, Paperclip, AlertCircle, CheckCircle2, Lock, ArrowLeft } from 'lucide-react';
+import { submitContactInquiry, submitCallbackRequest, validatePhone } from '../api/submissionsApi';
+import { Send, Clock, AlertCircle, CheckCircle2, Lock, ArrowLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function ContactCounselor({ setActivePage }) {
   // Contact Form State
   const [contactForm, setContactForm] = useState({ fullName: '', phone: '', message: '' });
-  const [contactFile, setContactFile] = useState(null);
   const [contactSubmitting, setContactSubmitting] = useState(false);
   const [contactSuccess, setContactSuccess] = useState(false);
   const [contactError, setContactError] = useState('');
@@ -30,6 +29,12 @@ export default function ContactCounselor({ setActivePage }) {
   const handleContactSubmit = async (e) => {
     e.preventDefault();
     setContactError('');
+
+    if (!validatePhone(contactForm.phone)) {
+      setContactError('Please enter a valid phone number (8-15 digits, e.g. +91 98765 43210).');
+      return;
+    }
+
     setContactSubmitting(true);
 
     const result = await submitContactInquiry({
@@ -40,7 +45,6 @@ export default function ContactCounselor({ setActivePage }) {
     if (result.success) {
       setContactSuccess(true);
       setContactForm({ fullName: '', phone: '', message: '' });
-      setContactFile(null);
       setTimeout(() => setContactSuccess(false), 5000);
     } else {
       setContactError(result.error || 'Failed to submit contact inquiry.');
@@ -51,6 +55,12 @@ export default function ContactCounselor({ setActivePage }) {
   const handleCallbackSubmit = async (e) => {
     e.preventDefault();
     setCallbackError('');
+
+    if (!validatePhone(callbackForm.phone)) {
+      setCallbackError('Please enter a valid phone number (8-15 digits, e.g. +91 98765 43210).');
+      return;
+    }
+
     setCallbackSubmitting(true);
 
     const result = await submitCallbackRequest({
@@ -109,12 +119,12 @@ export default function ContactCounselor({ setActivePage }) {
       </motion.div>
 
       {/* PRIVACY ASSURANCE BANNER */}
-      <div className="bg-[var(--bg-secondary)] border border-editorial p-4 sm:p-5 flex items-center gap-4">
-        <div className="p-3 bg-[#781353] text-white dark:bg-[#E03590] shrink-0">
+      <div className="bg-[var(--bg-secondary)] border border-editorial p-5 sm:p-6 rounded-2xl flex items-center gap-4 shadow-sm">
+        <div className="p-3.5 bg-[#781353] text-white dark:bg-[#E03590] shrink-0 rounded-xl shadow-xs">
           <Lock className="w-5 h-5" />
         </div>
-        <div className="space-y-0.5 text-xs">
-          <span className="font-serif font-bold text-[var(--text-primary)] block text-sm">
+        <div className="space-y-0.5 text-xs sm:text-sm">
+          <span className="font-serif font-bold text-[var(--text-primary)] block text-sm sm:text-base">
             100% Confidentiality Guarantee
           </span>
           <p className="text-muted font-light">
@@ -127,7 +137,7 @@ export default function ContactCounselor({ setActivePage }) {
       <section className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-10">
         
         {/* Contact Form */}
-        <div className="card-doc p-5 sm:p-8 space-y-5 sm:space-y-6">
+        <div className="card-doc p-6 sm:p-8 space-y-5 sm:space-y-6 rounded-3xl">
           <div>
             <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider text-[#781353] dark:text-[#E03590] block mb-1">
               Direct Confidential Inquiry
@@ -135,85 +145,66 @@ export default function ContactCounselor({ setActivePage }) {
             <h2 className="text-xl sm:text-2xl font-serif font-bold text-[var(--text-primary)]">
               Written Contact Inquiry
             </h2>
-            <p className="text-xs text-muted font-light mt-1">
+            <p className="text-xs sm:text-sm text-muted font-light mt-1">
               Send a detailed note directly to our advisory counselor team.
             </p>
           </div>
 
           {contactSuccess && (
-            <div className="p-3.5 bg-emerald-950 text-emerald-200 border border-emerald-800 rounded-none text-xs flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 shrink-0" />
+            <div className="p-4 bg-emerald-950/80 text-emerald-200 border border-emerald-800/80 rounded-xl text-xs flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-400" />
               <span>Thank you. Your message has been securely transmitted.</span>
             </div>
           )}
 
           {contactError && (
-            <div className="p-3.5 bg-red-950/40 text-red-200 border border-red-800 rounded-none text-xs flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 shrink-0" />
+            <div className="p-4 bg-red-950/80 text-red-200 border border-red-800/80 rounded-xl text-xs flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 shrink-0 text-red-400" />
               <span>{contactError}</span>
             </div>
           )}
 
-          <form onSubmit={handleContactSubmit} className="space-y-4 text-xs">
+          <form onSubmit={handleContactSubmit} className="space-y-4 text-xs sm:text-sm">
             <div>
-              <label className="block font-semibold text-[var(--text-primary)] mb-1">Full Name *</label>
+              <label className="block font-semibold text-[var(--text-primary)] mb-1.5">Full Name *</label>
               <input
                 type="text"
                 value={contactForm.fullName}
                 onChange={(e) => setContactForm({ ...contactForm, fullName: e.target.value })}
                 placeholder="Your full name"
                 required
-                className="w-full px-3.5 py-3 bg-[var(--bg-secondary)] border border-editorial text-sm focus:outline-none focus:border-[#781353] dark:focus:border-[#E03590] text-[var(--text-primary)] touch-target"
+                className="input-primary"
               />
             </div>
 
             <div>
-              <label className="block font-semibold text-[var(--text-primary)] mb-1">Phone Number *</label>
+              <label className="block font-semibold text-[var(--text-primary)] mb-1.5">Phone Number *</label>
               <input
                 type="tel"
                 value={contactForm.phone}
-                onChange={(e) => setContactForm({ ...contactForm, phone: e.target.value })}
-                placeholder="Phone number"
+                onChange={(e) => {
+                  const val = e.target.value;
+                  if (val === '' || /^[+]?[0-9\s\-()]*$/.test(val)) {
+                    setContactForm({ ...contactForm, phone: val });
+                  }
+                }}
+                placeholder="e.g. +91 98765 43210"
                 required
-                className="w-full px-3.5 py-3 bg-[var(--bg-secondary)] border border-editorial text-sm focus:outline-none focus:border-[#781353] dark:focus:border-[#E03590] text-[var(--text-primary)] touch-target"
+                pattern="^[+]?[0-9\s\-()]{8,20}$"
+                title="Please enter a valid phone number (8-15 digits, e.g. +91 98765 43210)"
+                className="input-primary"
               />
             </div>
 
             <div>
-              <label className="block font-semibold text-[var(--text-primary)] mb-1">Message</label>
+              <label className="block font-semibold text-[var(--text-primary)] mb-1.5">Message</label>
               <textarea
                 rows="4"
                 value={contactForm.message}
                 onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
                 placeholder="Share any details or questions..."
-                className="w-full px-3.5 py-3 bg-[var(--bg-secondary)] border border-editorial text-sm focus:outline-none focus:border-[#781353] dark:focus:border-[#E03590] text-[var(--text-primary)]"
+                className="input-primary !min-h-[100px]"
               ></textarea>
-            </div>
-
-            {/* File Attachment */}
-            <div>
-              <label className="block font-semibold text-[var(--text-primary)] mb-1">Optional Document / Referral</label>
-              <div className="flex items-center gap-2">
-                <label className="cursor-pointer border border-editorial bg-[var(--bg-secondary)] px-3.5 py-2.5 font-mono text-xs hover:border-[#781353] dark:hover:border-[#E03590] flex items-center gap-1.5 text-[var(--text-primary)] btn-tap touch-target">
-                  <Paperclip className="w-3.5 h-3.5" />
-                  {contactFile ? contactFile.name : 'Attach File (PDF, DOCX, Image)'}
-                  <input
-                    type="file"
-                    onChange={(e) => setContactFile(e.target.files[0] || null)}
-                    className="hidden"
-                    accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
-                  />
-                </label>
-                {contactFile && (
-                  <button
-                    type="button"
-                    onClick={() => setContactFile(null)}
-                    className="text-[10px] text-muted hover:text-red-500 underline cursor-pointer"
-                  >
-                    Remove
-                  </button>
-                )}
-              </div>
             </div>
 
             {/* Turnstile Spam Protection */}
@@ -222,15 +213,15 @@ export default function ContactCounselor({ setActivePage }) {
             <button
               type="submit"
               disabled={contactSubmitting}
-              className="w-full bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] py-3.5 font-bold text-xs uppercase tracking-widest transition-colors flex items-center justify-center gap-2 disabled:opacity-50 btn-tap shadow-md touch-target cursor-pointer"
+              className="w-full bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] py-4 rounded-full font-bold text-xs uppercase tracking-widest transition-all flex items-center justify-center gap-2 disabled:opacity-50 btn-tap shadow-lg touch-target cursor-pointer glow-accent"
             >
-              <Send className="w-3.5 h-3.5" /> {contactSubmitting ? 'Transmitting Securely...' : 'Send Secure Message'}
+              <Send className="w-4 h-4 text-[#E03590] dark:text-[#781353]" /> {contactSubmitting ? 'Transmitting Securely...' : 'Send Secure Message'}
             </button>
           </form>
         </div>
 
         {/* Callback Request Form */}
-        <div className="bg-[var(--bg-secondary)] p-5 sm:p-8 border border-editorial space-y-5 sm:space-y-6">
+        <div className="card-doc p-6 sm:p-8 space-y-5 sm:space-y-6 rounded-3xl">
           <div>
             <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider text-[#781353] dark:text-[#E03590] block mb-1">
               Discreet Consultation
@@ -244,51 +235,58 @@ export default function ContactCounselor({ setActivePage }) {
           </div>
 
           {callbackSuccess && (
-            <div className="p-3.5 bg-emerald-950 text-emerald-200 border border-emerald-800 rounded-none text-xs flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 shrink-0" />
+            <div className="p-4 bg-emerald-950/80 text-emerald-200 border border-emerald-800/80 rounded-xl text-xs flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-400" />
               <span>Callback requested! A counselor will reach out at your requested time.</span>
             </div>
           )}
 
           {callbackError && (
-            <div className="p-3.5 bg-red-950/40 text-red-200 border border-red-800 rounded-none text-xs flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 shrink-0" />
+            <div className="p-4 bg-red-950/80 text-red-200 border border-red-800/80 rounded-xl text-xs flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 shrink-0 text-red-400" />
               <span>{callbackError}</span>
             </div>
           )}
 
-          <form onSubmit={handleCallbackSubmit} className="space-y-4 text-xs">
+          <form onSubmit={handleCallbackSubmit} className="space-y-4 text-xs sm:text-sm">
             <div>
-              <label className="block font-semibold text-[var(--text-primary)] mb-1">Name *</label>
+              <label className="block font-semibold text-[var(--text-primary)] mb-1.5">Name *</label>
               <input
                 type="text"
                 value={callbackForm.name}
                 onChange={(e) => setCallbackForm({ ...callbackForm, name: e.target.value })}
                 placeholder="Your name"
                 required
-                className="w-full px-3.5 py-3 bg-[var(--bg-card)] border border-editorial text-sm focus:outline-none focus:border-[#781353] dark:focus:border-[#E03590] text-[var(--text-primary)] touch-target"
+                className="input-primary"
               />
             </div>
 
             <div>
-              <label className="block font-semibold text-[var(--text-primary)] mb-1">Phone Number *</label>
+              <label className="block font-semibold text-[var(--text-primary)] mb-1.5">Phone Number *</label>
               <input
                 type="tel"
                 value={callbackForm.phone}
-                onChange={(e) => setCallbackForm({ ...callbackForm, phone: e.target.value })}
-                placeholder="Phone number"
+                onChange={(e) => {
+                  const val = e.target.value;
+                  if (val === '' || /^[+]?[0-9\s\-()]*$/.test(val)) {
+                    setCallbackForm({ ...callbackForm, phone: val });
+                  }
+                }}
+                placeholder="e.g. +91 98765 43210"
                 required
-                className="w-full px-3.5 py-3 bg-[var(--bg-card)] border border-editorial text-sm focus:outline-none focus:border-[#781353] dark:focus:border-[#E03590] text-[var(--text-primary)] touch-target"
+                pattern="^[+]?[0-9\s\-()]{8,20}$"
+                title="Please enter a valid phone number (8-15 digits, e.g. +91 98765 43210)"
+                className="input-primary"
               />
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="block font-semibold text-[var(--text-primary)] mb-1">Concern Type</label>
+                <label className="block font-semibold text-[var(--text-primary)] mb-1.5">Concern Type</label>
                 <select
                   value={callbackForm.concernType}
                   onChange={(e) => setCallbackForm({ ...callbackForm, concernType: e.target.value })}
-                  className="w-full px-3.5 py-3 bg-[var(--bg-card)] border border-editorial text-sm focus:outline-none focus:border-[#781353] dark:focus:border-[#E03590] text-[var(--text-primary)] font-mono touch-target"
+                  className="input-primary font-mono"
                 >
                   <option>General Inquiry</option>
                   <option>Self Substance Support</option>
@@ -298,11 +296,11 @@ export default function ContactCounselor({ setActivePage }) {
               </div>
 
               <div>
-                <label className="block font-semibold text-[var(--text-primary)] mb-1">Preferred Time</label>
+                <label className="block font-semibold text-[var(--text-primary)] mb-1.5">Preferred Time</label>
                 <select
                   value={callbackForm.callbackTime}
                   onChange={(e) => setCallbackForm({ ...callbackForm, callbackTime: e.target.value })}
-                  className="w-full px-3.5 py-3 bg-[var(--bg-card)] border border-editorial text-sm focus:outline-none focus:border-[#781353] dark:focus:border-[#E03590] text-[var(--text-primary)] font-mono touch-target"
+                  className="input-primary font-mono"
                 >
                   <option>Morning (9 AM - 12 PM)</option>
                   <option>Afternoon (12 PM - 4 PM)</option>
@@ -312,13 +310,13 @@ export default function ContactCounselor({ setActivePage }) {
             </div>
 
             <div>
-              <label className="block font-semibold text-[var(--text-primary)] mb-1">Message (Optional)</label>
+              <label className="block font-semibold text-[var(--text-primary)] mb-1.5">Message (Optional)</label>
               <textarea
                 rows="2"
                 value={callbackForm.message}
                 onChange={(e) => setCallbackForm({ ...callbackForm, message: e.target.value })}
                 placeholder="Note..."
-                className="w-full px-3.5 py-3 bg-[var(--bg-card)] border border-editorial text-sm focus:outline-none focus:border-[#781353] dark:focus:border-[#E03590] text-[var(--text-primary)]"
+                className="input-primary !min-h-[80px]"
               ></textarea>
             </div>
 
@@ -328,9 +326,9 @@ export default function ContactCounselor({ setActivePage }) {
             <button
               type="submit"
               disabled={callbackSubmitting}
-              className="w-full bg-[#781353] dark:bg-[#E03590] text-white py-3.5 font-bold uppercase tracking-widest transition-colors flex items-center justify-center gap-2 disabled:opacity-50 btn-tap shadow-md touch-target cursor-pointer"
+              className="w-full bg-[#781353] dark:bg-[#E03590] text-white py-4 rounded-full font-bold text-xs uppercase tracking-widest transition-all flex items-center justify-center gap-2 disabled:opacity-50 btn-tap shadow-lg touch-target cursor-pointer glow-accent"
             >
-              <Clock className="w-3.5 h-3.5" /> {callbackSubmitting ? 'Requesting...' : 'Request Callback'}
+              <Clock className="w-4 h-4 text-white" /> {callbackSubmitting ? 'Requesting...' : 'Request Callback'}
             </button>
           </form>
         </div>

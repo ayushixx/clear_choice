@@ -53,10 +53,10 @@ export default function LiveChatWidget({ setActivePage }) {
       )}
 
       {isOpen && (
-        <div className="bg-[var(--bg-card)] w-[calc(100vw-2rem)] max-w-[340px] sm:w-88 rounded-xl shadow-2xl border border-editorial overflow-hidden flex flex-col h-[420px] sm:h-[440px]">
+        <div className="bg-[var(--bg-card)] w-[calc(100vw-2rem)] max-w-[350px] sm:w-88 rounded-3xl shadow-2xl border border-editorial overflow-hidden flex flex-col h-[440px] sm:h-[460px]">
           
-          <div className="bg-[#2E031D] text-white p-3.5 flex items-center justify-between">
-            <div className="flex items-center gap-2">
+          <div className="bg-[#2E031D] text-white p-4 flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
               <img 
                 src="/assets/logo.png" 
                 alt="Logo" 
@@ -69,57 +69,57 @@ export default function LiveChatWidget({ setActivePage }) {
             </div>
             <button
               onClick={() => setIsOpen(false)}
-              className="text-[#FDF3F7]/80 hover:text-white p-2 touch-target btn-tap flex items-center justify-center"
+              className="text-[#FDF3F7]/80 hover:text-white p-2 rounded-full hover:bg-white/10 touch-target btn-tap flex items-center justify-center"
             >
               <X className="w-4 h-4" />
             </button>
           </div>
 
-          <div className="bg-emerald-800 text-white p-2.5 text-xs flex items-center justify-between">
-            <span className="font-medium flex items-center gap-1">
-              <Phone className="w-3 h-3" /> Immediate Crisis?
+          <div className="bg-emerald-800 text-white p-3 text-xs flex items-center justify-between">
+            <span className="font-medium flex items-center gap-1.5">
+              <Phone className="w-3.5 h-3.5" /> Immediate Crisis?
             </span>
             <a
               href="tel:1800110031"
-              className="bg-emerald-600 hover:bg-emerald-500 text-white px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider touch-target flex items-center justify-center"
+              className="bg-white text-emerald-900 px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider touch-target flex items-center justify-center shadow-xs"
             >
               Connect Real Person
             </a>
           </div>
 
-          <div className="flex-1 p-3 overflow-y-auto space-y-2 bg-[var(--bg-secondary)] text-xs">
+          <div className="flex-1 p-3.5 overflow-y-auto space-y-2.5 bg-[var(--bg-secondary)] text-xs">
             {messages.map((msg) => (
               <div
                 key={msg.id}
                 className={`flex flex-col ${msg.sender === 'user' ? 'items-end' : 'items-start'}`}
               >
                 <div
-                  className={`max-w-[85%] p-2.5 rounded-lg ${
+                  className={`max-w-[85%] p-3 rounded-2xl ${
                     msg.sender === 'user'
-                      ? 'bg-[#2E031D] dark:bg-[#E03590] text-white'
-                      : 'bg-[var(--bg-card)] text-[var(--text-primary)] border border-editorial shadow-xs'
+                      ? 'bg-[#2E031D] dark:bg-[#E03590] text-white rounded-tr-xs'
+                      : 'bg-[var(--bg-card)] text-[var(--text-primary)] border border-editorial shadow-xs rounded-tl-xs'
                   }`}
                 >
                   <p className="leading-relaxed">{msg.text}</p>
                 </div>
-                <span className="text-[8px] text-muted mt-0.5 px-1">{msg.time}</span>
+                <span className="text-[9px] text-muted mt-0.5 px-1">{msg.time}</span>
               </div>
             ))}
           </div>
 
-          <form onSubmit={handleSend} className="p-2.5 bg-[var(--bg-card)] border-t border-editorial flex items-center gap-2">
+          <form onSubmit={handleSend} className="p-3 bg-[var(--bg-card)] border-t border-editorial flex items-center gap-2">
             <input
               type="text"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               placeholder="Type message..."
-              className="flex-1 text-xs px-3 py-2 bg-[var(--bg-secondary)] text-[var(--text-primary)] border border-editorial rounded-md focus:outline-none focus:border-[#781353] dark:focus:border-[#E03590]"
+              className="flex-1 text-sm px-3.5 py-2.5 bg-[var(--bg-secondary)] text-[var(--text-primary)] border border-editorial rounded-xl focus:outline-none focus:border-[#E03590]"
             />
             <button
               type="submit"
-              className="bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] p-2 rounded-md transition-colors btn-tap touch-target flex items-center justify-center min-w-[36px] min-h-[36px]"
+              className="bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] p-2.5 rounded-xl transition-all btn-tap touch-target flex items-center justify-center shrink-0 min-w-[44px] min-h-[44px] shadow-sm"
             >
-              <Send className="w-3.5 h-3.5" />
+              <Send className="w-4 h-4 text-[#E03590] dark:text-[#781353]" />
             </button>
           </form>
 

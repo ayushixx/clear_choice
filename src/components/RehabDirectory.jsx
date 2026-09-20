@@ -103,19 +103,19 @@ export default function RehabDirectory({ selectedCenter, onSelectCenter, onGetDi
           <button
             onClick={handleDetectLocation}
             disabled={locationLoading}
-            className="px-3.5 py-2.5 text-xs font-mono font-semibold bg-[var(--bg-secondary)] border border-editorial text-[var(--text-primary)] hover:border-[#781353] dark:hover:border-[#E03590] transition-colors flex items-center gap-1.5 touch-target btn-tap"
+            className="px-4 py-3 text-xs font-mono font-semibold bg-[var(--bg-secondary)] border border-editorial text-[var(--text-primary)] hover:border-[#E03590] transition-all flex items-center gap-2 rounded-full touch-target btn-tap shadow-xs"
             title="Sort by nearest location"
           >
-            <Navigation className={`w-3.5 h-3.5 ${locationLoading ? 'animate-spin' : 'text-[#781353] dark:text-[#E03590]'}`} />
+            <Navigation className={`w-4 h-4 ${locationLoading ? 'animate-spin' : 'text-[#E03590]'}`} />
             {locationLoading ? 'Locating...' : userLocation ? 'Near Me (Active)' : 'Find Near Me'}
           </button>
 
-          <div className="flex border border-editorial bg-[var(--bg-secondary)] p-0.5">
+          <div className="flex border border-editorial bg-[var(--bg-secondary)] p-1 rounded-full">
             <button
               onClick={() => setViewMode('grid')}
-              className={`px-3 py-2 text-xs font-mono font-bold transition-colors ${
+              className={`px-4 py-2 text-xs font-mono font-bold transition-all rounded-full ${
                 viewMode === 'grid'
-                  ? 'bg-[#2E031D] text-white dark:bg-[#FFFFFF] dark:text-[#0A0A0C]'
+                  ? 'bg-[#2E031D] text-white dark:bg-[#FFFFFF] dark:text-[#0A0A0C] shadow-sm'
                   : 'text-muted hover:text-[var(--text-primary)]'
               }`}
             >
@@ -123,9 +123,9 @@ export default function RehabDirectory({ selectedCenter, onSelectCenter, onGetDi
             </button>
             <button
               onClick={() => setViewMode('list')}
-              className={`px-3 py-2 text-xs font-mono font-bold transition-colors ${
+              className={`px-4 py-2 text-xs font-mono font-bold transition-all rounded-full ${
                 viewMode === 'list'
-                  ? 'bg-[#2E031D] text-white dark:bg-[#FFFFFF] dark:text-[#0A0A0C]'
+                  ? 'bg-[#2E031D] text-white dark:bg-[#FFFFFF] dark:text-[#0A0A0C] shadow-sm'
                   : 'text-muted hover:text-[var(--text-primary)]'
               }`}
             >
@@ -137,7 +137,7 @@ export default function RehabDirectory({ selectedCenter, onSelectCenter, onGetDi
 
       {/* Geolocation feedback */}
       {locationError && (
-        <div className="text-xs text-amber-600 dark:text-amber-400 font-mono bg-amber-50 dark:bg-amber-950/40 p-3 border border-amber-200 dark:border-amber-800">
+        <div className="text-xs text-amber-600 dark:text-amber-400 font-mono bg-amber-50 dark:bg-amber-950/40 p-4 border border-amber-200 dark:border-amber-800 rounded-2xl">
           {locationError}
         </div>
       )}
@@ -146,19 +146,19 @@ export default function RehabDirectory({ selectedCenter, onSelectCenter, onGetDi
       <div className="space-y-4">
         <div className="flex flex-col sm:flex-row gap-3">
           {/* Search input */}
-          <div className="relative flex-1">
-            <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-muted" />
+          <div className="relative flex-1 flex items-center">
+            <Search className="w-4 h-4 absolute left-4 text-muted pointer-events-none z-10" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by center name, city (e.g. Delhi, Mumbai, Bengaluru)..."
-              className="w-full pl-10 pr-10 py-3 bg-[var(--bg-secondary)] border border-editorial text-xs focus:outline-none focus:border-[#781353] dark:focus:border-[#E03590] text-[var(--text-primary)]"
+              className="w-full input-icon-left !pl-11 pr-12 py-3.5 bg-[var(--bg-secondary)] border border-editorial text-sm focus:outline-none focus:border-[#E03590] text-[var(--text-primary)] rounded-2xl touch-target"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted hover:text-[var(--text-primary)] p-1"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-muted hover:text-[var(--text-primary)] p-1 font-mono font-bold"
               >
                 Clear
               </button>
@@ -166,34 +166,34 @@ export default function RehabDirectory({ selectedCenter, onSelectCenter, onGetDi
           </div>
 
           {/* State Select Filter */}
-          <div className="sm:w-48 relative">
+          <div className="sm:w-52 relative">
             <select
               value={selectedState}
               onChange={(e) => setSelectedState(e.target.value)}
-              className="w-full py-3 px-3 bg-[var(--bg-secondary)] border border-editorial text-xs focus:outline-none focus:border-[#781353] dark:focus:border-[#E03590] text-[var(--text-primary)] font-mono appearance-none"
+              className="w-full py-3.5 px-4 bg-[var(--bg-secondary)] border border-editorial text-xs focus:outline-none focus:border-[#E03590] text-[var(--text-primary)] font-mono appearance-none rounded-2xl touch-target"
             >
               <option value="All">All States</option>
               {states.filter(s => s !== 'All').map(st => (
                 <option key={st} value={st}>{st}</option>
               ))}
             </select>
-            <Filter className="w-3.5 h-3.5 absolute right-3 top-1/2 -translate-y-1/2 text-muted pointer-events-none" />
+            <Filter className="w-4 h-4 absolute right-4 top-1/2 -translate-y-1/2 text-muted pointer-events-none" />
           </div>
         </div>
 
         {/* City Filter Pills */}
         <div className="flex items-center gap-2 overflow-x-auto pb-2 text-xs">
           <span className="font-mono text-[10px] uppercase text-muted tracking-wider flex items-center gap-1 shrink-0">
-            <ListFilter className="w-3 h-3" /> City:
+            <ListFilter className="w-3.5 h-3.5" /> City:
           </span>
           {cities.map((city) => (
             <button
               key={city}
               onClick={() => setSelectedCity(city)}
-              className={`px-3.5 py-1.5 font-mono text-xs whitespace-nowrap transition-colors border btn-tap ${
+              className={`px-4 py-2 font-mono text-xs whitespace-nowrap transition-all border rounded-full btn-tap ${
                 selectedCity === city
-                  ? 'bg-[#781353] text-white border-[#781353] dark:bg-[#E03590] dark:border-[#E03590]'
-                  : 'bg-[var(--bg-card)] border-editorial text-[var(--text-primary)] hover:border-[#781353]'
+                  ? 'bg-[#781353] text-white border-[#781353] dark:bg-[#E03590] dark:border-[#E03590] shadow-sm font-bold'
+                  : 'bg-[var(--bg-card)] border-editorial text-[var(--text-primary)] hover:border-[#E03590]'
               }`}
             >
               {city}

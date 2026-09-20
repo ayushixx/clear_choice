@@ -80,26 +80,26 @@ export default function GetHelpHub({ setActivePage }) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: idx * 0.1 }}
-              className={`p-5 sm:p-8 border flex flex-col justify-between relative overflow-hidden transition-all duration-300 ${
+              className={`p-6 sm:p-8 border flex flex-col justify-between relative overflow-hidden transition-all duration-300 rounded-3xl ${
                 opt.primary
-                  ? 'bg-[#2E031D] text-white border-[#2E031D] neo-shadow'
-                  : 'card-doc hover:border-[#781353] dark:hover:border-[#E03590]'
+                  ? 'bg-[#2E031D] text-white border-[#2E031D] shadow-xl glow-accent'
+                  : 'card-doc hover:border-[#E03590]'
               }`}
             >
               {opt.primary && (
-                <AmbientParticles particleCount={12} color="rgba(224,53,144,0.3)" />
+                <AmbientParticles count={12} color="rgba(224,53,144,0.3)" />
               )}
 
               <div className="space-y-4 relative z-10">
                 <div className="flex items-center justify-between gap-2">
-                  <span className={`text-[9px] sm:text-[10px] font-mono font-bold uppercase px-2.5 py-1 border ${
+                  <span className={`text-[10px] font-mono font-bold uppercase px-3 py-1 border rounded-full ${
                     opt.primary
                       ? 'bg-white/10 text-white border-white/20'
                       : 'bg-[var(--bg-secondary)] text-[#781353] dark:text-[#E03590] border-editorial'
                   }`}>
                     {opt.badge}
                   </span>
-                  <div className={`p-2.5 sm:p-3 rounded-none border ${
+                  <div className={`p-3 rounded-2xl border ${
                     opt.primary
                       ? 'bg-white/10 text-[#E03590] border-white/20'
                       : 'bg-[var(--bg-secondary)] text-[#781353] dark:text-[#E03590] border-editorial'
@@ -136,7 +136,7 @@ export default function GetHelpHub({ setActivePage }) {
                       setActivePage(opt.id);
                       window.scrollTo({ top: 0, behavior: 'smooth' });
                     }}
-                    className="w-full bg-[#E03590] hover:bg-[#c82b7c] text-white py-3.5 px-6 font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-colors btn-tap touch-target"
+                    className="w-full bg-[#E03590] hover:bg-[#c82b7c] text-white py-3.5 px-6 font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-all btn-tap touch-target rounded-full shadow-lg"
                   >
                     <span>{opt.cta}</span>
                     <ArrowRight className="w-4 h-4" />
@@ -147,10 +147,10 @@ export default function GetHelpHub({ setActivePage }) {
                       setActivePage(opt.id);
                       window.scrollTo({ top: 0, behavior: 'smooth' });
                     }}
-                    className="w-full bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] py-3.5 px-6 font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-colors btn-tap touch-target cursor-pointer"
+                    className="w-full bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] py-3.5 px-6 font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-all btn-tap touch-target cursor-pointer rounded-full shadow-md"
                   >
                     <span>{opt.cta}</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <ArrowRight className="w-4 h-4 text-[#E03590] dark:text-[#781353]" />
                   </button>
                 )}
               </div>
