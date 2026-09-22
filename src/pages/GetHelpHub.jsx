@@ -1,5 +1,5 @@
 import React from 'react';
-import { Phone, Building2, MapPin, MessageSquare, ArrowRight, ShieldCheck } from 'lucide-react';
+import { Phone, Building2, MapPin, MessageSquare, LayoutDashboard, ArrowRight, ShieldCheck } from 'lucide-react';
 import { motion } from 'framer-motion';
 import TrustBadges from '../components/TrustBadges';
 import MagneticButton from '../components/MagneticButton';
@@ -16,6 +16,16 @@ export default function GetHelpHub({ setActivePage }) {
       icon: Phone,
       cta: 'Get Immediate Crisis Help',
       primary: true
+    },
+    {
+      id: 'dashboard',
+      badge: 'Personal Enrolled Portal',
+      title: 'My Recovery Dashboard',
+      description: 'Track overall progress, complete daily mood & craving check-ins, follow 5-phase roadmaps, and complete wellness activities.',
+      highlight: 'Interactive Recovery Journal & Tracker',
+      icon: LayoutDashboard,
+      cta: 'Open My Recovery Journey',
+      primary: false
     },
     {
       id: 'recovery-centers',

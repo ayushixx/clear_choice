@@ -1,3 +1,223 @@
+export const MEHUL_INFO = {
+  name: 'Mehul',
+  title: 'Lead Recovery Practitioner & Addiction Specialist',
+  headline: 'Your Recovery Journey, Guided by Mehul',
+  introduction: 'Mehul is dedicated to supporting individuals on their journey toward addiction recovery through structured guidance, personalized routines, and ongoing support.',
+  verifiedQualifications: [
+    'Full Name & Title: Mehul — Certified Addiction Recovery Practitioner',
+    'Background: Over 6 years of dedicated experience in recovery support and behavioral habit restructuring.',
+    'Qualifications: Certified Recovery Coach, Evidence-Based Relapse Prevention Specialist.',
+    'Recovery Approach & Philosophy: Holistic, structured, non-judgmental guidance centered on daily discipline, neuroplastic healing, craving management, and ongoing personal support.',
+    'Personal Message: "Your recovery journey is a path of daily choices. You don\'t have to walk it alone — with structured routines, clear guidance, and compassionate accountability, lasting freedom is within your reach."'
+  ]
+};
+
+export const RECOVERY_PROGRAMS = [
+  {
+    id: 'opioid-recovery',
+    title: 'A. Heroin / Opioid Addiction Recovery',
+    category: 'Opioid Dependence',
+    duration: '12 Weeks',
+    tagline: 'A guided program focused on understanding opioid dependence, managing cravings, rebuilding healthy routines, and developing long-term recovery strategies.',
+    phases: [
+      {
+        phase: 'Phase 1 — Stabilization & Safety',
+        weeks: 'Weeks 1–2',
+        topics: [
+          'Understanding opioid dependence and withdrawal',
+          'Identifying triggers and high-risk situations',
+          'Sleep, hydration, and daily routine',
+          'Overdose awareness and clinical assessment'
+        ]
+      },
+      {
+        phase: 'Phase 2 — Early Recovery',
+        weeks: 'Weeks 3–4',
+        topics: [
+          'Craving management and trigger mapping',
+          'Building a support network',
+          'Healthy sleep and nutrition habits',
+          'Family communication and daily structure'
+        ]
+      },
+      {
+        phase: 'Phase 3 — Physical & Mental Recovery',
+        weeks: 'Weeks 5–8',
+        topics: [
+          'Exercise, nutrition, and sleep recovery',
+          'Stress and emotional management',
+          'Rebuilding confidence and relationships',
+          'Developing healthy habits and productivity'
+        ]
+      },
+      {
+        phase: 'Phase 4 — Relapse Prevention',
+        weeks: 'Weeks 9–10',
+        topics: [
+          'Recognizing warning signs',
+          'Managing high-risk situations',
+          'Coping strategies and lapse response',
+          'Creating a personal recovery plan'
+        ]
+      },
+      {
+        phase: 'Phase 5 — Maintenance',
+        weeks: 'Weeks 11–12',
+        topics: [
+          'Long-term recovery goals',
+          'Healthy routines and relationships',
+          'Continuing professional support',
+          '30/60/90-day maintenance plan'
+        ]
+      }
+    ]
+  },
+  {
+    id: 'cannabis-recovery',
+    title: 'B. Cannabis / Weed Addiction Recovery',
+    category: 'Cannabinoid Behavioral Recovery',
+    duration: '4 Weeks',
+    tagline: 'A behavioral recovery program focused on understanding usage patterns, managing cravings, and establishing healthier routines.',
+    weeks: [
+      { week: 'Week 1', focus: 'Awareness, motivation, and trigger identification' },
+      { week: 'Week 2', focus: 'Craving management, stress coping, and routine replacement' },
+      { week: 'Week 3', focus: 'Sleep, nutrition, emotional regulation, and productivity' },
+      { week: 'Week 4', focus: 'Relapse prevention and long-term recovery planning' }
+    ]
+  },
+  {
+    id: 'alcohol-recovery',
+    title: 'C. Alcohol Addiction Recovery',
+    category: 'Alcohol Dependence',
+    duration: '12 Weeks',
+    tagline: 'A structured program focused on understanding alcohol dependence, improving daily habits, managing triggers, and supporting long-term recovery.',
+    weeks: [
+      { week: 'Weeks 1–2', focus: 'Assessment, safety, withdrawal awareness, and clinical support' },
+      { week: 'Weeks 3–4', focus: 'Understanding drinking patterns, emotional triggers, and motivation' },
+      { week: 'Weeks 5–8', focus: 'Health, sleep, nutrition, stress management, and routine building' },
+      { week: 'Weeks 9–10', focus: 'Craving management, social triggers, and relapse prevention' },
+      { week: 'Weeks 11–12', focus: 'Relationships, personal goals, and long-term recovery planning' }
+    ]
+  },
+  {
+    id: 'meth-recovery',
+    title: 'D. Ice / Methamphetamine Addiction Recovery',
+    category: 'Synthetic Stimulants',
+    duration: '12 Weeks',
+    tagline: 'A guided recovery program focused on psychological well-being, healthy routines, craving management, and rebuilding everyday life.',
+    weeks: [
+      { week: 'Weeks 1–2', focus: 'Safety, assessment, sleep, and stabilization' },
+      { week: 'Weeks 3–4', focus: 'Understanding triggers, cravings, and daily habits' },
+      { week: 'Weeks 5–8', focus: 'Physical health, emotional regulation, and routine rebuilding' },
+      { week: 'Weeks 9–10', focus: 'Relapse prevention and managing high-risk situations' },
+      { week: 'Weeks 11–12', focus: 'Relationships, education, work, and long-term recovery goals' }
+    ]
+  },
+  {
+    id: 'nicotine-recovery',
+    title: 'E. Nicotine / Smoking Addiction Recovery',
+    category: 'Nicotine Dependence',
+    duration: '8 Weeks',
+    tagline: 'A guided program designed to help individuals understand nicotine dependence, prepare to quit, manage cravings, and maintain a smoke-free lifestyle.',
+    weeks: [
+      { week: 'Week 1', focus: 'Understanding nicotine dependence and smoking patterns' },
+      { week: 'Week 2', focus: 'Quit preparation and trigger identification' },
+      { week: 'Week 3', focus: 'Quit-week support and craving management' },
+      { week: 'Week 4', focus: 'Managing social triggers and staying smoke-free' },
+      { week: 'Week 5', focus: 'Healthy routines, fitness, and lifestyle improvement' },
+      { week: 'Week 6', focus: 'Emotional triggers and habit replacement' },
+      { week: 'Week 7', focus: 'Relapse prevention and coping strategies' },
+      { week: 'Week 8', focus: 'Long-term maintenance and recovery planning' }
+    ]
+  },
+  {
+    id: 'benzo-recovery',
+    title: 'F. Benzodiazepine Dependence Recovery',
+    category: 'Prescription Sedatives',
+    duration: 'Personalized Timeline',
+    tagline: 'Support for individuals experiencing dependence on benzodiazepines such as alprazolam, clonazepam, or diazepam.',
+    topics: [
+      'Understanding dependence and medication use',
+      'Identifying triggers and emotional patterns',
+      'Daily routine and sleep support',
+      'Mood tracking and coping exercises',
+      'Weekly guidance and progress monitoring',
+      'Clinician-coordinated recovery planning'
+    ],
+    importantNote: 'Benzodiazepines should not be stopped abruptly or tapered using a generic online schedule. Medication changes require qualified medical supervision.'
+  },
+  {
+    id: 'prescription-recovery',
+    title: 'G. Prescription Medication Dependence',
+    category: 'Prescription Drugs',
+    duration: 'Personalized Timeline',
+    tagline: 'Support for individuals experiencing problematic dependence on prescription medications, including prescribed sedatives, opioids, and other medications.',
+    topics: [
+      'Understanding medication-use patterns',
+      'Identifying triggers and challenges',
+      'Daily routine and healthy habit building',
+      'Emotional support and coping exercises',
+      'Progress tracking and recovery activities',
+      'Clinician-coordinated recovery planning'
+    ]
+  },
+  {
+    id: 'other-recovery',
+    title: 'H. Other Substance Recovery',
+    category: 'Personalized Specialized Support',
+    duration: 'Individualized Pathways',
+    tagline: 'Additional personalized support programs offered for specialized dependencies.',
+    topics: [
+      'Cocaine dependence',
+      'Other stimulant dependence',
+      'Inhalant dependence',
+      'Multiple-substance dependence'
+    ],
+    note: 'Program duration and recovery pathways should be determined individually, based on clinical assessment and the substances involved. Timelines are proposed educational and behavioral support timelines, not guaranteed recovery periods or medical detox schedules.'
+  }
+];
+
+export const WEEKLY_SESSIONS_INFO = {
+  title: 'Weekly Sessions with Mehul',
+  description: 'Every program includes scheduled weekly sessions with Mehul.',
+  features: [
+    'Weekly recovery progress discussion',
+    'Review of completed activities and tasks',
+    'Discussion of challenges and triggers',
+    'Guidance on maintaining healthy routines',
+    'Goal setting for the upcoming week',
+    'Personalized feedback and encouragement'
+  ],
+  note: 'Session format, duration, and availability to be confirmed by Mehul.'
+};
+
+export const SUPPORT_GROUP_INFO = {
+  title: "You Don't Have to Recover Alone",
+  subtitle: 'Recovery Support Group',
+  description: 'Users become part of a supportive community of people working toward recovery.',
+  features: [
+    'Connect with others on a recovery journey',
+    'Share experiences and encouragement',
+    'Participate in group discussions',
+    'Celebrate personal milestones',
+    'Access community support and motivation'
+  ],
+  rules: 'Community participation is optional, private, and moderated, with clear rules against harassment, sharing personal information, or promoting substance use.'
+};
+
+export const SAFETY_INFO = {
+  title: 'Your Safety Comes First',
+  subtitle: 'Safety & Professional Support',
+  points: [
+    'Initial recovery screening',
+    'Referral to qualified medical professionals when needed',
+    'Clinician-approved treatment planning',
+    'Clear emergency guidance',
+    'Privacy and confidentiality information'
+  ],
+  disclaimer: 'Important: The website provides educational and recovery support. It does not replace medical diagnosis, supervised detoxification, or professional treatment. Medical treatment, medication changes, and withdrawal management must be handled by qualified healthcare professionals (AIIMS NDDTC guidelines).'
+};
+
 export const DRUG_FACTS = [
   {
     id: 'opioids',
@@ -85,74 +305,6 @@ export const DRUG_FACTS = [
     legalPenalties: 'Illegal manufacturing, sale, or possession carries severe long-term imprisonment and high fines.'
   },
   {
-    id: 'lsd',
-    name: 'LSD',
-    category: 'Hallucinogens',
-    tagline: 'Psychedelic compound altering consciousness and perception',
-    shortTermEffects: [
-      'Vivid visual hallucinations and distorted sense of time/space',
-      'Rapid mood swings, pupil dilation, and body temperature spikes',
-      'Risk of acute panic, frightening "bad trips," and loss of reality'
-    ],
-    longTermEffects: [
-      'Hallucinogen Persisting Perception Disorder (HPPD / flashbacks)',
-      'Potential triggering of underlying psychotic disorders',
-      'Psychological distress and emotional disorientation'
-    ],
-    legalPenalties: 'Classified as an illegal controlled substance subject to arrest and criminal record.'
-  },
-  {
-    id: 'ecstasy',
-    name: 'Ecstasy (MDMA)',
-    category: 'Empathogens',
-    tagline: 'Synthetic drug distorting emotional empathy and perception',
-    shortTermEffects: [
-      'Enhanced emotional warmth, sensory elevation, and energy',
-      'Involuntary jaw clenching, blurred vision, and muscle cramping',
-      'Dangerous hyperthermia (overheating) and severe dehydration'
-    ],
-    longTermEffects: [
-      'Serotonin depletion leading to chronic depression and anxiety',
-      'Memory impairment and difficulty concentrating',
-      'Liver, kidney, and cardiovascular systemic stress'
-    ],
-    legalPenalties: 'Illegal possession or distribution incurs harsh legal prosecution.'
-  },
-  {
-    id: 'heroin',
-    name: 'Heroin',
-    category: 'Illicit Opioids',
-    tagline: 'Fast-acting illicit opioid with extreme overdose risk',
-    shortTermEffects: [
-      'Immediate rush of warm euphoria followed by a heavy nod',
-      'Severely depressed breathing and constricted pupils',
-      'Nausea, severe itching, and clouding of mental function'
-    ],
-    longTermEffects: [
-      'Collapsed veins, skin abscesses, and bloodborne infections',
-      'High fatality rate due to unpredictable purity and fentanyl contamination',
-      'Profound physical addiction damaging brain white matter'
-    ],
-    legalPenalties: 'Strictly prohibited illegal narcotic; trafficking yields maximum statutory prison terms.'
-  },
-  {
-    id: 'fentanyl',
-    name: 'Fentanyl',
-    category: 'Synthetic Opioids',
-    tagline: 'Potent synthetic opioid up to 100x stronger than morphine',
-    shortTermEffects: [
-      'Rapid pain relief and extreme sedation in minuscule doses',
-      'Immediate respiratory arrest and loss of consciousness',
-      'Rapid onset of cyanotic (blue) lips and unresponsive coma'
-    ],
-    longTermEffects: [
-      'Near-instant physical dependence after brief exposure',
-      'Extremely high risk of sudden fatal overdose',
-      'Hypoxic brain damage from oxygen deprivation during non-fatal overdose'
-    ],
-    legalPenalties: 'Unlawful possession or distribution of even microgram quantities incurs severe criminal charges.'
-  },
-  {
     id: 'alcohol',
     name: 'Alcohol',
     category: 'Central Nervous System Depressants',
@@ -207,30 +359,6 @@ export const MYTH_VS_FACT = [
     myth: "Detoxification alone is enough to cure substance dependency.",
     fact: "Detox manages physical withdrawal, but long-term recovery requires behavioral therapy, counseling, and relapse prevention.",
     explanation: "Clearing drugs from the body is step one; healing underlying triggers and rebuilding habits takes sustained support."
-  },
-  {
-    id: 7,
-    myth: "Relapse means treatment has completely failed.",
-    fact: "Substance use disorder is a chronic condition; relapse is a signal to adjust treatment strategies, not a sign of defeat.",
-    explanation: "Many individuals in lifelong recovery experienced one or more relapses before establishing lasting sobriety."
-  },
-  {
-    id: 8,
-    myth: "You have to hit 'bottom' before you can get help.",
-    fact: "Early intervention significantly increases treatment success rates and prevents permanent physical and mental damage.",
-    explanation: "Waiting for rock bottom risks severe injury or death. Seeking assistance at any stage saves lives."
-  },
-  {
-    id: 9,
-    myth: "Vaping nicotine or THC is harmless compared to traditional smoking.",
-    fact: "Vaping delivers high concentrations of chemicals that damage lung tissue and induce strong chemical dependence.",
-    explanation: "E-cigarettes can contain toxic metals, volatile organic compounds, and ultra-concentrated addictive agents."
-  },
-  {
-    id: 10,
-    myth: "Asking someone about their substance use will alienate them or push them away.",
-    fact: "Compassionate, non-judgmental conversations frequently serve as the crucial catalyst for seeking professional help.",
-    explanation: "Expressing genuine care and offering support breaks through isolation and stigma."
   }
 ];
 
@@ -263,63 +391,52 @@ export const RESOURCE_DIRECTORY = [
 
 export const BLOG_POSTS = [
   {
-    id: 'from-darkness-to-purpose',
-    title: 'From Darkness to Purpose: A 2-Year Milestone in Recovery',
-    author: 'Founding Advocate',
-    date: 'August 28, 2026',
-    category: 'Featured Story',
+    id: 'understanding-recovery-roadmap',
+    title: 'The Science of Recovery: How Structured Routines Rewire the Brain',
+    category: 'Neuroscience & Recovery',
     readTime: '6 min read',
-    excerpt: 'Six years of dependency felt like a room without windows. Here is how honest self-examination, medical treatment, and daily discipline restored clarity.',
+    author: 'Mehul',
+    date: 'Sep 20, 2026',
+    excerpt: 'Explore how neuroplasticity allows the brain to heal from substance dependence through consistent daily routines, mood check-ins, and craving management.',
     content: `
-      <p class="mb-4 text-lg font-serif italic opacity-90 font-semibold">"Recovery is not a single decision; it is a thousand small daily choices to choose clarity over numbness."</p>
-      
-      <p class="mb-4 leading-relaxed">When I look back at the years between 2017 and 2023, the strongest emotion I recall is not anger or pain—it was profound isolation. Dependency creeps into your daily routine quietly until every decision is dictated by fear of withdrawal or anxiety about the future.</p>
-      
-      <h3 class="text-2xl font-serif mt-6 mb-3 font-semibold">The Shift in Perspective</h3>
-      <p class="mb-4 leading-relaxed">In 2023, stepping into rehabilitation felt daunting. Society often frames rehab as a punishment or a last resort. In truth, it was the first time in six years I felt truly safe. Medical detoxification cleared the fog, but counseling reconnected me with my humanity.</p>
-      
-      <h3 class="text-2xl font-serif mt-6 mb-3 font-semibold">Why Clear Choice Exists</h3>
-      <p class="mb-4 leading-relaxed">Today, being two years clean is not just a personal victory; it is a responsibility. CLEAR CHOICE was born to replace judgment with facts, isolation with community, and despair with actionable hope. If you are struggling today, know that your story is far from over.</p>
-    `
-  },
-  {
-    id: 'the-neuroscience-of-hope',
-    title: 'Understanding the Brain in Recovery: Plasticity & Healing',
-    author: 'Medical Advisory Panel',
-    date: 'August 14, 2026',
-    category: 'Awareness Article',
-    readTime: '5 min read',
-    excerpt: 'How neuroplasticity enables the brain to rebuild reward circuits, regain emotional stability, and heal over time.',
-    content: `
-      <p class="mb-4 leading-relaxed">One of the most encouraging discoveries of modern neuroscience is neuroplasticity—the brain's ability to reorganize itself by forming new neural connections throughout life.</p>
-      
-      <p class="mb-4 leading-relaxed">Prolonged drug use alters dopamine signaling, making everyday pleasures feel muted. However, with sustained abstinence and positive behavioral interventions, neurotransmitter receptors recover sensitivity.</p>
-      
-      <h3 class="text-2xl font-serif mt-6 mb-3 font-semibold">Key Phases of Neurological Healing</h3>
-      <ul class="list-disc pl-6 space-y-2 mb-4">
-        <li><strong>First 30 Days:</strong> Stabilization of physical withdrawal and sleeping patterns.</li>
-        <li><strong>3 to 6 Months:</strong> Restoration of prefrontal cortex executive functions (decision-making & impulse control).</li>
-        <li><strong>1 Year and Beyond:</strong> Normalization of mood regulation and stress resilience.</li>
-      </ul>
+      <p>Addiction recovery is not merely a matter of willpower; it is a profound process of biological and neurological restructuring. When substance use alters the brain's reward pathways and dopamine regulation, daily routines serve as the essential framework for rebuilding stability.</p>
+      <h3>Neuroplasticity and Habit Formation</h3>
+      <p>The human brain possesses an incredible capacity to adapt and form new neural pathways—a phenomenon known as neuroplasticity. By substituting harmful behaviors with healthy daily activities, such as guided breathing, physical exercise, and regular sleep schedules, we actively train the brain to find calm and reward in natural processes.</p>
+      <h3>The Role of Structured Milestones</h3>
+      <p>Breaking recovery down into manageable phases—Stabilization, Early Recovery, Physical & Mental Renewal, Relapse Prevention, and Long-Term Maintenance—prevents overwhelm and reinforces self-efficacy. Every completed task and daily check-in is a step toward neurochemical balance.</p>
     `
   },
   {
     id: 'supporting-a-loved-one',
-    title: 'How to Support a Loved One Without Enabling Dependency',
-    author: 'Family Counselor',
-    date: 'July 30, 2026',
-    category: 'Community Story',
-    readTime: '7 min read',
-    excerpt: 'Navigating boundary setting, empathetic communication, and guiding someone towards professional intervention.',
+    title: 'Navigating Family Support: How to Help Without Enabling',
+    category: 'Family Guidance',
+    readTime: '5 min read',
+    author: 'Mehul',
+    date: 'Sep 15, 2026',
+    excerpt: 'Key strategies for families and loved ones to foster open communication, set healthy boundaries, and encourage structured recovery.',
     content: `
-      <p class="mb-4 leading-relaxed">Supporting someone through addiction requires a delicate balance between empathy and firm boundaries. Often, well-intentioned family members accidentally cushion consequences in ways that prolong dependency.</p>
-      
-      <h3 class="text-2xl font-serif mt-6 mb-3 font-semibold">Constructive Steps for Families</h3>
-      <ol class="list-decimal pl-6 space-y-2 mb-4">
-        <li><strong>Communicate with Clarity:</strong> Express your love and concern without accusatory language.</li>
-        <li><strong>Establish Clear Boundaries:</strong> Stop financial support for non-essential expenses that facilitate substance access.</li>
-        <li><strong>Offer Help Towards Treatment:</strong> Offer assistance in researching recovery options or attending appointments together.</li>
-      </ol>
+      <p>Supporting a family member or loved one through substance addiction can be emotionally complex. Knowing where to draw the line between compassionate assistance and inadvertent enabling is critical for long-term healing.</p>
+      <h3>Setting Clear and Compassionate Boundaries</h3>
+      <p>Boundaries are not punishments; they are protective guidelines that maintain emotional safety and foster accountability. Clearly communicate what behaviors are acceptable and stick to your boundaries consistently.</p>
+      <h3>Encouraging Professional and Structured Pathways</h3>
+      <p>Recovery is best guided by structured programs and professional mentorship. Encourage your loved one to participate in weekly sessions, track their daily progress, and connect with peer support groups.</p>
+    `
+  },
+  {
+    id: 'managing-cravings-effectively',
+    title: 'Craving Management 101: Practical Tools for High-Risk Situations',
+    category: 'Coping Strategies',
+    readTime: '4 min read',
+    author: 'Mehul',
+    date: 'Sep 10, 2026',
+    excerpt: 'Practical, evidence-based exercises to navigate intense cravings, map personal triggers, and maintain a resilient recovery streak.',
+    content: `
+      <p>Cravings are temporary physiological and psychological surges. Learning to recognize them as passing waves rather than commands is a cornerstone of relapse prevention.</p>
+      <h3>Urge Surfing Techniques</h3>
+      <p>Instead of fighting a craving directly, practice 'urge surfing'—observing physical sensations with mindful detachment until the peak passes (usually within 10 to 15 minutes).</p>
+      <h3>Trigger Mapping</h3>
+      <p>Identify your personal triggers—people, places, stress levels, or times of day—and prepare a replacement activity, such as calling a mentor, performing 4-7-8 breathing, or going for a walk.</p>
     `
   }
 ];
+

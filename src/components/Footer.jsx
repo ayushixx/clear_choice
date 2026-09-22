@@ -62,6 +62,11 @@ export default function Footer({ setActivePage, openLegalModal }) {
                 </button>
               </li>
               <li>
+                <button onClick={() => { setActivePage('dashboard'); scrollToTop(); }} className="hover:text-white transition-colors text-[#E03590] font-semibold cursor-pointer">
+                  My Recovery Dashboard (Personal Journey)
+                </button>
+              </li>
+              <li>
                 <button onClick={() => { setActivePage('crisis-support'); scrollToTop(); }} className="hover:text-white transition-colors text-amber-300 font-semibold cursor-pointer">
                   Crisis Support (24/7 Hotline)
                 </button>

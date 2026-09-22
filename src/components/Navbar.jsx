@@ -49,13 +49,14 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
 
   const helpSubItems = [
     { id: 'help', label: 'Get Help Hub', subtitle: 'Decision & Intent Center' },
+    { id: 'dashboard', label: 'My Recovery Dashboard', subtitle: 'My Recovery Journey' },
     { id: 'crisis-support', label: 'Crisis Support', subtitle: 'Immediate 24/7 Hotline' },
     { id: 'recovery-centers', label: 'Recovery Centers', subtitle: 'Rehab Directory & Search' },
     { id: 'find-support', label: 'Find Support Near You', subtitle: 'Interactive GPS Map' },
     { id: 'contact-counselor', label: 'Contact Counselor', subtitle: 'Confidential Inquiry & Callback' },
   ];
 
-  const isHelpActive = ['help', 'crisis-support', 'recovery-centers', 'find-support', 'contact-counselor'].includes(activePage);
+  const isHelpActive = ['help', 'dashboard', 'crisis-support', 'recovery-centers', 'find-support', 'contact-counselor'].includes(activePage);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">

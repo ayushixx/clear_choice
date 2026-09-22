@@ -15,6 +15,7 @@ import RecoveryCenters from './pages/RecoveryCenters';
 import FindSupportNearYou from './pages/FindSupportNearYou';
 import ContactCounselor from './pages/ContactCounselor';
 import Blog from './pages/Blog';
+import RecoveryDashboard from './components/RecoveryDashboard';
 
 const ROUTE_MAP = {
   '/': 'home',
@@ -22,6 +23,7 @@ const ROUTE_MAP = {
   '/drug-facts': 'facts',
   '/myth-vs-fact': 'quiz',
   '/get-help': 'help',
+  '/my-dashboard': 'dashboard',
   '/crisis-support': 'crisis-support',
   '/recovery-centers': 'recovery-centers',
   '/find-support': 'find-support',
@@ -35,6 +37,7 @@ const PAGE_TO_ROUTE = {
   facts: '/drug-facts',
   quiz: '/myth-vs-fact',
   help: '/get-help',
+  dashboard: '/my-dashboard',
   'crisis-support': '/crisis-support',
   'recovery-centers': '/recovery-centers',
   'find-support': '/find-support',
@@ -151,6 +154,12 @@ export default function App() {
         return <MythVsFact setActivePage={handleSetActivePage} />;
       case 'help':
         return <GetHelpHub setActivePage={handleSetActivePage} />;
+      case 'dashboard':
+        return (
+          <div className="pt-20 sm:pt-28 pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <RecoveryDashboard setActivePage={handleSetActivePage} />
+          </div>
+        );
       case 'crisis-support':
         return <CrisisSupport setActivePage={handleSetActivePage} />;
       case 'recovery-centers':
