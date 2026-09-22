@@ -125,25 +125,25 @@ export default function Home({ setActivePage }) {
       </section>
 
       {/* 2. ABOUT MEHUL — EDITORIAL NARRATIVE SPLIT */}
-      <section id="about-mehul-story" className="py-24 sm:py-32 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-editorial scroll-mt-24">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 sm:gap-16 items-start">
+      <section id="about-mehul-story" className="py-16 sm:py-32 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-editorial scroll-mt-24">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-16 items-start">
           
-          <div className="lg:col-span-5 space-y-4 sticky top-28">
+          <div className="lg:col-span-5 space-y-4 lg:sticky lg:top-28">
             <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#781353] block">
               CHAPTER 01 • MEET MEHUL SAINI
             </span>
-            <h2 className="text-3xl sm:text-5xl font-serif font-bold text-[var(--text-primary)] leading-tight">
+            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-serif font-bold text-[var(--text-primary)] leading-tight">
               A Personal Approach to Lasting Recovery.
             </h2>
-            <p className="text-base text-muted font-light leading-relaxed">
+            <p className="text-sm sm:text-base text-muted font-light leading-relaxed">
               Every individual facing addiction deserves non-judgmental guidance grounded in structure, discipline, and practical coping strategies.
             </p>
           </div>
 
-          <div className="lg:col-span-7 space-y-10 border-l border-editorial pl-0 lg:pl-12">
+          <div className="lg:col-span-7 space-y-8 lg:border-l border-editorial pl-0 lg:pl-12">
             
             <div className="space-y-6">
-              <h3 className="text-xl font-serif font-bold text-[var(--text-primary)] border-b border-editorial pb-3">
+              <h3 className="text-lg sm:text-xl font-serif font-bold text-[var(--text-primary)] border-b border-editorial pb-3">
                 Verified Credentials & Focus
               </h3>
 
@@ -153,7 +153,7 @@ export default function Home({ setActivePage }) {
                     <span className="text-xs font-mono font-bold text-[#781353] uppercase tracking-wider block">
                       {item.label}
                     </span>
-                    <p className="text-base text-[var(--text-primary)] font-light leading-relaxed">
+                    <p className="text-sm sm:text-base text-[var(--text-primary)] font-light leading-relaxed">
                       {item.value}
                     </p>
                   </div>
@@ -161,11 +161,11 @@ export default function Home({ setActivePage }) {
               </div>
             </div>
 
-            <div className="pt-4 space-y-3">
+            <div className="pt-2 space-y-3">
               <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#781353] block">
                 Personal Message from Mehul
               </span>
-              <blockquote className="font-serif text-xl sm:text-2xl text-[var(--text-primary)] italic leading-relaxed border-l-2 border-[#781353] pl-6 py-2">
+              <blockquote className="font-serif text-lg sm:text-2xl text-[var(--text-primary)] italic leading-relaxed border-l-2 border-[#781353] pl-4 sm:pl-6 py-2">
                 "Recovery is a personal journey built on daily choices. With structured guidance, healthy routines, and continuous support, lasting change is possible. You do not have to recover alone."
               </blockquote>
             </div>

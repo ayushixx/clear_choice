@@ -45,10 +45,10 @@ export default function LiveChatWidget({ setActivePage }) {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] p-3.5 rounded-full shadow-xl transition-all flex items-center justify-center border border-white/20 touch-target btn-tap"
+          className="bg-[#2E031D] text-white p-3.5 rounded-full shadow-2xl transition-transform hover:scale-105 flex items-center justify-center border border-white/20 touch-target btn-tap"
           aria-label="Open Crisis Live Chat"
         >
-          <MessageSquare className="w-5 h-5" />
+          <MessageSquare className="w-5 h-5 text-[#E03590]" />
         </button>
       )}
 
@@ -60,7 +60,7 @@ export default function LiveChatWidget({ setActivePage }) {
               <img 
                 src="/assets/logo.png" 
                 alt="Logo" 
-                className="h-6 w-auto object-contain filter brightness-110"
+                className="h-6 w-auto object-contain"
               />
               <div>
                 <h4 className="font-serif font-bold text-xs leading-none">Clear Choice Support</h4>
@@ -96,7 +96,7 @@ export default function LiveChatWidget({ setActivePage }) {
                 <div
                   className={`max-w-[85%] p-3 rounded-2xl ${
                     msg.sender === 'user'
-                      ? 'bg-[#2E031D] dark:bg-[#E03590] text-white rounded-tr-xs'
+                      ? 'bg-[#2E031D] text-white rounded-tr-xs'
                       : 'bg-[var(--bg-card)] text-[var(--text-primary)] border border-editorial shadow-xs rounded-tl-xs'
                   }`}
                 >
@@ -117,9 +117,9 @@ export default function LiveChatWidget({ setActivePage }) {
             />
             <button
               type="submit"
-              className="bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] p-2.5 rounded-xl transition-all btn-tap touch-target flex items-center justify-center shrink-0 min-w-[44px] min-h-[44px] shadow-sm"
+              className="bg-[#2E031D] text-white p-2.5 rounded-xl transition-all btn-tap touch-target flex items-center justify-center shrink-0 min-w-[44px] min-h-[44px] shadow-sm"
             >
-              <Send className="w-4 h-4 text-[#E03590] dark:text-[#781353]" />
+              <Send className="w-4 h-4 text-[#E03590]" />
             </button>
           </form>
 
