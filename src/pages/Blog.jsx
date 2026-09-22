@@ -24,10 +24,10 @@ export default function Blog() {
       </div>
 
       {/* FEATURED STORY */}
-      <div className="card-doc p-5 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center">
+      <div className="card-doc p-5 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center rounded-3xl">
         <div className="lg:col-span-7 space-y-3 sm:space-y-4">
           <div className="flex items-center gap-3">
-            <span className="bg-[#781353] dark:bg-[#E03590] text-white text-[9px] sm:text-[10px] font-mono font-bold uppercase tracking-widest px-2.5 py-0.5">
+            <span className="bg-[#781353] dark:bg-[#E03590] text-white text-[9px] sm:text-[10px] font-mono font-bold uppercase tracking-widest px-3 py-1 rounded-full">
               {featuredPost.category}
             </span>
             <span className="text-xs text-muted flex items-center gap-1 font-mono">
@@ -50,7 +50,7 @@ export default function Blog() {
 
             <button
               onClick={() => setSelectedArticle(featuredPost)}
-              className="bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] px-5 py-3 font-bold text-xs uppercase tracking-widest transition-colors flex items-center justify-center gap-2 btn-tap touch-target cursor-pointer w-full sm:w-auto"
+              className="bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] px-6 py-3 font-bold text-xs uppercase tracking-widest transition-colors rounded-full flex items-center justify-center gap-2 btn-tap touch-target cursor-pointer w-full sm:w-auto"
             >
               <span>Read Story</span>
               <ArrowRight className="w-4 h-4" />
@@ -58,7 +58,7 @@ export default function Blog() {
           </div>
         </div>
 
-        <div className="lg:col-span-5 bg-[var(--bg-secondary)] p-5 sm:p-8 border border-editorial space-y-2 sm:space-y-3">
+        <div className="lg:col-span-5 bg-[var(--bg-secondary)] p-5 sm:p-8 border border-editorial rounded-3xl space-y-2 sm:space-y-3">
           <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest text-[#781353] dark:text-[#E03590] block">
             Editorial Note
           </span>
@@ -76,11 +76,11 @@ export default function Blog() {
         {regularPosts.map((post) => (
           <div 
             key={post.id}
-            className="card-doc p-5 sm:p-8 flex flex-col justify-between space-y-5 sm:space-y-6"
+            className="card-doc p-5 sm:p-8 flex flex-col justify-between space-y-5 sm:space-y-6 rounded-3xl"
           >
             <div className="space-y-3">
               <div className="flex items-center justify-between text-xs">
-                <span className="bg-[var(--bg-secondary)] text-[#781353] dark:text-[#E03590] font-mono font-bold px-2.5 py-0.5 border border-editorial uppercase tracking-wider text-[10px]">
+                <span className="bg-[var(--bg-secondary)] text-[#781353] dark:text-[#E03590] font-mono font-bold px-3 py-1 border border-editorial rounded-full uppercase tracking-wider text-[10px]">
                   {post.category}
                 </span>
                 <span className="text-muted font-mono text-[10px]">{post.readTime}</span>
@@ -99,9 +99,9 @@ export default function Blog() {
               <span className="text-xs text-muted font-mono">By {post.author}</span>
               <button
                 onClick={() => setSelectedArticle(post)}
-                className="text-xs font-bold uppercase tracking-wider text-[var(--text-primary)] hover:underline flex items-center gap-1.5 btn-tap touch-target cursor-pointer"
+                className="text-xs font-bold uppercase tracking-wider text-[var(--text-primary)] hover:underline flex items-center gap-1.5 btn-tap touch-target cursor-pointer rounded-full px-4 py-2 bg-[var(--bg-secondary)] border border-editorial"
               >
-                <span>Read Article</span> <ArrowRight className="w-4 h-4" />
+                <span>Read Article</span> <ArrowRight className="w-4 h-4 text-[#E03590]" />
               </button>
             </div>
           </div>
@@ -110,19 +110,19 @@ export default function Blog() {
 
       {/* FULL ARTICLE MODAL */}
       {selectedArticle && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fadeIn">
-          <div className="bg-[var(--bg-primary)] text-[var(--text-primary)] max-w-3xl w-full p-5 sm:p-10 border border-editorial relative max-h-[90vh] overflow-y-auto rounded-none">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 animate-fadeIn">
+          <div className="bg-[var(--bg-primary)] text-[var(--text-primary)] max-w-3xl w-full p-5 sm:p-10 border border-editorial relative max-h-[90vh] overflow-y-auto rounded-3xl shadow-2xl">
             
             <button
               onClick={() => setSelectedArticle(null)}
-              className="absolute top-4 right-4 text-[var(--text-primary)] p-2.5 hover:bg-[var(--bg-secondary)] touch-target btn-tap cursor-pointer flex items-center justify-center"
+              className="absolute top-4 right-4 text-[var(--text-primary)] p-2.5 hover:bg-[var(--bg-secondary)] rounded-full border border-editorial touch-target btn-tap cursor-pointer flex items-center justify-center"
               aria-label="Close article"
             >
               <X className="w-5 h-5" />
             </button>
 
             <div className="space-y-4">
-              <span className="bg-[#781353] dark:bg-[#E03590] text-white text-xs font-mono font-bold uppercase tracking-widest px-3 py-1 inline-block">
+              <span className="bg-[#781353] dark:bg-[#E03590] text-white text-xs font-mono font-bold uppercase tracking-widest px-3 py-1 rounded-full inline-block">
                 {selectedArticle.category}
               </span>
 
@@ -147,7 +147,7 @@ export default function Blog() {
             <div className="mt-8 pt-4 border-t border-editorial flex justify-end">
               <button
                 onClick={() => setSelectedArticle(null)}
-                className="bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] px-6 py-3 font-bold text-xs uppercase tracking-widest btn-tap touch-target cursor-pointer"
+                className="bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] px-6 py-3 font-bold text-xs uppercase tracking-widest rounded-full btn-tap touch-target cursor-pointer"
               >
                 Close Article
               </button>

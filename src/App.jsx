@@ -53,10 +53,16 @@ export default function App() {
 
   // System preference aware Light / Dark Theme state saved in localStorage
   const [theme, setTheme] = useState(() => {
-    const savedTheme = localStorage.getItem('clearchoice_theme');
-    if (savedTheme === 'dark' || savedTheme === 'light') return savedTheme;
-    if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return 'dark';
+    try {
+      if (typeof window !== 'undefined') {
+        const savedTheme = localStorage.getItem('clearchoice_theme');
+        if (savedTheme === 'dark' || savedTheme === 'light') return savedTheme;
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+      }
+    } catch (e) {
+      console.warn('[CLEAR CHOICE] localStorage read error:', e);
     }
     return 'light';
   });
@@ -64,19 +70,20 @@ export default function App() {
   useEffect(() => {
     const root = document.documentElement;
     const body = document.body;
-    
-    console.log('[CLEAR CHOICE DEBUG] Synchronizing Theme State:', theme);
+    const isDark = theme === 'dark';
 
-    if (theme === 'dark') {
+    if (isDark) {
       root.classList.add('dark');
-      body.classList.add('dark');
+      if (body) body.classList.add('dark');
+      root.setAttribute('data-theme', 'dark');
       root.style.colorScheme = 'dark';
     } else {
       root.classList.remove('dark');
-      body.classList.remove('dark');
+      if (body) body.classList.remove('dark');
+      root.setAttribute('data-theme', 'light');
       root.style.colorScheme = 'light';
     }
-    
+
     // Sync meta theme-color for mobile status bars
     let metaThemeColor = document.querySelector('meta[name="theme-color"]');
     if (!metaThemeColor) {
@@ -84,9 +91,22 @@ export default function App() {
       metaThemeColor.name = 'theme-color';
       document.head.appendChild(metaThemeColor);
     }
-    metaThemeColor.content = theme === 'dark' ? '#0A0A0C' : '#FFFFFF';
+    metaThemeColor.content = isDark ? '#0A0A0C' : '#FFFFFF';
 
-    localStorage.setItem('clearchoice_theme', theme);
+    // Sync apple status bar style
+    let metaAppleStatus = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
+    if (!metaAppleStatus) {
+      metaAppleStatus = document.createElement('meta');
+      metaAppleStatus.name = 'apple-mobile-web-app-status-bar-style';
+      document.head.appendChild(metaAppleStatus);
+    }
+    metaAppleStatus.content = isDark ? 'black-translucent' : 'default';
+
+    try {
+      localStorage.setItem('clearchoice_theme', theme);
+    } catch (e) {
+      console.warn('[CLEAR CHOICE] localStorage write error:', e);
+    }
   }, [theme]);
 
   // Handle browser back/forward buttons

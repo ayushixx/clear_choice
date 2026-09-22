@@ -8,12 +8,12 @@ export default function RehabCard({ center, isSelected, onSelect, onGetDirection
   return (
     <motion.div
       layout
-      initial={{ opacity: 0, y: 15 }}
+      initial={{ opacity: 0, y: 18 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       whileTap={{ scale: 0.98 }}
       onClick={() => onSelect(center)}
-      className={`card-doc p-6 sm:p-7 flex flex-col justify-between cursor-pointer transition-all duration-300 rounded-3xl ${
+      className={`card-doc p-6 sm:p-8 flex flex-col justify-between cursor-pointer transition-all duration-300 rounded-3xl ${
         isSelected ? 'border-[#E03590] ring-2 ring-[#E03590]/40 shadow-xl' : ''
       }`}
     >
@@ -30,7 +30,7 @@ export default function RehabCard({ center, isSelected, onSelect, onGetDirection
         </div>
 
         {/* Center Name */}
-        <h3 className="font-serif font-bold text-xl sm:text-2xl text-[var(--text-primary)] leading-tight">
+        <h3 className="font-serif font-bold text-xl sm:text-2xl text-[var(--text-primary)] leading-snug">
           {name}
         </h3>
 
@@ -41,8 +41,8 @@ export default function RehabCard({ center, isSelected, onSelect, onGetDirection
           </p>
         )}
 
-        {/* Address */}
-        <div className="pt-3.5 border-t border-editorial space-y-3 text-xs sm:text-sm">
+        {/* Address & Contact Info */}
+        <div className="pt-4 border-t border-editorial space-y-3 text-xs sm:text-sm">
           <div className="flex items-start gap-2.5 text-[var(--text-primary)] font-light">
             <MapPin className="w-4 h-4 text-[#E03590] shrink-0 mt-0.5" />
             <span className="leading-snug">{address}</span>
@@ -79,12 +79,12 @@ export default function RehabCard({ center, isSelected, onSelect, onGetDirection
         </div>
       </div>
 
-      {/* Action Buttons */}
-      <div className="pt-5 flex gap-3">
+      {/* Prominent Call & Directions Action Buttons */}
+      <div className="pt-6 flex gap-3">
         <a
           href={`tel:${phoneClean || phone.replace(/\s+/g, '')}`}
           onClick={(e) => e.stopPropagation()}
-          className="flex-1 border border-editorial bg-[var(--bg-secondary)] text-[var(--text-primary)] py-3.5 px-4 rounded-xl font-bold text-xs uppercase tracking-widest text-center transition-colors hover:bg-black/5 dark:hover:bg-white/5 flex items-center justify-center gap-2 touch-target btn-tap"
+          className="flex-1 border border-editorial bg-[var(--bg-secondary)] text-[var(--text-primary)] py-3.5 px-4 rounded-full font-bold text-xs uppercase tracking-widest text-center transition-colors hover:border-[#E03590] flex items-center justify-center gap-2 touch-target btn-tap"
         >
           <Phone className="w-4 h-4 text-[#E03590]" /> Call
         </a>
@@ -95,7 +95,7 @@ export default function RehabCard({ center, isSelected, onSelect, onGetDirection
             e.stopPropagation();
             onGetDirections(center);
           }}
-          className="flex-1 bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] py-3.5 px-4 rounded-xl font-bold text-xs uppercase tracking-widest text-center transition-colors hover:opacity-90 flex items-center justify-center gap-2 touch-target btn-tap shadow-md"
+          className="flex-1 bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] py-3.5 px-4 rounded-full font-bold text-xs uppercase tracking-widest text-center transition-opacity hover:opacity-90 flex items-center justify-center gap-2 touch-target btn-tap shadow-md"
         >
           <Navigation className="w-4 h-4 text-[#E03590] dark:text-[#781353]" /> Directions
         </button>

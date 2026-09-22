@@ -71,7 +71,7 @@ export default function GetHelpHub({ setActivePage }) {
       </motion.div>
 
       {/* 4 LARGE INTENT FEATURE CARDS */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
         {options.map((opt, idx) => {
           const Icon = opt.icon;
           return (
@@ -82,7 +82,7 @@ export default function GetHelpHub({ setActivePage }) {
               transition={{ duration: 0.4, delay: idx * 0.1 }}
               className={`p-6 sm:p-8 border flex flex-col justify-between relative overflow-hidden transition-all duration-300 rounded-3xl ${
                 opt.primary
-                  ? 'bg-[#2E031D] text-white border-[#2E031D] shadow-xl glow-accent'
+                  ? 'bg-[#2E031D] dark:bg-[#16161C] text-white border-[#2E031D] dark:border-editorial shadow-xl'
                   : 'card-doc hover:border-[#E03590]'
               }`}
             >

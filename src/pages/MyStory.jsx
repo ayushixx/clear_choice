@@ -61,16 +61,16 @@ export default function MyStory({ setActivePage }) {
 
       </div>
 
-      {/* PULL QUOTE WITH GLASSMORPHISM BORDER & GLOW */}
+      {/* PULL QUOTE WITH SOLID EDITORIAL BORDER */}
       <motion.section
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className="relative bg-[var(--bg-secondary)] rounded-3xl p-6 sm:p-12 border-l-4 border-[#781353] dark:border-[#E03590] max-w-4xl mx-auto space-y-3 shadow-md overflow-hidden"
+        className="relative bg-[var(--bg-secondary)] rounded-3xl p-6 sm:p-12 border-l-4 border-[#781353] dark:border-[#E03590] border border-editorial max-w-4xl mx-auto space-y-3 shadow-md overflow-hidden"
       >
         <AmbientParticles count={15} />
-        <Quote className="w-6 h-6 sm:w-8 sm:h-8 text-[#781353] dark:text-[#E03590] opacity-60 relative z-10" />
+        <Quote className="w-6 h-6 sm:w-8 sm:h-8 text-[#781353] dark:text-[#E03590] opacity-70 relative z-10" />
         <blockquote className="text-base sm:text-3xl font-serif italic font-bold text-[var(--text-primary)] leading-snug relative z-10 break-words">
           "Recovery begins when honesty becomes stronger than fear."
         </blockquote>
@@ -98,7 +98,8 @@ export default function MyStory({ setActivePage }) {
           </h2>
           <div className="text-xs sm:text-base text-muted leading-relaxed font-light space-y-3 pt-1">
             <p>
-              What began as a gradual challenge evolved into a difficult chapter marked by uncertainty, isolation, and personal obstacles. Over time, the need for change became impossible to ignore.            </p>
+              What began as a gradual challenge evolved into a difficult chapter marked by uncertainty, isolation, and personal obstacles. Over time, the need for change became impossible to ignore.
+            </p>
           </div>
         </motion.div>
 
@@ -158,7 +159,7 @@ export default function MyStory({ setActivePage }) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="bg-[#2E031D] dark:bg-[#16161C] text-white p-6 sm:p-10 border border-editorial flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 glow-accent rounded-3xl shadow-xl"
+        className="bg-[#2E031D] dark:bg-[#16161C] text-white p-6 sm:p-10 border border-[#2E031D] dark:border-editorial flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 rounded-3xl shadow-xl"
       >
         <div>
           <h3 className="text-lg sm:text-2xl font-serif font-bold text-white">Need Support or Have Questions?</h3>

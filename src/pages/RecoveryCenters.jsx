@@ -26,7 +26,7 @@ export default function RecoveryCenters({ setActivePage, setSelectedCenter }) {
         >
           <ArrowLeft className="w-3.5 h-3.5" /> Back to Get Help Hub
         </button>
-        <span className="text-[9px] sm:text-[10px] font-mono uppercase bg-[var(--bg-secondary)] border border-editorial text-[#781353] dark:text-[#E03590] px-2.5 py-1 font-bold shrink-0">
+        <span className="text-[9px] sm:text-[10px] font-mono uppercase bg-[var(--bg-secondary)] border border-editorial text-[#781353] dark:text-[#E03590] px-3 py-1 font-bold shrink-0 rounded-full">
           Directory Explorer
         </span>
       </div>

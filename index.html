@@ -7,6 +7,9 @@
     <title>CLEAR CHOICE — Know the Facts. Choose Your Future.</title>
     <meta name="description" content="A modern, deeply personal awareness platform for drug education, addiction awareness, recovery stories, and crisis intervention." />
     
+    <meta name="theme-color" content="#FFFFFF" id="theme-color-meta" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" id="apple-status-bar-meta" />
+
     <!-- Instant theme sync script to prevent FOUT on mobile & enforce explicit manual selection -->
     <script>
       (function() {
@@ -16,16 +19,37 @@
           if (saved === 'dark' || saved === 'light') {
             isDark = saved === 'dark';
           } else {
-            isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            isDark = !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
           }
+          var root = document.documentElement;
           if (isDark) {
-            document.documentElement.classList.add('dark');
-            document.documentElement.style.colorScheme = 'dark';
+            root.classList.add('dark');
+            root.setAttribute('data-theme', 'dark');
+            root.style.colorScheme = 'dark';
           } else {
-            document.documentElement.classList.remove('dark');
-            document.documentElement.style.colorScheme = 'light';
+            root.classList.remove('dark');
+            root.setAttribute('data-theme', 'light');
+            root.style.colorScheme = 'light';
           }
-          console.log('[CLEAR CHOICE DEBUG] Inline pre-render theme initialized:', isDark ? 'dark' : 'light', '| Saved:', saved);
+          var themeMeta = document.getElementById('theme-color-meta');
+          if (themeMeta) themeMeta.content = isDark ? '#0A0A0C' : '#FFFFFF';
+          var appleMeta = document.getElementById('apple-status-bar-meta');
+          if (appleMeta) appleMeta.content = isDark ? 'black-translucent' : 'default';
+
+          function syncBody() {
+            if (document.body) {
+              if (isDark) {
+                document.body.classList.add('dark');
+              } else {
+                document.body.classList.remove('dark');
+              }
+            }
+          }
+          if (document.body) {
+            syncBody();
+          } else {
+            document.addEventListener('DOMContentLoaded', syncBody);
+          }
         } catch (e) {}
       })();
     </script>

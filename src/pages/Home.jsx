@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Phone, ArrowRight, ChevronRight } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import TrustBadges from '../components/TrustBadges';
+
 import TestimonialsCarousel from '../components/TestimonialsCarousel';
 import AmbientParticles from '../components/AmbientParticles';
 import ScrollIndicator from '../components/ScrollIndicator';
@@ -11,11 +11,11 @@ import heroHomeImage from '../assets/hero-home.jpg';
 export default function Home({ setActivePage }) {
   const { scrollY } = useScroll();
   const heroImageScale = useTransform(scrollY, [0, 600], [1, 1.12]);
-  const heroImageY = useTransform(scrollY, [0, 600], [0, 80]);
-  const heroTextY = useTransform(scrollY, [0, 400], [0, -20]);
+  const heroImageY = useTransform(scrollY, [0, 600], [0, 70]);
+  const heroTextY = useTransform(scrollY, [0, 400], [0, -15]);
 
   useEffect(() => {
-    console.log('[CLEAR CHOICE DEBUG] Active Hero Image Source (Bundled Asset):', heroHomeImage);
+    console.log('[CLEAR CHOICE DEBUG] Active Hero Image Source:', heroHomeImage);
   }, []);
 
   return (
@@ -24,7 +24,7 @@ export default function Home({ setActivePage }) {
       {/* HERO SECTION — CINEMATIC PARALLAX & AMBIENT MOTION */}
       <section className="relative w-full min-h-[100dvh] sm:h-screen flex items-end sm:items-center justify-start overflow-hidden pt-20 sm:pt-28 pb-12 sm:pb-0">
         
-        {/* Full Viewport Background Image with Parallax & Ambient Zoom */}
+        {/* Responsive Centered Hero Image */}
         <motion.div 
           style={{ scale: heroImageScale, y: heroImageY }}
           className="absolute inset-0 z-0 origin-center"
@@ -32,12 +32,12 @@ export default function Home({ setActivePage }) {
           <img 
             src={heroHomeImage} 
             alt="Clear Choice Subject" 
-            className="w-full h-full object-cover object-[center_20%] filter brightness-[0.85] contrast-[1.05]"
+            className="w-full h-full object-cover object-[center_35%] sm:object-[center_25%] md:object-center filter brightness-[0.88] contrast-[1.05]"
           />
-          {/* Layered Cinematic Overlays & Ambient Gradient */}
-          <div className="absolute inset-0 bg-black/40"></div>
+          {/* Layered Cinematic Overlays */}
+          <div className="absolute inset-0 bg-black/45"></div>
           <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0C] via-black/40 to-transparent"></div>
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(224,53,144,0.3),transparent_65%)]"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(224,53,144,0.25),transparent_65%)]"></div>
         </motion.div>
 
         {/* Ambient Particles Layer */}
@@ -63,12 +63,12 @@ export default function Home({ setActivePage }) {
             <span>DOCUMENTARY</span>
           </motion.div>
 
-          {/* Editorial Serif Headline - Precise Breakpoint Scaling */}
+          {/* Editorial Serif Headline */}
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-            className="text-[38px] leading-[1.08] min-[375px]:text-[44px] min-[390px]:text-[48px] min-[414px]:text-[52px] sm:text-6xl md:text-[68px] lg:text-[76px] font-serif font-extrabold text-white tracking-tight leading-[1.05] max-w-3xl drop-shadow-md break-words"
+            className="text-[36px] leading-[1.08] min-[375px]:text-[42px] min-[390px]:text-[46px] min-[414px]:text-[50px] sm:text-6xl md:text-[68px] lg:text-[76px] font-serif font-extrabold text-white tracking-tight leading-[1.05] max-w-3xl drop-shadow-md break-words"
           >
             Know the Facts. <br />
             <span className="italic font-normal text-white/90">Choose Your Future.</span>
@@ -84,7 +84,7 @@ export default function Home({ setActivePage }) {
             A recovery journey transformed into a movement for awareness, education, and hope. Dedicated to evidence-based substance education.
           </motion.p>
 
-          {/* Mobile Action CTAs - Responsive Spacing & Non-Dominating Buttons */}
+          {/* Mobile Action CTAs */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -93,7 +93,7 @@ export default function Home({ setActivePage }) {
           >
             <MagneticButton
               onClick={() => { setActivePage('help'); window.scrollTo(0,0); }}
-              className="bg-white text-[#2E031D] hover:bg-[#FDF3F7] px-6 py-3.5 sm:px-8 sm:py-4 text-xs font-extrabold uppercase tracking-widest transition-all shadow-xl touch-target glow-accent rounded-full"
+              className="bg-white text-[#2E031D] hover:bg-[#FDF3F7] px-6 py-3.5 sm:px-8 sm:py-4 text-xs font-extrabold uppercase tracking-widest transition-all shadow-xl touch-target rounded-full"
             >
               <span className="flex items-center justify-center gap-2">
                 <span>GET HELP NOW</span>
@@ -103,7 +103,7 @@ export default function Home({ setActivePage }) {
 
             <MagneticButton
               onClick={() => { setActivePage('story'); window.scrollTo(0,0); }}
-              className="bg-black/50 hover:bg-black/70 text-white border border-white/40 px-6 py-3.5 sm:px-8 sm:py-4 text-xs font-semibold uppercase tracking-widest backdrop-blur-md transition-all touch-target rounded-full"
+              className="bg-black/70 hover:bg-black text-white border border-white/40 px-6 py-3.5 sm:px-8 sm:py-4 text-xs font-semibold uppercase tracking-widest transition-all touch-target rounded-full"
             >
               <span className="flex items-center justify-center gap-2">
                 <span>Read My Story</span>
@@ -130,12 +130,17 @@ export default function Home({ setActivePage }) {
 
       </section>
 
-      {/* TRUST & ACCREDITATION BADGES BAR */}
-      <TrustBadges />
+
 
       {/* QUICK IMPACT STATS */}
       <section id="impact-stats-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
-        <div className="card-doc p-6 sm:p-12">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="card-doc p-6 sm:p-12 rounded-3xl"
+        >
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 md:gap-12 divide-y md:divide-y-0 md:divide-x divide-editorial">
             
             {/* Stat 1 */}
@@ -205,7 +210,7 @@ export default function Home({ setActivePage }) {
             </motion.div>
 
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* RECOVERY TESTIMONIALS CAROUSEL */}
@@ -215,7 +220,13 @@ export default function Home({ setActivePage }) {
 
       {/* JOURNEY TIMELINE STORYTELLING */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">
-        <div className="max-w-2xl space-y-2">
+        <motion.div 
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="max-w-2xl space-y-2"
+        >
           <span className="text-xs font-mono font-bold uppercase tracking-widest text-muted block">
             Chronological Progression
           </span>
@@ -225,12 +236,18 @@ export default function Home({ setActivePage }) {
           <p className="text-xs sm:text-sm text-muted font-light">
             A three-chapter progression from active dependency to recovery and public advocacy.
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
           
           {/* Phase 1 */}
-          <div className="card-doc p-6 sm:p-8 space-y-3">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="card-doc p-6 sm:p-8 space-y-3 rounded-3xl"
+          >
             <span className="text-[10px] font-mono font-bold text-muted uppercase tracking-widest block">
               2017 – 2023 • Phase 01
             </span>
@@ -240,10 +257,16 @@ export default function Home({ setActivePage }) {
             <p className="text-xs text-muted font-light leading-relaxed">
               A period marked by dependency, isolation, and struggle before seeking structured help.
             </p>
-          </div>
+          </motion.div>
 
           {/* Phase 2 */}
-          <div className="card-doc p-6 sm:p-8 space-y-3">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="card-doc p-6 sm:p-8 space-y-3 rounded-3xl"
+          >
             <span className="text-[10px] font-mono font-bold text-muted uppercase tracking-widest block">
               2023 – 2025 • Phase 02
             </span>
@@ -253,10 +276,16 @@ export default function Home({ setActivePage }) {
             <p className="text-xs text-muted font-light leading-relaxed">
               The hardest but most transformative chapter. Two years dedicated to detoxification and counseling.
             </p>
-          </div>
+          </motion.div>
 
           {/* Phase 3 */}
-          <div className="card-doc p-6 sm:p-8 space-y-3">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="card-doc p-6 sm:p-8 space-y-3 rounded-3xl"
+          >
             <span className="text-[10px] font-mono font-bold text-muted uppercase tracking-widest block">
               2025 – Today • Phase 03
             </span>
@@ -266,28 +295,38 @@ export default function Home({ setActivePage }) {
             <p className="text-xs text-muted font-light leading-relaxed">
               Living proof that recovery is possible. Transforming personal survival into a movement for awareness.
             </p>
-          </div>
+          </motion.div>
 
         </div>
       </section>
 
       {/* CALL TO ACTION CARDS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">
-        <div className="max-w-2xl space-y-2">
+        <motion.div 
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="max-w-2xl space-y-2"
+        >
           <span className="text-xs font-mono font-bold uppercase tracking-widest text-muted block">
             Publication Pillars
           </span>
           <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[var(--text-primary)]">
             Explore Clear Choice Resources
           </h2>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
           
           {/* Card 1 */}
-          <div 
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
             onClick={() => { setActivePage('facts'); window.scrollTo(0,0); }}
-            className="card-doc p-6 sm:p-8 cursor-pointer group space-y-4 btn-tap touch-target"
+            className="card-doc p-6 sm:p-8 cursor-pointer group space-y-4 btn-tap touch-target rounded-3xl"
           >
             <span className="text-[10px] font-mono font-bold text-muted uppercase tracking-widest block">
               01 • Education
@@ -299,14 +338,18 @@ export default function Home({ setActivePage }) {
               Learn the reality behind 10 major substances, including short-term effects, long-term health risks, and legal penalties.
             </p>
             <div className="pt-2 text-xs font-bold uppercase tracking-wider text-[var(--text-primary)] group-hover:underline flex items-center gap-1">
-              <span>View Facts Database</span> <ArrowRight className="w-3.5 h-3.5" />
+              <span>View Facts Database</span> <ArrowRight className="w-3.5 h-3.5 text-[#E03590]" />
             </div>
-          </div>
+          </motion.div>
 
           {/* Card 2 */}
-          <div 
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
             onClick={() => { setActivePage('quiz'); window.scrollTo(0,0); }}
-            className="card-doc p-6 sm:p-8 cursor-pointer group space-y-4 btn-tap touch-target"
+            className="card-doc p-6 sm:p-8 cursor-pointer group space-y-4 btn-tap touch-target rounded-3xl"
           >
             <span className="text-[10px] font-mono font-bold text-muted uppercase tracking-widest block">
               02 • Reference
@@ -318,14 +361,18 @@ export default function Home({ setActivePage }) {
               A minimalist editorial breakdown challenging 10 common societal misconceptions about addiction and recovery.
             </p>
             <div className="pt-2 text-xs font-bold uppercase tracking-wider text-[var(--text-primary)] group-hover:underline flex items-center gap-1">
-              <span>Read Myth vs Fact Guide</span> <ArrowRight className="w-3.5 h-3.5" />
+              <span>Read Myth vs Fact Guide</span> <ArrowRight className="w-3.5 h-3.5 text-[#E03590]" />
             </div>
-          </div>
+          </motion.div>
 
           {/* Card 3 */}
-          <div 
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
             onClick={() => { setActivePage('help'); window.scrollTo(0,0); }}
-            className="bg-[#2E031D] text-white p-6 sm:p-8 cursor-pointer group space-y-4 hover:bg-[#4E0834] transition-colors btn-tap touch-target rounded-3xl shadow-xl"
+            className="bg-[#2E031D] dark:bg-[#16161C] border border-[#2E031D] dark:border-editorial text-white p-6 sm:p-8 cursor-pointer group space-y-4 hover:bg-[#4E0834] dark:hover:bg-[#1E1E26] transition-colors btn-tap touch-target rounded-3xl shadow-xl"
           >
             <span className="text-[10px] font-mono font-bold text-white/70 uppercase tracking-widest block">
               03 • Emergency
@@ -337,9 +384,9 @@ export default function Home({ setActivePage }) {
               Access 24/7 national helplines, request a confidential callback, or view emergency support options.
             </p>
             <div className="pt-2 text-xs font-bold uppercase tracking-widest text-white group-hover:underline flex items-center gap-1">
-              <span>Contact Crisis Line</span> <ArrowRight className="w-3.5 h-3.5" />
+              <span>Contact Crisis Line</span> <ArrowRight className="w-3.5 h-3.5 text-[#E03590]" />
             </div>
-          </div>
+          </motion.div>
 
         </div>
       </section>

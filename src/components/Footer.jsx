@@ -154,7 +154,7 @@ export default function Footer({ setActivePage, openLegalModal }) {
           </div>
 
           {/* Quick Helpline Dial */}
-          <div className="bg-[#4E0834]/60 p-5 rounded-2xl border border-white/10 space-y-2 shadow-sm">
+          <div className="bg-[#4E0834]/60 p-5 rounded-3xl border border-white/10 space-y-2 shadow-sm">
             <span className="text-[10px] font-mono uppercase tracking-widest text-[#FDF3F7]/70 block font-bold">
               Immediate Confidential Crisis Support
             </span>

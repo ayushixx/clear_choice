@@ -44,12 +44,12 @@ export default function DrugFacts() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search substances (e.g., Opioids, Fentanyl)..."
-            className="input-primary input-icon-left !pl-11 pr-4"
+            className="input-primary input-icon-left !pl-11 pr-4 rounded-xl"
           />
         </div>
       </motion.div>
 
-      {/* 4x4 Responsive Grid (Desktop: 4 columns, Mobile: 1 column) */}
+      {/* Responsive Grid */}
       <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
         <AnimatePresence>
           {filteredFacts.map((drug) => {
@@ -62,17 +62,18 @@ export default function DrugFacts() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 key={drug.id}
-                className={`card-doc transition-all duration-200 overflow-hidden flex flex-col justify-between rounded-3xl ${isOpen
+                className={`card-doc transition-all duration-200 overflow-hidden flex flex-col justify-between rounded-3xl ${
+                  isOpen
                     ? 'border-[#E03590] ring-2 ring-[#E03590]/40 col-span-1 md:col-span-2 lg:col-span-2 shadow-lg'
                     : 'hover:border-[#E03590]'
-                  }`}
+                }`}
               >
                 {/* Card Header (Accordion Toggle) */}
                 <div
                   onClick={() => toggleAccordion(drug.id)}
                   className="p-5 sm:p-6 cursor-pointer select-none space-y-3 touch-target btn-tap"
                 >
-                  <div className="flex items-start justify-between gap-2">
+                  <div className="flex items-center justify-between gap-2">
                     <span className="text-[10px] font-mono uppercase font-bold text-[#781353] dark:text-[#E03590] bg-[var(--bg-secondary)] px-3 py-1 border border-editorial rounded-full shrink-0">
                       {drug.category}
                     </span>
@@ -124,7 +125,7 @@ export default function DrugFacts() {
                     </div>
 
                     {/* Legal Penalties */}
-                    <div className="p-3.5 bg-[#2E031D] dark:bg-[#16161C] text-white border border-white/10 space-y-1">
+                    <div className="p-4 bg-[#2E031D] dark:bg-[#16161C] text-white border border-white/10 rounded-2xl space-y-1">
                       <span className="text-[9px] font-mono uppercase font-bold text-white/70 block">
                         Legal Implications
                       </span>

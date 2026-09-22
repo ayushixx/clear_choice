@@ -5,7 +5,7 @@ export default function LegalModal({ isOpen, modalType, onClose }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#2E031D]/80 backdrop-blur-md animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 animate-fadeIn">
       <div className="bg-[var(--bg-card)] text-[var(--text-primary)] max-w-2xl w-full rounded-3xl p-6 sm:p-8 shadow-2xl border border-editorial relative max-h-[90vh] overflow-y-auto">
         
         {/* Close Button */}

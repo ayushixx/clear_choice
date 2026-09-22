@@ -153,7 +153,7 @@ export default function RehabDirectory({ selectedCenter, onSelectCenter, onGetDi
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by center name, city (e.g. Delhi, Mumbai, Bengaluru)..."
-              className="w-full input-icon-left !pl-11 pr-12 py-3.5 bg-[var(--bg-secondary)] border border-editorial text-sm focus:outline-none focus:border-[#E03590] text-[var(--text-primary)] rounded-2xl touch-target"
+              className="w-full input-icon-left !pl-11 pr-12 py-3.5 bg-[var(--bg-secondary)] border border-editorial text-sm focus:outline-none focus:border-[#E03590] text-[var(--text-primary)] rounded-xl touch-target"
             />
             {searchQuery && (
               <button
@@ -170,7 +170,7 @@ export default function RehabDirectory({ selectedCenter, onSelectCenter, onGetDi
             <select
               value={selectedState}
               onChange={(e) => setSelectedState(e.target.value)}
-              className="w-full py-3.5 px-4 bg-[var(--bg-secondary)] border border-editorial text-xs focus:outline-none focus:border-[#E03590] text-[var(--text-primary)] font-mono appearance-none rounded-2xl touch-target"
+              className="w-full py-3.5 px-4 bg-[var(--bg-secondary)] border border-editorial text-xs focus:outline-none focus:border-[#E03590] text-[var(--text-primary)] font-mono appearance-none rounded-xl touch-target"
             >
               <option value="All">All States</option>
               {states.filter(s => s !== 'All').map(st => (
@@ -182,7 +182,7 @@ export default function RehabDirectory({ selectedCenter, onSelectCenter, onGetDi
         </div>
 
         {/* City Filter Pills */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-2 text-xs">
+        <div className="flex items-center gap-2 overflow-x-auto pb-2 text-xs scrollbar-none">
           <span className="font-mono text-[10px] uppercase text-muted tracking-wider flex items-center gap-1 shrink-0">
             <ListFilter className="w-3.5 h-3.5" /> City:
           </span>
@@ -210,7 +210,7 @@ export default function RehabDirectory({ selectedCenter, onSelectCenter, onGetDi
 
       {/* Directory Grid View */}
       {viewMode === 'grid' && (
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           <AnimatePresence>
             {filteredCenters.map((center) => (
               <RehabCard
@@ -227,7 +227,7 @@ export default function RehabDirectory({ selectedCenter, onSelectCenter, onGetDi
 
       {/* Directory Bulleted List View */}
       {viewMode === 'list' && (
-        <div className="bg-[var(--bg-card)] border border-editorial p-6 space-y-6">
+        <div className="bg-[var(--bg-card)] border border-editorial p-6 sm:p-8 space-y-6 rounded-3xl shadow-sm">
           <div className="border-b border-editorial pb-3 flex justify-between items-center">
             <h3 className="font-serif font-bold text-lg text-[var(--text-primary)]">
               Directory Summary — Local Rehabilitation Centers
@@ -247,7 +247,7 @@ export default function RehabDirectory({ selectedCenter, onSelectCenter, onGetDi
                       {c.name}
                     </h4>
                     {c.distanceKm !== undefined && (
-                      <span className="text-[10px] font-mono bg-emerald-950/10 text-emerald-700 dark:text-emerald-300 px-2 py-0.5 border border-emerald-500/20">
+                      <span className="text-[10px] font-mono bg-emerald-950/10 text-emerald-700 dark:text-emerald-300 px-2 py-0.5 border border-emerald-500/20 rounded-md">
                         {c.distanceKm} km away
                       </span>
                     )}
@@ -267,9 +267,9 @@ export default function RehabDirectory({ selectedCenter, onSelectCenter, onGetDi
                 <div className="flex items-center gap-2 shrink-0">
                   <button
                     onClick={() => onGetDirections(c)}
-                    className="bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] px-4 py-2.5 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 touch-target btn-tap"
+                    className="bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] px-5 py-2.5 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 touch-target btn-tap rounded-full shadow-sm"
                   >
-                    <Navigation className="w-3 h-3" /> Map Directions
+                    <Navigation className="w-3 h-3 text-[#E03590] dark:text-[#781353]" /> Map Directions
                   </button>
                 </div>
               </li>

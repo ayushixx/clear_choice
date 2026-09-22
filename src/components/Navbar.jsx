@@ -81,7 +81,7 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
       {/* Main Publication Navbar */}
       <nav className={`transition-all duration-300 ${
         isScrolled 
-          ? 'bg-[var(--bg-primary)]/92 backdrop-blur-md py-2 sm:py-3 border-b border-editorial shadow-xs' 
+          ? 'bg-[var(--bg-primary)] py-2 sm:py-3 border-b border-editorial shadow-xs' 
           : 'bg-[var(--bg-primary)] py-2.5 sm:py-3.5 border-b border-editorial'
       }`}>
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 flex items-center justify-between">
@@ -89,12 +89,12 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
           {/* Brand Logo with Image Asset */}
           <button 
             onClick={() => { setActivePage('home'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} 
-            className="flex items-center gap-2 sm:gap-3 text-left group btn-tap"
+            className="flex items-center gap-2.5 sm:gap-3 text-left group btn-tap"
           >
             <img 
               src="/assets/logo.png" 
               alt="CLEAR CHOICE Logo" 
-              className="h-7 sm:h-9 w-auto object-contain filter dark:brightness-110"
+              className="h-8 sm:h-9 w-auto object-contain filter dark:brightness-110"
             />
             <div>
               <span className="font-serif font-extrabold text-base sm:text-xl tracking-tight block leading-none text-[var(--text-primary)]">
@@ -136,12 +136,12 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
                     <AnimatePresence>
                       {dropdownOpen && (
                         <motion.div
-                          initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                          initial={{ opacity: 0, y: 8, scale: 0.98 }}
                           animate={{ opacity: 1, y: 0, scale: 1 }}
-                          exit={{ opacity: 0, y: 8, scale: 0.98 }}
+                          exit={{ opacity: 0, y: 6, scale: 0.98 }}
                           transition={{ duration: 0.15 }}
                           onMouseLeave={() => setDropdownOpen(false)}
-                          className="absolute left-0 top-full mt-2 w-64 bg-[var(--bg-card)] border border-editorial shadow-xl p-2 z-50 space-y-1"
+                          className="absolute left-0 top-full mt-2 w-64 bg-[var(--bg-card)] border border-editorial shadow-xl p-2 z-50 space-y-1 rounded-2xl"
                         >
                           <div className="px-3 py-1.5 border-b border-editorial text-[9px] font-mono uppercase font-bold text-muted">
                             Select Assistance Goal:
@@ -156,7 +156,7 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
                                   setDropdownOpen(false);
                                   window.scrollTo({ top: 0, behavior: 'smooth' });
                                 }}
-                                className={`w-full text-left p-2.5 transition-colors flex items-center justify-between text-xs btn-tap ${
+                                className={`w-full text-left p-2.5 rounded-xl transition-colors flex items-center justify-between text-xs btn-tap ${
                                   isSubActive
                                     ? 'bg-[var(--bg-secondary)] text-[#781353] dark:text-[#E03590] font-bold border-l-2 border-[#781353] dark:border-[#E03590]'
                                     : 'text-[var(--text-primary)] hover:bg-[var(--bg-secondary)]'
@@ -230,11 +230,11 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
             </MagneticButton>
           </div>
 
-          {/* Mobile Right Controls: Hierarchy -> Theme Toggle, then Menu Button */}
-          <div className="md:hidden flex items-center gap-1.5">
+          {/* Mobile Right Controls: Theme Toggle & Menu Button */}
+          <div className="md:hidden flex items-center gap-2">
             <button
               onClick={toggleTheme}
-              className="p-3 text-[var(--text-primary)] btn-tap touch-target flex items-center justify-center rounded-full border border-editorial hover:bg-[var(--bg-secondary)]"
+              className="p-2.5 text-[var(--text-primary)] btn-tap touch-target flex items-center justify-center rounded-full border border-editorial bg-[var(--bg-secondary)]"
               aria-label="Toggle Theme"
             >
               {theme === 'light' ? <Moon className="w-5 h-5 text-[#2E031D]" /> : <Sun className="w-5 h-5 text-amber-300" />}
@@ -242,7 +242,7 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-3 text-[var(--text-primary)] btn-tap touch-target flex items-center justify-center rounded-full border border-editorial hover:bg-[var(--bg-secondary)]"
+              className="p-2.5 text-[var(--text-primary)] btn-tap touch-target flex items-center justify-center rounded-full border border-editorial bg-[var(--bg-secondary)]"
               aria-label="Toggle mobile menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -252,7 +252,7 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
         </div>
       </nav>
 
-      {/* LUXURY SLIDE-IN GLASSMORPHIC MOBILE OVERLAY */}
+      {/* SOLID SLIDE-IN MOBILE OVERLAY */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
@@ -260,7 +260,7 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: '-100%' }}
             transition={{ type: 'spring', damping: 28, stiffness: 280 }}
-            className="md:hidden fixed inset-0 z-50 bg-[var(--bg-primary)]/98 backdrop-blur-3xl text-[var(--text-primary)] flex flex-col justify-between p-5 pt-[calc(1rem+env(safe-area-inset-top,0px))] pb-[calc(1.5rem+env(safe-area-inset-bottom,0px))] overflow-y-auto rounded-b-3xl border-b border-editorial shadow-2xl"
+            className="md:hidden fixed inset-0 z-50 bg-[var(--bg-primary)] text-[var(--text-primary)] flex flex-col justify-between p-5 pt-[calc(1rem+env(safe-area-inset-top,0px))] pb-[calc(1.5rem+env(safe-area-inset-bottom,0px))] overflow-y-auto rounded-b-3xl border-b border-editorial shadow-2xl"
           >
             {/* Mobile Menu Header */}
             <div className="flex items-center justify-between border-b border-editorial pb-4">
@@ -271,7 +271,7 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
                   className="h-8 w-auto object-contain filter dark:brightness-110"
                 />
                 <div>
-                  <span className="font-serif font-extrabold text-lg tracking-tight block">CLEAR CHOICE</span>
+                  <span className="font-serif font-extrabold text-lg tracking-tight block text-[var(--text-primary)]">CLEAR CHOICE</span>
                   <span className="text-[9px] font-mono text-muted uppercase tracking-widest block">Documentary & Recovery</span>
                 </div>
               </div>
@@ -279,16 +279,15 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
               <div className="flex items-center gap-2">
                 <button
                   onClick={toggleTheme}
-                  className="p-3 text-[var(--text-primary)] btn-tap touch-target flex items-center justify-center rounded-full border border-editorial bg-[var(--bg-secondary)]"
+                  className="p-2.5 text-[var(--text-primary)] btn-tap touch-target flex items-center justify-center rounded-full border border-editorial bg-[var(--bg-secondary)]"
                   aria-label="Toggle Theme"
-                  title={`Switch to ${theme === 'light' ? 'Dark' : 'Light'} Mode`}
                 >
                   {theme === 'light' ? <Moon className="w-5 h-5 text-[#2E031D]" /> : <Sun className="w-5 h-5 text-amber-300" />}
                 </button>
 
                 <button
                   onClick={() => setMobileMenuOpen(false)}
-                  className="p-3 text-[var(--text-primary)] btn-tap touch-target flex items-center justify-center rounded-full border border-editorial bg-[var(--bg-secondary)]"
+                  className="p-2.5 text-[var(--text-primary)] btn-tap touch-target flex items-center justify-center rounded-full border border-editorial bg-[var(--bg-secondary)]"
                   aria-label="Close menu"
                 >
                   <X className="w-6 h-6" />
@@ -307,11 +306,11 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
                         className={`w-full text-left p-4 rounded-2xl transition-all btn-tap flex items-center justify-between touch-target ${
                           isHelpActive
                             ? 'bg-[var(--bg-secondary)] border border-[#E03590]/40' 
-                            : 'hover:bg-[var(--bg-secondary)] border border-transparent'
+                            : 'hover:bg-[var(--bg-secondary)] border border-editorial'
                         }`}
                       >
                         <div>
-                          <span className={`font-serif text-2xl block ${isHelpActive ? 'font-bold text-[#781353] dark:text-[#E03590]' : 'font-semibold text-[var(--text-primary)]'}`}>
+                          <span className={`font-serif text-xl sm:text-2xl block ${isHelpActive ? 'font-bold text-[#781353] dark:text-[#E03590]' : 'font-semibold text-[var(--text-primary)]'}`}>
                             {link.label}
                           </span>
                           <span className="text-[10px] font-mono text-muted uppercase tracking-wider block mt-0.5">
@@ -323,7 +322,7 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
 
                       {/* Expanded Mobile Sub-Items */}
                       {(mobileHelpExpand || isHelpActive) && (
-                        <div className="pl-3 space-y-2 border-l-2 border-[#E03590]/30 ml-3 py-2">
+                        <div className="pl-3 space-y-2 border-l-2 border-[#E03590]/40 ml-3 py-2">
                           {helpSubItems.map((sub) => {
                             const isSubActive = activePage === sub.id;
                             return (
@@ -334,15 +333,15 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
                                   setMobileMenuOpen(false);
                                   window.scrollTo({ top: 0, behavior: 'smooth' });
                                 }}
-                                className={`w-full text-left p-3 rounded-xl transition-all flex items-center justify-between text-sm btn-tap touch-target ${
+                                className={`w-full text-left p-3 rounded-xl transition-all flex items-center justify-between text-xs btn-tap touch-target ${
                                   isSubActive
-                                    ? 'bg-[var(--bg-secondary)] text-[#781353] dark:text-[#E03590] font-bold'
-                                    : 'text-muted hover:text-[var(--text-primary)] hover:bg-[var(--bg-secondary)]/50'
+                                    ? 'bg-[var(--bg-secondary)] text-[#781353] dark:text-[#E03590] font-bold border border-editorial'
+                                    : 'text-muted hover:text-[var(--text-primary)] hover:bg-[var(--bg-secondary)]'
                                 }`}
                               >
                                 <div>
                                   <span className="block font-semibold">{sub.label}</span>
-                                  <span className="block text-[10px] font-mono text-muted">{sub.subtitle}</span>
+                                  <span className="block text-[9px] font-mono text-muted">{sub.subtitle}</span>
                                 </div>
                                 <ArrowRight className="w-4 h-4 opacity-70" />
                               </button>
@@ -369,11 +368,11 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
                     className={`w-full text-left p-4 rounded-2xl transition-all btn-tap flex items-center justify-between touch-target ${
                       isActive 
                         ? 'bg-[var(--bg-secondary)] border border-[#E03590]/40' 
-                        : 'hover:bg-[var(--bg-secondary)] border border-transparent'
+                        : 'hover:bg-[var(--bg-secondary)] border border-editorial'
                     }`}
                   >
                     <div>
-                      <span className={`font-serif text-2xl block ${isActive ? 'font-bold text-[#781353] dark:text-[#E03590]' : 'font-semibold text-[var(--text-primary)]'}`}>
+                      <span className={`font-serif text-xl sm:text-2xl block ${isActive ? 'font-bold text-[#781353] dark:text-[#E03590]' : 'font-semibold text-[var(--text-primary)]'}`}>
                         {link.label}
                       </span>
                       <span className="text-[10px] font-mono text-muted uppercase tracking-wider block mt-0.5">
@@ -391,7 +390,7 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
             <div className="pt-4 border-t border-editorial space-y-3">
               <a
                 href="tel:1800110031"
-                className="w-full bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] py-3.5 px-4 rounded-full text-center font-bold text-xs uppercase tracking-widest transition-all btn-tap shadow-lg touch-target flex items-center justify-center gap-2 glow-accent"
+                className="w-full bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] py-3.5 px-4 rounded-full text-center font-bold text-xs uppercase tracking-widest transition-all btn-tap shadow-lg touch-target flex items-center justify-center gap-2"
               >
                 <Phone className="w-4 h-4 text-[#E03590] dark:text-[#781353]" />
                 <span>Call Helpline: 1800-11-0031</span>

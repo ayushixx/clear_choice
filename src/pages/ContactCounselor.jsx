@@ -95,7 +95,7 @@ export default function ContactCounselor({ setActivePage }) {
         >
           <ArrowLeft className="w-3.5 h-3.5" /> Back to Get Help Hub
         </button>
-        <span className="text-[9px] sm:text-[10px] font-mono uppercase bg-[var(--bg-secondary)] border border-editorial text-[#781353] dark:text-[#E03590] px-2.5 py-1 font-bold shrink-0">
+        <span className="text-[9px] sm:text-[10px] font-mono uppercase bg-[var(--bg-secondary)] border border-editorial text-[#781353] dark:text-[#E03590] px-3 py-1 font-bold shrink-0 rounded-full">
           Confidential Channel
         </span>
       </div>
@@ -119,8 +119,8 @@ export default function ContactCounselor({ setActivePage }) {
       </motion.div>
 
       {/* PRIVACY ASSURANCE BANNER */}
-      <div className="bg-[var(--bg-secondary)] border border-editorial p-5 sm:p-6 rounded-2xl flex items-center gap-4 shadow-sm">
-        <div className="p-3.5 bg-[#781353] text-white dark:bg-[#E03590] shrink-0 rounded-xl shadow-xs">
+      <div className="bg-[var(--bg-secondary)] border border-editorial p-5 sm:p-6 rounded-3xl flex items-center gap-4 shadow-sm">
+        <div className="p-3.5 bg-[#781353] text-white dark:bg-[#E03590] shrink-0 rounded-2xl shadow-xs">
           <Lock className="w-5 h-5" />
         </div>
         <div className="space-y-0.5 text-xs sm:text-sm">
@@ -133,11 +133,16 @@ export default function ContactCounselor({ setActivePage }) {
         </div>
       </div>
 
-      {/* FORMS SECTION — CALM & DISTRACTION-FREE LAYOUT */}
+      {/* FORMS SECTION */}
       <section className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-10">
         
         {/* Contact Form */}
-        <div className="card-doc p-6 sm:p-8 space-y-5 sm:space-y-6 rounded-3xl">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="card-doc p-6 sm:p-8 space-y-5 sm:space-y-6 rounded-3xl"
+        >
           <div>
             <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider text-[#781353] dark:text-[#E03590] block mb-1">
               Direct Confidential Inquiry
@@ -151,14 +156,14 @@ export default function ContactCounselor({ setActivePage }) {
           </div>
 
           {contactSuccess && (
-            <div className="p-4 bg-emerald-950/80 text-emerald-200 border border-emerald-800/80 rounded-xl text-xs flex items-center gap-2">
+            <div className="p-4 bg-emerald-950/80 text-emerald-200 border border-emerald-800/80 rounded-2xl text-xs flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-400" />
               <span>Thank you. Your message has been securely transmitted.</span>
             </div>
           )}
 
           {contactError && (
-            <div className="p-4 bg-red-950/80 text-red-200 border border-red-800/80 rounded-xl text-xs flex items-center gap-2">
+            <div className="p-4 bg-red-950/80 text-red-200 border border-red-800/80 rounded-2xl text-xs flex items-center gap-2">
               <AlertCircle className="w-4 h-4 shrink-0 text-red-400" />
               <span>{contactError}</span>
             </div>
@@ -173,7 +178,7 @@ export default function ContactCounselor({ setActivePage }) {
                 onChange={(e) => setContactForm({ ...contactForm, fullName: e.target.value })}
                 placeholder="Your full name"
                 required
-                className="input-primary"
+                className="input-primary rounded-xl"
               />
             </div>
 
@@ -192,7 +197,7 @@ export default function ContactCounselor({ setActivePage }) {
                 required
                 pattern="^[+]?[0-9\s\-()]{8,20}$"
                 title="Please enter a valid phone number (8-15 digits, e.g. +91 98765 43210)"
-                className="input-primary"
+                className="input-primary rounded-xl"
               />
             </div>
 
@@ -203,7 +208,7 @@ export default function ContactCounselor({ setActivePage }) {
                 value={contactForm.message}
                 onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
                 placeholder="Share any details or questions..."
-                className="input-primary !min-h-[100px]"
+                className="input-primary !min-h-[100px] rounded-xl"
               ></textarea>
             </div>
 
@@ -213,15 +218,20 @@ export default function ContactCounselor({ setActivePage }) {
             <button
               type="submit"
               disabled={contactSubmitting}
-              className="w-full bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] py-4 rounded-full font-bold text-xs uppercase tracking-widest transition-all flex items-center justify-center gap-2 disabled:opacity-50 btn-tap shadow-lg touch-target cursor-pointer glow-accent"
+              className="w-full bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] py-4 rounded-full font-bold text-xs uppercase tracking-widest transition-all flex items-center justify-center gap-2 disabled:opacity-50 btn-tap shadow-lg touch-target cursor-pointer"
             >
               <Send className="w-4 h-4 text-[#E03590] dark:text-[#781353]" /> {contactSubmitting ? 'Transmitting Securely...' : 'Send Secure Message'}
             </button>
           </form>
-        </div>
+        </motion.div>
 
         {/* Callback Request Form */}
-        <div className="card-doc p-6 sm:p-8 space-y-5 sm:space-y-6 rounded-3xl">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+          className="card-doc p-6 sm:p-8 space-y-5 sm:space-y-6 rounded-3xl"
+        >
           <div>
             <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider text-[#781353] dark:text-[#E03590] block mb-1">
               Discreet Consultation
@@ -235,14 +245,14 @@ export default function ContactCounselor({ setActivePage }) {
           </div>
 
           {callbackSuccess && (
-            <div className="p-4 bg-emerald-950/80 text-emerald-200 border border-emerald-800/80 rounded-xl text-xs flex items-center gap-2">
+            <div className="p-4 bg-emerald-950/80 text-emerald-200 border border-emerald-800/80 rounded-2xl text-xs flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-400" />
               <span>Callback requested! A counselor will reach out at your requested time.</span>
             </div>
           )}
 
           {callbackError && (
-            <div className="p-4 bg-red-950/80 text-red-200 border border-red-800/80 rounded-xl text-xs flex items-center gap-2">
+            <div className="p-4 bg-red-950/80 text-red-200 border border-red-800/80 rounded-2xl text-xs flex items-center gap-2">
               <AlertCircle className="w-4 h-4 shrink-0 text-red-400" />
               <span>{callbackError}</span>
             </div>
@@ -257,7 +267,7 @@ export default function ContactCounselor({ setActivePage }) {
                 onChange={(e) => setCallbackForm({ ...callbackForm, name: e.target.value })}
                 placeholder="Your name"
                 required
-                className="input-primary"
+                className="input-primary rounded-xl"
               />
             </div>
 
@@ -276,7 +286,7 @@ export default function ContactCounselor({ setActivePage }) {
                 required
                 pattern="^[+]?[0-9\s\-()]{8,20}$"
                 title="Please enter a valid phone number (8-15 digits, e.g. +91 98765 43210)"
-                className="input-primary"
+                className="input-primary rounded-xl"
               />
             </div>
 
@@ -286,7 +296,7 @@ export default function ContactCounselor({ setActivePage }) {
                 <select
                   value={callbackForm.concernType}
                   onChange={(e) => setCallbackForm({ ...callbackForm, concernType: e.target.value })}
-                  className="input-primary font-mono"
+                  className="input-primary font-mono rounded-xl"
                 >
                   <option>General Inquiry</option>
                   <option>Self Substance Support</option>
@@ -300,7 +310,7 @@ export default function ContactCounselor({ setActivePage }) {
                 <select
                   value={callbackForm.callbackTime}
                   onChange={(e) => setCallbackForm({ ...callbackForm, callbackTime: e.target.value })}
-                  className="input-primary font-mono"
+                  className="input-primary font-mono rounded-xl"
                 >
                   <option>Morning (9 AM - 12 PM)</option>
                   <option>Afternoon (12 PM - 4 PM)</option>
@@ -316,7 +326,7 @@ export default function ContactCounselor({ setActivePage }) {
                 value={callbackForm.message}
                 onChange={(e) => setCallbackForm({ ...callbackForm, message: e.target.value })}
                 placeholder="Note..."
-                className="input-primary !min-h-[80px]"
+                className="input-primary !min-h-[80px] rounded-xl"
               ></textarea>
             </div>
 
@@ -326,12 +336,12 @@ export default function ContactCounselor({ setActivePage }) {
             <button
               type="submit"
               disabled={callbackSubmitting}
-              className="w-full bg-[#781353] dark:bg-[#E03590] text-white py-4 rounded-full font-bold text-xs uppercase tracking-widest transition-all flex items-center justify-center gap-2 disabled:opacity-50 btn-tap shadow-lg touch-target cursor-pointer glow-accent"
+              className="w-full bg-[#781353] dark:bg-[#E03590] text-white py-4 rounded-full font-bold text-xs uppercase tracking-widest transition-all flex items-center justify-center gap-2 disabled:opacity-50 btn-tap shadow-lg touch-target cursor-pointer"
             >
               <Clock className="w-4 h-4 text-white" /> {callbackSubmitting ? 'Requesting...' : 'Request Callback'}
             </button>
           </form>
-        </div>
+        </motion.div>
 
       </section>
 

@@ -1,14 +1,13 @@
 import React, { useRef } from 'react';
 import { MapPin, Phone, ExternalLink, ShieldCheck } from 'lucide-react';
 
-
 export default function InteractiveMap({ selectedCenter, allCenters, onSelectCenter }) {
   const mapRef = useRef(null);
 
-  // Default center if none selected (e.g. NIMHANS Bengaluru or center of India)
+  // Default center if none selected
   const activeCenter = selectedCenter || allCenters[0];
 
-  // Dynamic Google Maps embed query based on active center or all centers search query
+  // Dynamic Google Maps embed query
   const mapEmbedUrl = activeCenter
     ? `https://maps.google.com/maps?q=${encodeURIComponent(activeCenter.name + ' ' + activeCenter.address)}&t=&z=14&ie=UTF8&iwloc=&output=embed`
     : `https://maps.google.com/maps?q=${encodeURIComponent('Rehabilitation Centers India')}&t=&z=5&ie=UTF8&iwloc=&output=embed`;
@@ -22,7 +21,7 @@ export default function InteractiveMap({ selectedCenter, allCenters, onSelectCen
       {/* Section Title */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-editorial pb-4">
         <div>
-          <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#781353] dark:text-[#DC2F87] block">
+          <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#781353] dark:text-[#E03590] block">
             Interactive Support Map
           </span>
           <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[var(--text-primary)]">
@@ -30,14 +29,14 @@ export default function InteractiveMap({ selectedCenter, allCenters, onSelectCen
           </h2>
         </div>
         <div className="text-xs font-mono text-muted flex items-center gap-1.5">
-          <ShieldCheck className="w-4 h-4 text-[#781353] dark:text-[#DC2F87]" />
+          <ShieldCheck className="w-4 h-4 text-[#781353] dark:text-[#E03590]" />
           <span>Real-time Facility Locator</span>
         </div>
       </div>
 
-      {/* Selected Center Info Banner (if highlighted from card) */}
+      {/* Selected Center Info Banner */}
       {activeCenter && (
-        <div className="bg-[var(--bg-secondary)] border border-editorial p-5 rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all shadow-sm">
+        <div className="bg-[var(--bg-secondary)] border border-editorial p-6 rounded-3xl flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all shadow-sm">
           <div className="space-y-1.5">
             <div className="flex items-center gap-2">
               <span className="text-[10px] font-mono uppercase font-bold bg-[#781353] text-white dark:bg-[#E03590] px-3 py-1 rounded-full">
@@ -57,7 +56,7 @@ export default function InteractiveMap({ selectedCenter, allCenters, onSelectCen
           <div className="flex items-center gap-3 shrink-0">
             <a
               href={`tel:${activeCenter.phoneClean || activeCenter.phone.replace(/\s+/g, '')}`}
-              className="border border-editorial bg-[var(--bg-card)] text-[var(--text-primary)] px-4 py-2.5 text-xs font-mono font-bold flex items-center gap-2 hover:border-[#E03590] rounded-xl btn-tap touch-target"
+              className="border border-editorial bg-[var(--bg-card)] text-[var(--text-primary)] px-4 py-2.5 text-xs font-mono font-bold flex items-center gap-2 hover:border-[#E03590] rounded-full btn-tap touch-target"
             >
               <Phone className="w-4 h-4 text-[#E03590]" /> Call {activeCenter.phone}
             </a>
@@ -66,9 +65,9 @@ export default function InteractiveMap({ selectedCenter, allCenters, onSelectCen
               href={activeCenter.googleMapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] px-5 py-2.5 text-xs font-bold uppercase tracking-wider flex items-center gap-2 rounded-xl btn-tap touch-target shadow-md"
+              className="bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] px-5 py-2.5 text-xs font-bold uppercase tracking-wider flex items-center gap-2 rounded-full btn-tap touch-target shadow-md"
             >
-              Open Maps <ExternalLink className="w-3.5 h-3.5" />
+              Open Maps <ExternalLink className="w-3.5 h-3.5 text-[#E03590] dark:text-[#781353]" />
             </a>
           </div>
         </div>
@@ -90,7 +89,7 @@ export default function InteractiveMap({ selectedCenter, allCenters, onSelectCen
         />
 
         {/* Quick Location Pills Overlay */}
-        <div className="absolute top-4 left-4 right-4 md:right-auto max-w-sm bg-[var(--bg-card)]/90 backdrop-blur-md border border-editorial p-3.5 shadow-lg rounded-2xl space-y-2 hidden sm:block">
+        <div className="absolute top-4 left-4 right-4 md:right-auto max-w-sm bg-[var(--bg-card)] border border-editorial p-4 shadow-xl rounded-3xl space-y-2 hidden sm:block">
           <span className="text-[10px] font-mono uppercase tracking-widest text-[#781353] dark:text-[#E03590] font-bold block">
             Select Location Pin:
           </span>

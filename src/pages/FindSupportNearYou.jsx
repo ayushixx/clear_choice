@@ -26,7 +26,7 @@ export default function FindSupportNearYou({ setActivePage, selectedCenter, setS
         >
           <ArrowLeft className="w-3.5 h-3.5" /> Back to Get Help Hub
         </button>
-        <span className="text-[9px] sm:text-[10px] font-mono uppercase bg-[var(--bg-secondary)] border border-editorial text-[#781353] dark:text-[#E03590] px-2.5 py-1 font-bold shrink-0">
+        <span className="text-[9px] sm:text-[10px] font-mono uppercase bg-[var(--bg-secondary)] border border-editorial text-[#781353] dark:text-[#E03590] px-3 py-1 font-bold shrink-0 rounded-full">
           GPS Location Navigator
         </span>
       </div>
@@ -49,7 +49,7 @@ export default function FindSupportNearYou({ setActivePage, selectedCenter, setS
         </p>
       </motion.div>
 
-      {/* MAP HERO SECTION — FULL-WIDTH IMMERSIVE EXPERIENCE */}
+      {/* MAP HERO SECTION */}
       <motion.div
         initial={{ opacity: 0, scale: 0.98 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -76,31 +76,35 @@ export default function FindSupportNearYou({ setActivePage, selectedCenter, setS
           <span className="text-xs font-mono text-muted">{REHAB_CENTERS.length} Locations Available</span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {REHAB_CENTERS.map((center) => {
             const isSelected = activeCenter?.id === center.id;
             return (
-              <div
+              <motion.div
                 key={center.id}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4 }}
                 onClick={() => handleSelectCenter(center)}
-                className={`p-4 sm:p-5 cursor-pointer transition-all border flex flex-col justify-between btn-tap ${
+                className={`p-5 sm:p-6 cursor-pointer transition-all border flex flex-col justify-between btn-tap rounded-3xl ${
                   isSelected
-                    ? 'border-[#781353] dark:border-[#E03590] bg-[var(--bg-secondary)] shadow-sm'
+                    ? 'border-[#781353] dark:border-[#E03590] bg-[var(--bg-secondary)] shadow-md'
                     : 'card-doc hover:border-[#781353]'
                 }`}
               >
                 <div className="space-y-2">
                   <div className="flex items-center justify-between gap-2">
-                    <span className="text-[9px] font-mono font-bold uppercase text-[#781353] dark:text-[#E03590] bg-[var(--bg-card)] px-2 py-0.5 border border-editorial shrink-0">
+                    <span className="text-[9px] font-mono font-bold uppercase text-[#781353] dark:text-[#E03590] bg-[var(--bg-card)] px-2.5 py-1 border border-editorial rounded-full shrink-0">
                       {center.city}, {center.state}
                     </span>
                     {isSelected && (
-                      <span className="text-[9px] font-mono font-bold uppercase bg-[#781353] text-white dark:bg-[#E03590] px-2 py-0.5 shrink-0">
+                      <span className="text-[9px] font-mono font-bold uppercase bg-[#781353] text-white dark:bg-[#E03590] px-2.5 py-1 shrink-0 rounded-full">
                         Selected
                       </span>
                     )}
                   </div>
-                  <h3 className="font-serif font-bold text-base text-[var(--text-primary)]">
+                  <h3 className="font-serif font-bold text-base sm:text-lg text-[var(--text-primary)] leading-snug">
                     {center.name}
                   </h3>
                   <p className="text-xs text-muted font-light flex items-start gap-1">
@@ -124,10 +128,10 @@ export default function FindSupportNearYou({ setActivePage, selectedCenter, setS
                     onClick={(e) => e.stopPropagation()}
                     className="text-[10px] font-bold uppercase text-muted hover:text-[var(--text-primary)] flex items-center gap-1 cursor-pointer"
                   >
-                    GPS <ExternalLink className="w-3 h-3" />
+                    GPS <ExternalLink className="w-3 h-3 text-[#E03590]" />
                   </a>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>
