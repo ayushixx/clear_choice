@@ -46,34 +46,34 @@ export default function RecoveryDashboard({ setActivePage }) {
     <div className="space-y-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       
       {/* DASHBOARD HEADER */}
-      <div className="card-doc p-6 sm:p-8 bg-[#2E031D] text-white dark:bg-[#16161C] border border-[#2E031D] dark:border-editorial rounded-3xl shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+      <div className="p-6 sm:p-8 bg-[#2E031D] text-white border border-[#2E031D] rounded-3xl shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div className="space-y-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#E03590]/20 border border-[#E03590]/40 text-[#E03590] rounded-full text-xs font-mono uppercase font-bold tracking-wider">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 border border-white/20 text-[#E03590] rounded-full text-xs font-mono uppercase font-bold tracking-wider">
             <UserCheck className="w-3.5 h-3.5" /> Enrolled Recovery Member
           </div>
-          <h1 className="text-3xl sm:text-4xl font-serif font-extrabold tracking-tight">My Recovery Journey</h1>
-          <p className="text-sm sm:text-base text-white/80 font-light max-w-2xl">
+          <h1 className="text-3xl sm:text-4xl font-serif font-extrabold tracking-tight text-white">My Recovery Journey</h1>
+          <p className="text-sm sm:text-base text-white/90 font-light max-w-2xl">
             Personalized recovery portal guided by <strong>Mehul</strong>. Track daily activities, check-ins, and roadmap milestones.
           </p>
         </div>
 
         {/* QUICK METRICS PILLS */}
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 w-full md:w-auto">
-          <div className="bg-white/10 p-3.5 rounded-2xl text-center border border-white/10">
-            <span className="text-[10px] font-mono text-white/70 uppercase block">Active Streak</span>
+          <div className="bg-white/10 p-3.5 rounded-2xl text-center border border-white/15">
+            <span className="text-[10px] font-mono text-white/80 uppercase block">Active Streak</span>
             <div className="flex items-center justify-center gap-1.5 mt-0.5">
               <Flame className="w-4 h-4 text-[#E03590]" />
-              <span className="text-xl font-bold font-serif">14 Days</span>
+              <span className="text-xl font-bold font-serif text-white">14 Days</span>
             </div>
           </div>
 
-          <div className="bg-white/10 p-3.5 rounded-2xl text-center border border-white/10">
-            <span className="text-[10px] font-mono text-white/70 uppercase block">Current Phase</span>
+          <div className="bg-white/10 p-3.5 rounded-2xl text-center border border-white/15">
+            <span className="text-[10px] font-mono text-white/80 uppercase block">Current Phase</span>
             <span className="text-sm font-bold font-serif text-[#E03590] block mt-1">Phase 2 (Wk 3)</span>
           </div>
 
-          <div className="bg-white/10 p-3.5 rounded-2xl text-center border border-white/10 col-span-2 sm:col-span-1">
-            <span className="text-[10px] font-mono text-white/70 uppercase block">Next Session</span>
+          <div className="bg-white/10 p-3.5 rounded-2xl text-center border border-white/15 col-span-2 sm:col-span-1">
+            <span className="text-[10px] font-mono text-white/80 uppercase block">Next Session</span>
             <span className="text-xs font-bold text-white block mt-1">Thursday, 6:00 PM</span>
           </div>
         </div>
@@ -86,7 +86,7 @@ export default function RecoveryDashboard({ setActivePage }) {
             <h2 className="text-xl sm:text-2xl font-serif font-bold text-[var(--text-primary)]">My Recovery Roadmap</h2>
             <p className="text-xs sm:text-sm text-[var(--text-muted)] font-light">Visual guide through your 12-week structured recovery phases</p>
           </div>
-          <span className="badge-pill bg-[#781353] text-white dark:bg-[#E03590]">{progressPercent}% Daily Completion</span>
+          <span className="badge-pill bg-[#781353] text-white">{progressPercent}% Daily Completion</span>
         </div>
 
         {/* Visual Roadmap Stepper */}
@@ -96,15 +96,15 @@ export default function RecoveryDashboard({ setActivePage }) {
               key={p.num} 
               className={`p-4 rounded-2xl border ${
                 p.status === 'Completed' 
-                  ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-700 dark:text-emerald-400' 
+                  ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-800' 
                   : p.status === 'In Progress' 
-                  ? 'bg-[#781353]/10 border-[#781353] dark:border-[#E03590] text-[#781353] dark:text-[#E03590]' 
+                  ? 'bg-[#781353]/10 border-[#781353] text-[#781353]' 
                   : 'bg-[var(--bg-secondary)] border-editorial text-[var(--text-muted)] opacity-60'
               }`}
             >
               <div className="flex items-center justify-between mb-1.5">
                 <span className="text-[10px] font-mono font-bold uppercase">{p.weeks}</span>
-                {p.status === 'Completed' ? <CheckCircle2 className="w-4 h-4 text-emerald-500" /> : <Clock className="w-3.5 h-3.5" />}
+                {p.status === 'Completed' ? <CheckCircle2 className="w-4 h-4 text-emerald-600" /> : <Clock className="w-3.5 h-3.5" />}
               </div>
               <h3 className="font-serif text-xs font-bold leading-tight">{p.title}</h3>
               <span className="text-[9px] font-mono uppercase block mt-1 font-semibold">{p.status}</span>
@@ -138,7 +138,7 @@ export default function RecoveryDashboard({ setActivePage }) {
                     onClick={() => setSelectedMood(m)}
                     className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
                       selectedMood === m 
-                        ? 'bg-[#781353] text-white dark:bg-[#E03590]' 
+                        ? 'bg-[#781353] text-white' 
                         : 'bg-[var(--bg-secondary)] border border-editorial text-[var(--text-primary)] hover:border-[#E03590]'
                     }`}
                   >
@@ -212,7 +212,7 @@ export default function RecoveryDashboard({ setActivePage }) {
 
             <button 
               type="submit"
-              className="w-full bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] py-3.5 rounded-full font-bold text-xs uppercase tracking-widest hover:opacity-90 transition-opacity btn-tap shadow-md"
+              className="w-full bg-[#2E031D] text-white py-3.5 rounded-full font-bold text-xs uppercase tracking-widest hover:opacity-90 transition-opacity btn-tap shadow-md"
             >
               {checkInSaved ? 'Check-In Saved Successfully ✓' : 'Save Today\'s Check-In'}
             </button>
@@ -224,7 +224,7 @@ export default function RecoveryDashboard({ setActivePage }) {
         <div className="lg:col-span-6 card-doc p-6 sm:p-8 rounded-3xl space-y-5">
           <div className="flex items-center justify-between border-b border-editorial pb-3">
             <h3 className="text-xl font-serif font-bold text-[var(--text-primary)] flex items-center gap-2">
-              <CheckCircle2 className="w-5 h-5 text-[#781353] dark:text-[#E03590]" /> Daily Activities & Tasks
+              <CheckCircle2 className="w-5 h-5 text-[#781353]" /> Daily Activities & Tasks
             </h3>
             <span className="text-xs font-mono text-[#E03590] font-bold">{completedCount}/{tasks.length} Done</span>
           </div>
@@ -240,13 +240,13 @@ export default function RecoveryDashboard({ setActivePage }) {
                 onClick={() => toggleTask(task.id)}
                 className={`p-4 rounded-2xl border transition-all cursor-pointer flex items-center justify-between gap-3 ${
                   task.completed 
-                    ? 'bg-emerald-950/10 border-emerald-500/20 text-emerald-900 dark:text-emerald-200' 
+                    ? 'bg-emerald-950/10 border-emerald-500/20 text-emerald-900' 
                     : 'bg-[var(--bg-secondary)] border-editorial hover:border-[#E03590]'
                 }`}
               >
                 <div className="flex items-center gap-3">
                   {task.completed ? (
-                    <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />
+                    <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
                   ) : (
                     <Circle className="w-5 h-5 text-[var(--text-muted)] shrink-0" />
                   )}
@@ -266,7 +266,7 @@ export default function RecoveryDashboard({ setActivePage }) {
           {/* SESSIONS WITH MEHUL CALLOUT */}
           <div className="p-4 bg-[#781353]/10 border border-[#781353]/30 rounded-2xl space-y-2 mt-4">
             <div className="flex items-center justify-between">
-              <h4 className="font-serif font-bold text-sm text-[#781353] dark:text-[#E03590]">Weekly Session with Mehul</h4>
+              <h4 className="font-serif font-bold text-sm text-[#781353]">Weekly Session with Mehul</h4>
               <span className="text-[10px] font-mono font-bold text-[#E03590]">Scheduled</span>
             </div>
             <p className="text-xs text-[var(--text-secondary)] font-light">
@@ -280,7 +280,7 @@ export default function RecoveryDashboard({ setActivePage }) {
 
       {/* CLINICAL SAFETY & DISCLAIMER BAR */}
       <div className="p-5 bg-[var(--bg-secondary)] border border-editorial rounded-3xl flex items-start gap-3">
-        <ShieldAlert className="w-5 h-5 text-[#781353] dark:text-[#E03590] shrink-0 mt-0.5" />
+        <ShieldAlert className="w-5 h-5 text-[#781353] shrink-0 mt-0.5" />
         <p className="text-xs text-[var(--text-muted)] leading-relaxed font-light">
           <strong>Medical & Clinical Support Note:</strong> Educational and behavioral support programs provided by Mehul do not replace medical detox or clinical diagnosis. Medical treatment and withdrawal management must be handled by qualified healthcare professionals (AIIMS NDDTC standards).
         </p>

@@ -1,8 +1,5 @@
 @import "tailwindcss";
 
-/* Tailwind CSS v4 Dark Variant selector */
-@custom-variant dark (&:where(.dark, .dark *));
-
 @layer base {
   :root {
     color-scheme: light;
@@ -20,24 +17,6 @@
     --shadow-sm: 0 2px 8px -2px rgba(46, 3, 29, 0.05);
     --shadow-md: 0 12px 30px -10px rgba(46, 3, 29, 0.08);
     --shadow-lg: 0 20px 45px -15px rgba(46, 3, 29, 0.12);
-  }
-
-  .dark {
-    color-scheme: dark;
-    --bg-primary: #0A0A0C;
-    --bg-secondary: #121216;
-    --bg-card: #16161C;
-    --bg-card-hover: #1E1E26;
-    --text-primary: #FFFFFF;
-    --text-secondary: #E2E2E8;
-    --text-muted: rgba(255, 255, 255, 0.72);
-    --border-color: rgba(255, 255, 255, 0.14);
-    --accent-maroon: #E03590;
-    --accent-pink: #E03590;
-    --accent-deep: #FFFFFF;
-    --shadow-sm: 0 2px 8px -2px rgba(0, 0, 0, 0.4);
-    --shadow-md: 0 12px 32px -8px rgba(0, 0, 0, 0.6);
-    --shadow-lg: 0 24px 48px -12px rgba(0, 0, 0, 0.8);
   }
 
   html {

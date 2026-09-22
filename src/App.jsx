@@ -54,63 +54,23 @@ export default function App() {
   const [selectedCenter, setSelectedCenter] = useState(null);
   const [legalModal, setLegalModal] = useState({ isOpen: false, type: 'privacy' });
 
-  // System preference aware Light / Dark Theme state saved in localStorage
-  const [theme, setTheme] = useState(() => {
-    try {
-      if (typeof window !== 'undefined') {
-        const savedTheme = localStorage.getItem('clearchoice_theme');
-        if (savedTheme === 'dark' || savedTheme === 'light') return savedTheme;
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-          return 'dark';
-        }
-      }
-    } catch (e) {
-      console.warn('[CLEAR CHOICE] localStorage read error:', e);
-    }
-    return 'light';
-  });
-
+  // Ensure root stays in standard light mode
   useEffect(() => {
     const root = document.documentElement;
     const body = document.body;
-    const isDark = theme === 'dark';
+    root.classList.remove('dark');
+    if (body) body.classList.remove('dark');
+    root.setAttribute('data-theme', 'light');
+    root.style.colorScheme = 'light';
 
-    if (isDark) {
-      root.classList.add('dark');
-      if (body) body.classList.add('dark');
-      root.setAttribute('data-theme', 'dark');
-      root.style.colorScheme = 'dark';
-    } else {
-      root.classList.remove('dark');
-      if (body) body.classList.remove('dark');
-      root.setAttribute('data-theme', 'light');
-      root.style.colorScheme = 'light';
-    }
-
-    // Sync meta theme-color for mobile status bars
     let metaThemeColor = document.querySelector('meta[name="theme-color"]');
     if (!metaThemeColor) {
       metaThemeColor = document.createElement('meta');
       metaThemeColor.name = 'theme-color';
       document.head.appendChild(metaThemeColor);
     }
-    metaThemeColor.content = isDark ? '#0A0A0C' : '#FFFFFF';
-
-    // Sync apple status bar style
-    let metaAppleStatus = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
-    if (!metaAppleStatus) {
-      metaAppleStatus = document.createElement('meta');
-      metaAppleStatus.name = 'apple-mobile-web-app-status-bar-style';
-      document.head.appendChild(metaAppleStatus);
-    }
-    metaAppleStatus.content = isDark ? 'black-translucent' : 'default';
-
-    try {
-      localStorage.setItem('clearchoice_theme', theme);
-    } catch (e) {
-      console.warn('[CLEAR CHOICE] localStorage write error:', e);
-    }
-  }, [theme]);
+    metaThemeColor.content = '#FFFFFF';
+  }, []);
 
   // Handle browser back/forward buttons
   useEffect(() => {
@@ -128,10 +88,6 @@ export default function App() {
     if (window.location.pathname !== targetRoute) {
       window.history.pushState({}, '', targetRoute);
     }
-  };
-
-  const toggleTheme = () => {
-    setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
   };
 
   const openLegalModal = (type) => {
@@ -181,8 +137,6 @@ export default function App() {
       <Navbar 
         activePage={activePage} 
         setActivePage={handleSetActivePage} 
-        theme={theme}
-        toggleTheme={toggleTheme}
       />
 
       {/* Dynamic Main Page Content with Smooth Route Transitions */}

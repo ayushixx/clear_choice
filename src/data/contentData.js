@@ -1,14 +1,12 @@
 export const MEHUL_INFO = {
-  name: 'Mehul',
-  title: 'Lead Recovery Practitioner & Addiction Specialist',
+  name: 'Mehul Saini',
   headline: 'Your Recovery Journey, Guided by Mehul',
   introduction: 'Mehul is dedicated to supporting individuals on their journey toward addiction recovery through structured guidance, personalized routines, and ongoing support.',
-  verifiedQualifications: [
-    'Full Name & Title: Mehul — Certified Addiction Recovery Practitioner',
-    'Background: Over 6 years of dedicated experience in recovery support and behavioral habit restructuring.',
-    'Qualifications: Certified Recovery Coach, Evidence-Based Relapse Prevention Specialist.',
-    'Recovery Approach & Philosophy: Holistic, structured, non-judgmental guidance centered on daily discipline, neuroplastic healing, craving management, and ongoing personal support.',
-    'Personal Message: "Your recovery journey is a path of daily choices. You don\'t have to walk it alone — with structured routines, clear guidance, and compassionate accountability, lasting freedom is within your reach."'
+  verifiedDetails: [
+    { label: 'Full Name', value: 'Mehul Saini' },
+    { label: 'Focus', value: 'Addiction Recovery Guidance & Behavioral Support' },
+    { label: 'Approach', value: 'Structured guidance, personalized routines, daily activities, and ongoing support' },
+    { label: 'Personal Message', value: 'Recovery is a personal journey built on daily choices. With structured guidance, healthy routines, and continuous support, lasting change is possible. You do not have to recover alone.' }
   ]
 };
 

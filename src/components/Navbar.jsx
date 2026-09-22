@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Phone, Menu, X, Sun, Moon, ArrowRight, Shield, ChevronDown } from 'lucide-react';
+import { Phone, Menu, X, ArrowRight, Shield, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import MagneticButton from './MagneticButton';
 
-export default function Navbar({ activePage, setActivePage, theme, toggleTheme }) {
+export default function Navbar({ activePage, setActivePage }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -95,7 +95,7 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
             <img 
               src="/assets/logo.png" 
               alt="CLEAR CHOICE Logo" 
-              className="h-8 sm:h-9 w-auto object-contain filter dark:brightness-110"
+              className="h-8 sm:h-9 w-auto object-contain"
             />
             <div>
               <span className="font-serif font-extrabold text-base sm:text-xl tracking-tight block leading-none text-[var(--text-primary)]">
@@ -118,7 +118,7 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
                       onClick={() => setDropdownOpen(!dropdownOpen)}
                       className={`text-xs font-semibold uppercase tracking-wider transition-colors relative py-1.5 flex items-center gap-1 btn-tap ${
                         isHelpActive
-                          ? 'text-[#781353] dark:text-[#E03590]'
+                          ? 'text-[#781353]'
                           : 'text-muted hover:text-[var(--text-primary)]'
                       }`}
                     >
@@ -127,7 +127,7 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
                       {isHelpActive && (
                         <motion.div
                           layoutId="activeNavLine"
-                          className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#781353] dark:bg-[#E03590]"
+                          className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#781353]"
                           transition={{ type: 'spring', stiffness: 350, damping: 30 }}
                         />
                       )}
@@ -159,7 +159,7 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
                                 }}
                                 className={`w-full text-left p-2.5 rounded-xl transition-colors flex items-center justify-between text-xs btn-tap ${
                                   isSubActive
-                                    ? 'bg-[var(--bg-secondary)] text-[#781353] dark:text-[#E03590] font-bold border-l-2 border-[#781353] dark:border-[#E03590]'
+                                    ? 'bg-[var(--bg-secondary)] text-[#781353] font-bold border-l-2 border-[#781353]'
                                     : 'text-[var(--text-primary)] hover:bg-[var(--bg-secondary)]'
                                 }`}
                               >
@@ -188,7 +188,7 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
                   }}
                   className={`text-xs font-semibold uppercase tracking-wider transition-colors relative py-1.5 btn-tap ${
                     isActive
-                      ? 'text-[#781353] dark:text-[#E03590]'
+                      ? 'text-[#781353]'
                       : 'text-muted hover:text-[var(--text-primary)]'
                   }`}
                 >
@@ -196,7 +196,7 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
                   {isActive && (
                     <motion.div
                       layoutId="activeNavLine"
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#781353] dark:bg-[#E03590]"
+                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#781353]"
                       transition={{ type: 'spring', stiffness: 350, damping: 30 }}
                     />
                   )}
@@ -205,42 +205,21 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
             })}
           </div>
 
-          {/* Desktop Theme Switcher & Action Button */}
+          {/* Desktop Action Button */}
           <div className="hidden md:flex items-center space-x-4">
-            <button
-              onClick={toggleTheme}
-              className="p-2.5 rounded-full border border-editorial text-[var(--text-primary)] hover:bg-[var(--bg-secondary)] transition-all btn-tap touch-target flex items-center justify-center"
-              aria-label="Toggle Theme"
-              title={`Switch to ${theme === 'light' ? 'Dark' : 'Light'} Mode`}
-            >
-              {theme === 'light' ? (
-                <Moon className="w-4 h-4 text-[#2E031D]" />
-              ) : (
-                <Sun className="w-4 h-4 text-amber-300" />
-              )}
-            </button>
-
             <MagneticButton
               onClick={() => {
                 setActivePage('crisis-support');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="bg-[#2E031D] dark:bg-[#FFFFFF] text-[#FDF3F7] dark:text-[#0A0A0C] px-5 py-2.5 text-xs font-bold uppercase tracking-widest hover:opacity-90 transition-opacity btn-tap touch-target shadow-md rounded-full"
+              className="bg-[#2E031D] text-[#FDF3F7] px-5 py-2.5 text-xs font-bold uppercase tracking-widest hover:opacity-90 transition-opacity btn-tap touch-target shadow-md rounded-full"
             >
               Crisis Hotline 24/7
             </MagneticButton>
           </div>
 
-          {/* Mobile Right Controls: Theme Toggle & Menu Button */}
+          {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center gap-2">
-            <button
-              onClick={toggleTheme}
-              className="p-2.5 text-[var(--text-primary)] btn-tap touch-target flex items-center justify-center rounded-full border border-editorial bg-[var(--bg-secondary)]"
-              aria-label="Toggle Theme"
-            >
-              {theme === 'light' ? <Moon className="w-5 h-5 text-[#2E031D]" /> : <Sun className="w-5 h-5 text-amber-300" />}
-            </button>
-
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2.5 text-[var(--text-primary)] btn-tap touch-target flex items-center justify-center rounded-full border border-editorial bg-[var(--bg-secondary)]"
@@ -269,7 +248,7 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
                 <img 
                   src="/assets/logo.png" 
                   alt="CLEAR CHOICE Logo" 
-                  className="h-8 w-auto object-contain filter dark:brightness-110"
+                  className="h-8 w-auto object-contain"
                 />
                 <div>
                   <span className="font-serif font-extrabold text-lg tracking-tight block text-[var(--text-primary)]">CLEAR CHOICE</span>
@@ -278,14 +257,6 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
               </div>
               
               <div className="flex items-center gap-2">
-                <button
-                  onClick={toggleTheme}
-                  className="p-2.5 text-[var(--text-primary)] btn-tap touch-target flex items-center justify-center rounded-full border border-editorial bg-[var(--bg-secondary)]"
-                  aria-label="Toggle Theme"
-                >
-                  {theme === 'light' ? <Moon className="w-5 h-5 text-[#2E031D]" /> : <Sun className="w-5 h-5 text-amber-300" />}
-                </button>
-
                 <button
                   onClick={() => setMobileMenuOpen(false)}
                   className="p-2.5 text-[var(--text-primary)] btn-tap touch-target flex items-center justify-center rounded-full border border-editorial bg-[var(--bg-secondary)]"
@@ -311,7 +282,7 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
                         }`}
                       >
                         <div>
-                          <span className={`font-serif text-xl sm:text-2xl block ${isHelpActive ? 'font-bold text-[#781353] dark:text-[#E03590]' : 'font-semibold text-[var(--text-primary)]'}`}>
+                          <span className={`font-serif text-xl sm:text-2xl block ${isHelpActive ? 'font-bold text-[#781353]' : 'font-semibold text-[var(--text-primary)]'}`}>
                             {link.label}
                           </span>
                           <span className="text-[10px] font-mono text-muted uppercase tracking-wider block mt-0.5">
@@ -336,7 +307,7 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
                                 }}
                                 className={`w-full text-left p-3 rounded-xl transition-all flex items-center justify-between text-xs btn-tap touch-target ${
                                   isSubActive
-                                    ? 'bg-[var(--bg-secondary)] text-[#781353] dark:text-[#E03590] font-bold border border-editorial'
+                                    ? 'bg-[var(--bg-secondary)] text-[#781353] font-bold border border-editorial'
                                     : 'text-muted hover:text-[var(--text-primary)] hover:bg-[var(--bg-secondary)]'
                                 }`}
                               >
@@ -373,7 +344,7 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
                     }`}
                   >
                     <div>
-                      <span className={`font-serif text-xl sm:text-2xl block ${isActive ? 'font-bold text-[#781353] dark:text-[#E03590]' : 'font-semibold text-[var(--text-primary)]'}`}>
+                      <span className={`font-serif text-xl sm:text-2xl block ${isActive ? 'font-bold text-[#781353]' : 'font-semibold text-[var(--text-primary)]'}`}>
                         {link.label}
                       </span>
                       <span className="text-[10px] font-mono text-muted uppercase tracking-wider block mt-0.5">
@@ -381,7 +352,7 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
                       </span>
                     </div>
 
-                    <ArrowRight className={`w-5 h-5 ${isActive ? 'text-[#781353] dark:text-[#E03590]' : 'text-muted/40'}`} />
+                    <ArrowRight className={`w-5 h-5 ${isActive ? 'text-[#781353]' : 'text-muted/40'}`} />
                   </motion.button>
                 );
               })}
@@ -391,9 +362,9 @@ export default function Navbar({ activePage, setActivePage, theme, toggleTheme }
             <div className="pt-4 border-t border-editorial space-y-3">
               <a
                 href="tel:1800110031"
-                className="w-full bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] py-3.5 px-4 rounded-full text-center font-bold text-xs uppercase tracking-widest transition-all btn-tap shadow-lg touch-target flex items-center justify-center gap-2"
+                className="w-full bg-[#2E031D] text-white py-3.5 px-4 rounded-full text-center font-bold text-xs uppercase tracking-widest transition-all btn-tap shadow-lg touch-target flex items-center justify-center gap-2"
               >
-                <Phone className="w-4 h-4 text-[#E03590] dark:text-[#781353]" />
+                <Phone className="w-4 h-4 text-[#E03590]" />
                 <span>Call Helpline: 1800-11-0031</span>
               </a>
 
