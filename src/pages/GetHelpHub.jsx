@@ -60,93 +60,95 @@ export default function GetHelpHub({ setActivePage }) {
   ];
 
   return (
-    <div className="pt-20 sm:pt-32 pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 sm:space-y-16">
+    <div className="pt-16 sm:pt-24 pb-16 sm:pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
       
       {/* HEADER SECTION */}
       <motion.div 
-        initial={{ opacity: 0, y: 15 }}
+        initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="max-w-3xl space-y-3 sm:space-y-4 pt-4 sm:pt-0"
+        transition={{ duration: 0.4 }}
+        className="max-w-3xl space-y-2 sm:space-y-3 pt-2 sm:pt-0"
       >
-        <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest text-[#781353] dark:text-[#E03590] block">
+        <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest text-[#781353] block">
           Get Help Decision Center
         </span>
-        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-serif font-bold text-[var(--text-primary)] tracking-tight">
+        <h1 className="text-2xl sm:text-4xl lg:text-5xl font-serif font-bold text-[var(--text-primary)] tracking-tight">
           How Can We Help You Today?
         </h1>
-        <p className="text-xs sm:text-lg text-muted font-light leading-relaxed">
+        <p className="text-xs sm:text-base text-muted font-light leading-relaxed">
           Select your primary goal below to get directed immediately to the right resources, directory listings, interactive map, or private consultation forms.
         </p>
       </motion.div>
 
-      {/* 4 LARGE INTENT FEATURE CARDS */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+      {/* 5 INTENT CARDS WITH COMPACT PHONE PADDING & MOTION */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
         {options.map((opt, idx) => {
           const Icon = opt.icon;
           return (
             <motion.div
               key={opt.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: idx * 0.1 }}
-              className={`p-6 sm:p-8 border flex flex-col justify-between relative overflow-hidden transition-all duration-300 rounded-3xl ${
+              initial={{ opacity: 0, y: 15, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              whileHover={{ scale: 1.015 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ duration: 0.35, delay: idx * 0.06 }}
+              className={`p-5 sm:p-7 border flex flex-col justify-between relative overflow-hidden rounded-2xl cursor-pointer ${
                 opt.primary
-                  ? 'bg-[#2E031D] dark:bg-[#16161C] text-white border-[#2E031D] dark:border-editorial shadow-xl'
+                  ? 'bg-[#2E031D] text-white border-[#2E031D] shadow-lg'
                   : 'card-doc hover:border-[#E03590]'
               }`}
             >
               {opt.primary && (
-                <AmbientParticles count={12} color="rgba(224,53,144,0.3)" />
+                <AmbientParticles count={10} color="rgba(224,53,144,0.3)" />
               )}
 
-              <div className="space-y-4 relative z-10">
+              <div className="space-y-3 relative z-10">
                 <div className="flex items-center justify-between gap-2">
-                  <span className={`text-[10px] font-mono font-bold uppercase px-3 py-1 border rounded-full ${
+                  <span className={`text-[9px] font-mono font-bold uppercase px-2.5 py-0.5 border rounded-full ${
                     opt.primary
                       ? 'bg-white/10 text-white border-white/20'
-                      : 'bg-[var(--bg-secondary)] text-[#781353] dark:text-[#E03590] border-editorial'
+                      : 'bg-[var(--bg-secondary)] text-[#781353] border-editorial'
                   }`}>
                     {opt.badge}
                   </span>
-                  <div className={`p-3 rounded-2xl border ${
+                  <div className={`p-2.5 rounded-xl border ${
                     opt.primary
                       ? 'bg-white/10 text-[#E03590] border-white/20'
-                      : 'bg-[var(--bg-secondary)] text-[#781353] dark:text-[#E03590] border-editorial'
+                      : 'bg-[var(--bg-secondary)] text-[#781353] border-editorial'
                   }`}>
-                    <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
+                    <Icon className="w-5 h-5" />
                   </div>
                 </div>
 
                 <div>
-                  <h2 className={`text-xl sm:text-3xl font-serif font-bold ${
+                  <h2 className={`text-lg sm:text-2xl font-serif font-bold ${
                     opt.primary ? 'text-white' : 'text-[var(--text-primary)]'
                   }`}>
                     {opt.title}
                   </h2>
-                  <p className={`text-xs sm:text-sm font-light leading-relaxed mt-2 ${
+                  <p className={`text-xs font-light leading-relaxed mt-1 ${
                     opt.primary ? 'text-[#FDF3F7]/80' : 'text-muted'
                   }`}>
                     {opt.description}
                   </p>
                 </div>
 
-                <div className={`pt-2 text-xs font-mono font-semibold flex items-center gap-2 ${
-                  opt.primary ? 'text-[#E03590]' : 'text-[#781353] dark:text-[#E03590]'
+                <div className={`pt-1 text-[11px] font-mono font-semibold flex items-center gap-1.5 ${
+                  opt.primary ? 'text-[#E03590]' : 'text-[#781353]'
                 }`}>
-                  <ShieldCheck className="w-4 h-4 shrink-0" />
-                  <span className="text-[11px] sm:text-xs">{opt.highlight}</span>
+                  <ShieldCheck className="w-3.5 h-3.5 shrink-0" />
+                  <span>{opt.highlight}</span>
                 </div>
               </div>
 
-              <div className="pt-5 mt-5 border-t border-editorial/40 relative z-10">
+              <div className="pt-4 mt-4 border-t border-editorial/40 relative z-10">
                 {opt.primary ? (
                   <MagneticButton
                     onClick={() => {
                       setActivePage(opt.id);
                       window.scrollTo({ top: 0, behavior: 'smooth' });
                     }}
-                    className="w-full bg-[#E03590] hover:bg-[#c82b7c] text-white py-3.5 px-6 font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-all btn-tap touch-target rounded-full shadow-lg"
+                    className="w-full bg-[#E03590] hover:bg-[#c82b7c] text-white py-3 px-5 font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-all rounded-full shadow-md"
                   >
                     <span>{opt.cta}</span>
                     <ArrowRight className="w-4 h-4" />
@@ -157,10 +159,10 @@ export default function GetHelpHub({ setActivePage }) {
                       setActivePage(opt.id);
                       window.scrollTo({ top: 0, behavior: 'smooth' });
                     }}
-                    className="w-full bg-[#2E031D] dark:bg-[#FFFFFF] text-white dark:text-[#0A0A0C] py-3.5 px-6 font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-all btn-tap touch-target cursor-pointer rounded-full shadow-md"
+                    className="w-full bg-[#2E031D] text-white py-3 px-5 font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-all rounded-full shadow-sm cursor-pointer"
                   >
                     <span>{opt.cta}</span>
-                    <ArrowRight className="w-4 h-4 text-[#E03590] dark:text-[#781353]" />
+                    <ArrowRight className="w-4 h-4 text-[#E03590]" />
                   </button>
                 )}
               </div>
@@ -175,3 +177,4 @@ export default function GetHelpHub({ setActivePage }) {
     </div>
   );
 }
+
