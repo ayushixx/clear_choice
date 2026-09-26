@@ -15,6 +15,7 @@ import RecoveryCenters from './pages/RecoveryCenters';
 import FindSupportNearYou from './pages/FindSupportNearYou';
 import ContactCounselor from './pages/ContactCounselor';
 import Blog from './pages/Blog';
+import AdminPanel from './pages/AdminPanel';
 import RecoveryDashboard from './components/RecoveryDashboard';
 
 const ROUTE_MAP = {
@@ -28,7 +29,8 @@ const ROUTE_MAP = {
   '/recovery-centers': 'recovery-centers',
   '/find-support': 'find-support',
   '/contact-counselor': 'contact-counselor',
-  '/blog': 'blog'
+  '/blog': 'blog',
+  '/admin': 'admin'
 };
 
 const PAGE_TO_ROUTE = {
@@ -42,7 +44,8 @@ const PAGE_TO_ROUTE = {
   'recovery-centers': '/recovery-centers',
   'find-support': '/find-support',
   'contact-counselor': '/contact-counselor',
-  blog: '/blog'
+  blog: '/blog',
+  admin: '/admin'
 };
 
 export default function App() {
@@ -126,6 +129,8 @@ export default function App() {
         return <ContactCounselor setActivePage={handleSetActivePage} />;
       case 'blog':
         return <Blog />;
+      case 'admin':
+        return <AdminPanel setActivePage={handleSetActivePage} />;
       default:
         return <Home setActivePage={handleSetActivePage} />;
     }

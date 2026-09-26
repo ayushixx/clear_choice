@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 
 import AmbientParticles from '../components/AmbientParticles';
 import MagneticButton from '../components/MagneticButton';
+import LeadCaptureModal from '../components/LeadCaptureModal';
 import mehulPortrait from '../assets/mehul-portrait.jpg';
 import { 
   MEHUL_INFO, 
@@ -33,6 +34,10 @@ export default function Home({ setActivePage }) {
   const heroTextY = useTransform(scrollY, [0, 400], [0, isMobile ? 0 : -15]);
   const [openFaqId, setOpenFaqId] = useState(0);
   const [activeStep, setActiveStep] = useState(0);
+  const [leadModal, setLeadModal] = useState({ isOpen: false, substance: '' });
+
+  // Programs that require lead capture instead of showing full details
+  const GATED_PROGRAM_IDS = ['benzo-recovery', 'prescription-recovery', 'other-recovery'];
 
   // Reusable animation variants — fast & simple on mobile, richer on desktop
   const fadeIn = useMemo(() => ({
@@ -372,41 +377,67 @@ export default function Home({ setActivePage }) {
 
         {/* Clean Divider List View */}
         <div className="divide-y divide-editorial">
-          {RECOVERY_PROGRAMS.map((prog, idx) => (
-            <motion.div 
-              key={prog.id}
-              initial={fadeIn.initial}
-              whileInView={fadeIn.whileInView}
-              viewport={fadeIn.viewport}
-              transition={{ delay: isMobile ? 0 : idx * 0.03, duration: isMobile ? 0.2 : 0.3 }}
-              onClick={() => { setActivePage('help'); window.scrollTo(0,0); }}
-              className="py-5 grid grid-cols-1 lg:grid-cols-12 gap-4 items-center group cursor-pointer hover:bg-[var(--bg-secondary)] transition-all px-3 -mx-3 rounded-xl"
-            >
-              <div className="lg:col-span-4 space-y-1">
-                <div className="flex items-center gap-2">
-                  <span className="text-[9px] font-mono font-bold uppercase text-[#781353] bg-[#781353]/10 px-2 py-0.5 rounded-full border border-[#781353]/20">
-                    {prog.duration}
-                  </span>
-                  <span className="text-[9px] font-mono text-muted uppercase tracking-wider">
-                    {prog.category}
-                  </span>
+          {RECOVERY_PROGRAMS.map((prog, idx) => {
+            const isGated = GATED_PROGRAM_IDS.includes(prog.id);
+
+            return (
+              <motion.div 
+                key={prog.id}
+                initial={fadeIn.initial}
+                whileInView={fadeIn.whileInView}
+                viewport={fadeIn.viewport}
+                transition={{ delay: isMobile ? 0 : idx * 0.03, duration: isMobile ? 0.2 : 0.3 }}
+                onClick={() => {
+                  if (isGated) {
+                    setLeadModal({ isOpen: true, substance: prog.title.replace(/^[A-H]\.\s*/, '') });
+                  } else {
+                    setActivePage('help');
+                    window.scrollTo(0,0);
+                  }
+                }}
+                className="py-5 grid grid-cols-1 lg:grid-cols-12 gap-4 items-center group cursor-pointer hover:bg-[var(--bg-secondary)] transition-all px-3 -mx-3 rounded-xl"
+              >
+                <div className="lg:col-span-4 space-y-1">
+                  <div className="flex items-center gap-2">
+                    <span className={`text-[9px] font-mono font-bold uppercase px-2 py-0.5 rounded-full border ${
+                      isGated
+                        ? 'text-amber-700 bg-amber-100 border-amber-200'
+                        : 'text-[#781353] bg-[#781353]/10 border-[#781353]/20'
+                    }`}>
+                      {prog.duration}
+                    </span>
+                    <span className="text-[9px] font-mono text-muted uppercase tracking-wider">
+                      {prog.category}
+                    </span>
+                  </div>
+                  <h3 className="text-lg sm:text-xl font-serif font-bold text-[var(--text-primary)] group-hover:text-[#781353] transition-colors">
+                    {prog.title}
+                  </h3>
                 </div>
-                <h3 className="text-lg sm:text-xl font-serif font-bold text-[var(--text-primary)] group-hover:text-[#781353] transition-colors">
-                  {prog.title}
-                </h3>
-              </div>
 
-              <div className="lg:col-span-6 text-xs text-muted font-light leading-relaxed">
-                {prog.tagline}
-              </div>
+                <div className="lg:col-span-6 text-xs text-muted font-light leading-relaxed">
+                  {prog.tagline}
+                  {isGated && (
+                    <span className="block mt-1.5 text-[10px] text-amber-700 font-medium">
+                      Personalized plan provided after assessment
+                    </span>
+                  )}
+                </div>
 
-              <div className="lg:col-span-2 flex justify-end">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#781353] group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
-                  <span>View Details</span> <ArrowRight className="w-3.5 h-3.5" />
-                </span>
-              </div>
-            </motion.div>
-          ))}
+                <div className="lg:col-span-2 flex justify-end">
+                  {isGated ? (
+                    <span className="text-xs font-bold uppercase tracking-wider text-amber-700 group-hover:translate-x-1 transition-transform inline-flex items-center gap-1 bg-amber-50 px-3 py-1.5 rounded-full border border-amber-200">
+                      <span>Get to Know More</span> <ArrowRight className="w-3.5 h-3.5" />
+                    </span>
+                  ) : (
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#781353] group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
+                      <span>View Details</span> <ArrowRight className="w-3.5 h-3.5" />
+                    </span>
+                  )}
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
 
       </section>
@@ -658,6 +689,13 @@ export default function Home({ setActivePage }) {
           </a>
         </div>
       </section>
+
+      {/* Lead Capture Modal for Gated Programs */}
+      <LeadCaptureModal
+        isOpen={leadModal.isOpen}
+        onClose={() => setLeadModal({ isOpen: false, substance: '' })}
+        preselectedSubstance={leadModal.substance}
+      />
 
     </div>
   );

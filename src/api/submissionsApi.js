@@ -113,6 +113,32 @@ export const submitCallbackRequest = async (formData) => {
 };
 
 /**
+ * Submit Lead Inquiry (Get to Know More) to Google Apps Script Web App (Google Sheets)
+ */
+export const submitLeadInquiry = async (formData) => {
+  const { name, phone, email, substance, message } = formData;
+
+  if (!name || !name.trim()) {
+    return { success: false, error: 'Please enter your name.' };
+  }
+  if (!phone || !validatePhone(phone)) {
+    return { success: false, error: 'Please enter a valid phone number.' };
+  }
+
+  const payload = {
+    type: 'lead',
+    apiKey: API_KEY,
+    name: name.trim(),
+    phone: phone.trim(),
+    email: email ? email.trim() : '',
+    substance: substance || 'Not specified',
+    message: message ? message.trim() : '',
+  };
+
+  return await postToGoogleScript(payload);
+};
+
+/**
  * Fetch Rehab Centers dataset
  */
 export const fetchRehabCenters = async () => {
