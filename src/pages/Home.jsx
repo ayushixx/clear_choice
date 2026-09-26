@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Phone, ArrowRight, Shield, Calendar, Users, CheckCircle2, ChevronDown, HelpCircle, HeartHandshake, Sparkles } from 'lucide-react';
+import { Phone, ArrowRight, Shield, Calendar, Users, CheckCircle2, ChevronDown, HelpCircle, HeartHandshake, Sparkles, Award, Check } from 'lucide-react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 
 import AmbientParticles from '../components/AmbientParticles';
@@ -14,7 +14,7 @@ import {
   SUPPORT_GROUP_INFO 
 } from '../data/contentData';
 
-// Mobile-aware animation presets — lightweight opacity-only on phones
+// Mobile-aware hook
 function useIsMobile() {
   const [mobile, setMobile] = useState(false);
   useEffect(() => {
@@ -27,19 +27,39 @@ function useIsMobile() {
   return mobile;
 }
 
+// Editorial Shutter Section Wrapper — Smooth Shutter & Scale Reveal on Scroll
+function ShutterSection({ children, className = '', id = '' }) {
+  const isMobile = useIsMobile();
+  return (
+    <motion.section
+      id={id}
+      initial={{ opacity: 0, y: isMobile ? 22 : 36, scale: isMobile ? 0.98 : 0.99 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, margin: isMobile ? "-20px" : "-60px" }}
+      transition={{ duration: isMobile ? 0.45 : 0.65, ease: [0.22, 1, 0.36, 1] }}
+      className={`relative ${className}`}
+    >
+      {/* Editorial Shutter Line Reveal */}
+      <motion.div
+        initial={{ scaleX: 0 }}
+        whileInView={{ scaleX: 1 }}
+        viewport={{ once: true, margin: isMobile ? "-20px" : "-60px" }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+        className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#781353]/35 to-transparent origin-center pointer-events-none"
+      />
+      {children}
+    </motion.section>
+  );
+}
+
 export default function Home({ setActivePage }) {
   const { scrollY } = useScroll();
   const isMobile = useIsMobile();
-  // Disable parallax on mobile — it causes scroll jank
   const heroTextY = useTransform(scrollY, [0, 400], [0, isMobile ? 0 : -15]);
   const [openFaqId, setOpenFaqId] = useState(0);
   const [activeStep, setActiveStep] = useState(0);
   const [leadModal, setLeadModal] = useState({ isOpen: false, substance: '' });
 
-  // Programs that require lead capture instead of showing full details
-  const GATED_PROGRAM_IDS = ['benzo-recovery', 'prescription-recovery', 'other-recovery'];
-
-  // Reusable animation variants — fast & simple on mobile, richer on desktop
   const fadeIn = useMemo(() => ({
     initial: { opacity: 0, ...(isMobile ? {} : { y: 12 }) },
     animate: { opacity: 1, y: 0 },
@@ -51,19 +71,19 @@ export default function Home({ setActivePage }) {
   const fadeSlideLeft = useMemo(() => ({
     initial: { opacity: 0, ...(isMobile ? {} : { x: -15 }) },
     whileInView: { opacity: 1, x: 0 },
-    transition: { duration: isMobile ? 0.2 : 0.5 },
+    transition: { duration: isMobile ? 0.25 : 0.5 },
     viewport: { once: true },
   }), [isMobile]);
 
   const fadeSlideRight = useMemo(() => ({
     initial: { opacity: 0, ...(isMobile ? {} : { x: 15 }) },
     whileInView: { opacity: 1, x: 0 },
-    transition: { duration: isMobile ? 0.2 : 0.5, delay: isMobile ? 0 : 0.1 },
+    transition: { duration: isMobile ? 0.25 : 0.5, delay: isMobile ? 0 : 0.1 },
     viewport: { once: true },
   }), [isMobile]);
 
   useEffect(() => {
-    console.log('[CLEAR CHOICE] Phone-Optimized Dynamic Home Loaded');
+    console.log('[CLEAR CHOICE] Mobile-Reactive Editorial Home Loaded');
   }, []);
 
   const faqData = [
@@ -100,10 +120,10 @@ export default function Home({ setActivePage }) {
   return (
     <div className="bg-[var(--bg-primary)] text-[var(--text-primary)] selection:bg-[#781353] selection:text-white">
       
-      {/* 1. HERO SECTION — DYNAMIC HERO WITH ZOOM-IN PORTRAIT & TIGHT MOBILE SPACING */}
-      <section className="relative w-full min-h-[60vh] sm:min-h-[70vh] flex items-center justify-center pt-16 sm:pt-20 pb-8 sm:pb-12 border-b border-editorial overflow-hidden">
+      {/* 1. HERO SECTION — DYNAMIC EDITORIAL HERO */}
+      <section className="relative w-full min-h-[60vh] sm:min-h-[70vh] flex items-center justify-center pt-14 sm:pt-20 pb-8 sm:pb-12 border-b border-editorial overflow-hidden">
         
-        <AmbientParticles count={10} />
+        <AmbientParticles count={isMobile ? 6 : 12} />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-12 items-center z-10">
           
@@ -112,11 +132,11 @@ export default function Home({ setActivePage }) {
             style={{ y: heroTextY }}
             className="lg:col-span-7 space-y-4 sm:space-y-6 text-left order-1"
           >
-            {/* Category Tagline */}
+            {/* Category Tagline Badge */}
             <motion.div 
               initial={fadeIn.initial}
               animate={fadeIn.animate}
-              transition={{ duration: isMobile ? 0.15 : 0.4 }}
+              transition={{ duration: isMobile ? 0.2 : 0.4 }}
               className="inline-flex items-center gap-2 text-[10px] sm:text-xs font-mono font-bold tracking-widest text-[#781353] uppercase border-b border-[#781353]/30 pb-1"
             >
               <Sparkles className="w-3 h-3 text-[#E03590]" />
@@ -129,19 +149,23 @@ export default function Home({ setActivePage }) {
             <motion.h1 
               initial={{ opacity: 0, ...(isMobile ? {} : { y: 16, scale: 0.98 }) }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: isMobile ? 0.2 : 0.6, delay: isMobile ? 0 : 0.05 }}
+              transition={{ duration: isMobile ? 0.25 : 0.6, delay: isMobile ? 0 : 0.05 }}
               className="text-3xl sm:text-5xl lg:text-7xl font-serif font-bold text-[var(--text-primary)] tracking-tight leading-[1.08]"
             >
               Your Recovery Journey, Guided by Mehul.
             </motion.h1>
 
-            {/* Mobile-Only Compact Portrait */}
-            <div className="block lg:hidden my-3">
+            {/* Mobile-Only Compact Luxury Portrait */}
+            <div className="block lg:hidden my-4">
               <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.3 }}
-                className="relative w-48 h-48 mx-auto rounded-2xl overflow-hidden shadow-lg border border-editorial bg-[var(--bg-secondary)] group"
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.35 }}
+                className="relative w-48 h-48 mx-auto rounded-2xl overflow-hidden shadow-xl border border-editorial bg-[var(--bg-secondary)] group cursor-pointer"
+                onClick={() => {
+                  const el = document.getElementById('about-mehul-story');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
               >
                 <img 
                   src={mehulPortrait} 
@@ -149,8 +173,8 @@ export default function Home({ setActivePage }) {
                   className="w-full h-full object-cover object-[center_18%] filter contrast-[1.02]"
                   loading="eager"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#2E031D]/80 via-transparent to-transparent"></div>
-                <div className="absolute bottom-2 left-2 right-2 text-white">
+                <div className="absolute inset-0 bg-gradient-to-t from-[#2E031D]/85 via-transparent to-transparent"></div>
+                <div className="absolute bottom-2.5 left-2.5 right-2.5 text-white">
                   <span className="text-[9px] font-mono uppercase tracking-widest text-[#E03590] font-bold block">MEHUL SAINI</span>
                   <p className="text-[9px] font-mono text-white/80 uppercase tracking-wider">Recovery Specialist</p>
                 </div>
@@ -161,7 +185,7 @@ export default function Home({ setActivePage }) {
             <motion.p 
               initial={fadeIn.initial}
               animate={fadeIn.animate}
-              transition={{ duration: isMobile ? 0.15 : 0.5, delay: isMobile ? 0 : 0.12 }}
+              transition={{ duration: isMobile ? 0.2 : 0.5, delay: isMobile ? 0 : 0.12 }}
               className="text-sm sm:text-lg text-muted font-light leading-relaxed max-w-xl"
             >
               {MEHUL_INFO.introduction}
@@ -171,12 +195,12 @@ export default function Home({ setActivePage }) {
             <motion.div 
               initial={fadeIn.initial}
               animate={fadeIn.animate}
-              transition={{ duration: isMobile ? 0.15 : 0.5, delay: isMobile ? 0 : 0.18 }}
+              transition={{ duration: isMobile ? 0.2 : 0.5, delay: isMobile ? 0 : 0.18 }}
               className="pt-1 flex flex-col sm:flex-row items-stretch sm:items-center gap-3"
             >
               <MagneticButton
                 onClick={() => { setActivePage('help'); window.scrollTo(0,0); }}
-                className="bg-[#2E031D] text-white hover:bg-[#4E0834] px-6 py-3.5 text-xs font-bold uppercase tracking-widest transition-all rounded-full text-center shadow-md focus-visible:ring-2 focus-visible:ring-[#781353] focus-visible:outline-none"
+                className="bg-[#2E031D] text-white hover:bg-[#4E0834] active:scale-[0.98] px-6 py-3.5 text-xs font-bold uppercase tracking-widest transition-all rounded-full text-center shadow-md focus-visible:ring-2 focus-visible:ring-[#781353] focus-visible:outline-none"
               >
                 <span className="flex items-center justify-center gap-2">
                   <span>Explore Recovery Programs</span>
@@ -189,16 +213,32 @@ export default function Home({ setActivePage }) {
                   const el = document.getElementById('about-mehul-story');
                   if (el) el.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="px-6 py-3.5 text-xs font-semibold uppercase tracking-widest text-[var(--text-primary)] hover:text-[#781353] transition-colors border border-editorial rounded-full text-center focus-visible:ring-2 focus-visible:ring-[#781353] focus-visible:outline-none"
+                className="px-6 py-3.5 text-xs font-semibold uppercase tracking-widest text-[var(--text-primary)] hover:text-[#781353] active:scale-[0.98] transition-colors border border-editorial rounded-full text-center focus-visible:ring-2 focus-visible:ring-[#781353] focus-visible:outline-none"
               >
                 Read Mehul's Story
               </button>
             </motion.div>
 
-            {/* Helpline Notice */}
-            <div className="pt-3 border-t border-editorial flex items-center gap-2.5 text-[11px] font-mono text-muted">
-              <Shield className="w-3.5 h-3.5 text-[#781353] shrink-0" />
-              <span>100% Confidential • Helpline: <strong className="text-[var(--text-primary)]">1800-11-0031</strong></span>
+            {/* High-Trust Mobile Direct Helpline Bar */}
+            <div className="pt-3 border-t border-editorial">
+              <a 
+                href="tel:1800110031"
+                className="w-full sm:w-auto p-3 bg-[var(--bg-secondary)] hover:bg-[#2E031D] hover:text-white rounded-xl border border-editorial flex items-center justify-between gap-3 transition-all duration-300 group"
+              >
+                <div className="flex items-center gap-2.5">
+                  <span className="relative flex h-2.5 w-2.5 shrink-0">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                  </span>
+                  <div className="text-left">
+                    <span className="text-[9px] font-mono uppercase tracking-widest text-muted group-hover:text-white/70 block font-bold">24/7 Confidential Helpline</span>
+                    <span className="text-xs sm:text-sm font-bold font-serif text-[var(--text-primary)] group-hover:text-white tracking-wide">1800-11-0031</span>
+                  </div>
+                </div>
+                <span className="text-[10px] font-mono uppercase font-bold text-[#781353] group-hover:text-[#E03590] bg-[#781353]/10 group-hover:bg-white/10 px-2.5 py-1 rounded-full border border-[#781353]/20 shrink-0">
+                  Free Support
+                </span>
+              </a>
             </div>
 
           </motion.div>
@@ -238,14 +278,17 @@ export default function Home({ setActivePage }) {
 
       </section>
 
-      {/* 2. ABOUT MEHUL — EDITORIAL LIST LAYOUT (NO CARDS, TIGHT SPACING) */}
-      <section id="about-mehul-story" className="py-10 sm:py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-editorial scroll-mt-20">
+      {/* 2. ABOUT MEHUL — SHUTTER REVEAL SECTION */}
+      <ShutterSection id="about-mehul-story" className="py-10 sm:py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-editorial scroll-mt-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-10 items-start">
           
           <motion.div 
             {...fadeSlideLeft}
             className="lg:col-span-5 space-y-3 lg:sticky lg:top-24"
           >
+            <span className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-[#781353] block">
+              About Mehul Saini
+            </span>
             <h2 className="text-2xl sm:text-4xl font-serif font-bold text-[var(--text-primary)] leading-tight">
               A Personal Approach to Lasting Recovery.
             </h2>
@@ -277,28 +320,35 @@ export default function Home({ setActivePage }) {
               </div>
             </div>
 
-            <div className="pt-2 space-y-2">
-              <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#781353] block">
-                Personal Message from Mehul
-              </span>
-              <blockquote className="font-serif text-base sm:text-xl text-[var(--text-primary)] italic leading-relaxed border-l-2 border-[#781353] pl-4 py-1">
+            {/* High-Trust Editorial Quote Card */}
+            <div className="p-5 sm:p-6 bg-[#2E031D] text-white rounded-2xl shadow-xl space-y-3 relative overflow-hidden border border-[#2E031D]">
+              <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-[#E03590] font-bold">
+                <Award className="w-3.5 h-3.5" /> Personal Message from Mehul
+              </div>
+              <blockquote className="font-serif text-sm sm:text-lg text-white/95 italic leading-relaxed">
                 "Recovery is a personal journey built on daily choices. With structured guidance, healthy routines, and continuous support, lasting change is possible. You do not have to recover alone."
               </blockquote>
+              <div className="pt-1 flex items-center gap-2 text-[10px] font-mono text-white/60 uppercase">
+                <Check className="w-3 h-3 text-emerald-400" /> Verified Recovery Specialist • Non-Judgmental Support
+              </div>
             </div>
 
           </motion.div>
 
         </div>
-      </section>
+      </ShutterSection>
 
-      {/* 3. RECOVERY PHILOSOPHY — CLEAN TYPOGRAPHIC LIST (NO CARDS) */}
-      <section className="py-10 sm:py-16 bg-[var(--bg-secondary)] border-b border-editorial">
+      {/* 3. RECOVERY PHILOSOPHY — SHUTTER REVEAL SECTION */}
+      <ShutterSection className="py-10 sm:py-16 bg-[var(--bg-secondary)] border-b border-editorial">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
           
           <motion.div 
             {...fadeIn}
             className="space-y-2"
           >
+            <span className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-[#781353] block">
+              Core Recovery Philosophy
+            </span>
             <h2 className="text-2xl sm:text-4xl font-serif font-bold text-[var(--text-primary)] leading-tight">
               Structured Routines. Habit Building. Personal Accountability.
             </h2>
@@ -352,99 +402,103 @@ export default function Home({ setActivePage }) {
           </div>
 
         </div>
-      </section>
+      </ShutterSection>
 
-      {/* 4. ADDICTION RECOVERY PROGRAMS — EDITORIAL ACCORDION LIST (NO REPETITIVE CARDS) */}
-      <section className="py-10 sm:py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-editorial">
+      {/* 4. RECOVERY PROGRAMS — SHUTTER REVEAL SECTION */}
+      <ShutterSection className="py-8 sm:py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-editorial">
         
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-editorial pb-5">
-          <div className="space-y-1.5 max-w-2xl">
-            <h2 className="text-2xl sm:text-4xl font-serif font-bold text-[var(--text-primary)]">
-              Structured Recovery Pathways.
+        {/* Section Header */}
+        <div className="flex items-end justify-between gap-4 mb-6">
+          <div className="space-y-1">
+            <span className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-[#781353] block">
+              Recovery Programs
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[var(--text-primary)]">
+              Structured Pathways.
             </h2>
-            <p className="text-xs sm:text-sm text-muted font-light">
-              Every program incorporates structured roadmaps, weekly sessions with Mehul, daily check-ins, and ongoing support group access.
-            </p>
           </div>
-
           <button
             onClick={() => { setActivePage('help'); window.scrollTo(0,0); }}
-            className="text-xs font-bold uppercase tracking-widest text-[#781353] hover:underline flex items-center gap-1.5 self-start md:self-auto focus-visible:outline-none"
+            className="hidden sm:flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest text-[#781353] hover:underline focus-visible:outline-none shrink-0"
           >
-            <span>Explore All Programs</span> <ArrowRight className="w-4 h-4" />
+            All Programs <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </div>
 
-        {/* Clean Divider List View */}
-        <div className="divide-y divide-editorial">
-          {RECOVERY_PROGRAMS.map((prog, idx) => {
-            const isGated = GATED_PROGRAM_IDS.includes(prog.id);
-
-            return (
-              <motion.div 
-                key={prog.id}
-                initial={fadeIn.initial}
-                whileInView={fadeIn.whileInView}
-                viewport={fadeIn.viewport}
-                transition={{ delay: isMobile ? 0 : idx * 0.03, duration: isMobile ? 0.2 : 0.3 }}
-                onClick={() => {
-                  if (isGated) {
-                    setLeadModal({ isOpen: true, substance: prog.title.replace(/^[A-H]\.\s*/, '') });
-                  } else {
-                    setActivePage('help');
-                    window.scrollTo(0,0);
-                  }
-                }}
-                className="py-5 grid grid-cols-1 lg:grid-cols-12 gap-4 items-center group cursor-pointer hover:bg-[var(--bg-secondary)] transition-all px-3 -mx-3 rounded-xl"
-              >
-                <div className="lg:col-span-4 space-y-1">
-                  <div className="flex items-center gap-2">
-                    <span className={`text-[9px] font-mono font-bold uppercase px-2 py-0.5 rounded-full border ${
-                      isGated
-                        ? 'text-amber-700 bg-amber-100 border-amber-200'
-                        : 'text-[#781353] bg-[#781353]/10 border-[#781353]/20'
-                    }`}>
-                      {prog.duration}
-                    </span>
-                    <span className="text-[9px] font-mono text-muted uppercase tracking-wider">
-                      {prog.category}
-                    </span>
-                  </div>
-                  <h3 className="text-lg sm:text-xl font-serif font-bold text-[var(--text-primary)] group-hover:text-[#781353] transition-colors">
-                    {prog.title}
+        {/* Program Cards — Editorial Layout [Title + Metadata] [Summary] [CTA] */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3.5">
+          {[
+            { id: 'opioid-recovery', letter: 'A', category: 'Opioid Dependence', name: 'Heroin / Opioid Recovery', summary: 'Structured recovery pathway for opioid dependence.', duration: '12 Weeks' },
+            { id: 'cannabis-recovery', letter: 'B', category: 'Behavioral Support', name: 'Cannabis Recovery', summary: 'Behavioral recovery and habit transformation.', duration: '4 Weeks' },
+            { id: 'alcohol-recovery', letter: 'C', category: 'Routine Building', name: 'Alcohol Recovery', summary: 'Rebuild routines and long-term stability.', duration: '12 Weeks' },
+            { id: 'meth-recovery', letter: 'D', category: 'Stimulant Support', name: 'Ice / Meth Recovery', summary: 'Support for stimulant dependency recovery.', duration: '12 Weeks' },
+            { id: 'nicotine-recovery', letter: 'E', category: 'Cessation Pathway', name: 'Nicotine Recovery', summary: 'Guided pathway toward a smoke-free life.', duration: '8 Weeks' },
+            { id: 'benzo-recovery', letter: 'F', category: 'Clinician Coordinated', name: 'Benzodiazepine Recovery', summary: 'Clinician-coordinated dependence support.', duration: 'Personalized' },
+            { id: 'prescription-recovery', letter: 'G', category: 'Medication Support', name: 'Prescription Recovery', summary: 'Support for medication dependence.', duration: 'Personalized' },
+            { id: 'other-recovery', letter: 'H', category: 'Custom Pathway', name: 'Other Substances', summary: 'Individualized recovery pathways.', duration: 'Personalized' },
+          ].map((prog, idx) => (
+            <motion.button
+              key={prog.id}
+              initial={fadeIn.initial}
+              whileInView={fadeIn.whileInView}
+              viewport={fadeIn.viewport}
+              transition={{ delay: isMobile ? 0 : idx * 0.02, duration: isMobile ? 0.2 : 0.25 }}
+              onClick={() => {
+                setLeadModal({ isOpen: true, substance: prog.name });
+              }}
+              className="group relative text-left p-4 sm:p-5 rounded-2xl border border-editorial bg-[var(--bg-card)] hover:border-[#781353]/40 hover:-translate-y-0.5 hover:shadow-[0_10px_25px_-10px_rgba(120,19,83,0.12)] active:scale-[0.98] transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#781353]/20"
+            >
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
+                
+                {/* [Title + Metadata] */}
+                <div className="sm:w-5/12 space-y-1 shrink-0">
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#781353] block">
+                    {prog.letter} • {prog.category}
+                  </span>
+                  <h3 className="text-base sm:text-lg font-serif font-bold text-[var(--text-primary)] group-hover:text-[#781353] transition-colors leading-snug">
+                    {prog.name}
                   </h3>
                 </div>
 
-                <div className="lg:col-span-6 text-xs text-muted font-light leading-relaxed">
-                  {prog.tagline}
-                  {isGated && (
-                    <span className="block mt-1.5 text-[10px] text-amber-700 font-medium">
-                      Personalized plan provided after assessment
-                    </span>
-                  )}
+                {/* [Summary & Duration] */}
+                <div className="sm:w-4/12 space-y-1">
+                  <span className="inline-block text-[9px] font-mono font-bold uppercase tracking-wide text-[var(--text-primary)]/60 bg-[var(--bg-secondary)] border border-editorial px-2 py-0.5 rounded-full">
+                    {prog.duration}
+                  </span>
+                  <p className="text-xs text-muted/80 font-light leading-relaxed">
+                    {prog.summary}
+                  </p>
                 </div>
 
-                <div className="lg:col-span-2 flex justify-end">
-                  {isGated ? (
-                    <span className="text-xs font-bold uppercase tracking-wider text-amber-700 group-hover:translate-x-1 transition-transform inline-flex items-center gap-1 bg-amber-50 px-3 py-1.5 rounded-full border border-amber-200">
-                      <span>Get to Know More</span> <ArrowRight className="w-3.5 h-3.5" />
-                    </span>
-                  ) : (
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#781353] group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
-                      <span>View Details</span> <ArrowRight className="w-3.5 h-3.5" />
-                    </span>
-                  )}
+                {/* [CTA] */}
+                <div className="sm:w-3/12 flex items-center justify-start sm:justify-end shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-editorial/40">
+                  <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold uppercase tracking-widest text-[#781353] group-hover:text-[#2E031D] transition-colors">
+                    <span>Get to Know More</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                  </span>
                 </div>
-              </motion.div>
-            );
-          })}
+
+              </div>
+            </motion.button>
+          ))}
         </div>
 
-      </section>
+        {/* Mobile: All Programs Link */}
+        <button
+          onClick={() => { setActivePage('help'); window.scrollTo(0,0); }}
+          className="sm:hidden flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest text-[#781353] hover:underline focus-visible:outline-none mt-6 mx-auto"
+        >
+          Explore All Programs <ArrowRight className="w-3.5 h-3.5" />
+        </button>
 
-      {/* 5. THE 5-PHASE ROADMAP — DYNAMIC STEPPED TIMELINE WITH INTERACTIVE STEP HIGHLIGHT & ZOOM */}
-      <section className="py-10 sm:py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-editorial">
+      </ShutterSection>
+
+      {/* 5. THE 5-PHASE ROADMAP — SHUTTER REVEAL SECTION */}
+      <ShutterSection className="py-10 sm:py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-editorial">
         <div className="max-w-2xl space-y-1.5 mb-6">
+          <span className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-[#781353] block">
+            5-Phase Recovery Roadmap
+          </span>
           <h2 className="text-2xl sm:text-4xl font-serif font-bold text-[var(--text-primary)]">
             How Your Journey Unfolds.
           </h2>
@@ -453,7 +507,7 @@ export default function Home({ setActivePage }) {
           </p>
         </div>
 
-        {/* Stepped Interactive Timeline Controls (Mobile Horizontal Scroll / Desktop Grid) */}
+        {/* Stepped Interactive Timeline Controls */}
         <div className="space-y-6">
           
           {/* Step Selector Pills */}
@@ -464,7 +518,7 @@ export default function Home({ setActivePage }) {
                 <button
                   key={idx}
                   onClick={() => setActiveStep(idx)}
-                  className={`px-4 py-2 rounded-full text-xs font-mono font-bold transition-all whitespace-nowrap flex items-center gap-2 cursor-pointer btn-tap ${
+                  className={`px-4 py-2 rounded-full text-xs font-mono font-bold transition-all whitespace-nowrap flex items-center gap-2 cursor-pointer active:scale-95 ${
                     isActive
                       ? 'bg-[#2E031D] text-white shadow-md scale-105'
                       : 'bg-[var(--bg-secondary)] text-[var(--text-primary)] border border-editorial hover:border-[#781353]'
@@ -481,7 +535,7 @@ export default function Home({ setActivePage }) {
             })}
           </div>
 
-          {/* Active Step Highlight Showcase with Dynamic Scale/Zoom Animation */}
+          {/* Active Step Showcase with Zoom Animation */}
           <AnimatePresence mode="wait">
             <motion.div
               key={activeStep}
@@ -522,10 +576,10 @@ export default function Home({ setActivePage }) {
           </AnimatePresence>
 
         </div>
-      </section>
+      </ShutterSection>
 
-      {/* 6. WEEKLY SESSIONS & SUPPORT GROUP — EDITORIAL SIDE-BY-SIDE (NO BOXED CARDS) */}
-      <section className="py-10 sm:py-16 bg-[var(--bg-secondary)] border-b border-editorial">
+      {/* 6. WEEKLY SESSIONS & SUPPORT GROUP — SHUTTER REVEAL SECTION */}
+      <ShutterSection className="py-10 sm:py-16 bg-[var(--bg-secondary)] border-b border-editorial">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-start">
           
           {/* Weekly Sessions Info */}
@@ -604,11 +658,14 @@ export default function Home({ setActivePage }) {
           </motion.div>
 
         </div>
-      </section>
+      </ShutterSection>
 
-      {/* 7. FREQUENTLY ASKED QUESTIONS (FAQ ACCORDION — DIVIDER LIST) */}
-      <section className="py-10 sm:py-16 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-editorial">
+      {/* 7. FREQUENTLY ASKED QUESTIONS — SHUTTER REVEAL SECTION */}
+      <ShutterSection className="py-10 sm:py-16 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-editorial">
         <div className="text-center space-y-2 mb-6">
+          <span className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-[#781353] block">
+            Got Questions?
+          </span>
           <h2 className="text-2xl sm:text-4xl font-serif font-bold text-[var(--text-primary)]">
             Everything You Need to Know.
           </h2>
@@ -624,7 +681,7 @@ export default function Home({ setActivePage }) {
               <div key={idx} className="py-2">
                 <button
                   onClick={() => setOpenFaqId(isOpen ? null : idx)}
-                  className="w-full text-left py-4 flex items-center justify-between gap-3 cursor-pointer btn-tap focus-visible:outline-none"
+                  className="w-full text-left py-4 flex items-center justify-between gap-3 cursor-pointer active:opacity-75 focus-visible:outline-none"
                   aria-expanded={isOpen}
                 >
                   <div className="flex items-center gap-2.5">
@@ -655,12 +712,10 @@ export default function Home({ setActivePage }) {
             );
           })}
         </div>
-      </section>
+      </ShutterSection>
 
-
-
-      {/* 9. CONTACT / START CONVERSATION */}
-      <section className="py-10 sm:py-16 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-5">
+      {/* 8. CONTACT / START CONVERSATION — SHUTTER REVEAL SECTION */}
+      <ShutterSection className="py-10 sm:py-16 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-5">
         <div className="space-y-2">
           <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#781353] block">
             TAKE THE FIRST STEP
@@ -676,19 +731,19 @@ export default function Home({ setActivePage }) {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-1">
           <MagneticButton
             onClick={() => { setActivePage('contact-counselor'); window.scrollTo(0,0); }}
-            className="bg-[#2E031D] text-white hover:bg-[#4E0834] px-7 py-3.5 text-xs font-bold uppercase tracking-widest transition-all rounded-full shadow-md focus-visible:outline-none"
+            className="bg-[#2E031D] text-white hover:bg-[#4E0834] active:scale-[0.98] px-7 py-3.5 text-xs font-bold uppercase tracking-widest transition-all rounded-full shadow-md focus-visible:outline-none"
           >
             Request Private Callback
           </MagneticButton>
 
           <a
             href="tel:1800110031"
-            className="px-7 py-3.5 text-xs font-bold uppercase tracking-widest text-[#781353] hover:underline border border-editorial rounded-full inline-flex items-center gap-2 focus-visible:outline-none"
+            className="px-7 py-3.5 text-xs font-bold uppercase tracking-widest text-[#781353] hover:underline active:scale-[0.98] border border-editorial rounded-full inline-flex items-center gap-2 focus-visible:outline-none"
           >
             <Phone className="w-4 h-4" /> Call Helpline: 1800-11-0031
           </a>
         </div>
-      </section>
+      </ShutterSection>
 
       {/* Lead Capture Modal for Gated Programs */}
       <LeadCaptureModal

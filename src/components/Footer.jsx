@@ -1,139 +1,134 @@
 import React from 'react';
-import { Lock, Shield, ArrowUp } from 'lucide-react';
+import { ArrowUp } from 'lucide-react';
 
 export default function Footer({ setActivePage, openLegalModal }) {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const nav = (page) => { setActivePage(page); scrollToTop(); };
+
   return (
-    <footer className="bg-[#2E031D] text-[#FDF3F7] pt-12 pb-[calc(2.5rem+env(safe-area-inset-bottom,0px))] border-t border-white/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-        
-        {/* DESKTOP FOOTER GRID (Hidden on Mobile) */}
-        <div className="hidden md:grid grid-cols-4 gap-10 pb-10 border-b border-white/10">
-          
-          {/* Col 1: Brand */}
+    <footer className="bg-[#2E031D] text-[#FDF3F7]">
+
+      {/* ─── Main Footer ─── */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12">
+
+        {/* Top: Brand + Helpline (clean two-column) */}
+        <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-8 pb-12 border-b border-white/8">
           <div className="space-y-3">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2.5">
               <img 
                 src="/assets/logo.png" 
-                alt="CLEAR CHOICE Logo" 
-                className="h-8 w-auto object-contain filter brightness-110"
+                alt="CLEAR CHOICE" 
+                className="h-7 w-auto object-contain brightness-110"
               />
-              <span className="font-serif font-bold text-xl text-white tracking-tight">
+              <span className="font-serif font-bold text-lg text-white tracking-tight">
                 CLEAR CHOICE
               </span>
             </div>
-            <p className="text-xs text-[#FDF3F7]/80 leading-relaxed font-light">
-              Know the Facts. Choose Your Future. An editorial documentary platform for substance education, recovery advocacy, and crisis intervention.
+            <p className="text-[13px] text-white/50 font-light max-w-sm leading-relaxed">
+              Know the Facts. Choose Your Future.
             </p>
           </div>
 
-          {/* Col 2: Desktop Navigation Links */}
-          <div className="space-y-3">
-            <h4 className="font-serif font-bold text-sm text-white uppercase tracking-wider">
-              Navigation
+          <div className="text-left md:text-right space-y-1">
+            <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/40 block">
+              24/7 Crisis Helpline
+            </span>
+            <a 
+              href="tel:1800110031" 
+              className="text-2xl sm:text-3xl font-serif font-bold text-white hover:text-[#E03590] transition-colors block"
+            >
+              1800-11-0031
+            </a>
+            <span className="text-[11px] text-white/40 font-light block">
+              Free · Confidential · Nationwide
+            </span>
+          </div>
+        </div>
+
+        {/* Middle: Navigation Links — clean 3-column grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-8 py-12 border-b border-white/8">
+
+          {/* Column 1: Learn */}
+          <div className="space-y-4">
+            <h4 className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-white/40">
+              Learn
             </h4>
-            <ul className="space-y-2 text-xs text-[#FDF3F7]/80">
-              <li>
-                <button onClick={() => { setActivePage('home'); scrollToTop(); }} className="hover:text-white transition-colors cursor-pointer">
-                  Homepage
-                </button>
-              </li>
-              <li>
-                <button onClick={() => { setActivePage('story'); scrollToTop(); }} className="hover:text-white transition-colors cursor-pointer">
-                  My Story (Addiction to Advocacy)
-                </button>
-              </li>
-              <li>
-                <button onClick={() => { setActivePage('facts'); scrollToTop(); }} className="hover:text-white transition-colors cursor-pointer">
-                  Drug Facts Library (10 Substances)
-                </button>
-              </li>
-              <li>
-                <button onClick={() => { setActivePage('quiz'); scrollToTop(); }} className="hover:text-white transition-colors cursor-pointer">
-                  Myth vs Fact Guide
-                </button>
-              </li>
-              <li>
-                <button onClick={() => { setActivePage('help'); scrollToTop(); }} className="hover:text-white transition-colors cursor-pointer">
-                  Get Help Hub
-                </button>
-              </li>
-              <li>
-                <button onClick={() => { setActivePage('dashboard'); scrollToTop(); }} className="hover:text-white transition-colors text-[#E03590] font-semibold cursor-pointer">
-                  My Recovery Dashboard (Personal Journey)
-                </button>
-              </li>
-              <li>
-                <button onClick={() => { setActivePage('crisis-support'); scrollToTop(); }} className="hover:text-white transition-colors text-amber-300 font-semibold cursor-pointer">
-                  Crisis Support (24/7 Hotline)
-                </button>
-              </li>
-              <li>
-                <button onClick={() => { setActivePage('recovery-centers'); scrollToTop(); }} className="hover:text-white transition-colors cursor-pointer">
-                  Recovery & Rehab Centers Directory
-                </button>
-              </li>
-              <li>
-                <button onClick={() => { setActivePage('find-support'); scrollToTop(); }} className="hover:text-white transition-colors cursor-pointer">
-                  Find Support Near You (GPS Map)
-                </button>
-              </li>
-              <li>
-                <button onClick={() => { setActivePage('contact-counselor'); scrollToTop(); }} className="hover:text-white transition-colors cursor-pointer">
-                  Contact Counselor (Confidential)
-                </button>
-              </li>
-              <li>
-                <button onClick={() => { setActivePage('blog'); scrollToTop(); }} className="hover:text-white transition-colors cursor-pointer">
-                  Blog & Stories
-                </button>
-              </li>
+            <ul className="space-y-2.5">
+              {[
+                ['Home', 'home'],
+                ['My Story', 'story'],
+                ['Drug Facts', 'facts'],
+                ['Myth vs Fact', 'quiz'],
+                ['Blog', 'blog'],
+              ].map(([label, page]) => (
+                <li key={page}>
+                  <button 
+                    onClick={() => nav(page)} 
+                    className="text-[13px] text-white/60 hover:text-white transition-colors cursor-pointer"
+                  >
+                    {label}
+                  </button>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Col 3: Helpline */}
-          <div className="space-y-3">
-            <h4 className="font-serif font-bold text-sm text-white uppercase tracking-wider">
-              24/7 Helpline
+          {/* Column 2: Support */}
+          <div className="space-y-4">
+            <h4 className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-white/40">
+              Support
             </h4>
-            <div className="space-y-2">
-              <a 
-                href="tel:1800110031" 
-                className="text-2xl font-serif font-bold text-white block hover:underline cursor-pointer"
-              >
-                1800-11-0031
-              </a>
-              <p className="text-xs text-[#FDF3F7]/70 font-light">
-                Free, confidential, 24/7 support available nationwide.
-              </p>
-            </div>
+            <ul className="space-y-2.5">
+              {[
+                ['Get Help', 'help'],
+                ['Recovery Dashboard', 'dashboard'],
+                ['Crisis Support', 'crisis-support'],
+                ['Rehab Centers', 'recovery-centers'],
+                ['Find Support Near You', 'find-support'],
+              ].map(([label, page]) => (
+                <li key={page}>
+                  <button 
+                    onClick={() => nav(page)} 
+                    className="text-[13px] text-white/60 hover:text-white transition-colors cursor-pointer"
+                  >
+                    {label}
+                  </button>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          {/* Col 4: Legal */}
-          <div className="space-y-3">
-            <h4 className="font-serif font-bold text-sm text-white uppercase tracking-wider">
-              Privacy & Legal
+          {/* Column 3: Connect */}
+          <div className="space-y-4 col-span-2 md:col-span-1">
+            <h4 className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-white/40">
+              Connect
             </h4>
-            <ul className="space-y-2 text-xs">
+            <ul className="space-y-2.5">
+              <li>
+                <button 
+                  onClick={() => nav('contact-counselor')} 
+                  className="text-[13px] text-white/60 hover:text-white transition-colors cursor-pointer"
+                >
+                  Contact a Counselor
+                </button>
+              </li>
               <li>
                 <button 
                   onClick={() => openLegalModal('privacy')}
-                  className="text-[#FDF3F7]/80 hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"
+                  className="text-[13px] text-white/60 hover:text-white transition-colors cursor-pointer"
                 >
-                  <Lock className="w-3.5 h-3.5 text-[#DC2F87]" />
-                  <span>Privacy Policy (Anonymous Data)</span>
+                  Privacy Policy
                 </button>
               </li>
               <li>
                 <button 
                   onClick={() => openLegalModal('disclaimer')}
-                  className="text-[#FDF3F7]/80 hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"
+                  className="text-[13px] text-white/60 hover:text-white transition-colors cursor-pointer"
                 >
-                  <Shield className="w-3.5 h-3.5 text-[#DC2F87]" />
-                  <span>Medical Disclaimer</span>
+                  Medical Disclaimer
                 </button>
               </li>
             </ul>
@@ -141,54 +136,19 @@ export default function Footer({ setActivePage, openLegalModal }) {
 
         </div>
 
-        {/* CLEAN, MINIMAL MOBILE FOOTER (Visible on Mobile Only) */}
-        <div className="md:hidden space-y-6 text-center border-b border-white/10 pb-8">
-          {/* Logo & Tagline */}
-          <div className="flex flex-col items-center gap-2">
-            <img 
-              src="/assets/logo.png" 
-              alt="CLEAR CHOICE Logo" 
-              className="h-10 w-auto object-contain filter brightness-110"
-            />
-            <span className="font-serif font-bold text-2xl text-white tracking-tight">
-              CLEAR CHOICE
-            </span>
-            <p className="text-xs text-[#FDF3F7]/70 max-w-xs font-light">
-              Know the Facts. Choose Your Future.
-            </p>
-          </div>
-
-          {/* Quick Helpline Dial */}
-          <div className="bg-[#4E0834]/60 p-5 rounded-3xl border border-white/10 space-y-2 shadow-sm">
-            <span className="text-[10px] font-mono uppercase tracking-widest text-[#FDF3F7]/70 block font-bold">
-              Immediate Confidential Crisis Support
-            </span>
-            <a
-              href="tel:1800110031"
-              className="text-2xl font-serif font-bold text-white hover:text-[#E03590] block transition-colors btn-tap touch-target flex items-center justify-center cursor-pointer"
-            >
-              📞 1800-11-0031
-            </a>
-          </div>
-
-          {/* Back to Top */}
+        {/* Bottom Bar */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8">
+          <p className="text-[11px] text-white/30 font-light">
+            © {new Date().getFullYear()} Clear Choice. All rights reserved.
+          </p>
           <button
             onClick={scrollToTop}
-            className="text-xs font-mono text-[#FDF3F7]/80 hover:text-white inline-flex items-center gap-2 py-3 px-5 border border-white/15 rounded-full btn-tap touch-target cursor-pointer bg-white/5"
+            className="group flex items-center gap-2 text-[11px] font-mono text-white/40 hover:text-white/70 transition-colors cursor-pointer"
+            aria-label="Back to top"
           >
-            <span>Back to Top</span>
-            <ArrowUp className="w-4 h-4 text-[#E03590]" />
+            <span>Back to top</span>
+            <ArrowUp className="w-3.5 h-3.5 group-hover:-translate-y-0.5 transition-transform" />
           </button>
-        </div>
-
-        {/* Bottom Copyright & Legal Links */}
-        <div className="flex flex-col sm:flex-row items-center justify-between text-xs text-[#FDF3F7]/60 gap-4 text-center sm:text-left">
-          <p>© {new Date().getFullYear()} CLEAR CHOICE. All rights reserved.</p>
-          <div className="flex items-center space-x-4">
-            <button onClick={() => openLegalModal('privacy')} className="hover:underline py-1.5 px-2 btn-tap cursor-pointer">Privacy Policy</button>
-            <span>•</span>
-            <button onClick={() => openLegalModal('disclaimer')} className="hover:underline py-1.5 px-2 btn-tap cursor-pointer">Medical Disclaimer</button>
-          </div>
         </div>
 
       </div>
