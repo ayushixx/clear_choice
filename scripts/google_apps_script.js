@@ -7,7 +7,7 @@
  * 
  * SETUP INSTRUCTIONS FOR THE CLIENT:
  * 1. Open Google Sheets (create a new sheet titled "CLEAR CHOICE Leads").
- * 2. Create two tabs/sheets inside: "Contact Inquiries" and "Callback Requests".
+ * 2. Create three tabs/sheets inside: "Contact Inquiries", "Callback Requests", and "Lead Inquiries".
  * 3. In the top menu, click Extensions > Apps Script.
  * 4. Replace all code in Code.gs with this file's code.
  * 5. Update CLIENT_EMAIL and API_SECRET_KEY constants below.
@@ -17,18 +17,101 @@
  *    - Who has access: Anyone (or Anyone with Link)
  * 8. Copy the Web App URL (e.g., https://script.google.com/macros/s/AKfycb.../exec).
  * 9. Set VITE_GOOGLE_SCRIPT_URL and VITE_API_KEY in your website's .env file.
+ * 
+ * IMPORTANT: After updating this script, you must create a NEW deployment
+ * version (Deploy > New Deployment) for changes to take effect.
  */
 
 // CONFIGURATION (CLIENT EDITABLE)
 var CLIENT_EMAIL = "client@clearchoice.org"; // Change to recipient email address
 var API_SECRET_KEY = "YOUR_SECRET_API_KEY"; // Secret key matching VITE_API_KEY
 
+/**
+ * GET Handler — serves two purposes:
+ *   1. Health check (default): returns service status
+ *   2. Admin data fetch (action=fetch): returns all sheet data as JSON for the admin panel
+ */
 function doGet(e) {
+  var action = (e && e.parameter) ? e.parameter.action : "";
+  
+  // ─── Admin Panel: Fetch all submissions ───
+  if (action === "fetch") {
+    // Validate API key
+    var providedKey = (e && e.parameter) ? (e.parameter.apiKey || e.parameter.api_key || "") : "";
+    if (API_SECRET_KEY !== "" && providedKey !== API_SECRET_KEY) {
+      return ContentService.createTextOutput(JSON.stringify({
+        status: "error",
+        message: "Unauthorized: Invalid API Key"
+      })).setMimeType(ContentService.MimeType.JSON);
+    }
+    
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    
+    var leads = sheetToArray(ss, "Lead Inquiries");
+    var contacts = sheetToArray(ss, "Contact Inquiries");
+    var callbacks = sheetToArray(ss, "Callback Requests");
+    
+    return ContentService.createTextOutput(JSON.stringify({
+      status: "success",
+      leads: leads,
+      contacts: contacts,
+      callbacks: callbacks,
+      fetchedAt: new Date().toISOString()
+    })).setMimeType(ContentService.MimeType.JSON);
+  }
+  
+  // ─── Default: Health check ───
   return ContentService.createTextOutput(JSON.stringify({
     status: "online",
     service: "CLEAR CHOICE Google Sheets & Gmail Web App Endpoint",
     time: new Date().toISOString()
   })).setMimeType(ContentService.MimeType.JSON);
+}
+
+/**
+ * Converts a sheet's rows into an array of objects using the header row as keys.
+ * Returns an empty array if the sheet doesn't exist or is empty.
+ */
+function sheetToArray(ss, sheetName) {
+  var sheet = ss.getSheetByName(sheetName);
+  if (!sheet || sheet.getLastRow() <= 1) return [];
+  
+  var data = sheet.getDataRange().getValues();
+  var headers = data[0]; // First row = headers
+  var results = [];
+  
+  // Map header names to camelCase keys for the frontend
+  var keyMap = {
+    "Timestamp": "timestamp",
+    "Full Name": "fullName",
+    "Name": "name",
+    "Phone": "phone",
+    "Email": "email",
+    "Message": "message",
+    "Status": "status",
+    "Concern Type": "concernType",
+    "Preferred Time": "callbackTime",
+    "Substance / Concern": "substance"
+  };
+  
+  for (var i = 1; i < data.length; i++) {
+    var row = {};
+    for (var j = 0; j < headers.length; j++) {
+      var key = keyMap[headers[j]] || headers[j].toLowerCase().replace(/\s+/g, '_');
+      var value = data[i][j];
+      
+      // Convert Date objects to ISO strings
+      if (value instanceof Date) {
+        value = value.toISOString();
+      }
+      row[key] = value;
+    }
+    results.push(row);
+  }
+  
+  // Return newest first
+  results.reverse();
+  return results;
 }
 
 function doPost(e) {
@@ -117,6 +200,34 @@ function doPost(e) {
         "Concern Type": concernType,
         "Preferred Time": callbackTime,
         "Message": message,
+        "Submitted At": timestamp.toLocaleString()
+      });
+
+    } else if (type === "lead") {
+      // 2C. Process Lead Inquiry (Get to Know More) Submission
+      var sheet = ss.getSheetByName("Lead Inquiries") || ss.insertSheet("Lead Inquiries");
+      
+      // Ensure Headers
+      if (sheet.getLastRow() === 0) {
+        sheet.appendRow(["Timestamp", "Name", "Phone", "Email", "Substance / Concern", "Message", "Status"]);
+        sheet.getRange(1, 1, 1, 7).setFontWeight("bold").setBackground("#B45309").setFontColor("#FFFFFF");
+      }
+      
+      var name = contents.name || "N/A";
+      var phone = contents.phone || "N/A";
+      var email = contents.email || "";
+      var substance = contents.substance || "Not specified";
+      var message = contents.message || "";
+      
+      sheet.appendRow([timestamp, name, phone, email, substance, message, "New"]);
+      
+      // Send Instant Gmail Notification
+      sendGmailNotification("Lead Inquiry (Get to Know More)", {
+        "Name": name,
+        "Phone": phone,
+        "Email": email || "Not provided",
+        "Substance / Concern": substance,
+        "Message": message || "No message",
         "Submitted At": timestamp.toLocaleString()
       });
     }
