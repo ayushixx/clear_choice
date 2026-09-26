@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Phone, ArrowRight, Shield, Calendar, Users, CheckCircle2, ChevronDown, HelpCircle, HeartHandshake, Sparkles } from 'lucide-react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 
@@ -13,11 +13,49 @@ import {
   SUPPORT_GROUP_INFO 
 } from '../data/contentData';
 
+// Mobile-aware animation presets — lightweight opacity-only on phones
+function useIsMobile() {
+  const [mobile, setMobile] = useState(false);
+  useEffect(() => {
+    const mql = window.matchMedia('(max-width: 768px)');
+    setMobile(mql.matches);
+    const handler = (e) => setMobile(e.matches);
+    mql.addEventListener('change', handler);
+    return () => mql.removeEventListener('change', handler);
+  }, []);
+  return mobile;
+}
+
 export default function Home({ setActivePage }) {
   const { scrollY } = useScroll();
-  const heroTextY = useTransform(scrollY, [0, 400], [0, -15]);
+  const isMobile = useIsMobile();
+  // Disable parallax on mobile — it causes scroll jank
+  const heroTextY = useTransform(scrollY, [0, 400], [0, isMobile ? 0 : -15]);
   const [openFaqId, setOpenFaqId] = useState(0);
   const [activeStep, setActiveStep] = useState(0);
+
+  // Reusable animation variants — fast & simple on mobile, richer on desktop
+  const fadeIn = useMemo(() => ({
+    initial: { opacity: 0, ...(isMobile ? {} : { y: 12 }) },
+    animate: { opacity: 1, y: 0 },
+    whileInView: { opacity: 1, y: 0 },
+    transition: { duration: isMobile ? 0.2 : 0.5 },
+    viewport: { once: true },
+  }), [isMobile]);
+
+  const fadeSlideLeft = useMemo(() => ({
+    initial: { opacity: 0, ...(isMobile ? {} : { x: -15 }) },
+    whileInView: { opacity: 1, x: 0 },
+    transition: { duration: isMobile ? 0.2 : 0.5 },
+    viewport: { once: true },
+  }), [isMobile]);
+
+  const fadeSlideRight = useMemo(() => ({
+    initial: { opacity: 0, ...(isMobile ? {} : { x: 15 }) },
+    whileInView: { opacity: 1, x: 0 },
+    transition: { duration: isMobile ? 0.2 : 0.5, delay: isMobile ? 0 : 0.1 },
+    viewport: { once: true },
+  }), [isMobile]);
 
   useEffect(() => {
     console.log('[CLEAR CHOICE] Phone-Optimized Dynamic Home Loaded');
@@ -71,9 +109,9 @@ export default function Home({ setActivePage }) {
           >
             {/* Category Tagline */}
             <motion.div 
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
+              initial={fadeIn.initial}
+              animate={fadeIn.animate}
+              transition={{ duration: isMobile ? 0.15 : 0.4 }}
               className="inline-flex items-center gap-2 text-[10px] sm:text-xs font-mono font-bold tracking-widest text-[#781353] uppercase border-b border-[#781353]/30 pb-1"
             >
               <Sparkles className="w-3 h-3 text-[#E03590]" />
@@ -84,9 +122,9 @@ export default function Home({ setActivePage }) {
 
             {/* H1 Headline */}
             <motion.h1 
-              initial={{ opacity: 0, y: 16, scale: 0.98 }}
+              initial={{ opacity: 0, ...(isMobile ? {} : { y: 16, scale: 0.98 }) }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.05 }}
+              transition={{ duration: isMobile ? 0.2 : 0.6, delay: isMobile ? 0 : 0.05 }}
               className="text-3xl sm:text-5xl lg:text-7xl font-serif font-bold text-[var(--text-primary)] tracking-tight leading-[1.08]"
             >
               Your Recovery Journey, Guided by Mehul.
@@ -95,10 +133,9 @@ export default function Home({ setActivePage }) {
             {/* Mobile-Only Compact Portrait */}
             <div className="block lg:hidden my-3">
               <motion.div 
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
                 className="relative w-48 h-48 mx-auto rounded-2xl overflow-hidden shadow-lg border border-editorial bg-[var(--bg-secondary)] group"
               >
                 <img 
@@ -117,9 +154,9 @@ export default function Home({ setActivePage }) {
 
             {/* Introduction Text */}
             <motion.p 
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.12 }}
+              initial={fadeIn.initial}
+              animate={fadeIn.animate}
+              transition={{ duration: isMobile ? 0.15 : 0.5, delay: isMobile ? 0 : 0.12 }}
               className="text-sm sm:text-lg text-muted font-light leading-relaxed max-w-xl"
             >
               {MEHUL_INFO.introduction}
@@ -127,9 +164,9 @@ export default function Home({ setActivePage }) {
 
             {/* Action Buttons */}
             <motion.div 
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.18 }}
+              initial={fadeIn.initial}
+              animate={fadeIn.animate}
+              transition={{ duration: isMobile ? 0.15 : 0.5, delay: isMobile ? 0 : 0.18 }}
               className="pt-1 flex flex-col sm:flex-row items-stretch sm:items-center gap-3"
             >
               <MagneticButton
@@ -201,10 +238,7 @@ export default function Home({ setActivePage }) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-10 items-start">
           
           <motion.div 
-            initial={{ opacity: 0, x: -15 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            {...fadeSlideLeft}
             className="lg:col-span-5 space-y-3 lg:sticky lg:top-24"
           >
             <h2 className="text-2xl sm:text-4xl font-serif font-bold text-[var(--text-primary)] leading-tight">
@@ -216,10 +250,7 @@ export default function Home({ setActivePage }) {
           </motion.div>
 
           <motion.div 
-            initial={{ opacity: 0, x: 15 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            {...fadeSlideRight}
             className="lg:col-span-7 space-y-6 lg:border-l border-editorial pl-0 lg:pl-10"
           >
             <div className="space-y-4">
@@ -260,10 +291,7 @@ export default function Home({ setActivePage }) {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
           
           <motion.div 
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            {...fadeIn}
             className="space-y-2"
           >
             <h2 className="text-2xl sm:text-4xl font-serif font-bold text-[var(--text-primary)] leading-tight">
@@ -277,9 +305,7 @@ export default function Home({ setActivePage }) {
           {/* Connected Narrative Pillars — Divider List */}
           <div className="divide-y divide-editorial border-t border-b border-editorial">
             <motion.div 
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              {...fadeIn}
               className="py-5 grid grid-cols-1 md:grid-cols-12 gap-2 items-start"
             >
               <span className="md:col-span-4 text-[10px] sm:text-xs font-mono font-bold text-[#781353] uppercase">01 / STRUCTURED ROUTINES</span>
@@ -292,10 +318,8 @@ export default function Home({ setActivePage }) {
             </motion.div>
 
             <motion.div 
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.05 }}
+              {...fadeIn}
+              transition={{ ...fadeIn.transition, delay: isMobile ? 0 : 0.05 }}
               className="py-5 grid grid-cols-1 md:grid-cols-12 gap-2 items-start"
             >
               <span className="md:col-span-4 text-[10px] sm:text-xs font-mono font-bold text-[#781353] uppercase">02 / PERSONAL ACCOUNTABILITY</span>
@@ -308,10 +332,8 @@ export default function Home({ setActivePage }) {
             </motion.div>
 
             <motion.div 
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
+              {...fadeIn}
+              transition={{ ...fadeIn.transition, delay: isMobile ? 0 : 0.1 }}
               className="py-5 grid grid-cols-1 md:grid-cols-12 gap-2 items-start"
             >
               <span className="md:col-span-4 text-[10px] sm:text-xs font-mono font-bold text-[#781353] uppercase">03 / ONGOING SUPPORT</span>
@@ -353,10 +375,10 @@ export default function Home({ setActivePage }) {
           {RECOVERY_PROGRAMS.map((prog, idx) => (
             <motion.div 
               key={prog.id}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.03, duration: 0.3 }}
+              initial={fadeIn.initial}
+              whileInView={fadeIn.whileInView}
+              viewport={fadeIn.viewport}
+              transition={{ delay: isMobile ? 0 : idx * 0.03, duration: isMobile ? 0.2 : 0.3 }}
               onClick={() => { setActivePage('help'); window.scrollTo(0,0); }}
               className="py-5 grid grid-cols-1 lg:grid-cols-12 gap-4 items-center group cursor-pointer hover:bg-[var(--bg-secondary)] transition-all px-3 -mx-3 rounded-xl"
             >
@@ -432,10 +454,10 @@ export default function Home({ setActivePage }) {
           <AnimatePresence mode="wait">
             <motion.div
               key={activeStep}
-              initial={{ opacity: 0, scale: 0.96, y: 8 }}
+              initial={{ opacity: 0, ...(isMobile ? {} : { scale: 0.96, y: 8 }) }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.96, y: -8 }}
-              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              exit={{ opacity: 0, ...(isMobile ? {} : { scale: 0.96, y: -8 }) }}
+              transition={{ duration: isMobile ? 0.2 : 0.35, ease: [0.16, 1, 0.3, 1] }}
               className="p-6 sm:p-8 bg-[var(--bg-secondary)] border-l-4 border-[#781353] border border-editorial rounded-2xl shadow-md space-y-4"
             >
               <div className="flex items-center justify-between gap-3 border-b border-editorial pb-3">
@@ -477,9 +499,7 @@ export default function Home({ setActivePage }) {
           
           {/* Weekly Sessions Info */}
           <motion.div 
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            {...fadeIn}
             className="space-y-4 border-b lg:border-b-0 lg:border-r border-editorial pb-8 lg:pb-0 lg:pr-8"
           >
             <div className="flex items-center gap-3">
@@ -516,10 +536,8 @@ export default function Home({ setActivePage }) {
 
           {/* Support Group Info */}
           <motion.div 
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
+            {...fadeIn}
+            transition={{ ...fadeIn.transition, delay: isMobile ? 0 : 0.1 }}
             className="space-y-4"
           >
             <div className="flex items-center gap-3">
@@ -608,28 +626,7 @@ export default function Home({ setActivePage }) {
         </div>
       </section>
 
-      {/* 8. SAFETY & PROFESSIONAL SUPPORT */}
-      <section className="py-10 sm:py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-editorial">
-        <div className="space-y-6">
-          <div className="flex items-center gap-2.5 border-b border-editorial pb-3">
-            <Shield className="w-5 h-5 text-[#781353] shrink-0" />
-            <h2 className="text-xl sm:text-2xl font-serif font-bold text-[var(--text-primary)]">{SAFETY_INFO.title}</h2>
-          </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-            {SAFETY_INFO.points.map((pt, i) => (
-              <div key={i} className="space-y-1 border-t border-editorial pt-2.5">
-                <span className="text-[10px] font-mono font-bold text-[#781353] block">0{i + 1}</span>
-                <p className="text-xs font-semibold text-[var(--text-primary)] leading-tight">{pt}</p>
-              </div>
-            ))}
-          </div>
-
-          <p className="text-[11px] text-muted leading-relaxed font-light pt-3 border-t border-editorial">
-            {SAFETY_INFO.disclaimer}
-          </p>
-        </div>
-      </section>
 
       {/* 9. CONTACT / START CONVERSATION */}
       <section className="py-10 sm:py-16 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-5">

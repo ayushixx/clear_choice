@@ -1,9 +1,18 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 
 export default function MagneticButton({ children, className = '', onClick, type = 'button', strength = 0.25, ...props }) {
   const ref = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
   
+  useEffect(() => {
+    const mql = window.matchMedia('(max-width: 768px)');
+    setIsMobile(mql.matches);
+    const handler = (e) => setIsMobile(e.matches);
+    mql.addEventListener('change', handler);
+    return () => mql.removeEventListener('change', handler);
+  }, []);
+
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -12,7 +21,7 @@ export default function MagneticButton({ children, className = '', onClick, type
   const springY = useSpring(y, springConfig);
 
   const handleMouseMove = (e) => {
-    if (!ref.current) return;
+    if (isMobile || !ref.current) return;
     const { left, top, width, height } = ref.current.getBoundingClientRect();
     const centerX = left + width / 2;
     const centerY = top + height / 2;
@@ -33,11 +42,11 @@ export default function MagneticButton({ children, className = '', onClick, type
     <motion.button
       ref={ref}
       type={type}
-      style={{ x: springX, y: springY }}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
+      style={isMobile ? undefined : { x: springX, y: springY }}
+      onMouseMove={isMobile ? undefined : handleMouseMove}
+      onMouseLeave={isMobile ? undefined : handleMouseLeave}
       onClick={onClick}
-      whileTap={{ scale: 0.96 }}
+      whileTap={isMobile ? undefined : { scale: 0.96 }}
       className={`relative inline-flex items-center justify-center transition-shadow duration-300 ${className}`}
       {...props}
     >

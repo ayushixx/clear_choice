@@ -1,9 +1,27 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 export default function AmbientParticles({ count = 25, className = '' }) {
   const canvasRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    // Disable on mobile devices and when reduced motion is preferred
+    const mql = window.matchMedia('(max-width: 768px)');
+    const motionMql = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setIsMobile(mql.matches || motionMql.matches);
+
+    const handler = () => setIsMobile(mql.matches || motionMql.matches);
+    mql.addEventListener('change', handler);
+    motionMql.addEventListener('change', handler);
+    return () => {
+      mql.removeEventListener('change', handler);
+      motionMql.removeEventListener('change', handler);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) return; // Skip canvas rendering entirely on mobile
+
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -55,7 +73,10 @@ export default function AmbientParticles({ count = 25, className = '' }) {
       window.removeEventListener('resize', handleResize);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [count]);
+  }, [count, isMobile]);
+
+  // Don't render canvas at all on mobile
+  if (isMobile) return null;
 
   return (
     <canvas
