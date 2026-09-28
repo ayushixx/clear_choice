@@ -33,7 +33,7 @@ export default function MyStory({ setActivePage }) {
           <div className="pt-4 grid grid-cols-2 gap-4 border-t border-editorial text-xs">
             <div>
               <span className="font-mono text-muted uppercase block text-[9px] sm:text-[10px]">Clean Milestone</span>
-              <span className="font-serif font-bold text-xs sm:text-sm text-[var(--text-primary)]">2 Years Clean (2025–Present)</span>
+              <span className="font-serif font-bold text-xs sm:text-sm text-[var(--text-primary)]">Clean (2024–Present)</span>
             </div>
             <div>
               <span className="font-mono text-muted uppercase block text-[9px] sm:text-[10px]">Guiding Principle</span>
@@ -112,7 +112,7 @@ export default function MyStory({ setActivePage }) {
           className="space-y-3 border-l-2 border-[#E03590]/40 pl-4 sm:pl-8"
         >
           <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest text-[#781353] dark:text-[#E03590]">
-            2023 – 2025 • Chapter 02
+            2023 – 2024 • Chapter 02
           </span>
           <h2 className="text-lg sm:text-3xl font-serif font-bold text-[var(--text-primary)] leading-snug">
             Rehabilitation: The Hardest Chapter
@@ -122,7 +122,7 @@ export default function MyStory({ setActivePage }) {
               In early 2023, admitting that I could no longer manage alone was the hardest decision of my life. Entering rehabilitation was intimidating, but it marked the true beginning of freedom.
             </p>
             <p>
-              Two years in rehabilitation required unyielding commitment. Medical supervision managed detoxification, while therapy unraveled the emotional triggers beneath dependency.
+              Rehabilitation required unyielding commitment. Medical supervision managed detoxification, while therapy unraveled the emotional triggers beneath dependency.
             </p>
           </div>
         </motion.div>
@@ -136,14 +136,14 @@ export default function MyStory({ setActivePage }) {
           className="space-y-3 border-l-2 border-[#E03590]/40 pl-4 sm:pl-8"
         >
           <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest text-[#781353] dark:text-[#E03590]">
-            2025 – Today • Chapter 03
+            2024 – TODAY • CHAPTER 03
           </span>
           <h2 className="text-lg sm:text-3xl font-serif font-bold text-[var(--text-primary)] leading-snug">
-            2 Years Clean: Transforming Survival into Advocacy
+            Clean & Free: Transforming Survival into Advocacy
           </h2>
           <div className="text-xs sm:text-base text-muted leading-relaxed font-light space-y-3 pt-1">
             <p>
-              Reaching two years clean in 2025 was not just a personal milestone; it birthed CLEAR CHOICE. Recovery is an active, daily commitment to growth, honesty, and education.
+              Reaching clean recovery in 2024 was not just a personal milestone; it birthed CLEAR CHOICE. Recovery is an active, daily commitment to growth, honesty, and education.
             </p>
             <p>
               CLEAR CHOICE is built to dismantle stigma, provide accurate substance education, and ensure nobody walks through darkness alone.
