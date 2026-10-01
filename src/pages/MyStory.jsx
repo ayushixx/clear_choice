@@ -163,14 +163,14 @@ export default function MyStory({ setActivePage }) {
       >
         <div>
           <h3 className="text-lg sm:text-2xl font-serif font-bold text-white">Need Support or Have Questions?</h3>
-          <p className="text-xs sm:text-sm text-white/80 font-light mt-1">24/7 confidential assistance is available right now.</p>
+          <p className="text-xs sm:text-sm text-white/80 font-light mt-1">Confidential counselor guidance is available for you.</p>
         </div>
         <MagneticButton
-          onClick={() => { setActivePage('help'); window.scrollTo(0, 0); }}
+          onClick={() => { setActivePage('contact-counselor'); window.scrollTo(0, 0); }}
           className="bg-white text-[#2E031D] hover:bg-[#FDF3F7] px-6 py-3.5 text-xs font-extrabold uppercase tracking-widest transition-all whitespace-nowrap w-full sm:w-auto justify-center touch-target rounded-full shadow-lg"
         >
           <span className="flex items-center justify-center gap-2">
-            <span>Get Crisis Support</span>
+            <span>Contact Counselor Directly</span>
             <ArrowRight className="w-4 h-4 text-[#E03590]" />
           </span>
         </MagneticButton>

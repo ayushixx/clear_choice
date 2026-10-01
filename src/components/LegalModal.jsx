@@ -69,16 +69,12 @@ export default function LegalModal({ isOpen, modalType, onClose }) {
 
             <div className="space-y-4 text-sm leading-relaxed text-[var(--text-primary)]/90 pt-2 border-t border-editorial">
               <div className="p-4 bg-[var(--bg-secondary)] rounded-2xl border border-editorial font-medium">
-                "This website does not provide medical advice. Contact emergency services immediately in a medical emergency."
+                "This is a support-based coaching service. It does not claim to replace the need for a doctor if required. After the initial screening, you might be advised to see a doctor or a de-addiction professional in case of any health danger."
               </div>
 
-              <h4 className="font-serif font-bold text-base text-[var(--text-primary)] pt-2">Scope of Educational Information</h4>
+              <h4 className="font-serif font-bold text-base text-[var(--text-primary)] pt-2">Scope of Coaching & Guidance</h4>
               <p>
-                The information provided on CLEAR CHOICE is for educational, awareness, and support guidance only. It is not intended to be a substitute for professional medical diagnosis, treatment, or clinical intervention.
-              </p>
-
-              <p>
-                Always seek the advice of a qualified physician, psychiatrist, or licensed addiction recovery expert regarding medical conditions or substance dependence detox plans.
+                The guidance provided on CLEAR CHOICE is for educational awareness and support-based coaching. After initial screening, users are advised to see a medical doctor or de-addiction specialist whenever any health risk or clinical need is identified.
               </p>
 
               <div className="p-4 bg-[#2E031D] text-[#FDF3F7] rounded-2xl space-y-2 mt-4">

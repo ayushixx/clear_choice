@@ -41,6 +41,7 @@ export default function Navbar({ activePage, setActivePage }) {
   const navLinks = [
     { id: 'home', label: 'Home', subtitle: 'Overview & Mission' },
     { id: 'story', label: 'My Story', subtitle: '6 Years to Recovery' },
+    { id: 'testimonies', label: 'Testimonies', subtitle: 'Anonymous Stories' },
     { id: 'facts', label: 'Drug Facts', subtitle: 'Substance Library' },
     { id: 'quiz', label: 'Myth vs Fact', subtitle: 'Evidence & Reality' },
     { id: 'help', label: 'Get Help', subtitle: 'Services & Directory', hasDropdown: true },
@@ -49,14 +50,12 @@ export default function Navbar({ activePage, setActivePage }) {
 
   const helpSubItems = [
     { id: 'help', label: 'Get Help Hub', subtitle: 'Decision & Intent Center' },
-    { id: 'dashboard', label: 'My Recovery Dashboard', subtitle: 'My Recovery Journey' },
-    { id: 'crisis-support', label: 'Crisis Support', subtitle: 'Immediate 24/7 Hotline' },
+    { id: 'contact-counselor', label: 'Contact Counselor', subtitle: 'Confidential Inquiry & Callback' },
     { id: 'recovery-centers', label: 'Recovery Centers', subtitle: 'Rehab Directory & Search' },
     { id: 'find-support', label: 'Find Support Near You', subtitle: 'Interactive GPS Map' },
-    { id: 'contact-counselor', label: 'Contact Counselor', subtitle: 'Confidential Inquiry & Callback' },
   ];
 
-  const isHelpActive = ['help', 'dashboard', 'crisis-support', 'recovery-centers', 'find-support', 'contact-counselor'].includes(activePage);
+  const isHelpActive = ['help', 'recovery-centers', 'find-support', 'contact-counselor'].includes(activePage);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
@@ -64,19 +63,19 @@ export default function Navbar({ activePage, setActivePage }) {
       {/* Top Minimal Emergency Bar */}
       <div className="bg-[#2E031D] text-[#FDF3F7] py-1 px-3 sm:px-4 text-[10px] sm:text-[11px] font-mono tracking-widest flex items-center justify-between max-w-7xl mx-auto border-b border-white/10 pt-[calc(0.25rem+env(safe-area-inset-top,0px))]">
         <span className="uppercase opacity-80 hidden sm:inline-flex items-center gap-1.5">
-          <Shield className="w-3 h-3 text-[#DC2F87]" /> 24/7 Helpline & Recovery Journal
+          <Shield className="w-3 h-3 text-[#DC2F87]" /> Direct Counselor Support & Guidance
         </span>
-        <a 
-          href="tel:1800110031" 
-          className="hover:underline flex items-center gap-1.5 text-[#FDF3F7] font-semibold w-full sm:w-auto justify-between sm:justify-start"
+        <button 
+          onClick={() => { setActivePage('contact-counselor'); window.scrollTo(0,0); }} 
+          className="hover:underline flex items-center gap-1.5 text-[#FDF3F7] font-semibold w-full sm:w-auto justify-between sm:justify-start cursor-pointer"
         >
           <span className="flex items-center gap-1.5">
-            <Phone className="w-3 h-3 text-[#DC2F87]" /> 24/7 Helpline: <strong>1800-11-0031</strong>
+            <Phone className="w-3 h-3 text-[#DC2F87]" /> Speak With Counselor Directly
           </span>
           <span className="text-[9px] bg-[#DC2F87] text-white px-2 py-0.5 font-bold uppercase rounded-none sm:hidden">
-            Call Free
+            Contact Counselor
           </span>
-        </a>
+        </button>
       </div>
 
       {/* Main Publication Navbar */}
@@ -360,16 +359,16 @@ export default function Navbar({ activePage, setActivePage }) {
 
             {/* Mobile Footer Action */}
             <div className="pt-4 border-t border-editorial space-y-3">
-              <a
-                href="tel:1800110031"
-                className="w-full bg-[#2E031D] text-white py-3.5 px-4 rounded-full text-center font-bold text-xs uppercase tracking-widest transition-all btn-tap shadow-lg touch-target flex items-center justify-center gap-2"
+              <button
+                onClick={() => { setActivePage('contact-counselor'); setIsMobileMenuOpen(false); window.scrollTo(0,0); }}
+                className="w-full bg-[#2E031D] text-white py-3.5 px-4 rounded-full text-center font-bold text-xs uppercase tracking-widest transition-all btn-tap shadow-lg touch-target flex items-center justify-center gap-2 cursor-pointer"
               >
                 <Phone className="w-4 h-4 text-[#E03590]" />
-                <span>Call Helpline: 1800-11-0031</span>
-              </a>
+                <span>Contact Counselor Directly</span>
+              </button>
 
               <div className="text-[10px] text-center font-mono text-muted">
-                100% Free • Confidential • 24/7 Support Across India
+                100% Free • Confidential Direct Consultation
               </div>
             </div>
 

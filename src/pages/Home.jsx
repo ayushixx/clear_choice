@@ -219,11 +219,11 @@ export default function Home({ setActivePage }) {
               </button>
             </motion.div>
 
-            {/* High-Trust Mobile Direct Helpline Bar */}
+            {/* High-Trust Mobile Direct Counselor Support Bar */}
             <div className="pt-3 border-t border-editorial">
-              <a 
-                href="tel:1800110031"
-                className="w-full sm:w-auto p-3 bg-[var(--bg-secondary)] hover:bg-[#2E031D] hover:text-white rounded-xl border border-editorial flex items-center justify-between gap-3 transition-all duration-300 group"
+              <button 
+                onClick={() => { setActivePage('contact-counselor'); window.scrollTo(0,0); }}
+                className="w-full sm:w-auto p-3 bg-[var(--bg-secondary)] hover:bg-[#2E031D] hover:text-white rounded-xl border border-editorial flex items-center justify-between gap-3 transition-all duration-300 group text-left cursor-pointer"
               >
                 <div className="flex items-center gap-2.5">
                   <span className="relative flex h-2.5 w-2.5 shrink-0">
@@ -231,14 +231,14 @@ export default function Home({ setActivePage }) {
                     <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
                   </span>
                   <div className="text-left">
-                    <span className="text-[9px] font-mono uppercase tracking-widest text-muted group-hover:text-white/70 block font-bold">24/7 Confidential Helpline</span>
-                    <span className="text-xs sm:text-sm font-bold font-serif text-[var(--text-primary)] group-hover:text-white tracking-wide">1800-11-0031</span>
+                    <span className="text-[9px] font-mono uppercase tracking-widest text-muted group-hover:text-white/70 block font-bold">Direct Counselor Support</span>
+                    <span className="text-xs sm:text-sm font-bold font-serif text-[var(--text-primary)] group-hover:text-white tracking-wide">Speak Directly with Mehul</span>
                   </div>
                 </div>
                 <span className="text-[10px] font-mono uppercase font-bold text-[#781353] group-hover:text-[#E03590] bg-[#781353]/10 group-hover:bg-white/10 px-2.5 py-1 rounded-full border border-[#781353]/20 shrink-0">
-                  Free Support
+                  Private Consultation
                 </span>
-              </a>
+              </button>
             </div>
 
           </motion.div>
@@ -379,9 +379,9 @@ export default function Home({ setActivePage }) {
             >
               <span className="md:col-span-4 text-[10px] sm:text-xs font-mono font-bold text-[#781353] uppercase">02 / PERSONAL ACCOUNTABILITY</span>
               <div className="md:col-span-8 space-y-0.5">
-                <h3 className="font-serif font-bold text-base sm:text-lg text-[var(--text-primary)]">Private Recovery Dashboard</h3>
+                <h3 className="font-serif font-bold text-base sm:text-lg text-[var(--text-primary)]">1-on-1 Counselor Guidance</h3>
                 <p className="text-xs text-muted font-light leading-relaxed">
-                  A personal progress portal to log mood check-ins, track craving levels (0–10), record reflection notes, and celebrate active recovery streaks.
+                  Personalized consultations and tailored recovery plans directly guided by Mehul to address specific addiction challenges and behavioral renewal.
                 </p>
               </div>
             </motion.div>
@@ -433,9 +433,7 @@ export default function Home({ setActivePage }) {
             { id: 'alcohol-recovery', letter: 'C', category: 'Routine Building', name: 'Alcohol Recovery', summary: 'Rebuild routines and long-term stability.', duration: '12 Weeks' },
             { id: 'meth-recovery', letter: 'D', category: 'Stimulant Support', name: 'Ice / Meth Recovery', summary: 'Support for stimulant dependency recovery.', duration: '12 Weeks' },
             { id: 'nicotine-recovery', letter: 'E', category: 'Cessation Pathway', name: 'Nicotine Recovery', summary: 'Guided pathway toward a smoke-free life.', duration: '8 Weeks' },
-            { id: 'benzo-recovery', letter: 'F', category: 'Clinician Coordinated', name: 'Benzodiazepine Recovery', summary: 'Clinician-coordinated dependence support.', duration: 'Personalized' },
-            { id: 'prescription-recovery', letter: 'G', category: 'Medication Support', name: 'Prescription Recovery', summary: 'Support for medication dependence.', duration: 'Personalized' },
-            { id: 'other-recovery', letter: 'H', category: 'Custom Pathway', name: 'Other Substances', summary: 'Individualized recovery pathways.', duration: 'Personalized' },
+            { id: 'other-recovery', letter: 'F', category: 'Custom Pathway', name: 'Other Substances', summary: 'Individualized recovery pathways.', duration: 'Personalized' },
           ].map((prog, idx) => (
             <motion.button
               key={prog.id}
@@ -724,7 +722,7 @@ export default function Home({ setActivePage }) {
             Begin Your Guided Recovery Path.
           </h2>
           <p className="text-xs sm:text-sm text-muted font-light max-w-xl mx-auto">
-            Confidential inquiries, program registration, and immediate 24/7 crisis support. You don't have to walk this path alone.
+            Confidential inquiries, program registration, and direct 1-on-1 counselor guidance. You don't have to walk this path alone.
           </p>
         </div>
 
@@ -736,12 +734,12 @@ export default function Home({ setActivePage }) {
             Request Private Callback
           </MagneticButton>
 
-          <a
-            href="tel:1800110031"
-            className="px-7 py-3.5 text-xs font-bold uppercase tracking-widest text-[#781353] hover:underline active:scale-[0.98] border border-editorial rounded-full inline-flex items-center gap-2 focus-visible:outline-none"
+          <button
+            onClick={() => { setActivePage('help'); window.scrollTo(0,0); }}
+            className="px-7 py-3.5 text-xs font-bold uppercase tracking-widest text-[#781353] hover:underline active:scale-[0.98] border border-editorial rounded-full inline-flex items-center gap-2 focus-visible:outline-none cursor-pointer"
           >
-            <Phone className="w-4 h-4" /> Call Helpline: 1800-11-0031
-          </a>
+            Explore Support Options
+          </button>
         </div>
       </ShutterSection>
 

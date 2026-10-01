@@ -1,5 +1,5 @@
 import React from 'react';
-import { Phone, Building2, MapPin, MessageSquare, LayoutDashboard, ArrowRight, ShieldCheck } from 'lucide-react';
+import { Building2, MapPin, MessageSquare, ArrowRight, ShieldCheck } from 'lucide-react';
 import { motion } from 'framer-motion';
 import TrustBadges from '../components/TrustBadges';
 import MagneticButton from '../components/MagneticButton';
@@ -8,24 +8,14 @@ import AmbientParticles from '../components/AmbientParticles';
 export default function GetHelpHub({ setActivePage }) {
   const options = [
     {
-      id: 'crisis-support',
-      badge: 'Immediate Assistance • 24/7',
-      title: 'Crisis Support',
-      description: 'Free, confidential, 24/7 crisis response line. Speak directly with a trained counselor right now.',
-      highlight: 'Emergency Hotline: 1800-11-0031',
-      icon: Phone,
-      cta: 'Get Immediate Crisis Help',
+      id: 'contact-counselor',
+      badge: 'Discreet Consultation',
+      title: 'Contact Counselor Directly',
+      description: 'Submit a confidential inquiry or request a call back at your preferred time to speak directly with Mehul / specialist counselor.',
+      highlight: '100% Confidential & Direct Assistance',
+      icon: MessageSquare,
+      cta: 'Request Consultation',
       primary: true
-    },
-    {
-      id: 'dashboard',
-      badge: 'Personal Enrolled Portal',
-      title: 'My Recovery Dashboard',
-      description: 'Track overall progress, complete daily mood & craving check-ins, follow 5-phase roadmaps, and complete wellness activities.',
-      highlight: 'Interactive Recovery Journal & Tracker',
-      icon: LayoutDashboard,
-      cta: 'Open My Recovery Journey',
-      primary: false
     },
     {
       id: 'recovery-centers',
@@ -45,16 +35,6 @@ export default function GetHelpHub({ setActivePage }) {
       highlight: 'Interactive GPS Map Navigator',
       icon: MapPin,
       cta: 'Explore Interactive Map',
-      primary: false
-    },
-    {
-      id: 'contact-counselor',
-      badge: 'Discreet Consultation',
-      title: 'Contact Counselor',
-      description: 'Submit a confidential inquiry or request a call back at your preferred time for a private consultation.',
-      highlight: '100% Confidential & Secure',
-      icon: MessageSquare,
-      cta: 'Request Consultation',
       primary: false
     }
   ];

@@ -34,16 +34,16 @@ export default function Footer({ setActivePage, openLegalModal }) {
 
           <div className="text-left md:text-right space-y-1">
             <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/40 block">
-              24/7 Crisis Helpline
+              Direct Counselor Support
             </span>
-            <a 
-              href="tel:1800110031" 
-              className="text-2xl sm:text-3xl font-serif font-bold text-white hover:text-[#E03590] transition-colors block"
+            <button 
+              onClick={() => nav('contact-counselor')} 
+              className="text-xl sm:text-2xl font-serif font-bold text-white hover:text-[#E03590] transition-colors block cursor-pointer"
             >
-              1800-11-0031
-            </a>
+              Speak with Counselor
+            </button>
             <span className="text-[11px] text-white/40 font-light block">
-              Free · Confidential · Nationwide
+              100% Confidential · Private Guidance
             </span>
           </div>
         </div>
@@ -60,6 +60,7 @@ export default function Footer({ setActivePage, openLegalModal }) {
               {[
                 ['Home', 'home'],
                 ['My Story', 'story'],
+                ['Anonymous Testimonies', 'testimonies'],
                 ['Drug Facts', 'facts'],
                 ['Myth vs Fact', 'quiz'],
                 ['Blog', 'blog'],
@@ -84,8 +85,7 @@ export default function Footer({ setActivePage, openLegalModal }) {
             <ul className="space-y-2.5">
               {[
                 ['Get Help', 'help'],
-                ['Recovery Dashboard', 'dashboard'],
-                ['Crisis Support', 'crisis-support'],
+                ['Contact Counselor', 'contact-counselor'],
                 ['Rehab Centers', 'recovery-centers'],
                 ['Find Support Near You', 'find-support'],
               ].map(([label, page]) => (

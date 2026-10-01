@@ -16,8 +16,8 @@ export default function TrustBadges() {
     },
     {
       icon: PhoneCall,
-      title: '24/7 Free Helpline',
-      subtitle: 'Immediate Counselor Access'
+      title: '1-on-1 Counselor Support',
+      subtitle: 'Direct Private Guidance'
     },
     {
       icon: Building2,

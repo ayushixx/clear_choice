@@ -71,8 +71,8 @@ export default function AdminPanel({ setActivePage }) {
       if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes('YOUR_SCRIPT_ID')) {
         // Dev mode — load sample data
         const sampleLeads = [
-          { timestamp: new Date().toISOString(), name: 'Sample Lead', phone: '+91 98765 43210', email: 'test@example.com', substance: 'Benzodiazepines', message: 'Looking for recovery support', status: 'new' },
-          { timestamp: new Date(Date.now() - 86400000).toISOString(), name: 'Another Lead', phone: '+91 87654 32100', email: '', substance: 'Prescription Medication', message: '', status: 'new' },
+          { timestamp: new Date().toISOString(), name: 'Sample Lead', phone: '+91 98765 43210', email: 'test@example.com', substance: 'Heroin / Opioid', message: 'Looking for recovery support', status: 'new' },
+          { timestamp: new Date(Date.now() - 86400000).toISOString(), name: 'Another Lead', phone: '+91 87654 32100', email: '', substance: 'Alcohol', message: '', status: 'new' },
           { timestamp: new Date(Date.now() - 172800000).toISOString(), name: 'Third Lead', phone: '+91 76543 21000', email: 'third@mail.com', substance: 'Other / Prefer Not to Say', message: 'Need help for family member', status: 'contacted' },
         ];
         const sampleContacts = [

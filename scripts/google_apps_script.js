@@ -23,8 +23,20 @@
  */
 
 // CONFIGURATION (CLIENT EDITABLE)
+var SPREADSHEET_ID = "1sKc8TQrvv10j-_2V00Jbr7VYSDdptyoHq5pq6iKLfrc"; // Target Google Sheet ID
 var CLIENT_EMAIL = "client@clearchoice.org"; // Change to recipient email address
-var API_SECRET_KEY = "YOUR_SECRET_API_KEY"; // Secret key matching VITE_API_KEY
+var API_SECRET_KEY = "CC12_9x8fK2Lm7pQzR5vN4sA2026"; // Secret key matching VITE_API_KEY
+
+function getSpreadsheet() {
+  if (SPREADSHEET_ID && SPREADSHEET_ID !== "") {
+    try {
+      return SpreadsheetApp.openById(SPREADSHEET_ID);
+    } catch (e) {
+      Logger.log("Could not open by ID, falling back to active spreadsheet: " + e.message);
+    }
+  }
+  return SpreadsheetApp.getActiveSpreadsheet();
+}
 
 /**
  * GET Handler — serves two purposes:
@@ -45,7 +57,7 @@ function doGet(e) {
       })).setMimeType(ContentService.MimeType.JSON);
     }
     
-    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var ss = getSpreadsheet();
     
     var leads = sheetToArray(ss, "Lead Inquiries");
     var contacts = sheetToArray(ss, "Contact Inquiries");
@@ -148,7 +160,7 @@ function doPost(e) {
     }
     
     var type = contents.type || (e && e.parameter ? e.parameter.type : "contact");
-    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var ss = getSpreadsheet();
     var timestamp = new Date();
     
     if (type === "contact") {

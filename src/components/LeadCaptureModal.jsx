@@ -9,8 +9,6 @@ const SUBSTANCE_OPTIONS = [
   'Alcohol',
   'Methamphetamine / Ice',
   'Nicotine / Smoking',
-  'Benzodiazepines',
-  'Prescription Medication',
   'Cocaine',
   'Inhalants',
   'Multiple Substances',

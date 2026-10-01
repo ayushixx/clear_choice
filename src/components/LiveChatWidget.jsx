@@ -7,7 +7,7 @@ export default function LiveChatWidget({ setActivePage }) {
     {
       id: 1,
       sender: 'bot',
-      text: 'Hi there! If you are in crisis, please click the green button to connect with a real person. Otherwise, browse our facts.',
+      text: 'Hi there! If you would like to speak with our counselor directly, feel free to send a message or request a private consultation.',
       time: 'Just now'
     }
   ]);
@@ -31,7 +31,7 @@ export default function LiveChatWidget({ setActivePage }) {
       const replyMsg = {
         id: Date.now() + 1,
         sender: 'bot',
-        text: 'Thank you for reaching out. A specialist counselor can assist you immediately on our 24/7 Helpline 1800-11-0031.',
+        text: 'Thank you for reaching out. A specialist counselor can assist you directly with personalized guidance.',
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         showActions: true
       };
@@ -77,14 +77,14 @@ export default function LiveChatWidget({ setActivePage }) {
 
           <div className="bg-emerald-800 text-white p-3 text-xs flex items-center justify-between">
             <span className="font-medium flex items-center gap-1.5">
-              <Phone className="w-3.5 h-3.5" /> Immediate Crisis?
+              <Phone className="w-3.5 h-3.5" /> Need Direct Guidance?
             </span>
-            <a
-              href="tel:1800110031"
-              className="bg-white text-emerald-900 px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider touch-target flex items-center justify-center shadow-xs"
+            <button
+              onClick={() => { setActivePage('contact-counselor'); setIsOpen(false); window.scrollTo(0,0); }}
+              className="bg-white text-emerald-900 px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider touch-target flex items-center justify-center shadow-xs cursor-pointer"
             >
-              Connect Real Person
-            </a>
+              Contact Counselor
+            </button>
           </div>
 
           <div className="flex-1 p-3.5 overflow-y-auto space-y-2.5 bg-[var(--bg-secondary)] text-xs">

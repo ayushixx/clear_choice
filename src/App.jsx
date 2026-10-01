@@ -15,6 +15,7 @@ import RecoveryCenters from './pages/RecoveryCenters';
 import FindSupportNearYou from './pages/FindSupportNearYou';
 import ContactCounselor from './pages/ContactCounselor';
 import Blog from './pages/Blog';
+import Testimonies from './pages/Testimonies';
 import AdminPanel from './pages/AdminPanel';
 import RecoveryDashboard from './components/RecoveryDashboard';
 
@@ -29,6 +30,7 @@ const ROUTE_MAP = {
   '/recovery-centers': 'recovery-centers',
   '/find-support': 'find-support',
   '/contact-counselor': 'contact-counselor',
+  '/testimonies': 'testimonies',
   '/blog': 'blog',
   '/admin': 'admin'
 };
@@ -44,6 +46,7 @@ const PAGE_TO_ROUTE = {
   'recovery-centers': '/recovery-centers',
   'find-support': '/find-support',
   'contact-counselor': '/contact-counselor',
+  testimonies: '/testimonies',
   blog: '/blog',
   admin: '/admin'
 };
@@ -114,13 +117,8 @@ export default function App() {
       case 'help':
         return <GetHelpHub setActivePage={handleSetActivePage} />;
       case 'dashboard':
-        return (
-          <div className="pt-20 sm:pt-28 pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <RecoveryDashboard setActivePage={handleSetActivePage} />
-          </div>
-        );
       case 'crisis-support':
-        return <CrisisSupport setActivePage={handleSetActivePage} />;
+        return <ContactCounselor setActivePage={handleSetActivePage} />;
       case 'recovery-centers':
         return <RecoveryCenters setActivePage={handleSetActivePage} setSelectedCenter={setSelectedCenter} />;
       case 'find-support':
@@ -129,6 +127,8 @@ export default function App() {
         return <ContactCounselor setActivePage={handleSetActivePage} />;
       case 'blog':
         return <Blog />;
+      case 'testimonies':
+        return <Testimonies setActivePage={handleSetActivePage} />;
       case 'admin':
         return <AdminPanel setActivePage={handleSetActivePage} />;
       default:

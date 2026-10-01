@@ -44,31 +44,29 @@ export default function CrisisSupport({ setActivePage }) {
           Free, confidential, immediate assistance for individuals and families in crisis. Speak directly with a trained counselor right now.
         </p>
 
-        {/* GIANT EMERGENCY NUMBER ALWAYS VISIBLE */}
+        {/* GIANT EMERGENCY ACTION */}
         <div className="pt-2 sm:pt-4 pb-2 relative z-10 overflow-hidden">
-          <a
-            href="tel:1800110031"
-            onClick={() => trackHelplineClick('1800-11-0031')}
-            className="text-3xl min-[375px]:text-4xl sm:text-7xl lg:text-8xl font-serif font-bold text-[#FDF3F7] hover:text-[#E03590] transition-colors tracking-tight block btn-tap cursor-pointer break-all"
+          <button
+            onClick={() => setActivePage('contact-counselor')}
+            className="text-2xl min-[375px]:text-3xl sm:text-5xl lg:text-6xl font-serif font-bold text-[#FDF3F7] hover:text-[#E03590] transition-colors tracking-tight block btn-tap cursor-pointer text-left"
           >
-            1800-11-0031
-          </a>
+            Speak With Counselor
+          </button>
         </div>
 
         <div className="pt-2 flex flex-wrap items-center gap-3 sm:gap-8 text-[11px] sm:text-xs text-[#FDF3F7]/80 font-mono relative z-10">
           <span className="flex items-center gap-1.5"><Shield className="w-3.5 h-3.5 text-[#E03590]" /> 100% Confidential</span>
-          <span className="flex items-center gap-1.5"><Phone className="w-3.5 h-3.5 text-[#E03590]" /> Nationwide Access</span>
-          <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5 text-[#E03590]" /> 365 Days / Year</span>
+          <span className="flex items-center gap-1.5"><Phone className="w-3.5 h-3.5 text-[#E03590]" /> Direct Counselor Access</span>
+          <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5 text-[#E03590]" /> Private Consultation</span>
         </div>
 
         <div className="pt-4 relative z-10">
-          <a
-            href="tel:1800110031"
-            onClick={() => trackHelplineClick('1800-11-0031')}
+          <button
+            onClick={() => setActivePage('contact-counselor')}
             className="inline-flex items-center justify-center gap-2 bg-[#E03590] hover:bg-[#c82b7c] text-white px-6 sm:px-8 py-3.5 sm:py-4 font-bold text-xs uppercase tracking-widest transition-colors btn-tap shadow-lg touch-target w-full sm:w-auto cursor-pointer rounded-full"
           >
-            <Phone className="w-4 h-4" /> Tap to Call Emergency Helpline Now
-          </a>
+            <Phone className="w-4 h-4" /> Contact Specialist Counselor Now
+          </button>
         </div>
       </motion.section>
 
@@ -137,7 +135,7 @@ export default function CrisisSupport({ setActivePage }) {
           <li>If the individual is unconscious, unbreathing, or showing signs of overdose, call <strong>112 (Emergency Medical Services)</strong> immediately.</li>
           <li>Stay with the person and keep them in a safe position on their side (recovery position) to prevent choking.</li>
           <li>Keep calm and reassure the individual without judgment. Do not offer food, drink, or self-medication.</li>
-          <li>Call our toll-free helpline <strong>1800-11-0031</strong> for immediate counselor intervention and hospital referral guidance.</li>
+          <li>Submit a direct inquiry to contact our specialist counselor for personalized 1-on-1 recovery guidance.</li>
         </ul>
       </section>
 

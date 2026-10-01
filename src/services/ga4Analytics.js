@@ -42,8 +42,8 @@ export const trackCallbackSubmit = (concernType) => {
 
 export const trackHelplineClick = (number) => {
   trackEvent('helpline_click', {
-    category: 'Crisis Support',
-    label: number || '1800-11-0031',
+    category: 'Counselor Contact',
+    label: number || 'counselor-contact',
   });
 };
 

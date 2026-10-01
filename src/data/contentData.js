@@ -129,39 +129,8 @@ export const RECOVERY_PROGRAMS = [
     ]
   },
   {
-    id: 'benzo-recovery',
-    title: 'F. Benzodiazepine Dependence Recovery',
-    category: 'Prescription Sedatives',
-    duration: 'Personalized Timeline',
-    tagline: 'Support for individuals experiencing dependence on benzodiazepines such as alprazolam, clonazepam, or diazepam.',
-    topics: [
-      'Understanding dependence and medication use',
-      'Identifying triggers and emotional patterns',
-      'Daily routine and sleep support',
-      'Mood tracking and coping exercises',
-      'Weekly guidance and progress monitoring',
-      'Clinician-coordinated recovery planning'
-    ],
-    importantNote: 'Benzodiazepines should not be stopped abruptly or tapered using a generic online schedule. Medication changes require qualified medical supervision.'
-  },
-  {
-    id: 'prescription-recovery',
-    title: 'G. Prescription Medication Dependence',
-    category: 'Prescription Drugs',
-    duration: 'Personalized Timeline',
-    tagline: 'Support for individuals experiencing problematic dependence on prescription medications, including prescribed sedatives, opioids, and other medications.',
-    topics: [
-      'Understanding medication-use patterns',
-      'Identifying triggers and challenges',
-      'Daily routine and healthy habit building',
-      'Emotional support and coping exercises',
-      'Progress tracking and recovery activities',
-      'Clinician-coordinated recovery planning'
-    ]
-  },
-  {
     id: 'other-recovery',
-    title: 'H. Other Substance Recovery',
+    title: 'F. Other Substance Recovery',
     category: 'Personalized Specialized Support',
     duration: 'Individualized Pathways',
     tagline: 'Additional personalized support programs offered for specialized dependencies.',
@@ -213,7 +182,7 @@ export const SAFETY_INFO = {
     'Clear emergency guidance',
     'Privacy and confidentiality information'
   ],
-  disclaimer: 'Important: The website provides educational and recovery support. It does not replace medical diagnosis, supervised detoxification, or professional treatment. Medical treatment, medication changes, and withdrawal management must be handled by qualified healthcare professionals (AIIMS NDDTC guidelines).'
+  disclaimer: 'Important: This is a support-based coaching service. It does not claim to replace the need for a doctor if required. After the initial screening, you might be advised to see a doctor or a de-addiction professional in case of any health danger.'
 };
 
 export const DRUG_FACTS = [
@@ -362,10 +331,10 @@ export const MYTH_VS_FACT = [
 
 export const RESOURCE_DIRECTORY = [
   {
-    title: 'National Toll-Free Helpline',
-    number: '1800-11-0031',
-    description: 'Confidential, 24/7 support for individuals, families, and friends navigating substance use or mental health crisis.',
-    badge: '24/7 Free & Confidential'
+    title: 'Direct Specialist Counselor Consultation',
+    number: 'Contact Counselor Directly',
+    description: '100% confidential 1-on-1 counselor inquiry and private callback service for personalized recovery support.',
+    badge: 'Confidential Counselor Guidance'
   },
   {
     title: 'Emergency Medical Services',
@@ -435,6 +404,64 @@ export const BLOG_POSTS = [
       <h3>Trigger Mapping</h3>
       <p>Identify your personal triggers—people, places, stress levels, or times of day—and prepare a replacement activity, such as calling a mentor, performing 4-7-8 breathing, or going for a walk.</p>
     `
+  }
+];
+
+export const ANONYMOUS_TESTIMONIES = [
+  {
+    id: 'testimony-1',
+    alias: 'Anonymous • Delhi',
+    category: 'Opioid Recovery',
+    stage: '2 Years Sober',
+    title: 'From Rock Bottom to Finding Myself Again',
+    story: 'I thought my life was completely over when opioid dependence took over my college years. What changed everything was realizing that asking for help wasn’t weakness—it was survival. With structured daily routines, 1-on-1 counselor guidance, and family patience, I have been 2 years clean today. If you are reading this in the dark, please know there is light on the other side.',
+    helpfulCount: 42,
+    date: 'Sep 2026',
+    takeaway: 'Asking for help is the ultimate act of courage.'
+  },
+  {
+    id: 'testimony-2',
+    alias: 'A Sister’s Voice • Mumbai',
+    category: 'Family & Loved Ones',
+    stage: 'Family Support',
+    title: 'Supporting My Brother Without Losing Hope',
+    story: 'Watching a loved one struggle with substance dependency is heartbreaking. For months, our home was filled with constant anxiety. Seeking professional guidance helped us establish healthy boundaries while providing genuine emotional support. Today my brother is 14 months sober, and our family has healed.',
+    helpfulCount: 38,
+    date: 'Aug 2026',
+    takeaway: 'Family support with healthy boundaries transforms recovery.'
+  },
+  {
+    id: 'testimony-3',
+    alias: 'Anonymous • Punjab',
+    category: 'Alcohol Recovery',
+    stage: '3 Years Sober',
+    title: 'Rebuilding Life One Single Choice at a Time',
+    story: 'Severe alcohol dependence cost me my job and damaged my closest relationships. Following a structured phase-by-phase recovery path gave me clear, achievable steps when everything felt overwhelming. Focusing on one day at a time built momentum. Now, 3 years later, I have rebuilt my career and family trust.',
+    helpfulCount: 56,
+    date: 'Aug 2026',
+    takeaway: 'Small daily choices add up to permanent transformation.'
+  },
+  {
+    id: 'testimony-4',
+    alias: 'Anonymous Student • Bengaluru',
+    category: 'Cannabis Recovery',
+    stage: '8 Months Free',
+    title: 'Overcoming Anxiety & Heavy Habitual Use',
+    story: 'I started using cannabis heavily to cope with exam stress and insomnia, but it quickly turned into social isolation, panic attacks, and severe brain fog. Re-building my daily sleep, exercise, and mental routines gave me back my focus, confidence, and peace of mind.',
+    helpfulCount: 29,
+    date: 'Jul 2026',
+    takeaway: 'Healthy coping mechanisms restore clarity and peace.'
+  },
+  {
+    id: 'testimony-5',
+    alias: 'Grateful Recoverer • Pune',
+    category: 'Stimulant Recovery',
+    stage: '1.5 Years Sober',
+    title: 'Breaking Free From Stimulant Exhaustion',
+    story: 'The mental crash and craving cycle of stimulant misuse felt like a trap I could never escape alone. Having direct 1-on-1 counselor check-ins gave me structured accountability and daily coping tools right when I needed them most.',
+    helpfulCount: 34,
+    date: 'Jun 2026',
+    takeaway: 'Direct counselor accountability makes all the difference.'
   }
 ];
 
