@@ -6,7 +6,7 @@ import AmbientParticles from '../components/AmbientParticles';
 
 export default function MyStory({ setActivePage }) {
   return (
-    <div className="pt-20 sm:pt-32 pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 sm:space-y-20">
+    <div className="pt-24 sm:pt-32 pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 sm:space-y-20">
 
       {/* Magazine Editorial Spread */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-12 items-center pt-4 sm:pt-0">

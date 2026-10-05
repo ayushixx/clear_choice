@@ -121,7 +121,7 @@ export default function Home({ setActivePage }) {
     <div className="bg-[var(--bg-primary)] text-[var(--text-primary)] selection:bg-[#781353] selection:text-white">
       
       {/* 1. HERO SECTION — DYNAMIC EDITORIAL HERO */}
-      <section className="relative w-full min-h-[60vh] sm:min-h-[70vh] flex items-center justify-center pt-14 sm:pt-20 pb-8 sm:pb-12 border-b border-editorial overflow-hidden">
+      <section className="relative w-full min-h-[60vh] sm:min-h-[70vh] flex items-center justify-center pt-20 sm:pt-28 pb-8 sm:pb-12 border-b border-editorial overflow-hidden">
         
         <AmbientParticles count={isMobile ? 6 : 12} />
 
@@ -130,7 +130,7 @@ export default function Home({ setActivePage }) {
           {/* Left Column: Narrative & Action */}
           <motion.div 
             style={{ y: heroTextY }}
-            className="lg:col-span-7 space-y-4 sm:space-y-6 text-left order-1"
+            className="lg:col-span-7 space-y-4 sm:space-y-6 text-left order-1 min-w-0"
           >
             {/* Category Tagline Badge */}
             <motion.div 
@@ -150,7 +150,7 @@ export default function Home({ setActivePage }) {
               initial={{ opacity: 0, ...(isMobile ? {} : { y: 16, scale: 0.98 }) }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: isMobile ? 0.25 : 0.6, delay: isMobile ? 0 : 0.05 }}
-              className="text-3xl sm:text-5xl lg:text-7xl font-serif font-bold text-[var(--text-primary)] tracking-tight leading-[1.08]"
+              className="text-3xl sm:text-5xl lg:text-7xl font-serif font-bold text-[var(--text-primary)] tracking-tight leading-[1.08] break-words"
             >
               Your Recovery Journey, Guided by Mehul.
             </motion.h1>
@@ -223,16 +223,16 @@ export default function Home({ setActivePage }) {
             <div className="pt-3 border-t border-editorial">
               <button 
                 onClick={() => { setActivePage('contact-counselor'); window.scrollTo(0,0); }}
-                className="w-full sm:w-auto p-3 bg-[var(--bg-secondary)] hover:bg-[#2E031D] hover:text-white rounded-xl border border-editorial flex items-center justify-between gap-3 transition-all duration-300 group text-left cursor-pointer"
+                className="w-full sm:w-auto p-3 bg-[var(--bg-secondary)] hover:bg-[#2E031D] hover:text-white rounded-2xl border border-editorial flex flex-col min-[420px]:flex-row items-start min-[420px]:items-center justify-between gap-3 transition-all duration-300 group text-left cursor-pointer"
               >
-                <div className="flex items-center gap-2.5">
+                <div className="flex items-center gap-2.5 min-w-0">
                   <span className="relative flex h-2.5 w-2.5 shrink-0">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
                   </span>
-                  <div className="text-left">
-                    <span className="text-[9px] font-mono uppercase tracking-widest text-muted group-hover:text-white/70 block font-bold">Direct Counselor Support</span>
-                    <span className="text-xs sm:text-sm font-bold font-serif text-[var(--text-primary)] group-hover:text-white tracking-wide">Speak Directly with Mehul</span>
+                  <div className="text-left min-w-0">
+                    <span className="text-[9px] font-mono uppercase tracking-widest text-muted group-hover:text-white/70 block font-bold truncate">Direct Counselor Support</span>
+                    <span className="text-xs sm:text-sm font-bold font-serif text-[var(--text-primary)] group-hover:text-white tracking-wide block truncate">Speak Directly with Mehul</span>
                   </div>
                 </div>
                 <span className="text-[10px] font-mono uppercase font-bold text-[#781353] group-hover:text-[#E03590] bg-[#781353]/10 group-hover:bg-white/10 px-2.5 py-1 rounded-full border border-[#781353]/20 shrink-0">

@@ -7,7 +7,7 @@ import AmbientParticles from '../components/AmbientParticles';
 
 export default function CrisisSupport({ setActivePage }) {
   return (
-    <div className="pt-20 sm:pt-32 pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
+    <div className="pt-24 sm:pt-32 pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
       
       {/* Navigation Breadcrumb / Back Link */}
       <div className="flex items-center justify-between pt-4 sm:pt-0">

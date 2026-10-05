@@ -21,10 +21,13 @@ import RecoveryDashboard from './components/RecoveryDashboard';
 
 const ROUTE_MAP = {
   '/': 'home',
+  '': 'home',
+  '/index.html': 'home',
   '/my-story': 'story',
   '/drug-facts': 'facts',
   '/myth-vs-fact': 'quiz',
   '/get-help': 'help',
+  '/get-help-hub': 'help',
   '/my-dashboard': 'dashboard',
   '/crisis-support': 'crisis-support',
   '/recovery-centers': 'recovery-centers',
@@ -51,10 +54,17 @@ const PAGE_TO_ROUTE = {
   admin: '/admin'
 };
 
+function getPageFromPath(pathname) {
+  if (!pathname || pathname === '/' || pathname === '/index.html' || pathname === '') {
+    return 'home';
+  }
+  const cleanPath = pathname.length > 1 && pathname.endsWith('/') ? pathname.slice(0, -1) : pathname;
+  return ROUTE_MAP[cleanPath] || 'home';
+}
+
 export default function App() {
   const [activePage, setActivePage] = useState(() => {
-    const path = window.location.pathname;
-    return ROUTE_MAP[path] || 'home';
+    return getPageFromPath(window.location.pathname);
   });
 
   const [selectedCenter, setSelectedCenter] = useState(null);
@@ -81,8 +91,7 @@ export default function App() {
   // Handle browser back/forward buttons
   useEffect(() => {
     const handlePopState = () => {
-      const path = window.location.pathname;
-      setActivePage(ROUTE_MAP[path] || 'home');
+      setActivePage(getPageFromPath(window.location.pathname));
     };
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);

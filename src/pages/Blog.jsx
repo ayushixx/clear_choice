@@ -8,7 +8,7 @@ export default function Blog() {
   const regularPosts = BLOG_POSTS.slice(1);
 
   return (
-    <div className="pt-20 sm:pt-32 pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 sm:space-y-16">
+    <div className="pt-24 sm:pt-32 pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 sm:space-y-16">
       
       {/* Header */}
       <div className="max-w-3xl space-y-3 sm:space-y-4 pt-4 sm:pt-0">

@@ -273,7 +273,7 @@ export default function AdminPanel({ setActivePage }) {
   ];
 
   return (
-    <div className="min-h-screen bg-[var(--bg-primary)] pt-20 pb-16">
+    <div className="min-h-screen bg-[var(--bg-primary)] pt-24 sm:pt-32 pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
 
         {/* Header */}

@@ -85,17 +85,17 @@ export default function ContactCounselor({ setActivePage }) {
   };
 
   return (
-    <div className="pt-20 sm:pt-32 pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
+    <div className="pt-24 sm:pt-32 pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
       
       {/* Navigation Breadcrumb */}
-      <div className="flex items-center justify-between pt-4 sm:pt-0">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
         <button 
           onClick={() => { setActivePage('help'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-          className="text-xs font-mono text-muted hover:text-[var(--text-primary)] flex items-center gap-1.5 transition-colors btn-tap touch-target cursor-pointer"
+          className="text-xs font-mono text-muted hover:text-[var(--text-primary)] flex items-center gap-1.5 transition-colors btn-tap touch-target cursor-pointer w-fit"
         >
-          <ArrowLeft className="w-3.5 h-3.5" /> Back to Get Help Hub
+          <ArrowLeft className="w-3.5 h-3.5 shrink-0" /> Back to Get Help Hub
         </button>
-        <span className="text-[9px] sm:text-[10px] font-mono uppercase bg-[var(--bg-secondary)] border border-editorial text-[#781353] dark:text-[#E03590] px-3 py-1 font-bold shrink-0 rounded-full">
+        <span className="text-[9px] sm:text-[10px] font-mono uppercase bg-[var(--bg-secondary)] border border-editorial text-[#781353] dark:text-[#E03590] px-3 py-1 font-bold shrink-0 rounded-full w-fit">
           Confidential Channel
         </span>
       </div>
@@ -110,7 +110,7 @@ export default function ContactCounselor({ setActivePage }) {
         <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest text-[#781353] dark:text-[#E03590] block">
           Private & Secure Communication
         </span>
-        <h1 className="text-3xl sm:text-5xl font-serif font-bold text-[var(--text-primary)] tracking-tight">
+        <h1 className="text-3xl sm:text-5xl font-serif font-bold text-[var(--text-primary)] tracking-tight leading-tight break-words">
           Contact a Counselor
         </h1>
         <p className="text-xs sm:text-base text-muted font-light leading-relaxed">
@@ -119,15 +119,15 @@ export default function ContactCounselor({ setActivePage }) {
       </motion.div>
 
       {/* PRIVACY ASSURANCE BANNER */}
-      <div className="bg-[var(--bg-secondary)] border border-editorial p-5 sm:p-6 rounded-3xl flex items-center gap-4 shadow-sm">
-        <div className="p-3.5 bg-[#781353] text-white dark:bg-[#E03590] shrink-0 rounded-2xl shadow-xs">
+      <div className="bg-[var(--bg-secondary)] border border-editorial p-4 sm:p-6 rounded-3xl flex flex-col sm:flex-row items-start sm:items-center gap-3.5 sm:gap-4 shadow-sm">
+        <div className="p-3 sm:p-3.5 bg-[#781353] text-white dark:bg-[#E03590] shrink-0 rounded-2xl shadow-xs">
           <Lock className="w-5 h-5" />
         </div>
         <div className="space-y-0.5 text-xs sm:text-sm">
           <span className="font-serif font-bold text-[var(--text-primary)] block text-sm sm:text-base">
             100% Confidentiality Guarantee
           </span>
-          <p className="text-muted font-light">
+          <p className="text-muted font-light leading-relaxed">
             Your personal information is encrypted and strictly used to fulfill your requested consultation. We never store or share sensitive personal medical data.
           </p>
         </div>

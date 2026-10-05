@@ -61,18 +61,18 @@ export default function Navbar({ activePage, setActivePage }) {
     <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
       
       {/* Top Minimal Emergency Bar */}
-      <div className="bg-[#2E031D] text-[#FDF3F7] py-1 px-3 sm:px-4 text-[10px] sm:text-[11px] font-mono tracking-widest flex items-center justify-between max-w-7xl mx-auto border-b border-white/10 pt-[calc(0.25rem+env(safe-area-inset-top,0px))]">
-        <span className="uppercase opacity-80 hidden sm:inline-flex items-center gap-1.5">
-          <Shield className="w-3 h-3 text-[#DC2F87]" /> Direct Counselor Support & Guidance
+      <div className="bg-[#2E031D] text-[#FDF3F7] py-1.5 px-3 sm:px-6 text-[10px] sm:text-[11px] font-mono tracking-wider flex items-center justify-between max-w-7xl mx-auto border-b border-white/10 pt-[calc(0.35rem+env(safe-area-inset-top,0px))]">
+        <span className="uppercase opacity-80 hidden md:inline-flex items-center gap-1.5 text-[10px]">
+          <Shield className="w-3 h-3 text-[#DC2F87] shrink-0" /> Direct Counselor Support & Guidance
         </span>
         <button 
           onClick={() => { setActivePage('contact-counselor'); window.scrollTo(0,0); }} 
-          className="hover:underline flex items-center gap-1.5 text-[#FDF3F7] font-semibold w-full sm:w-auto justify-between sm:justify-start cursor-pointer"
+          className="hover:underline flex items-center justify-between sm:justify-end w-full md:w-auto gap-2 text-[#FDF3F7] font-semibold cursor-pointer py-0.5"
         >
-          <span className="flex items-center gap-1.5">
-            <Phone className="w-3 h-3 text-[#DC2F87]" /> Speak With Counselor Directly
+          <span className="flex items-center gap-1.5 text-[10px] sm:text-[11px] truncate">
+            <Phone className="w-3 h-3 text-[#DC2F87] shrink-0" /> Speak With Counselor Directly
           </span>
-          <span className="text-[9px] bg-[#DC2F87] text-white px-2 py-0.5 font-bold uppercase rounded-none sm:hidden">
+          <span className="text-[9px] bg-[#DC2F87] text-white px-2 py-0.5 font-bold uppercase rounded-md shrink-0">
             Contact Counselor
           </span>
         </button>
@@ -84,23 +84,23 @@ export default function Navbar({ activePage, setActivePage }) {
           ? 'bg-[var(--bg-primary)] py-2 sm:py-3 border-b border-editorial shadow-xs' 
           : 'bg-[var(--bg-primary)] py-2.5 sm:py-3.5 border-b border-editorial'
       }`}>
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           
           {/* Brand Logo with Image Asset */}
           <button 
             onClick={() => { setActivePage('home'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} 
-            className="flex items-center gap-2.5 sm:gap-3 text-left group btn-tap"
+            className="flex items-center gap-2.5 sm:gap-3 text-left group btn-tap min-w-0"
           >
             <img 
               src="/assets/logo.png" 
               alt="CLEAR CHOICE Logo" 
-              className="h-8 sm:h-9 w-auto object-contain"
+              className="h-7 sm:h-9 w-auto object-contain shrink-0"
             />
-            <div>
-              <span className="font-serif font-extrabold text-base sm:text-xl tracking-tight block leading-none text-[var(--text-primary)]">
+            <div className="min-w-0">
+              <span className="font-serif font-extrabold text-sm sm:text-xl tracking-tight block leading-none text-[var(--text-primary)] truncate">
                 CLEAR CHOICE
               </span>
-              <span className="text-[8px] sm:text-[9px] uppercase tracking-widest font-mono block mt-0.5 text-muted">
+              <span className="text-[7.5px] sm:text-[9px] uppercase tracking-widest font-mono block mt-0.5 text-muted truncate">
                 A Documentary on Recovery
               </span>
             </div>
@@ -360,7 +360,7 @@ export default function Navbar({ activePage, setActivePage }) {
             {/* Mobile Footer Action */}
             <div className="pt-4 border-t border-editorial space-y-3">
               <button
-                onClick={() => { setActivePage('contact-counselor'); setIsMobileMenuOpen(false); window.scrollTo(0,0); }}
+                onClick={() => { setActivePage('contact-counselor'); setMobileMenuOpen(false); window.scrollTo(0,0); }}
                 className="w-full bg-[#2E031D] text-white py-3.5 px-4 rounded-full text-center font-bold text-xs uppercase tracking-widest transition-all btn-tap shadow-lg touch-target flex items-center justify-center gap-2 cursor-pointer"
               >
                 <Phone className="w-4 h-4 text-[#E03590]" />
