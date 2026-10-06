@@ -61,55 +61,9 @@ clear11/
 
 ---
 
-## 🚀 Getting Started
-
-### Prerequisites
-
-- [Node.js](https://nodejs.org/) (v18.x or higher recommended)
-- `npm` or `yarn`
-
-### Installation
-
-1. **Clone the repository**:
-   ```bash
-   git clone <repository-url>
-   cd clear11
-   ```
-
-2. **Install dependencies**:
-   ```bash
-   npm install
-   ```
-
-3. **Configure Environment Variables**:
-   Create a `.env` or `.env.local` file in the root directory:
-   ```env
-   VITE_GOOGLE_APPS_SCRIPT_URL=your_google_apps_script_web_app_url
-   VITE_RESEND_API_KEY=your_resend_api_key
-   VITE_TURNSTILE_SITE_KEY=your_cloudflare_turnstile_site_key
-   VITE_GA_MEASUREMENT_ID=your_ga4_measurement_id
-   ```
-
-4. **Start Development Server**:
-   ```bash
-   npm run dev
-   ```
-   Open `http://localhost:5173` in your browser.
-
----
-
-## 📜 Available Scripts
-
-- `npm run dev` — Starts the Vite development server with HMR.
-- `npm run build` — Builds the application for production deployment.
-- `npm run preview` — Locally previews the production build.
-- `npm run lint` — Runs `oxlint` for fast code linting.
-
----
-
 ## 🤝 Contributing & Medical Disclaimer
 
-**Clear Choice** is designed for educational and awareness purposes. If you or someone you know is in immediate danger or experiencing a life-threatening crisis, please contact your local emergency services (e.g., 911 in the US/Canada or 112 in Europe) or reach out to a certified medical professional immediately.
+**Clear Choice** is designed for educational and awareness purposes. If you or someone you know is in immediate danger or experiencing a life-threatening crisis, please contact your local emergency services or reach out to a certified medical professional immediately.
 
 ---
 
