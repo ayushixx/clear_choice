@@ -122,7 +122,7 @@ export default function Home({ setActivePage }) {
     <div className="bg-[var(--bg-primary)] text-[var(--text-primary)] selection:bg-[#781353] selection:text-white">
       
       {/* 1. HERO SECTION — DYNAMIC EDITORIAL HERO */}
-      <section className="relative w-full min-h-[60vh] sm:min-h-[70vh] flex items-center justify-center pt-20 sm:pt-28 pb-8 sm:pb-12 border-b border-editorial overflow-hidden">
+      <section className="relative w-full min-h-[60vh] sm:min-h-[70vh] flex items-center justify-center pt-24 sm:pt-28 pb-8 sm:pb-12 border-b border-editorial overflow-hidden">
         
         <AmbientParticles count={isMobile ? 6 : 12} />
 

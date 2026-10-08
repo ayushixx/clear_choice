@@ -41,7 +41,7 @@ export default function Testimonies({ setActivePage }) {
   };
 
   return (
-    <div className="pt-24 sm:pt-32 pb-16 sm:pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 sm:space-y-14 relative">
+    <div className="pt-28 sm:pt-32 pb-16 sm:pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 sm:space-y-14 relative">
       
       {/* ─── HEADER SECTION ─── */}
       <motion.div 

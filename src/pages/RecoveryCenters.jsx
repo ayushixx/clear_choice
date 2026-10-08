@@ -60,7 +60,7 @@ export default function RecoveryCenters({ setActivePage, setSelectedCenter }) {
   };
 
   return (
-    <div className="pt-24 sm:pt-32 pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
+    <div className="pt-28 sm:pt-32 pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
       
       {/* Navigation Breadcrumb */}
       <div className="flex items-center justify-between pt-4 sm:pt-0">

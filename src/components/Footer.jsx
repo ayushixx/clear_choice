@@ -53,7 +53,7 @@ export default function Footer({ setActivePage, openLegalModal }) {
 
           {/* Column 1: Learn */}
           <div className="space-y-4">
-            <h4 className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-white/40">
+            <h4 className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-white/40 text-left">
               Learn
             </h4>
             <ul className="space-y-2.5">
@@ -68,7 +68,7 @@ export default function Footer({ setActivePage, openLegalModal }) {
                 <li key={page}>
                   <button 
                     onClick={() => nav(page)} 
-                    className="text-[13px] text-white/60 hover:text-white transition-colors cursor-pointer"
+                    className="text-left block text-[13px] text-white/60 hover:text-white transition-colors cursor-pointer"
                   >
                     {label}
                   </button>
@@ -79,7 +79,7 @@ export default function Footer({ setActivePage, openLegalModal }) {
 
           {/* Column 2: Support */}
           <div className="space-y-4">
-            <h4 className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-white/40">
+            <h4 className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-white/40 text-left">
               Support
             </h4>
             <ul className="space-y-2.5">
@@ -92,7 +92,7 @@ export default function Footer({ setActivePage, openLegalModal }) {
                 <li key={page}>
                   <button 
                     onClick={() => nav(page)} 
-                    className="text-[13px] text-white/60 hover:text-white transition-colors cursor-pointer"
+                    className="text-left block text-[13px] text-white/60 hover:text-white transition-colors cursor-pointer"
                   >
                     {label}
                   </button>
@@ -103,14 +103,14 @@ export default function Footer({ setActivePage, openLegalModal }) {
 
           {/* Column 3: Connect */}
           <div className="space-y-4 col-span-2 md:col-span-1">
-            <h4 className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-white/40">
+            <h4 className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-white/40 text-left">
               Connect
             </h4>
             <ul className="space-y-2.5">
               <li>
                 <button 
                   onClick={() => nav('contact-counselor')} 
-                  className="text-[13px] text-white/60 hover:text-white transition-colors cursor-pointer"
+                  className="text-left block text-[13px] text-white/60 hover:text-white transition-colors cursor-pointer"
                 >
                   Contact a Counselor
                 </button>
@@ -118,7 +118,7 @@ export default function Footer({ setActivePage, openLegalModal }) {
               <li>
                 <button 
                   onClick={() => openLegalModal('privacy')}
-                  className="text-[13px] text-white/60 hover:text-white transition-colors cursor-pointer"
+                  className="text-left block text-[13px] text-white/60 hover:text-white transition-colors cursor-pointer"
                 >
                   Privacy Policy
                 </button>
@@ -126,7 +126,7 @@ export default function Footer({ setActivePage, openLegalModal }) {
               <li>
                 <button 
                   onClick={() => openLegalModal('disclaimer')}
-                  className="text-[13px] text-white/60 hover:text-white transition-colors cursor-pointer"
+                  className="text-left block text-[13px] text-white/60 hover:text-white transition-colors cursor-pointer"
                 >
                   Medical Disclaimer
                 </button>

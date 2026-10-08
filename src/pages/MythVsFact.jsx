@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 
 export default function MythVsFact({ setActivePage }) {
   return (
-    <div className="pt-24 sm:pt-32 pb-24 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 sm:space-y-16">
+    <div className="pt-28 sm:pt-32 pb-24 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 sm:space-y-16">
       
       {/* Header */}
       <motion.div 

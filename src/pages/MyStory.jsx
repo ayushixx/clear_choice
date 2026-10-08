@@ -6,7 +6,7 @@ import AmbientParticles from '../components/AmbientParticles';
 
 export default function MyStory({ setActivePage }) {
   return (
-    <div className="pt-24 sm:pt-32 pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 sm:space-y-20">
+    <div className="pt-28 sm:pt-32 pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 sm:space-y-20">
 
       {/* Magazine Editorial Spread */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-12 items-center pt-4 sm:pt-0">
@@ -309,11 +309,11 @@ export default function MyStory({ setActivePage }) {
         </div>
         <MagneticButton
           onClick={() => { setActivePage('contact-counselor'); window.scrollTo(0, 0); }}
-          className="bg-white text-[#2E031D] hover:bg-[#FDF3F7] px-6 py-3.5 text-xs font-extrabold uppercase tracking-widest transition-all whitespace-nowrap w-full sm:w-auto justify-center touch-target rounded-full shadow-lg"
+          className="bg-white text-[#2E031D] hover:bg-[#FDF3F7] px-4 sm:px-6 py-3 sm:py-3.5 text-[11px] sm:text-xs font-extrabold uppercase tracking-wider sm:tracking-widest transition-all w-full sm:w-auto justify-center touch-target rounded-full shadow-lg shrink-0"
         >
           <span className="flex items-center justify-center gap-2">
             <span>Contact Counselor Directly</span>
-            <ArrowRight className="w-4 h-4 text-[#E03590]" />
+            <ArrowRight className="w-4 h-4 text-[#E03590] shrink-0" />
           </span>
         </MagneticButton>
       </motion.div>
