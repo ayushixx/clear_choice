@@ -11,8 +11,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 const ADMIN_PASSWORD = 'ClearChoice@2026';
 
 // ─── Google Script URL (same endpoint used by public forms) ───
-const GOOGLE_SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL || '';
-const API_KEY = import.meta.env.VITE_API_KEY || '';
+const GOOGLE_SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL || 'https://script.google.com/macros/s/AKfycbxMsnpGBTiinS1pJRxePeugRxC4A5zeyapcNYk04GaR4QVNtoybCJKSIE9a_egu9xY/exec';
+const API_KEY = import.meta.env.VITE_API_KEY || 'CC12_9x8fK2Lm7pQzR5vN4sA2026';
 
 /**
  * Admin Panel
