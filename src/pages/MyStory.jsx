@@ -201,19 +201,19 @@ export default function MyStory({ setActivePage }) {
               </div>
 
               {/* Image 1 */}
-              <div className="rounded-[24px] overflow-hidden border border-[rgba(120,19,83,0.08)] dark:border-editorial/60 bg-[var(--bg-primary)] shadow-sm relative group aspect-[4/3] sm:aspect-[16/11]">
+              <div className="rounded-[24px] overflow-hidden border border-[rgba(120,19,83,0.08)] dark:border-editorial/60 bg-[var(--bg-primary)] shadow-sm relative group aspect-[4/5] sm:aspect-[3/4]">
                 <img
                   src="/assets/recovery-before-1.jpg"
                   alt="Mehul Saini during the struggle with substance dependency - Before Recovery"
                   loading="lazy"
                   decoding="async"
-                  className="w-full h-full object-cover object-[center_20%] sm:object-center filter contrast-[1.02] transition-transform duration-500 group-hover:scale-[1.02]"
+                  className="w-full h-full object-cover object-center filter contrast-[1.02] transition-transform duration-500 group-hover:scale-[1.02]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none opacity-40" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none opacity-30" />
               </div>
 
               {/* Image 2 */}
-              <div className="rounded-[24px] overflow-hidden border border-[rgba(120,19,83,0.08)] dark:border-editorial/60 bg-[var(--bg-primary)] shadow-sm relative group aspect-[4/3] sm:aspect-[16/11]">
+              <div className="rounded-[24px] overflow-hidden border border-[rgba(120,19,83,0.08)] dark:border-editorial/60 bg-[var(--bg-primary)] shadow-sm relative group aspect-[4/5] sm:aspect-[3/4]">
                 <img
                   src="/assets/recovery-before-2.jpg"
                   alt="Documentary archive photo during the active addiction phase - Before Recovery"
@@ -221,7 +221,7 @@ export default function MyStory({ setActivePage }) {
                   decoding="async"
                   className="w-full h-full object-cover object-[center_20%] sm:object-center filter contrast-[1.02] transition-transform duration-500 group-hover:scale-[1.02]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none opacity-40" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none opacity-30" />
               </div>
             </motion.div>
 
@@ -244,7 +244,7 @@ export default function MyStory({ setActivePage }) {
               </div>
 
               {/* Image 3 */}
-              <div className="rounded-[24px] overflow-hidden border border-[rgba(120,19,83,0.08)] dark:border-editorial/60 bg-[var(--bg-primary)] shadow-sm relative group aspect-[4/3] sm:aspect-[16/11]">
+              <div className="rounded-[24px] overflow-hidden border border-[rgba(120,19,83,0.08)] dark:border-editorial/60 bg-[var(--bg-primary)] shadow-sm relative group aspect-[4/5] sm:aspect-[3/4]">
                 <img
                   src="/assets/recovery-after-1.jpg"
                   alt="Mehul Saini receiving public recognition for community recovery leadership - After Recovery"
@@ -252,11 +252,11 @@ export default function MyStory({ setActivePage }) {
                   decoding="async"
                   className="w-full h-full object-cover object-top filter contrast-[1.02] transition-transform duration-500 group-hover:scale-[1.02]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none opacity-40" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none opacity-30" />
               </div>
 
               {/* Image 4 */}
-              <div className="rounded-[24px] overflow-hidden border border-[rgba(120,19,83,0.08)] dark:border-editorial/60 bg-[var(--bg-primary)] shadow-sm relative group aspect-[4/3] sm:aspect-[16/11]">
+              <div className="rounded-[24px] overflow-hidden border border-[rgba(120,19,83,0.08)] dark:border-editorial/60 bg-[var(--bg-primary)] shadow-sm relative group aspect-[4/5] sm:aspect-[3/4]">
                 <img
                   src="/assets/recovery-after-2.jpg"
                   alt="Mehul Saini post-rehabilitation embracing renewed health and purpose - After Recovery"
@@ -264,7 +264,7 @@ export default function MyStory({ setActivePage }) {
                   decoding="async"
                   className="w-full h-full object-cover object-[center_20%] sm:object-center filter contrast-[1.02] transition-transform duration-500 group-hover:scale-[1.02]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none opacity-40" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none opacity-30" />
               </div>
             </motion.div>
 
