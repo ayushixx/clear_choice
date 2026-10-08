@@ -153,6 +153,148 @@ export default function MyStory({ setActivePage }) {
 
       </section>
 
+      {/* REAL RECOVERY JOURNEY — EDITORIAL TRANSFORMATION STORIES */}
+      <section 
+        className="w-full bg-[#FCFAFB] dark:bg-[var(--bg-secondary)] border border-[rgba(120,19,83,0.08)] dark:border-editorial rounded-[32px] p-6 sm:p-12 lg:p-[72px] max-w-[1200px] mx-auto shadow-sm"
+        aria-labelledby="recovery-journey-heading"
+      >
+        <div className="space-y-10 sm:space-y-16">
+          
+          {/* Section Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="text-center max-w-3xl mx-auto space-y-3 sm:space-y-4"
+          >
+            <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-[0.22em] text-[#781353] dark:text-[#E03590] block">
+              REAL RECOVERY JOURNEY
+            </span>
+            <h2 
+              id="recovery-journey-heading"
+              className="text-2xl sm:text-4xl lg:text-5xl font-serif font-bold text-[#2E031D] dark:text-[var(--text-primary)] tracking-tight leading-tight"
+            >
+              Transformation Stories
+            </h2>
+            <p className="text-xs sm:text-base text-muted font-light leading-relaxed max-w-2xl mx-auto">
+              Recovery is not a single moment. It is a series of small decisions that create lasting change.
+            </p>
+          </motion.div>
+
+          {/* Image Gallery: 2 Columns on Desktop, Single Column with Clear Separation on Mobile/Tablet */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-14 items-start">
+            
+            {/* Column / Section 1: Before Recovery */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="space-y-5 sm:space-y-6"
+            >
+              <div className="flex items-center gap-2.5 pb-2 border-b border-[rgba(120,19,83,0.08)] dark:border-editorial">
+                <span className="w-2 h-2 rounded-full bg-[#781353]/60 dark:bg-[#E03590]/60" />
+                <h3 className="font-serif font-bold text-base sm:text-xl text-[#2E031D] dark:text-[var(--text-primary)]">
+                  Before Recovery
+                </h3>
+              </div>
+
+              {/* Image 1 */}
+              <div className="rounded-[24px] overflow-hidden border border-[rgba(120,19,83,0.08)] dark:border-editorial/60 bg-[var(--bg-primary)] shadow-sm relative group aspect-[4/3] sm:aspect-[16/11]">
+                <img
+                  src="/assets/recovery-before-1.jpg"
+                  alt="Mehul Saini during the struggle with substance dependency - Before Recovery"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-cover object-[center_20%] sm:object-center filter contrast-[1.02] transition-transform duration-500 group-hover:scale-[1.02]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none opacity-40" />
+              </div>
+
+              {/* Image 2 */}
+              <div className="rounded-[24px] overflow-hidden border border-[rgba(120,19,83,0.08)] dark:border-editorial/60 bg-[var(--bg-primary)] shadow-sm relative group aspect-[4/3] sm:aspect-[16/11]">
+                <img
+                  src="/assets/recovery-before-2.jpg"
+                  alt="Documentary archive photo during the active addiction phase - Before Recovery"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-cover object-[center_20%] sm:object-center filter contrast-[1.02] transition-transform duration-500 group-hover:scale-[1.02]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none opacity-40" />
+              </div>
+            </motion.div>
+
+            {/* Mobile / Tablet Visual Divider */}
+            <div className="block lg:hidden my-2 border-t border-[rgba(120,19,83,0.12)] dark:border-editorial" aria-hidden="true" />
+
+            {/* Column / Section 2: After Recovery */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="space-y-5 sm:space-y-6"
+            >
+              <div className="flex items-center gap-2.5 pb-2 border-b border-[rgba(120,19,83,0.08)] dark:border-editorial">
+                <span className="w-2 h-2 rounded-full bg-[#E03590]" />
+                <h3 className="font-serif font-bold text-base sm:text-xl text-[#2E031D] dark:text-[var(--text-primary)]">
+                  After Recovery
+                </h3>
+              </div>
+
+              {/* Image 3 */}
+              <div className="rounded-[24px] overflow-hidden border border-[rgba(120,19,83,0.08)] dark:border-editorial/60 bg-[var(--bg-primary)] shadow-sm relative group aspect-[4/3] sm:aspect-[16/11]">
+                <img
+                  src="/assets/recovery-after-1.jpg"
+                  alt="Mehul Saini receiving public recognition for community recovery leadership - After Recovery"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-cover object-top filter contrast-[1.02] transition-transform duration-500 group-hover:scale-[1.02]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none opacity-40" />
+              </div>
+
+              {/* Image 4 */}
+              <div className="rounded-[24px] overflow-hidden border border-[rgba(120,19,83,0.08)] dark:border-editorial/60 bg-[var(--bg-primary)] shadow-sm relative group aspect-[4/3] sm:aspect-[16/11]">
+                <img
+                  src="/assets/recovery-after-2.jpg"
+                  alt="Mehul Saini post-rehabilitation embracing renewed health and purpose - After Recovery"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-cover object-[center_20%] sm:object-center filter contrast-[1.02] transition-transform duration-500 group-hover:scale-[1.02]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none opacity-40" />
+              </div>
+            </motion.div>
+
+          </div>
+
+          {/* Footnote & Premium Quote Block */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            className="pt-6 sm:pt-8 border-t border-[rgba(120,19,83,0.08)] dark:border-editorial space-y-6"
+          >
+            {/* Permission Footnote */}
+            <p className="text-[11px] sm:text-xs font-mono text-muted text-center tracking-wide">
+              Images shared with permission for awareness and educational purposes.
+            </p>
+
+            {/* Premium Quote Block */}
+            <div className="bg-[#2E031D] text-white rounded-[24px] p-6 sm:p-8 lg:p-10 border border-[#2E031D] shadow-md relative overflow-hidden text-center max-w-3xl mx-auto space-y-3">
+              <Quote className="w-5 h-5 sm:w-7 sm:h-7 text-[#E03590] opacity-80 mx-auto" />
+              <blockquote className="font-serif text-sm sm:text-lg lg:text-xl text-white/95 italic leading-relaxed">
+                "Recovery does not happen overnight. It happens one choice, one day, and one step at a time."
+              </blockquote>
+            </div>
+          </motion.div>
+
+        </div>
+      </section>
+
       {/* Understated Action Banner */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
