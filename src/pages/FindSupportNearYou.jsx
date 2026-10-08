@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import InteractiveMap from '../components/InteractiveMap';
 import { REHAB_CENTERS } from '../data/rehabCenters';
 import TrustBadges from '../components/TrustBadges';
-import { ArrowLeft, MapPin, Phone, ExternalLink } from 'lucide-react';
+import { ArrowLeft, MapPin, Phone, ExternalLink, Sparkles, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function FindSupportNearYou({ setActivePage, selectedCenter, setSelectedCenter }) {
@@ -48,6 +48,41 @@ export default function FindSupportNearYou({ setActivePage, selectedCenter, setS
           Locate certified rehabilitation centers, outpatient clinics, and emergency counseling facilities on an interactive map.
         </p>
       </motion.div>
+
+      {/* PERSONALIZED RECOMMENDATION CTA BANNER */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.35, delay: 0.05 }}
+        className="bg-gradient-to-r from-[#2E031D] to-[#4E0834] text-white p-5 sm:p-6 rounded-3xl border border-[#781353] shadow-md flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+      >
+        <div className="space-y-1 max-w-2xl">
+          <div className="flex items-center gap-2">
+            <Sparkles className="w-4 h-4 text-[#E03590]" />
+            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#E03590]">
+              Need Guidance Choosing a Center?
+            </span>
+          </div>
+          <h3 className="text-lg sm:text-xl font-serif font-bold text-white">
+            Get Personalized Center Recommendations
+          </h3>
+          <p className="text-xs text-[#FDF3F7]/80 font-light">
+            Fill out our quick 1-minute intake form to receive tailored center options matched to your budget, location, and specific care needs.
+          </p>
+        </div>
+
+        <button
+          onClick={() => {
+            setActivePage('recovery-centers');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+          className="bg-[#E03590] hover:bg-[#c82b7c] text-white py-3 px-5 font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-all rounded-full shadow-md shrink-0 btn-tap touch-target cursor-pointer w-full sm:w-auto"
+        >
+          <span>Find the Right Recovery Center</span>
+          <ArrowRight className="w-3.5 h-3.5" />
+        </button>
+      </motion.div>
+
 
       {/* MAP HERO SECTION */}
       <motion.div

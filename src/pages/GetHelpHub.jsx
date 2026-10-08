@@ -19,12 +19,12 @@ export default function GetHelpHub({ setActivePage }) {
     },
     {
       id: 'recovery-centers',
-      badge: 'Verified Treatment Directory',
-      title: 'Recovery & Rehab Centers',
-      description: 'Browse accredited addiction recovery clinics, medical detox facilities, and rehabilitation centers across India.',
-      highlight: 'Search & Filter by City / State',
+      badge: 'Personalized Recommendations',
+      title: 'Recovery & Rehabilitation Directory',
+      description: 'Get personalized rehab center recommendations based on your budget, location & substance needs, or explore our accredited directory.',
+      highlight: 'Find the Right Recovery Center & Explore Map',
       icon: Building2,
-      cta: 'Browse Rehab Directory',
+      cta: 'Find the Right Recovery Center',
       primary: false
     },
     {

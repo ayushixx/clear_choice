@@ -51,7 +51,7 @@ export default function Navbar({ activePage, setActivePage }) {
   const helpSubItems = [
     { id: 'help', label: 'Get Help Hub', subtitle: 'Decision & Intent Center' },
     { id: 'contact-counselor', label: 'Contact Counselor', subtitle: 'Confidential Inquiry & Callback' },
-    { id: 'recovery-centers', label: 'Recovery Centers', subtitle: 'Rehab Directory & Search' },
+    { id: 'recovery-centers', label: 'Recovery Centers', subtitle: 'Find Right Center & Directory' },
     { id: 'find-support', label: 'Find Support Near You', subtitle: 'Interactive GPS Map' },
   ];
 

@@ -1,22 +1,21 @@
 /**
  * ====================================================================
- * CLEAR CHOICE - GOOGLE APPS SCRIPT WEB APP ENDPOINT
+ * CLEAR CHOICE - GOOGLE APPS SCRIPT WEB APP ENDPOINT (Code.gs)
  * Production-Ready Apps Script for Google Sheets & Gmail Automation
  * 100% Free & Zero-Cost Solution
  * ====================================================================
  * 
  * SETUP INSTRUCTIONS FOR THE CLIENT:
- * 1. Open Google Sheets (create a new sheet titled "CLEAR CHOICE Leads").
- * 2. Create three tabs/sheets inside: "Contact Inquiries", "Callback Requests", and "Lead Inquiries".
- * 3. In the top menu, click Extensions > Apps Script.
- * 4. Replace all code in Code.gs with this file's code.
- * 5. Update CLIENT_EMAIL and API_SECRET_KEY constants below.
- * 6. Click Deploy > New Deployment > Select Type: Web App.
- * 7. Set:
+ * 1. Open Google Sheets (create or open your sheet titled "CLEAR CHOICE Leads").
+ * 2. In the top menu, click Extensions > Apps Script.
+ * 3. Replace all code in Code.gs with this exact file's code.
+ * 4. Update CLIENT_EMAIL and API_SECRET_KEY constants below.
+ * 5. Click Deploy > New Deployment > Select Type: Web App.
+ * 6. Set:
  *    - Execute as: Me
  *    - Who has access: Anyone (or Anyone with Link)
- * 8. Copy the Web App URL (e.g., https://script.google.com/macros/s/AKfycb.../exec).
- * 9. Set VITE_GOOGLE_SCRIPT_URL and VITE_API_KEY in your website's .env file.
+ * 7. Copy the Web App URL (e.g., https://script.google.com/macros/s/AKfycb.../exec).
+ * 8. Set VITE_GOOGLE_SCRIPT_URL and VITE_API_KEY in your website's .env file.
  * 
  * IMPORTANT: After updating this script, you must create a NEW deployment
  * version (Deploy > New Deployment) for changes to take effect.
@@ -24,7 +23,7 @@
 
 // CONFIGURATION (CLIENT EDITABLE)
 var SPREADSHEET_ID = "1sKc8TQrvv10j-_2V00Jbr7VYSDdptyoHq5pq6iKLfrc"; // Target Google Sheet ID
-var CLIENT_EMAIL = "client@clearchoice.org"; // Change to recipient email address
+var CLIENT_EMAIL = "client@clearchoice.org"; // Change to recipient email address (e.g., Mehul's email)
 var API_SECRET_KEY = "CC12_9x8fK2Lm7pQzR5vN4sA2026"; // Secret key matching VITE_API_KEY
 
 function getSpreadsheet() {
@@ -59,12 +58,14 @@ function doGet(e) {
     
     var ss = getSpreadsheet();
     
+    var directoryInquiries = sheetToArray(ss, "Directory Inquiries");
     var leads = sheetToArray(ss, "Lead Inquiries");
     var contacts = sheetToArray(ss, "Contact Inquiries");
     var callbacks = sheetToArray(ss, "Callback Requests");
     
     return ContentService.createTextOutput(JSON.stringify({
       status: "success",
+      directoryInquiries: directoryInquiries,
       leads: leads,
       contacts: contacts,
       callbacks: callbacks,
@@ -99,11 +100,18 @@ function sheetToArray(ss, sheetName) {
     "Name": "name",
     "Phone": "phone",
     "Email": "email",
+    "Relation": "relation",
+    "Location": "location",
+    "Budget Range": "budgetRange",
+    "Patient Age": "patientAge",
+    "Age": "patientAge",
+    "Substance": "substance",
+    "Substance / Concern": "substance",
     "Message": "message",
+    "Source": "source",
     "Status": "status",
     "Concern Type": "concernType",
-    "Preferred Time": "callbackTime",
-    "Substance / Concern": "substance"
+    "Preferred Time": "callbackTime"
   };
   
   for (var i = 1; i < data.length; i++) {
@@ -163,8 +171,42 @@ function doPost(e) {
     var ss = getSpreadsheet();
     var timestamp = new Date();
     
-    if (type === "contact") {
-      // 2A. Process Contact Form Submission
+    if (type === "directory_inquiry" || type === "recovery_directory_inquiry") {
+      // 2A. Process Recovery Directory Intake Form Submission
+      var sheet = ss.getSheetByName("Directory Inquiries") || ss.insertSheet("Directory Inquiries");
+      
+      // Ensure Headers (Clean layout without optional notes)
+      if (sheet.getLastRow() === 0) {
+        sheet.appendRow(["Timestamp", "Full Name", "Phone", "Relation", "Location", "Budget Range", "Patient Age", "Substance", "Source", "Status"]);
+        sheet.getRange(1, 1, 1, 10).setFontWeight("bold").setBackground("#781353").setFontColor("#FFFFFF");
+      }
+      
+      var fullName = contents.fullName || contents.full_name || contents.name || "N/A";
+      var phone = contents.phone || "Not provided";
+      var relation = contents.relation || "Self";
+      var location = contents.location || "Not specified";
+      var budgetRange = contents.budgetRange || contents.budget_range || "Flexible";
+      var patientAge = contents.patientAge || contents.patient_age || contents.age || "Not specified";
+      var substance = contents.substance || "Not specified";
+      var source = contents.source || "Recovery Directory Inquiry";
+      
+      sheet.appendRow([timestamp, fullName, phone, relation, location, budgetRange, patientAge, substance, source, "New"]);
+      
+      // Send Instant Gmail Notification to Mehul & Team
+      sendGmailNotification("Recovery Directory Inquiry", {
+        "Full Name": fullName,
+        "Phone": phone,
+        "Relation with Patient": relation,
+        "Location": location,
+        "Budget Range": budgetRange,
+        "Age of Patient": patientAge,
+        "Primary Substance / Concern": substance,
+        "Source": source,
+        "Submitted At": timestamp.toLocaleString()
+      });
+
+    } else if (type === "contact") {
+      // 2B. Process Contact Form Submission
       var sheet = ss.getSheetByName("Contact Inquiries") || ss.insertSheet("Contact Inquiries");
       
       // Ensure Headers
@@ -188,7 +230,7 @@ function doPost(e) {
       });
       
     } else if (type === "callback") {
-      // 2B. Process Callback Request Submission
+      // 2C. Process Callback Request Submission
       var sheet = ss.getSheetByName("Callback Requests") || ss.insertSheet("Callback Requests");
       
       // Ensure Headers
@@ -216,7 +258,7 @@ function doPost(e) {
       });
 
     } else if (type === "lead") {
-      // 2C. Process Lead Inquiry (Get to Know More) Submission
+      // 2D. Process Lead Inquiry (Get to Know More) Submission
       var sheet = ss.getSheetByName("Lead Inquiries") || ss.insertSheet("Lead Inquiries");
       
       // Ensure Headers

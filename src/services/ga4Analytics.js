@@ -40,6 +40,13 @@ export const trackCallbackSubmit = (concernType) => {
   });
 };
 
+export const trackRecoveryDirectoryInquiry = (substance, budgetRange) => {
+  trackEvent('form_submit_directory_inquiry', {
+    category: 'Directory Intake',
+    label: `${substance || 'General'} | ${budgetRange || 'Any Budget'}`,
+  });
+};
+
 export const trackHelplineClick = (number) => {
   trackEvent('helpline_click', {
     category: 'Counselor Contact',

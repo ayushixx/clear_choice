@@ -3,7 +3,7 @@ import {
   Lock, LogIn, LogOut, Users, Phone, Mail, MessageSquare, 
   Search, Filter, ChevronDown, ChevronUp, RefreshCw, 
   Download, Trash2, Eye, Clock, Shield, FileText,
-  BarChart3, TrendingUp, AlertCircle, CheckCircle2
+  BarChart3, TrendingUp, AlertCircle, CheckCircle2, Building2
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -17,7 +17,7 @@ const API_KEY = import.meta.env.VITE_API_KEY || '';
 /**
  * Admin Panel
  * Password-protected dashboard for viewing lead inquiries, contact submissions,
- * and callback requests stored in Google Sheets.
+ * callback requests, and recovery directory inquiries stored in Google Sheets.
  */
 export default function AdminPanel({ setActivePage }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -29,11 +29,12 @@ export default function AdminPanel({ setActivePage }) {
   const [leads, setLeads] = useState([]);
   const [contacts, setContacts] = useState([]);
   const [callbacks, setCallbacks] = useState([]);
+  const [directoryInquiries, setDirectoryInquiries] = useState([]);
   const [loading, setLoading] = useState(false);
   const [lastFetched, setLastFetched] = useState(null);
 
   // UI state
-  const [activeTab, setActiveTab] = useState('leads');
+  const [activeTab, setActiveTab] = useState('directory');
   const [searchTerm, setSearchTerm] = useState('');
   const [sortField, setSortField] = useState('timestamp');
   const [sortDir, setSortDir] = useState('desc');
@@ -81,9 +82,14 @@ export default function AdminPanel({ setActivePage }) {
         const sampleCallbacks = [
           { timestamp: new Date(Date.now() - 7200000).toISOString(), name: 'Callback User', phone: '+91 88776 65544', concernType: 'Alcohol Recovery', callbackTime: 'Morning (9 AM - 12 PM)', message: 'Please call back ASAP' },
         ];
+        const sampleDirectory = [
+          { timestamp: new Date().toISOString(), fullName: 'Rahul Sharma', phone: '+91 98765 43210', relation: 'Self', location: 'Mumbai, Maharashtra', budgetRange: '₹50,000 - ₹1,00,000 / mo', patientAge: '26 - 35 yrs', substance: 'Alcohol', message: 'Looking for verified inpatient facility', source: 'Recovery Directory Inquiry', status: 'New' },
+          { timestamp: new Date(Date.now() - 18000000).toISOString(), fullName: 'Ananya Verma', phone: '+91 91234 56789', relation: 'Brother', location: 'Delhi NCR', budgetRange: '₹25,000 - ₹50,000 / mo', patientAge: '18 - 25 yrs', substance: 'Opioids / Smack', message: 'Medical detox needed', source: 'Recovery Directory Inquiry', status: 'New' },
+        ];
         setLeads(sampleLeads);
         setContacts(sampleContacts);
         setCallbacks(sampleCallbacks);
+        setDirectoryInquiries(sampleDirectory);
         setLastFetched(new Date());
         setLoading(false);
         return;
@@ -98,9 +104,9 @@ export default function AdminPanel({ setActivePage }) {
         setLeads(data.leads || []);
         setContacts(data.contacts || []);
         setCallbacks(data.callbacks || []);
+        setDirectoryInquiries(data.directoryInquiries || []);
       } else {
         console.error('[Admin] Failed to fetch data:', response.status);
-        // Still show whatever we have
       }
       setLastFetched(new Date());
     } catch (err) {
@@ -120,10 +126,11 @@ export default function AdminPanel({ setActivePage }) {
   const activeData = useMemo(() => {
     let data = [];
     switch (activeTab) {
+      case 'directory': data = directoryInquiries; break;
       case 'leads': data = leads; break;
       case 'contacts': data = contacts; break;
       case 'callbacks': data = callbacks; break;
-      default: data = leads;
+      default: data = directoryInquiries;
     }
 
     // Filter by search
@@ -145,16 +152,18 @@ export default function AdminPanel({ setActivePage }) {
     });
 
     return data;
-  }, [activeTab, leads, contacts, callbacks, searchTerm, sortField, sortDir]);
+  }, [activeTab, directoryInquiries, leads, contacts, callbacks, searchTerm, sortField, sortDir]);
 
   // Stats
   const stats = useMemo(() => ({
+    totalDirectory: directoryInquiries.length,
     totalLeads: leads.length,
     totalContacts: contacts.length,
     totalCallbacks: callbacks.length,
-    total: leads.length + contacts.length + callbacks.length,
-    newLeads: leads.filter(l => l.status === 'new' || !l.status).length,
-  }), [leads, contacts, callbacks]);
+    total: directoryInquiries.length + leads.length + contacts.length + callbacks.length,
+    newDirectory: directoryInquiries.filter(d => d.status === 'New' || !d.status).length,
+  }), [directoryInquiries, leads, contacts, callbacks]);
+
 
   // Export CSV
   const exportCSV = () => {
@@ -267,6 +276,7 @@ export default function AdminPanel({ setActivePage }) {
 
   // ─── AUTHENTICATED DASHBOARD ───
   const tabs = [
+    { id: 'directory', label: 'Directory Inquiries', icon: Building2, count: stats.totalDirectory, color: 'text-[#781353] bg-pink-50' },
     { id: 'leads', label: 'Lead Inquiries', icon: Users, count: stats.totalLeads, color: 'text-amber-700 bg-amber-50' },
     { id: 'contacts', label: 'Contact Submissions', icon: MessageSquare, count: stats.totalContacts, color: 'text-blue-700 bg-blue-50' },
     { id: 'callbacks', label: 'Callback Requests', icon: Phone, count: stats.totalCallbacks, color: 'text-emerald-700 bg-emerald-50' },
@@ -419,6 +429,82 @@ export default function AdminPanel({ setActivePage }) {
             </div>
           ) : (
             <div className="overflow-x-auto">
+              {/* ─── DIRECTORY INQUIRIES TABLE ─── */}
+              {activeTab === 'directory' && (
+                <table className="w-full text-left">
+                  <thead className="bg-[var(--bg-secondary)] border-b border-editorial">
+                    <tr>
+                      <th onClick={() => toggleSort('timestamp')} className="px-5 py-3.5 text-[10px] font-mono font-bold uppercase tracking-widest text-muted cursor-pointer hover:text-[var(--text-primary)]">
+                        Date <SortIcon field="timestamp" />
+                      </th>
+                      <th onClick={() => toggleSort('fullName')} className="px-5 py-3.5 text-[10px] font-mono font-bold uppercase tracking-widest text-muted cursor-pointer hover:text-[var(--text-primary)]">
+                        Full Name <SortIcon field="fullName" />
+                      </th>
+                      <th className="px-5 py-3.5 text-[10px] font-mono font-bold uppercase tracking-widest text-muted">Phone</th>
+                      <th onClick={() => toggleSort('relation')} className="px-5 py-3.5 text-[10px] font-mono font-bold uppercase tracking-widest text-muted cursor-pointer hover:text-[var(--text-primary)]">
+                        Relation <SortIcon field="relation" />
+                      </th>
+                      <th onClick={() => toggleSort('location')} className="px-5 py-3.5 text-[10px] font-mono font-bold uppercase tracking-widest text-muted cursor-pointer hover:text-[var(--text-primary)]">
+                        Location <SortIcon field="location" />
+                      </th>
+                      <th onClick={() => toggleSort('budgetRange')} className="px-5 py-3.5 text-[10px] font-mono font-bold uppercase tracking-widest text-muted cursor-pointer hover:text-[var(--text-primary)]">
+                        Budget <SortIcon field="budgetRange" />
+                      </th>
+                      <th onClick={() => toggleSort('patientAge')} className="px-5 py-3.5 text-[10px] font-mono font-bold uppercase tracking-widest text-muted cursor-pointer hover:text-[var(--text-primary)]">
+                        Age <SortIcon field="patientAge" />
+                      </th>
+                      <th onClick={() => toggleSort('substance')} className="px-5 py-3.5 text-[10px] font-mono font-bold uppercase tracking-widest text-muted cursor-pointer hover:text-[var(--text-primary)]">
+                        Substance <SortIcon field="substance" />
+                      </th>
+                      <th className="px-5 py-3.5 text-[10px] font-mono font-bold uppercase tracking-widest text-muted">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-editorial">
+                    {activeData.map((row, idx) => (
+                      <tr
+                        key={idx}
+                        onClick={() => setExpandedRow(expandedRow === idx ? null : idx)}
+                        className="hover:bg-[var(--bg-secondary)]/50 cursor-pointer transition-colors"
+                      >
+                        <td className="px-5 py-4 text-xs text-muted font-mono whitespace-nowrap">
+                          {row.timestamp ? new Date(row.timestamp).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: '2-digit' }) : '—'}
+                        </td>
+                        <td className="px-5 py-4 text-sm font-semibold text-[var(--text-primary)] whitespace-nowrap">{row.fullName || row.name || '—'}</td>
+                        <td className="px-5 py-4 text-xs text-muted font-mono whitespace-nowrap">
+                          {row.phone && row.phone !== 'Not provided' ? (
+                            <a href={`tel:${row.phone}`} className="hover:text-[#781353] hover:underline font-bold text-[#781353]">{row.phone}</a>
+                          ) : (
+                            <span className="text-muted/60">Not provided</span>
+                          )}
+                        </td>
+                        <td className="px-5 py-4 text-xs text-muted whitespace-nowrap">
+                          <span className="text-[10px] font-mono font-bold bg-[var(--bg-secondary)] text-[var(--text-primary)] px-2 py-0.5 rounded-md border border-editorial">
+                            {row.relation || 'Self'}
+                          </span>
+                        </td>
+                        <td className="px-5 py-4 text-xs text-muted whitespace-nowrap">{row.location || '—'}</td>
+                        <td className="px-5 py-4 text-xs text-muted font-mono whitespace-nowrap">
+                          <span className="text-[10px] text-emerald-700 dark:text-emerald-300 font-semibold">{row.budgetRange || 'Flexible'}</span>
+                        </td>
+                        <td className="px-5 py-4 text-xs text-muted font-mono whitespace-nowrap">
+                          {row.patientAge ? `${row.patientAge} yrs` : '—'}
+                        </td>
+                        <td className="px-5 py-4">
+                          <span className="text-[10px] font-mono font-bold text-[#781353] bg-pink-50 px-2.5 py-1 rounded-full border border-pink-200 whitespace-nowrap">
+                            {row.substance || '—'}
+                          </span>
+                        </td>
+                        <td className="px-5 py-4">
+                          <span className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-full border border-emerald-200 text-emerald-700 bg-emerald-50 whitespace-nowrap">
+                            {row.status || 'New'}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+
               {/* ─── LEADS TABLE ─── */}
               {activeTab === 'leads' && (
                 <table className="w-full text-left">

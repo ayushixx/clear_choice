@@ -1,5 +1,5 @@
 import { REHAB_CENTERS } from '../data/rehabCenters';
-import { trackContactSubmit, trackCallbackSubmit } from '../services/ga4Analytics';
+import { trackContactSubmit, trackCallbackSubmit, trackRecoveryDirectoryInquiry } from '../services/ga4Analytics';
 
 const GOOGLE_SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL || '';
 const API_KEY = import.meta.env.VITE_API_KEY || '';
@@ -54,6 +54,54 @@ const postToGoogleScript = async (payload) => {
     console.error('[Google Script POST Error]', err);
     return { success: false, error: 'Network error submitting request. Please try again.' };
   }
+};
+
+/**
+ * Submit Recovery & Rehabilitation Directory Inquiry to Google Apps Script Web App (Google Sheets & Gmail)
+ */
+export const submitRecoveryDirectoryInquiry = async (formData) => {
+  const { 
+    fullName, 
+    phone, 
+    relation, 
+    location, 
+    budgetRange, 
+    patientAge, 
+    substance, 
+    message 
+  } = formData;
+
+  if (!fullName || !fullName.trim()) {
+    return { success: false, error: 'Please enter your full name.' };
+  }
+
+  if (phone && !validatePhone(phone)) {
+    return { success: false, error: 'Please enter a valid phone number (at least 8-10 digits).' };
+  }
+
+  const payload = {
+    type: 'directory_inquiry',
+    source: 'Recovery Directory Inquiry',
+    apiKey: API_KEY,
+    fullName: fullName.trim(),
+    name: fullName.trim(),
+    phone: phone ? phone.trim() : 'Not provided',
+    relation: relation || 'Self',
+    location: location ? location.trim() : 'Not specified',
+    budgetRange: budgetRange || 'Flexible',
+    patientAge: patientAge ? String(patientAge).trim() : 'Not specified',
+    substance: substance || 'Not specified',
+    message: message ? message.trim() : '',
+  };
+
+  // Track event in GA4
+  try {
+    trackRecoveryDirectoryInquiry(payload.substance, payload.budgetRange);
+  } catch (trackErr) {
+    console.warn('Analytics tracking error:', trackErr);
+  }
+
+  return await postToGoogleScript(payload);
 };
 
 /**
