@@ -6,6 +6,7 @@ import AmbientParticles from '../components/AmbientParticles';
 import MagneticButton from '../components/MagneticButton';
 import LeadCaptureModal from '../components/LeadCaptureModal';
 import mehulPortrait from '../assets/mehul-portrait.jpg';
+import mehulRecognition from '../assets/mehul-recognition.jpg';
 import { 
   MEHUL_INFO, 
   RECOVERY_PROGRAMS, 
@@ -336,6 +337,85 @@ export default function Home({ setActivePage }) {
           </motion.div>
 
         </div>
+      </ShutterSection>
+
+      {/* 2B. HONOURED & RECOGNIZED — CREDIBILITY & RECOGNITION SECTION */}
+      <ShutterSection id="honoured-recognized" className="py-10 sm:py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-editorial scroll-mt-20">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="space-y-6 sm:space-y-8"
+        >
+          {/* Section Header */}
+          <div className="space-y-1.5 text-center lg:text-left">
+            <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-[0.2em] text-[#781353] dark:text-[#E03590] block">
+              Credibility & Recognition
+            </span>
+            <h2 className="text-2xl sm:text-4xl font-serif font-bold text-[var(--text-primary)] leading-tight tracking-wide">
+              HONOURED & RECOGNIZED
+            </h2>
+          </div>
+
+          {/* Premium Recognition Card */}
+          <div className="bg-[var(--bg-secondary)] border border-editorial rounded-[24px] p-6 sm:p-8 lg:p-10 shadow-lg relative overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-10 items-center">
+              
+              {/* Image Column: Left on Desktop, Top on Tablet/Mobile */}
+              <div className="lg:col-span-6 w-full">
+                <div className="rounded-2xl sm:rounded-[20px] overflow-hidden border border-editorial bg-[var(--bg-primary)] shadow-md relative group aspect-[4/3] sm:aspect-[16/11]">
+                  <img
+                    src={mehulRecognition}
+                    alt="Mehul Saini receiving recognition from Haryana Chief Minister Nayab Singh Saini"
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover object-top filter contrast-[1.02] transition-transform duration-500 group-hover:scale-[1.02]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none opacity-50" />
+                </div>
+              </div>
+
+              {/* Content Column: Right on Desktop, Below on Tablet/Mobile */}
+              <div className="lg:col-span-6 space-y-4 sm:space-y-5 text-center lg:text-left">
+                
+                {/* Trust Badge */}
+                <div className="inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#781353]/10 dark:bg-[#E03590]/15 border border-[#781353]/20 dark:border-[#E03590]/30 text-[#781353] dark:text-[#E03590] text-xs font-mono font-semibold">
+                  <Check className="w-3.5 h-3.5 stroke-[2.5]" />
+                  <span>Public Recognition</span>
+                </div>
+
+                {/* Text Content */}
+                <div className="space-y-1.5">
+                  <span className="text-[11px] sm:text-xs font-mono uppercase tracking-widest text-muted block font-medium">
+                    Honoured By
+                  </span>
+                  <h3 className="text-xl sm:text-3xl font-serif font-bold text-[var(--text-primary)] leading-tight">
+                    Shri Nayab Singh Saini
+                  </h3>
+                  <p className="text-sm sm:text-base font-medium text-[#781353] dark:text-[#E03590]">
+                    Chief Minister of Haryana
+                  </p>
+                </div>
+
+                <div className="w-12 h-[2px] bg-[#781353]/30 dark:bg-[#E03590]/40 mx-auto lg:mx-0" />
+
+                {/* Recognition Description */}
+                <p className="text-xs sm:text-sm lg:text-base text-muted font-light leading-relaxed max-w-xl mx-auto lg:mx-0">
+                  Recognized for community engagement and social impact initiatives.
+                </p>
+
+                {/* Supporting Trust Tag */}
+                <div className="pt-2 flex items-center justify-center lg:justify-start gap-2 text-[10px] sm:text-xs font-mono text-muted uppercase tracking-wider">
+                  <Award className="w-3.5 h-3.5 text-[#E03590]" />
+                  <span>Public Recognition • Community Engagement</span>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </motion.div>
       </ShutterSection>
 
       {/* 3. RECOVERY PHILOSOPHY — SHUTTER REVEAL SECTION */}
