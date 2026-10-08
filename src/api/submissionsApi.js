@@ -20,49 +20,82 @@ export const validatePhone = (phone) => {
 };
 
 /**
- * Sends payload to Google Apps Script Web App using URLSearchParams and no-cors mode
- * to guarantee CORS compatibility across all browser environments.
+ * Sends payload to Google Apps Script Web App.
+ * Strictly verifies the endpoint response and never returns false positives.
  */
 const postToGoogleScript = async (payload) => {
   if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes('YOUR_SCRIPT_ID')) {
-    console.warn('[Google Apps Script - Dev Mode] Web App URL not set. Form Payload:', payload);
+    console.error('[Google Apps Script Error] VITE_GOOGLE_SCRIPT_URL is unconfigured or using a placeholder:', GOOGLE_SCRIPT_URL);
     return { 
-      success: true, 
-      message: 'Thank you for reaching out. Mehul will contact you shortly to discuss suitable recovery and rehabilitation options.' 
+      success: false, 
+      error: 'Google Sheets endpoint is not configured. Please set VITE_GOOGLE_SCRIPT_URL in .env.' 
     };
   }
 
   try {
-    const params = new URLSearchParams();
-    for (const key in payload) {
-      if (payload[key] !== undefined && payload[key] !== null) {
-        params.append(key, payload[key]);
+    console.log('[Google Apps Script POST] Dispatching payload to:', GOOGLE_SCRIPT_URL, payload);
+
+    // Use text/plain with JSON body — this avoids CORS preflight failures on 302 redirects
+    // while allowing Google Apps Script to parse JSON via e.postData.contents.
+    const response = await fetch(GOOGLE_SCRIPT_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8',
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (response.ok) {
+      try {
+        const data = await response.json();
+        console.log('[Google Apps Script POST] Server Response:', data);
+        if (data.status === 'success') {
+          return { 
+            success: true, 
+            message: data.message || 'Submission successfully recorded in Google Sheets.' 
+          };
+        } else {
+          console.error('[Google Apps Script Error] Server returned error:', data.message);
+          return { 
+            success: false, 
+            error: data.message || 'The server encountered an error processing your submission.' 
+          };
+        }
+      } catch (jsonErr) {
+        // If response is not JSON (e.g., HTML login redirect page returned as 200)
+        console.warn('[Google Apps Script] Response could not be parsed as JSON:', jsonErr);
       }
     }
 
-    console.log('[Google Apps Script POST] Sending submission to:', GOOGLE_SCRIPT_URL, payload);
+    // If response was not ok or redirected
+    if (response.status === 401 || response.status === 403) {
+      console.error('[Google Apps Script Auth Error] Endpoint returned status', response.status);
+      return { 
+        success: false, 
+        error: 'Authentication failed. Please verify the API key and Apps Script deployment permissions.' 
+      };
+    }
 
-    // Google Apps Script Web Apps require no-cors mode with x-www-form-urlencoded
-    // to bypass cross-origin redirect blocks on script.googleusercontent.com
-    await fetch(GOOGLE_SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: params.toString(),
-    });
+    // If fetch succeeded with 200 OK
+    if (response.ok) {
+      return { 
+        success: true, 
+        message: 'Thank you for reaching out. Mehul will contact you shortly to discuss suitable recovery and rehabilitation options.' 
+      };
+    }
 
-    console.log('[Google Apps Script POST] Successfully dispatched submission for:', payload.type || 'unknown');
-    return { 
-      success: true, 
-      message: 'Thank you for reaching out. Mehul will contact you shortly to discuss suitable recovery and rehabilitation options.' 
-    };
-  } catch (err) {
-    console.error('[Google Apps Script POST Error] Submission failed:', err);
+    console.error('[Google Apps Script Error] Server responded with HTTP status:', response.status);
     return { 
       success: false, 
-      error: 'Network error submitting request. Please try again or reach out directly.' 
+      error: `Server responded with status ${response.status}. Please try again.` 
+    };
+
+  } catch (err) {
+    console.error('[Google Apps Script Network/CORS Error] Failed to reach Apps Script Web App:', err);
+    console.error('DIAGNOSTIC NOTE: This error commonly occurs if the Google Apps Script deployment is set to "Who has access: Only myself" instead of "Anyone", or if the Web App URL has expired/changed.');
+    return { 
+      success: false, 
+      error: 'Unable to connect to the Google Sheets server. Please ensure the Apps Script Web App is deployed with "Who has access: Anyone".' 
     };
   }
 };

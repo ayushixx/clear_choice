@@ -1,53 +1,78 @@
 /**
  * ====================================================================
  * CLEAR CHOICE - GOOGLE APPS SCRIPT WEB APP ENDPOINT (Code.gs)
- * Production-Ready Apps Script for Google Sheets & Gmail Automation
+ * Production-Ready Apps Script for Google Sheets & Email Automation
  * 100% Free & Zero-Cost Solution
  * ====================================================================
  * 
- * SETUP INSTRUCTIONS FOR THE CLIENT:
+ * STEP-BY-STEP SETUP / RE-AUTHORIZATION FOR CLIENT ACCOUNT:
  * 1. Open Google Sheets (create or open your sheet titled "CLEAR CHOICE Leads").
  * 2. In the top menu, click Extensions > Apps Script.
  * 3. Replace all code in Code.gs with this exact file's code.
- * 4. Update CLIENT_EMAIL and API_SECRET_KEY constants below.
- * 5. Click Deploy > New Deployment > Select Type: Web App.
- * 6. Set:
- *    - Execute as: Me
- *    - Who has access: Anyone (or Anyone with Link)
- * 7. Copy the Web App URL (e.g., https://script.google.com/macros/s/AKfycb.../exec).
- * 8. Set VITE_GOOGLE_SCRIPT_URL and VITE_API_KEY in your website's .env file.
+ * 4. Update CLIENT_EMAIL below to Mehul / Client's email address.
+ * 5. Update API_SECRET_KEY below (must match VITE_API_KEY on the website).
+ * 6. Click "Deploy" (blue button at top right) > "New Deployment".
+ * 7. Click the gear icon next to "Select type" and choose "Web app".
+ * 8. Set:
+ *    - Description: CLEAR CHOICE Web App v2
+ *    - Execute as: Me (your-account@gmail.com)
+ *    - Who has access: Anyone (CRITICAL: Must be "Anyone" so website can submit)
+ * 9. Click "Deploy" and click "Authorize access". Choose your Google Account.
+ *    (If you see "Google hasn't verified this app", click "Advanced" > "Go to CLEAR CHOICE (unsafe)" > "Allow").
+ * 10. Copy the generated Web App URL (ends with /exec).
+ * 11. Put the URL in your website's .env file:
+ *     VITE_GOOGLE_SCRIPT_URL=https://script.google.com/macros/s/.../exec
+ *     VITE_API_KEY=CC12_9x8fK2Lm7pQzR5vN4sA2026
  * 
- * IMPORTANT: After updating this script, you must create a NEW deployment
- * version (Deploy > New Deployment) for changes to take effect.
+ * NOTE: Whenever code in Code.gs is edited, you MUST create a NEW deployment
+ * (Deploy > New Deployment) for changes to take effect on the live URL.
  */
 
-// CONFIGURATION (CLIENT EDITABLE)
-var SPREADSHEET_ID = "1sKc8TQrvv10j-_2V00Jbr7VYSDdptyoHq5pq6iKLfrc"; // Target Google Sheet ID
-var CLIENT_EMAIL = "client@clearchoice.org"; // Change to recipient email address (e.g., Mehul's email)
+// ─── CONFIGURATION (CLIENT EDITABLE) ──────────────────────────────────
+// Leave SPREADSHEET_ID empty if this script was opened from Extensions > Apps Script inside your sheet.
+var SPREADSHEET_ID = ""; // Optional: Fallback Google Sheet ID if running standalone
+var CLIENT_EMAIL = "client@clearchoice.org"; // Notification recipient email (e.g., Mehul's email)
 var API_SECRET_KEY = "CC12_9x8fK2Lm7pQzR5vN4sA2026"; // Secret key matching VITE_API_KEY
 
+/**
+ * Retrieves the Google Sheet instance.
+ * Automatically detects the container-bound spreadsheet, or falls back to SPREADSHEET_ID.
+ */
 function getSpreadsheet() {
-  if (SPREADSHEET_ID && SPREADSHEET_ID !== "") {
+  // 1. Container-bound sheet (Recommended: script opened directly from Sheet)
+  try {
+    var active = SpreadsheetApp.getActiveSpreadsheet();
+    if (active) {
+      return active;
+    }
+  } catch (e) {
+    Logger.log("[Warn] getActiveSpreadsheet failed: " + e.message);
+  }
+  
+  // 2. Fallback to SPREADSHEET_ID if provided
+  if (SPREADSHEET_ID && SPREADSHEET_ID.trim() !== "" && !SPREADSHEET_ID.includes("YOUR_SHEET_ID")) {
     try {
-      return SpreadsheetApp.openById(SPREADSHEET_ID);
+      return SpreadsheetApp.openById(SPREADSHEET_ID.trim());
     } catch (e) {
-      Logger.log("Could not open by ID, falling back to active spreadsheet: " + e.message);
+      Logger.log("[Error] openById failed: " + e.message);
+      throw new Error("Could not open Google Sheet with ID: " + SPREADSHEET_ID + " (" + e.message + ")");
     }
   }
-  return SpreadsheetApp.getActiveSpreadsheet();
+  
+  throw new Error("No active Google Spreadsheet found. Please ensure this script is attached to your Google Sheet (Extensions > Apps Script) or specify SPREADSHEET_ID.");
 }
 
 /**
- * GET Handler — serves two purposes:
- *   1. Health check (default): returns service status
- *   2. Admin data fetch (action=fetch): returns all sheet data as JSON for the admin panel
+ * GET Handler — handles:
+ *   1. Health check & diagnostic ping (default)
+ *   2. Admin data fetch (action=fetch)
+ *   3. Diagnostic test submission (action=test)
  */
 function doGet(e) {
   var action = (e && e.parameter) ? e.parameter.action : "";
   
   // ─── Admin Panel: Fetch all submissions ───
   if (action === "fetch") {
-    // Validate API key
     var providedKey = (e && e.parameter) ? (e.parameter.apiKey || e.parameter.api_key || "") : "";
     if (API_SECRET_KEY !== "" && providedKey !== API_SECRET_KEY) {
       return ContentService.createTextOutput(JSON.stringify({
@@ -56,28 +81,287 @@ function doGet(e) {
       })).setMimeType(ContentService.MimeType.JSON);
     }
     
+    try {
+      var ss = getSpreadsheet();
+      var directoryInquiries = sheetToArray(ss, "Directory Inquiries");
+      var leads = sheetToArray(ss, "Lead Inquiries");
+      var contacts = sheetToArray(ss, "Contact Inquiries");
+      var callbacks = sheetToArray(ss, "Callback Requests");
+      
+      return ContentService.createTextOutput(JSON.stringify({
+        status: "success",
+        directoryInquiries: directoryInquiries || [],
+        leads: leads || [],
+        contacts: contacts || [],
+        callbacks: callbacks || [],
+        fetchedAt: new Date().toISOString()
+      })).setMimeType(ContentService.MimeType.JSON);
+    } catch (err) {
+      return ContentService.createTextOutput(JSON.stringify({
+        status: "error",
+        message: "Failed to fetch spreadsheet data: " + err.toString()
+      })).setMimeType(ContentService.MimeType.JSON);
+    }
+  }
+  
+  // ─── Test submission endpoint ───
+  if (action === "test") {
+    return handleSubmission({
+      type: "directory_inquiry",
+      apiKey: API_SECRET_KEY,
+      name: "Test Verification User",
+      relation: "Self",
+      location: "Mumbai, Maharashtra",
+      budget: "Flexible / Need Advice",
+      patientAge: "28",
+      substance: "Alcohol",
+      status: "New"
+    });
+  }
+
+  // ─── Default: Diagnostic Health Check ───
+  var sheetConnected = false;
+  var sheetTitle = "Unknown";
+  try {
     var ss = getSpreadsheet();
+    sheetConnected = !!ss;
+    sheetTitle = ss.getName();
+  } catch (err) {
+    sheetTitle = "Error: " + err.message;
+  }
+
+  return ContentService.createTextOutput(JSON.stringify({
+    status: "online",
+    service: "CLEAR CHOICE Google Sheets & Email Automation Web App",
+    sheetConnected: sheetConnected,
+    sheetTitle: sheetTitle,
+    emailConfigured: !!CLIENT_EMAIL,
+    serverTime: new Date().toISOString()
+  })).setMimeType(ContentService.MimeType.JSON);
+}
+
+/**
+ * POST Handler — processes all incoming form submissions from the website.
+ */
+function doPost(e) {
+  try {
+    var contents = {};
     
-    var directoryInquiries = sheetToArray(ss, "Directory Inquiries");
-    var leads = sheetToArray(ss, "Lead Inquiries");
-    var contacts = sheetToArray(ss, "Contact Inquiries");
-    var callbacks = sheetToArray(ss, "Callback Requests");
+    // Parse POST body (supports JSON or URL-encoded form data)
+    if (e && e.postData && e.postData.contents) {
+      try {
+        contents = JSON.parse(e.postData.contents);
+      } catch (jsonErr) {
+        contents = e.parameter || {};
+      }
+    } else if (e && e.parameter) {
+      contents = e.parameter;
+    }
     
+    // Fallback merge with URL parameters
+    if (e && e.parameter) {
+      for (var key in e.parameter) {
+        if (!contents[key]) {
+          contents[key] = e.parameter[key];
+        }
+      }
+    }
+
+    return handleSubmission(contents);
+  } catch (err) {
+    Logger.log("[Critical POST Error] " + err.toString());
     return ContentService.createTextOutput(JSON.stringify({
-      status: "success",
-      directoryInquiries: directoryInquiries,
-      leads: leads,
-      contacts: contacts,
-      callbacks: callbacks,
-      fetchedAt: new Date().toISOString()
+      status: "error",
+      message: "Server exception: " + err.toString()
+    })).setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+/**
+ * Handles validation, writing to Google Sheets, and dispatching email notifications.
+ */
+function handleSubmission(contents) {
+  Logger.log("[Submission Received] " + JSON.stringify(contents));
+  
+  // 1. API Key Validation
+  var providedKey = contents.apiKey || contents.api_key || "";
+  if (API_SECRET_KEY !== "" && providedKey !== API_SECRET_KEY) {
+    Logger.log("[Auth Failed] Provided key: " + providedKey);
+    return ContentService.createTextOutput(JSON.stringify({
+      status: "error",
+      message: "Unauthorized: Invalid API Key (" + providedKey + ")"
     })).setMimeType(ContentService.MimeType.JSON);
   }
   
-  // ─── Default: Health check ───
+  var type = contents.type || "contact";
+  var ss = getSpreadsheet();
+  var timestamp = new Date();
+  var targetSheetName = "";
+  var appendedRow = 0;
+  var emailStatus = "pending";
+
+  // ─── 2A. Recovery Directory Intake Form Submission ───
+  if (type === "directory_inquiry" || type === "recovery_directory_inquiry") {
+    targetSheetName = "Directory Inquiries";
+    var sheet = ss.getSheetByName(targetSheetName);
+    if (!sheet) {
+      sheet = ss.insertSheet(targetSheetName);
+    }
+    
+    // 8 Required Columns: Timestamp, Name, Relation With Patient, Location, Budget, Patient Age, Substance, Status
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow(["Timestamp", "Name", "Relation With Patient", "Location", "Budget", "Patient Age", "Substance", "Status"]);
+      sheet.getRange(1, 1, 1, 8).setFontWeight("bold").setBackground("#781353").setFontColor("#FFFFFF");
+    }
+    
+    var name = contents.name || contents.fullName || contents.full_name || "N/A";
+    var relation = contents.relationWithPatient || contents.relation_with_patient || contents.relation || "Self";
+    var location = contents.location || "Not specified";
+    var budget = contents.budget || contents.budgetRange || contents.budget_range || "Flexible / Need Advice";
+    var patientAge = contents.patientAge || contents.patient_age || contents.age || "Not specified";
+    var substance = contents.substance || "Not specified";
+    var status = "New";
+    
+    sheet.appendRow([timestamp, name, relation, location, budget, patientAge, substance, status]);
+    appendedRow = sheet.getLastRow();
+    
+    // Send Instant Email Notification
+    emailStatus = sendEmailNotification("Recovery Directory Inquiry", {
+      "Name": name,
+      "Relation With Patient": relation,
+      "Location": location,
+      "Budget": budget,
+      "Patient Age": patientAge,
+      "Substance": substance,
+      "Status": status,
+      "Submitted At": timestamp.toLocaleString()
+    });
+
+    return ContentService.createTextOutput(JSON.stringify({
+      status: "success",
+      sheet: targetSheetName,
+      row: appendedRow,
+      emailStatus: emailStatus,
+      message: "Thank you for reaching out. Mehul will contact you shortly to discuss suitable recovery and rehabilitation options."
+    })).setMimeType(ContentService.MimeType.JSON);
+
+  // ─── 2B. Contact Form Submission ───
+  } else if (type === "contact") {
+    targetSheetName = "Contact Inquiries";
+    var sheet = ss.getSheetByName(targetSheetName);
+    if (!sheet) {
+      sheet = ss.insertSheet(targetSheetName);
+    }
+    
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow(["Timestamp", "Full Name", "Phone", "Message", "Status"]);
+      sheet.getRange(1, 1, 1, 5).setFontWeight("bold").setBackground("#2E031D").setFontColor("#FFFFFF");
+    }
+    
+    var fullName = contents.fullName || contents.full_name || contents.name || "N/A";
+    var phone = contents.phone || "N/A";
+    var message = contents.message || "";
+    
+    sheet.appendRow([timestamp, fullName, phone, message, "New"]);
+    appendedRow = sheet.getLastRow();
+    
+    emailStatus = sendEmailNotification("Contact Form Inquiry", {
+      "Full Name": fullName,
+      "Phone": phone,
+      "Message": message,
+      "Submitted At": timestamp.toLocaleString()
+    });
+
+    return ContentService.createTextOutput(JSON.stringify({
+      status: "success",
+      sheet: targetSheetName,
+      row: appendedRow,
+      emailStatus: emailStatus,
+      message: "Contact inquiry logged successfully in Google Sheets."
+    })).setMimeType(ContentService.MimeType.JSON);
+
+  // ─── 2C. Callback Request Submission ───
+  } else if (type === "callback") {
+    targetSheetName = "Callback Requests";
+    var sheet = ss.getSheetByName(targetSheetName);
+    if (!sheet) {
+      sheet = ss.insertSheet(targetSheetName);
+    }
+    
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow(["Timestamp", "Name", "Phone", "Concern Type", "Preferred Time", "Message", "Status"]);
+      sheet.getRange(1, 1, 1, 7).setFontWeight("bold").setBackground("#781353").setFontColor("#FFFFFF");
+    }
+    
+    var name = contents.name || contents.fullName || "N/A";
+    var phone = contents.phone || "N/A";
+    var concernType = contents.concernType || contents.concern_type || "General Inquiry";
+    var callbackTime = contents.callbackTime || contents.callback_time || "Morning (9 AM - 12 PM)";
+    var message = contents.message || "";
+    
+    sheet.appendRow([timestamp, name, phone, concernType, callbackTime, message, "New"]);
+    appendedRow = sheet.getLastRow();
+    
+    emailStatus = sendEmailNotification("Callback Consultation Request", {
+      "Name": name,
+      "Phone": phone,
+      "Concern Type": concernType,
+      "Preferred Time": callbackTime,
+      "Message": message,
+      "Submitted At": timestamp.toLocaleString()
+    });
+
+    return ContentService.createTextOutput(JSON.stringify({
+      status: "success",
+      sheet: targetSheetName,
+      row: appendedRow,
+      emailStatus: emailStatus,
+      message: "Callback request logged successfully in Google Sheets."
+    })).setMimeType(ContentService.MimeType.JSON);
+
+  // ─── 2D. Lead Inquiry (Get to Know More) Submission ───
+  } else if (type === "lead") {
+    targetSheetName = "Lead Inquiries";
+    var sheet = ss.getSheetByName(targetSheetName);
+    if (!sheet) {
+      sheet = ss.insertSheet(targetSheetName);
+    }
+    
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow(["Timestamp", "Name", "Phone", "Email", "Substance / Concern", "Message", "Status"]);
+      sheet.getRange(1, 1, 1, 7).setFontWeight("bold").setBackground("#B45309").setFontColor("#FFFFFF");
+    }
+    
+    var name = contents.name || "N/A";
+    var phone = contents.phone || "N/A";
+    var email = contents.email || "";
+    var substance = contents.substance || "Not specified";
+    var message = contents.message || "";
+    
+    sheet.appendRow([timestamp, name, phone, email, substance, message, "New"]);
+    appendedRow = sheet.getLastRow();
+    
+    emailStatus = sendEmailNotification("Lead Inquiry (Get to Know More)", {
+      "Name": name,
+      "Phone": phone,
+      "Email": email || "Not provided",
+      "Substance / Concern": substance,
+      "Message": message || "No message",
+      "Submitted At": timestamp.toLocaleString()
+    });
+
+    return ContentService.createTextOutput(JSON.stringify({
+      status: "success",
+      sheet: targetSheetName,
+      row: appendedRow,
+      emailStatus: emailStatus,
+      message: "Lead inquiry logged successfully in Google Sheets."
+    })).setMimeType(ContentService.MimeType.JSON);
+  }
+
   return ContentService.createTextOutput(JSON.stringify({
-    status: "online",
-    service: "CLEAR CHOICE Google Sheets & Gmail Web App Endpoint",
-    time: new Date().toISOString()
+    status: "error",
+    message: "Unknown submission type: " + type
   })).setMimeType(ContentService.MimeType.JSON);
 }
 
@@ -93,7 +377,6 @@ function sheetToArray(ss, sheetName) {
   var headers = data[0]; // First row = headers
   var results = [];
   
-  // Map header names to camelCase keys for the frontend
   var keyMap = {
     "Timestamp": "timestamp",
     "Full Name": "fullName",
@@ -122,7 +405,6 @@ function sheetToArray(ss, sheetName) {
       var key = keyMap[headers[j]] || headers[j].toLowerCase().replace(/\s+/g, '_');
       var value = data[i][j];
       
-      // Convert Date objects to ISO strings
       if (value instanceof Date) {
         value = value.toISOString();
       }
@@ -138,189 +420,23 @@ function sheetToArray(ss, sheetName) {
     results.push(row);
   }
   
-  // Return newest first
-  results.reverse();
+  results.reverse(); // Newest first
   return results;
 }
 
-function doPost(e) {
-  try {
-    var contents = {};
-    
-    // Parse postBody if JSON string
-    if (e && e.postData && e.postData.contents) {
-      try {
-        contents = JSON.parse(e.postData.contents);
-      } catch (jsonErr) {
-        contents = e.parameter || {};
-      }
-    } else if (e && e.parameter) {
-      contents = e.parameter;
-    }
-    
-    // Fallback merge with URL parameters
-    if (e && e.parameter) {
-      for (var key in e.parameter) {
-        if (!contents[key]) {
-          contents[key] = e.parameter[key];
-        }
-      }
-    }
-    
-    // 1. API Key Validation
-    var providedKey = contents.apiKey || contents.api_key || (e && e.parameter ? e.parameter.apiKey : "");
-    if (API_SECRET_KEY !== "" && providedKey !== API_SECRET_KEY) {
-      return ContentService.createTextOutput(JSON.stringify({
-        status: "error",
-        message: "Unauthorized: Invalid API Key (" + providedKey + ")"
-      })).setMimeType(ContentService.MimeType.JSON);
-    }
-    
-    var type = contents.type || (e && e.parameter ? e.parameter.type : "contact");
-    var ss = getSpreadsheet();
-    var timestamp = new Date();
-    
-    if (type === "directory_inquiry" || type === "recovery_directory_inquiry") {
-      // 2A. Process Recovery Directory Intake Form Submission
-      var sheet = ss.getSheetByName("Directory Inquiries");
-      if (!sheet) {
-        sheet = ss.insertSheet("Directory Inquiries");
-      }
-      
-      // Ensure Headers: Timestamp, Name, Relation With Patient, Location, Budget, Patient Age, Substance, Status
-      if (sheet.getLastRow() === 0) {
-        sheet.appendRow(["Timestamp", "Name", "Relation With Patient", "Location", "Budget", "Patient Age", "Substance", "Status"]);
-        sheet.getRange(1, 1, 1, 8).setFontWeight("bold").setBackground("#781353").setFontColor("#FFFFFF");
-      }
-      
-      var name = contents.name || contents.fullName || contents.full_name || "N/A";
-      var relation = contents.relationWithPatient || contents.relation_with_patient || contents.relation || "Self";
-      var location = contents.location || "Not specified";
-      var budget = contents.budget || contents.budgetRange || contents.budget_range || "Flexible";
-      var patientAge = contents.patientAge || contents.patient_age || contents.age || "Not specified";
-      var substance = contents.substance || "Not specified";
-      var status = "New";
-      
-      sheet.appendRow([timestamp, name, relation, location, budget, patientAge, substance, status]);
-      
-      // Send Instant Gmail Notification to Mehul & Team
-      sendGmailNotification("Recovery Directory Inquiry", {
-        "Name": name,
-        "Relation With Patient": relation,
-        "Location": location,
-        "Budget": budget,
-        "Patient Age": patientAge,
-        "Substance": substance,
-        "Status": status,
-        "Submitted At": timestamp.toLocaleString()
-      });
-
-      return ContentService.createTextOutput(JSON.stringify({
-        status: "success",
-        message: "Directory inquiry logged successfully in Google Sheets."
-      })).setMimeType(ContentService.MimeType.JSON);
-
-    } else if (type === "contact") {
-      // 2B. Process Contact Form Submission
-      var sheet = ss.getSheetByName("Contact Inquiries") || ss.insertSheet("Contact Inquiries");
-      
-      // Ensure Headers
-      if (sheet.getLastRow() === 0) {
-        sheet.appendRow(["Timestamp", "Full Name", "Phone", "Message", "Status"]);
-        sheet.getRange(1, 1, 1, 5).setFontWeight("bold").setBackground("#2E031D").setFontColor("#FFFFFF");
-      }
-      
-      var fullName = contents.fullName || contents.full_name || contents.name || "N/A";
-      var phone = contents.phone || "N/A";
-      var message = contents.message || "";
-      
-      sheet.appendRow([timestamp, fullName, phone, message, "New"]);
-      
-      // Send Instant Gmail Notification
-      sendGmailNotification("Contact Form Inquiry", {
-        "Full Name": fullName,
-        "Phone": phone,
-        "Message": message,
-        "Submitted At": timestamp.toLocaleString()
-      });
-      
-    } else if (type === "callback") {
-      // 2C. Process Callback Request Submission
-      var sheet = ss.getSheetByName("Callback Requests") || ss.insertSheet("Callback Requests");
-      
-      // Ensure Headers
-      if (sheet.getLastRow() === 0) {
-        sheet.appendRow(["Timestamp", "Name", "Phone", "Concern Type", "Preferred Time", "Message", "Status"]);
-        sheet.getRange(1, 1, 1, 7).setFontWeight("bold").setBackground("#781353").setFontColor("#FFFFFF");
-      }
-      
-      var name = contents.name || contents.fullName || "N/A";
-      var phone = contents.phone || "N/A";
-      var concernType = contents.concernType || contents.concern_type || "General Inquiry";
-      var callbackTime = contents.callbackTime || contents.callback_time || "Morning (9 AM - 12 PM)";
-      var message = contents.message || "";
-      
-      sheet.appendRow([timestamp, name, phone, concernType, callbackTime, message, "New"]);
-      
-      // Send Instant Gmail Notification
-      sendGmailNotification("Callback Consultation Request", {
-        "Name": name,
-        "Phone": phone,
-        "Concern Type": concernType,
-        "Preferred Time": callbackTime,
-        "Message": message,
-        "Submitted At": timestamp.toLocaleString()
-      });
-
-    } else if (type === "lead") {
-      // 2D. Process Lead Inquiry (Get to Know More) Submission
-      var sheet = ss.getSheetByName("Lead Inquiries") || ss.insertSheet("Lead Inquiries");
-      
-      // Ensure Headers
-      if (sheet.getLastRow() === 0) {
-        sheet.appendRow(["Timestamp", "Name", "Phone", "Email", "Substance / Concern", "Message", "Status"]);
-        sheet.getRange(1, 1, 1, 7).setFontWeight("bold").setBackground("#B45309").setFontColor("#FFFFFF");
-      }
-      
-      var name = contents.name || "N/A";
-      var phone = contents.phone || "N/A";
-      var email = contents.email || "";
-      var substance = contents.substance || "Not specified";
-      var message = contents.message || "";
-      
-      sheet.appendRow([timestamp, name, phone, email, substance, message, "New"]);
-      
-      // Send Instant Gmail Notification
-      sendGmailNotification("Lead Inquiry (Get to Know More)", {
-        "Name": name,
-        "Phone": phone,
-        "Email": email || "Not provided",
-        "Substance / Concern": substance,
-        "Message": message || "No message",
-        "Submitted At": timestamp.toLocaleString()
-      });
-    }
-    
-    return ContentService.createTextOutput(JSON.stringify({
-      status: "success",
-      message: "Submission logged in Google Sheets and notification email dispatched."
-    })).setMimeType(ContentService.MimeType.JSON);
-    
-  } catch (err) {
-    return ContentService.createTextOutput(JSON.stringify({
-      status: "error",
-      message: err.toString()
-    })).setMimeType(ContentService.MimeType.JSON);
-  }
-}
-
 /**
- * Sends formatted Gmail notification using Google Apps Script GmailApp
+ * Sends formatted email notification using MailApp first (works on any Google account),
+ * with fallback to GmailApp. Logs outcomes clearly.
  */
-function sendGmailNotification(subjectType, data) {
-  var subject = "[CLEAR CHOICE ALERT] New " + subjectType + ": " + (data["Full Name"] || data["Name"]);
+function sendEmailNotification(subjectType, data) {
+  if (!CLIENT_EMAIL || CLIENT_EMAIL.includes("@client.com") || CLIENT_EMAIL.includes("your-email")) {
+    Logger.log("[Email Skipped] CLIENT_EMAIL is using placeholder: " + CLIENT_EMAIL);
+    return "skipped_unconfigured";
+  }
+
+  var subject = "[CLEAR CHOICE ALERT] New " + subjectType + ": " + (data["Name"] || data["Full Name"] || "Inquiry");
   
-  var body = "NEW FORM SUBMISSION RECEIVED\n";
+  var body = "NEW CLEAR CHOICE INQUIRY RECEIVED\n";
   body += "========================================\n\n";
   
   for (var key in data) {
@@ -328,11 +444,25 @@ function sendGmailNotification(subjectType, data) {
   }
   
   body += "\n========================================\n";
-  body += "All entries are automatically recorded in your Google Sheet.";
-  
+  body += "All entries are automatically recorded in your Google Sheet.\n";
+  body += "Clear Choice Recovery Platform (https://clearchoice.org)";
+
+  // 1. Try MailApp
   try {
-    GmailApp.sendEmail(CLIENT_EMAIL, subject, body);
-  } catch (err) {
-    Logger.log("Failed to send Gmail: " + err.toString());
+    MailApp.sendEmail(CLIENT_EMAIL, subject, body);
+    Logger.log("[Email Success] Sent via MailApp to: " + CLIENT_EMAIL);
+    return "sent_via_mailapp";
+  } catch (mailErr) {
+    Logger.log("[Warn] MailApp failed (" + mailErr.toString() + "). Trying GmailApp...");
+    
+    // 2. Fallback to GmailApp
+    try {
+      GmailApp.sendEmail(CLIENT_EMAIL, subject, body);
+      Logger.log("[Email Success] Sent via GmailApp to: " + CLIENT_EMAIL);
+      return "sent_via_gmailapp";
+    } catch (gmailErr) {
+      Logger.log("[Error] Both MailApp and GmailApp failed: " + gmailErr.toString());
+      return "failed: " + gmailErr.toString();
+    }
   }
 }
