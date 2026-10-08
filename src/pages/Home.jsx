@@ -378,12 +378,6 @@ export default function Home({ setActivePage }) {
 
               {/* Content Column: Right on Desktop, Below on Tablet/Mobile */}
               <div className="lg:col-span-6 space-y-4 sm:space-y-5 text-center lg:text-left">
-                
-                {/* Trust Badge */}
-                <div className="inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#781353]/10 dark:bg-[#E03590]/15 border border-[#781353]/20 dark:border-[#E03590]/30 text-[#781353] dark:text-[#E03590] text-xs font-mono font-semibold">
-                  <Check className="w-3.5 h-3.5 stroke-[2.5]" />
-                  <span>Public Recognition</span>
-                </div>
 
                 {/* Text Content */}
                 <div className="space-y-1.5">
