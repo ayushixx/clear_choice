@@ -33,7 +33,8 @@ const postToGoogleScript = async (payload) => {
   }
 
   try {
-    console.log('[Google Apps Script POST] Dispatching payload to:', GOOGLE_SCRIPT_URL, payload);
+    const finalPayload = { apiKey: API_KEY, ...payload };
+    console.log('[Google Apps Script POST] Dispatching payload to:', GOOGLE_SCRIPT_URL, finalPayload);
 
     // Use text/plain with JSON body — this avoids CORS preflight failures on 302 redirects
     // while allowing Google Apps Script to parse JSON via e.postData.contents.
@@ -42,7 +43,7 @@ const postToGoogleScript = async (payload) => {
       headers: {
         'Content-Type': 'text/plain;charset=utf-8',
       },
-      body: JSON.stringify(payload),
+      body: JSON.stringify(finalPayload),
     });
 
     if (response.ok) {
