@@ -101,7 +101,9 @@ function sheetToArray(ss, sheetName) {
     "Phone": "phone",
     "Email": "email",
     "Relation": "relation",
+    "Relation With Patient": "relation",
     "Location": "location",
+    "Budget": "budget",
     "Budget Range": "budgetRange",
     "Patient Age": "patientAge",
     "Age": "patientAge",
@@ -126,6 +128,13 @@ function sheetToArray(ss, sheetName) {
       }
       row[key] = value;
     }
+    
+    // Cross-populate aliases for frontend compatibility
+    if (row.name && !row.fullName) row.fullName = row.name;
+    if (row.fullName && !row.name) row.name = row.fullName;
+    if (row.budget && !row.budgetRange) row.budgetRange = row.budget;
+    if (row.budgetRange && !row.budget) row.budget = row.budgetRange;
+
     results.push(row);
   }
   
@@ -173,37 +182,43 @@ function doPost(e) {
     
     if (type === "directory_inquiry" || type === "recovery_directory_inquiry") {
       // 2A. Process Recovery Directory Intake Form Submission
-      var sheet = ss.getSheetByName("Directory Inquiries") || ss.insertSheet("Directory Inquiries");
-      
-      // Ensure Headers (Clean layout without optional notes)
-      if (sheet.getLastRow() === 0) {
-        sheet.appendRow(["Timestamp", "Full Name", "Phone", "Relation", "Location", "Budget Range", "Patient Age", "Substance", "Source", "Status"]);
-        sheet.getRange(1, 1, 1, 10).setFontWeight("bold").setBackground("#781353").setFontColor("#FFFFFF");
+      var sheet = ss.getSheetByName("Directory Inquiries");
+      if (!sheet) {
+        sheet = ss.insertSheet("Directory Inquiries");
       }
       
-      var fullName = contents.fullName || contents.full_name || contents.name || "N/A";
-      var phone = contents.phone || "Not provided";
-      var relation = contents.relation || "Self";
+      // Ensure Headers: Timestamp, Name, Relation With Patient, Location, Budget, Patient Age, Substance, Status
+      if (sheet.getLastRow() === 0) {
+        sheet.appendRow(["Timestamp", "Name", "Relation With Patient", "Location", "Budget", "Patient Age", "Substance", "Status"]);
+        sheet.getRange(1, 1, 1, 8).setFontWeight("bold").setBackground("#781353").setFontColor("#FFFFFF");
+      }
+      
+      var name = contents.name || contents.fullName || contents.full_name || "N/A";
+      var relation = contents.relationWithPatient || contents.relation_with_patient || contents.relation || "Self";
       var location = contents.location || "Not specified";
-      var budgetRange = contents.budgetRange || contents.budget_range || "Flexible";
+      var budget = contents.budget || contents.budgetRange || contents.budget_range || "Flexible";
       var patientAge = contents.patientAge || contents.patient_age || contents.age || "Not specified";
       var substance = contents.substance || "Not specified";
-      var source = contents.source || "Recovery Directory Inquiry";
+      var status = "New";
       
-      sheet.appendRow([timestamp, fullName, phone, relation, location, budgetRange, patientAge, substance, source, "New"]);
+      sheet.appendRow([timestamp, name, relation, location, budget, patientAge, substance, status]);
       
       // Send Instant Gmail Notification to Mehul & Team
       sendGmailNotification("Recovery Directory Inquiry", {
-        "Full Name": fullName,
-        "Phone": phone,
-        "Relation with Patient": relation,
+        "Name": name,
+        "Relation With Patient": relation,
         "Location": location,
-        "Budget Range": budgetRange,
-        "Age of Patient": patientAge,
-        "Primary Substance / Concern": substance,
-        "Source": source,
+        "Budget": budget,
+        "Patient Age": patientAge,
+        "Substance": substance,
+        "Status": status,
         "Submitted At": timestamp.toLocaleString()
       });
+
+      return ContentService.createTextOutput(JSON.stringify({
+        status: "success",
+        message: "Directory inquiry logged successfully in Google Sheets."
+      })).setMimeType(ContentService.MimeType.JSON);
 
     } else if (type === "contact") {
       // 2B. Process Contact Form Submission

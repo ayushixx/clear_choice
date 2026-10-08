@@ -25,8 +25,11 @@ export const validatePhone = (phone) => {
  */
 const postToGoogleScript = async (payload) => {
   if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes('YOUR_SCRIPT_ID')) {
-    console.log('[Dev Mode] Form Payload (Unconfigured Web App URL):', payload);
-    return { success: true, message: 'Submission received (Dev Mode).' };
+    console.warn('[Google Apps Script - Dev Mode] Web App URL not set. Form Payload:', payload);
+    return { 
+      success: true, 
+      message: 'Thank you for reaching out. Mehul will contact you shortly to discuss suitable recovery and rehabilitation options.' 
+    };
   }
 
   try {
@@ -36,6 +39,8 @@ const postToGoogleScript = async (payload) => {
         params.append(key, payload[key]);
       }
     }
+
+    console.log('[Google Apps Script POST] Sending submission to:', GOOGLE_SCRIPT_URL, payload);
 
     // Google Apps Script Web Apps require no-cors mode with x-www-form-urlencoded
     // to bypass cross-origin redirect blocks on script.googleusercontent.com
@@ -48,11 +53,17 @@ const postToGoogleScript = async (payload) => {
       body: params.toString(),
     });
 
-    console.log('[Google Apps Script POST] Dispatched payload:', payload);
-    return { success: true, message: 'Thank you. Your entry has been recorded in Google Sheets.' };
+    console.log('[Google Apps Script POST] Successfully dispatched submission for:', payload.type || 'unknown');
+    return { 
+      success: true, 
+      message: 'Thank you for reaching out. Mehul will contact you shortly to discuss suitable recovery and rehabilitation options.' 
+    };
   } catch (err) {
-    console.error('[Google Script POST Error]', err);
-    return { success: false, error: 'Network error submitting request. Please try again.' };
+    console.error('[Google Apps Script POST Error] Submission failed:', err);
+    return { 
+      success: false, 
+      error: 'Network error submitting request. Please try again or reach out directly.' 
+    };
   }
 };
 
@@ -61,44 +72,79 @@ const postToGoogleScript = async (payload) => {
  */
 export const submitRecoveryDirectoryInquiry = async (formData) => {
   const { 
+    name,
     fullName, 
     phone, 
     relation, 
     location, 
+    budget,
     budgetRange, 
     patientAge, 
     substance, 
     message 
   } = formData;
 
-  if (!fullName || !fullName.trim()) {
+  const resolvedName = (name || fullName || '').trim();
+  const resolvedRelation = (relation || '').trim();
+  const resolvedLocation = (location || '').trim();
+  const resolvedAge = (patientAge !== undefined && patientAge !== null) ? String(patientAge).trim() : '';
+  const resolvedSubstance = (substance || '').trim();
+  const resolvedBudget = (budget || budgetRange || '').trim();
+
+  // Validate required fields
+  if (!resolvedName) {
+    console.warn('[Validation Error] Directory Inquiry: Name is required.');
     return { success: false, error: 'Please enter your full name.' };
   }
 
+  if (!resolvedRelation) {
+    console.warn('[Validation Error] Directory Inquiry: Relation with patient is required.');
+    return { success: false, error: 'Please select or specify your relation with the patient.' };
+  }
+
+  if (!resolvedLocation) {
+    console.warn('[Validation Error] Directory Inquiry: Location is required.');
+    return { success: false, error: 'Please enter your location (city / state).' };
+  }
+
+  if (!resolvedAge) {
+    console.warn('[Validation Error] Directory Inquiry: Patient Age is required.');
+    return { success: false, error: 'Please enter the age of the patient.' };
+  }
+
+  if (!resolvedSubstance) {
+    console.warn('[Validation Error] Directory Inquiry: Substance is required.');
+    return { success: false, error: 'Please select or specify the primary substance / concern.' };
+  }
+
   if (phone && !validatePhone(phone)) {
-    return { success: false, error: 'Please enter a valid phone number (at least 8-10 digits).' };
+    console.warn('[Validation Error] Directory Inquiry: Invalid phone format.');
+    return { success: false, error: 'Please enter a valid contact number (8-15 digits).' };
   }
 
   const payload = {
     type: 'directory_inquiry',
-    source: 'Recovery Directory Inquiry',
     apiKey: API_KEY,
-    fullName: fullName.trim(),
-    name: fullName.trim(),
+    name: resolvedName,
+    fullName: resolvedName,
+    relation: resolvedRelation,
+    relationWithPatient: resolvedRelation,
+    location: resolvedLocation,
+    budget: resolvedBudget || 'Flexible / Need Advice',
+    budgetRange: resolvedBudget || 'Flexible / Need Advice',
+    patientAge: resolvedAge,
+    substance: resolvedSubstance,
     phone: phone ? phone.trim() : 'Not provided',
-    relation: relation || 'Self',
-    location: location ? location.trim() : 'Not specified',
-    budgetRange: budgetRange || 'Flexible',
-    patientAge: patientAge ? String(patientAge).trim() : 'Not specified',
-    substance: substance || 'Not specified',
     message: message ? message.trim() : '',
+    status: 'New',
+    source: 'Recovery Directory Inquiry'
   };
 
   // Track event in GA4
   try {
-    trackRecoveryDirectoryInquiry(payload.substance, payload.budgetRange);
+    trackRecoveryDirectoryInquiry(payload.substance, payload.budget);
   } catch (trackErr) {
-    console.warn('Analytics tracking error:', trackErr);
+    console.warn('[GA4 Analytics] Tracking error for directory inquiry:', trackErr);
   }
 
   return await postToGoogleScript(payload);

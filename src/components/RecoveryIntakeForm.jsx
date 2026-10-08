@@ -48,18 +48,21 @@ const SUBSTANCE_OPTIONS = [
   'Other'
 ];
 
+const INITIAL_FORM_STATE = {
+  fullName: '',
+  phone: '',
+  relation: 'Self',
+  customRelation: '',
+  location: '',
+  budgetRange: 'Flexible / Need Advice',
+  patientAge: '',
+  substance: 'Alcohol',
+  customSubstance: ''
+};
+
 export default function RecoveryIntakeForm({ onComplete, onSkip }) {
-  const [formData, setFormData] = useState({
-    fullName: '',
-    phone: '',
-    relation: 'Self',
-    customRelation: '',
-    location: '',
-    budgetRange: 'Flexible / Need Advice',
-    patientAge: '',
-    substance: 'Alcohol',
-    customSubstance: ''
-  });
+  const [formData, setFormData] = useState(INITIAL_FORM_STATE);
+  const [submittedSnapshot, setSubmittedSnapshot] = useState(null);
 
   const [submitting, setSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -113,38 +116,50 @@ export default function RecoveryIntakeForm({ onComplete, onSkip }) {
       ? `Other (${formData.customSubstance.trim()})`
       : formData.substance;
 
+    const finalBudget = formData.budgetRange || 'Flexible / Need Advice';
+
+    const submissionData = {
+      name: formData.fullName.trim(),
+      fullName: formData.fullName.trim(),
+      phone: formData.phone.trim(),
+      relation: finalRelation,
+      location: formData.location.trim(),
+      budget: finalBudget,
+      budgetRange: finalBudget,
+      patientAge: formData.patientAge.trim(),
+      substance: finalSubstance,
+      turnstileToken
+    };
+
     setSubmitting(true);
 
     try {
-      const result = await submitRecoveryDirectoryInquiry({
-        fullName: formData.fullName,
-        phone: formData.phone,
-        relation: finalRelation,
-        location: formData.location,
-        budgetRange: formData.budgetRange,
-        patientAge: formData.patientAge,
-        substance: finalSubstance,
-        turnstileToken
-      });
+      const result = await submitRecoveryDirectoryInquiry(submissionData);
 
       if (result.success) {
         setIsSuccess(true);
+        setSubmittedSnapshot({
+          ...submissionData,
+          displayRelation: finalRelation,
+          displaySubstance: finalSubstance
+        });
+
+        // Clear the form after successful submission
+        setFormData(INITIAL_FORM_STATE);
+
         // Save submission state to sessionStorage so page retains unlock on reload
         try {
           sessionStorage.setItem('cc_recovery_intake_submitted', 'true');
-          sessionStorage.setItem('cc_recovery_intake_data', JSON.stringify({
-            ...formData,
-            relation: finalRelation,
-            substance: finalSubstance
-          }));
+          sessionStorage.setItem('cc_recovery_intake_data', JSON.stringify(submissionData));
         } catch (storageErr) {
           console.warn('Storage unavailable:', storageErr);
         }
       } else {
+        console.error('[Directory Inquiry] Submission error returned:', result.error);
         setErrorMsg(result.error || 'Unable to submit your inquiry. Please check your connection and try again.');
       }
     } catch (err) {
-      console.error('Submission error:', err);
+      console.error('[Directory Inquiry] Critical network exception:', err);
       setErrorMsg('A network error occurred. Please try again.');
     } finally {
       setSubmitting(false);
@@ -153,16 +168,22 @@ export default function RecoveryIntakeForm({ onComplete, onSkip }) {
 
   const handleReset = () => {
     setIsSuccess(false);
+    setSubmittedSnapshot(null);
+    setFormData(INITIAL_FORM_STATE);
     setErrorMsg('');
   };
 
-  const displayRelation = formData.relation === 'Other' && formData.customRelation 
-    ? `Other: ${formData.customRelation}` 
-    : formData.relation;
+  const displayRelation = submittedSnapshot 
+    ? submittedSnapshot.displayRelation 
+    : (formData.relation === 'Other' && formData.customRelation ? `Other: ${formData.customRelation}` : formData.relation);
 
-  const displaySubstance = formData.substance === 'Other' && formData.customSubstance 
-    ? `Other: ${formData.customSubstance}` 
-    : formData.substance;
+  const displaySubstance = submittedSnapshot
+    ? submittedSnapshot.displaySubstance
+    : (formData.substance === 'Other' && formData.customSubstance ? `Other: ${formData.customSubstance}` : formData.substance);
+
+  const displayAge = submittedSnapshot ? submittedSnapshot.patientAge : formData.patientAge;
+  const displayLocation = submittedSnapshot ? submittedSnapshot.location : formData.location;
+  const displayBudget = submittedSnapshot ? submittedSnapshot.budget : formData.budgetRange;
 
   return (
     <div className="w-full">
@@ -200,7 +221,7 @@ export default function RecoveryIntakeForm({ onComplete, onSkip }) {
             {/* Polite Confirmation Message */}
             <div className="bg-emerald-950/10 dark:bg-emerald-950/30 border border-emerald-500/20 rounded-2xl p-5 sm:p-6 space-y-3">
               <p className="text-sm sm:text-base text-[var(--text-primary)] font-serif font-medium leading-relaxed">
-                “Thank you for sharing the details. Mehul will review your request and get in touch with you soon to help you explore suitable recovery options.”
+                “Thank you for reaching out. Mehul will contact you shortly to discuss suitable recovery and rehabilitation options.”
               </p>
               <div className="flex items-center gap-2 text-xs text-muted font-mono">
                 <ShieldCheck className="w-4 h-4 text-emerald-500 shrink-0" />
@@ -220,11 +241,11 @@ export default function RecoveryIntakeForm({ onComplete, onSkip }) {
                 </div>
                 <div className="bg-[var(--bg-secondary)] p-3 rounded-xl border border-editorial">
                   <span className="text-[9px] font-mono text-muted block uppercase">Age of Patient</span>
-                  <span className="font-semibold text-[var(--text-primary)] mt-0.5 block truncate">{formData.patientAge} yrs</span>
+                  <span className="font-semibold text-[var(--text-primary)] mt-0.5 block truncate">{displayAge ? `${displayAge} yrs` : '—'}</span>
                 </div>
                 <div className="bg-[var(--bg-secondary)] p-3 rounded-xl border border-editorial">
                   <span className="text-[9px] font-mono text-muted block uppercase">Location</span>
-                  <span className="font-semibold text-[var(--text-primary)] mt-0.5 block truncate">{formData.location}</span>
+                  <span className="font-semibold text-[var(--text-primary)] mt-0.5 block truncate">{displayLocation || '—'}</span>
                 </div>
                 <div className="bg-[var(--bg-secondary)] p-3 rounded-xl border border-editorial">
                   <span className="text-[9px] font-mono text-muted block uppercase">Substance</span>
@@ -238,7 +259,7 @@ export default function RecoveryIntakeForm({ onComplete, onSkip }) {
               <button
                 type="button"
                 onClick={() => {
-                  if (onComplete) onComplete(formData);
+                  if (onComplete) onComplete(submittedSnapshot || formData);
                 }}
                 className="w-full sm:flex-1 bg-[#2E031D] hover:bg-[#4E0834] text-white py-4 px-6 rounded-full font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2.5 transition-all shadow-lg min-h-[48px] btn-tap touch-target cursor-pointer"
               >
@@ -252,7 +273,7 @@ export default function RecoveryIntakeForm({ onComplete, onSkip }) {
                 className="w-full sm:w-auto px-5 py-3.5 text-xs font-mono font-bold text-muted hover:text-[var(--text-primary)] bg-[var(--bg-secondary)] hover:bg-[var(--bg-secondary)]/80 border border-editorial rounded-full transition-all flex items-center justify-center gap-1.5 min-h-[48px] btn-tap touch-target cursor-pointer"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
-                <span>Edit Details</span>
+                <span>Submit Another Inquiry</span>
               </button>
             </div>
           </motion.div>
@@ -426,7 +447,7 @@ export default function RecoveryIntakeForm({ onComplete, onSkip }) {
               <div className="space-y-2">
                 <label className="block font-semibold text-[var(--text-primary)] flex items-center gap-1.5">
                   <IndianRupee className="w-3.5 h-3.5 text-[#781353] dark:text-[#E03590]" />
-                  Budget Range <span className="text-red-500">*</span>
+                  Budget Range <span className="text-muted text-[10px] font-normal font-mono">(Optional)</span>
                 </label>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                   {BUDGET_OPTIONS.map((budget) => {

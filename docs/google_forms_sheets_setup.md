@@ -7,9 +7,11 @@ This guide explains how to set up the **100% Free Google Sheets & Gmail Integrat
 ## Step 1: Create the Google Sheet
 1. Go to [Google Sheets](https://sheets.google.com) and create a new blank spreadsheet.
 2. Name the spreadsheet: `CLEAR CHOICE Leads`.
-3. At the bottom of the spreadsheet, create two tabs:
-   - `Contact Inquiries`
-   - `Callback Requests`
+3. (Optional - Apps Script will auto-create them automatically if missing) Create the tabs:
+   - `Directory Inquiries` (Columns: `Timestamp`, `Name`, `Relation With Patient`, `Location`, `Budget`, `Patient Age`, `Substance`, `Status`)
+   - `Contact Inquiries` (Columns: `Timestamp`, `Full Name`, `Phone`, `Message`, `Status`)
+   - `Callback Requests` (Columns: `Timestamp`, `Name`, `Phone`, `Concern Type`, `Preferred Time`, `Message`, `Status`)
+   - `Lead Inquiries` (Columns: `Timestamp`, `Name`, `Phone`, `Email`, `Substance / Concern`, `Message`, `Status`)
 
 ---
 
@@ -18,7 +20,7 @@ This guide explains how to set up the **100% Free Google Sheets & Gmail Integrat
 2. Erase any code inside `Code.gs` and paste the contents of [`scripts/google_apps_script.js`](../scripts/google_apps_script.js).
 3. Update the configuration variables at the top of the file:
    ```javascript
-   var CLIENT_EMAIL = "your-email@client.com"; // Your notification recipient email
+   var CLIENT_EMAIL = "your-email@client.com"; // Your notification recipient email (e.g., Mehul's email)
    var API_SECRET_KEY = "YOUR_SECRET_API_KEY"; // Secret key matching VITE_API_KEY
    ```
 4. Click the **Save** icon (disk icon) or press `Ctrl + S` / `Cmd + S`.
@@ -36,6 +38,8 @@ This guide explains how to set up the **100% Free Google Sheets & Gmail Integrat
 5. Grant permissions if prompted by Google (click *Advanced* > *Go to CLEAR CHOICE Script (unsafe)* > *Allow*).
 6. Copy the generated **Web App URL** (e.g. `https://script.google.com/macros/s/AKfycb.../exec`).
 
+> **IMPORTANT**: Whenever you update `Code.gs`, you MUST create a new deployment (**Deploy > New Deployment**) or update the existing deployment to ensure the newest code is active.
+
 ---
 
 ## Step 4: Configure Website Environment Variables
@@ -49,9 +53,10 @@ VITE_API_KEY=YOUR_SECRET_API_KEY
 ---
 
 ## How It Works
-- When a user submits the **Contact Form**, a new row is automatically added to the `Contact Inquiries` sheet and an instant email notification is sent via Gmail to `CLIENT_EMAIL`.
-- When a user submits the **Callback Request Form**, a new row is automatically added to the `Callback Requests` sheet and an instant email notification is sent via Gmail.
-- All leads remain private in Google Sheets and are accessible anytime.
+- **Directory Inquiries Form**: Submissions are automatically appended to the `Directory Inquiries` sheet with status `New`, and an instant email alert is dispatched to Mehul/team. If the sheet doesn't exist, Apps Script creates it automatically with formatted headers.
+- **Contact Form**: Appends to `Contact Inquiries` sheet with instant Gmail notification.
+- **Callback Request Form**: Appends to `Callback Requests` sheet with instant Gmail notification.
+- **Admin Panel**: Fetches all inquiries in real-time using `?action=fetch` with API key validation.
 
 ---
 

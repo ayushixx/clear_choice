@@ -83,8 +83,8 @@ export default function AdminPanel({ setActivePage }) {
           { timestamp: new Date(Date.now() - 7200000).toISOString(), name: 'Callback User', phone: '+91 88776 65544', concernType: 'Alcohol Recovery', callbackTime: 'Morning (9 AM - 12 PM)', message: 'Please call back ASAP' },
         ];
         const sampleDirectory = [
-          { timestamp: new Date().toISOString(), fullName: 'Rahul Sharma', phone: '+91 98765 43210', relation: 'Self', location: 'Mumbai, Maharashtra', budgetRange: '₹50,000 - ₹1,00,000 / mo', patientAge: '26 - 35 yrs', substance: 'Alcohol', message: 'Looking for verified inpatient facility', source: 'Recovery Directory Inquiry', status: 'New' },
-          { timestamp: new Date(Date.now() - 18000000).toISOString(), fullName: 'Ananya Verma', phone: '+91 91234 56789', relation: 'Brother', location: 'Delhi NCR', budgetRange: '₹25,000 - ₹50,000 / mo', patientAge: '18 - 25 yrs', substance: 'Opioids / Smack', message: 'Medical detox needed', source: 'Recovery Directory Inquiry', status: 'New' },
+          { timestamp: new Date().toISOString(), name: 'Rahul Sharma', fullName: 'Rahul Sharma', relation: 'Self', location: 'Mumbai, Maharashtra', budget: '₹50,000 - ₹1,00,000 / mo', budgetRange: '₹50,000 - ₹1,00,000 / mo', patientAge: '28', substance: 'Alcohol', status: 'New' },
+          { timestamp: new Date(Date.now() - 18000000).toISOString(), name: 'Ananya Verma', fullName: 'Ananya Verma', relation: 'Brother', location: 'Delhi NCR', budget: '₹25,000 - ₹50,000 / mo', budgetRange: '₹25,000 - ₹50,000 / mo', patientAge: '22', substance: 'Opioids / Smack', status: 'New' },
         ];
         setLeads(sampleLeads);
         setContacts(sampleContacts);
@@ -145,8 +145,8 @@ export default function AdminPanel({ setActivePage }) {
 
     // Sort
     data = [...data].sort((a, b) => {
-      const aVal = a[sortField] || '';
-      const bVal = b[sortField] || '';
+      const aVal = a[sortField] || (sortField === 'name' ? a.fullName : '') || (sortField === 'budget' ? a.budgetRange : '') || '';
+      const bVal = b[sortField] || (sortField === 'name' ? b.fullName : '') || (sortField === 'budget' ? b.budgetRange : '') || '';
       const comparison = String(aVal).localeCompare(String(bVal));
       return sortDir === 'asc' ? comparison : -comparison;
     });
@@ -435,28 +435,29 @@ export default function AdminPanel({ setActivePage }) {
                   <thead className="bg-[var(--bg-secondary)] border-b border-editorial">
                     <tr>
                       <th onClick={() => toggleSort('timestamp')} className="px-5 py-3.5 text-[10px] font-mono font-bold uppercase tracking-widest text-muted cursor-pointer hover:text-[var(--text-primary)]">
-                        Date <SortIcon field="timestamp" />
+                        Timestamp <SortIcon field="timestamp" />
                       </th>
-                      <th onClick={() => toggleSort('fullName')} className="px-5 py-3.5 text-[10px] font-mono font-bold uppercase tracking-widest text-muted cursor-pointer hover:text-[var(--text-primary)]">
-                        Full Name <SortIcon field="fullName" />
+                      <th onClick={() => toggleSort('name')} className="px-5 py-3.5 text-[10px] font-mono font-bold uppercase tracking-widest text-muted cursor-pointer hover:text-[var(--text-primary)]">
+                        Name <SortIcon field="name" />
                       </th>
-                      <th className="px-5 py-3.5 text-[10px] font-mono font-bold uppercase tracking-widest text-muted">Phone</th>
                       <th onClick={() => toggleSort('relation')} className="px-5 py-3.5 text-[10px] font-mono font-bold uppercase tracking-widest text-muted cursor-pointer hover:text-[var(--text-primary)]">
-                        Relation <SortIcon field="relation" />
+                        Relation With Patient <SortIcon field="relation" />
                       </th>
                       <th onClick={() => toggleSort('location')} className="px-5 py-3.5 text-[10px] font-mono font-bold uppercase tracking-widest text-muted cursor-pointer hover:text-[var(--text-primary)]">
                         Location <SortIcon field="location" />
                       </th>
-                      <th onClick={() => toggleSort('budgetRange')} className="px-5 py-3.5 text-[10px] font-mono font-bold uppercase tracking-widest text-muted cursor-pointer hover:text-[var(--text-primary)]">
-                        Budget <SortIcon field="budgetRange" />
+                      <th onClick={() => toggleSort('budget')} className="px-5 py-3.5 text-[10px] font-mono font-bold uppercase tracking-widest text-muted cursor-pointer hover:text-[var(--text-primary)]">
+                        Budget <SortIcon field="budget" />
                       </th>
                       <th onClick={() => toggleSort('patientAge')} className="px-5 py-3.5 text-[10px] font-mono font-bold uppercase tracking-widest text-muted cursor-pointer hover:text-[var(--text-primary)]">
-                        Age <SortIcon field="patientAge" />
+                        Patient Age <SortIcon field="patientAge" />
                       </th>
                       <th onClick={() => toggleSort('substance')} className="px-5 py-3.5 text-[10px] font-mono font-bold uppercase tracking-widest text-muted cursor-pointer hover:text-[var(--text-primary)]">
                         Substance <SortIcon field="substance" />
                       </th>
-                      <th className="px-5 py-3.5 text-[10px] font-mono font-bold uppercase tracking-widest text-muted">Status</th>
+                      <th onClick={() => toggleSort('status')} className="px-5 py-3.5 text-[10px] font-mono font-bold uppercase tracking-widest text-muted cursor-pointer hover:text-[var(--text-primary)]">
+                        Status <SortIcon field="status" />
+                      </th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-editorial">
@@ -469,13 +470,8 @@ export default function AdminPanel({ setActivePage }) {
                         <td className="px-5 py-4 text-xs text-muted font-mono whitespace-nowrap">
                           {row.timestamp ? new Date(row.timestamp).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: '2-digit' }) : '—'}
                         </td>
-                        <td className="px-5 py-4 text-sm font-semibold text-[var(--text-primary)] whitespace-nowrap">{row.fullName || row.name || '—'}</td>
-                        <td className="px-5 py-4 text-xs text-muted font-mono whitespace-nowrap">
-                          {row.phone && row.phone !== 'Not provided' ? (
-                            <a href={`tel:${row.phone}`} className="hover:text-[#781353] hover:underline font-bold text-[#781353]">{row.phone}</a>
-                          ) : (
-                            <span className="text-muted/60">Not provided</span>
-                          )}
+                        <td className="px-5 py-4 text-sm font-semibold text-[var(--text-primary)] whitespace-nowrap">
+                          {row.name || row.fullName || '—'}
                         </td>
                         <td className="px-5 py-4 text-xs text-muted whitespace-nowrap">
                           <span className="text-[10px] font-mono font-bold bg-[var(--bg-secondary)] text-[var(--text-primary)] px-2 py-0.5 rounded-md border border-editorial">
@@ -484,7 +480,7 @@ export default function AdminPanel({ setActivePage }) {
                         </td>
                         <td className="px-5 py-4 text-xs text-muted whitespace-nowrap">{row.location || '—'}</td>
                         <td className="px-5 py-4 text-xs text-muted font-mono whitespace-nowrap">
-                          <span className="text-[10px] text-emerald-700 dark:text-emerald-300 font-semibold">{row.budgetRange || 'Flexible'}</span>
+                          <span className="text-[10px] text-emerald-700 dark:text-emerald-300 font-semibold">{row.budget || row.budgetRange || 'Flexible'}</span>
                         </td>
                         <td className="px-5 py-4 text-xs text-muted font-mono whitespace-nowrap">
                           {row.patientAge ? `${row.patientAge} yrs` : '—'}
