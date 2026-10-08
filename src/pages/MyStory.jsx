@@ -247,10 +247,10 @@ export default function MyStory({ setActivePage }) {
               <div className="rounded-[24px] overflow-hidden border border-[rgba(120,19,83,0.08)] dark:border-editorial/60 bg-[var(--bg-primary)] shadow-sm relative group aspect-[4/5] sm:aspect-[3/4]">
                 <img
                   src="/assets/recovery-after-1.jpg"
-                  alt="Mehul Saini receiving public recognition for community recovery leadership - After Recovery"
+                  alt="Mehul Saini embracing physical discipline and renewed health - After Recovery"
                   loading="lazy"
                   decoding="async"
-                  className="w-full h-full object-cover object-top filter contrast-[1.02] transition-transform duration-500 group-hover:scale-[1.02]"
+                  className="w-full h-full object-cover object-center filter contrast-[1.02] transition-transform duration-500 group-hover:scale-[1.02]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none opacity-30" />
               </div>
@@ -259,10 +259,10 @@ export default function MyStory({ setActivePage }) {
               <div className="rounded-[24px] overflow-hidden border border-[rgba(120,19,83,0.08)] dark:border-editorial/60 bg-[var(--bg-primary)] shadow-sm relative group aspect-[4/5] sm:aspect-[3/4]">
                 <img
                   src="/assets/recovery-after-2.jpg"
-                  alt="Mehul Saini post-rehabilitation embracing renewed health and purpose - After Recovery"
+                  alt="Mehul Saini post-rehabilitation demonstrating strength and recovery discipline - After Recovery"
                   loading="lazy"
                   decoding="async"
-                  className="w-full h-full object-cover object-[center_20%] sm:object-center filter contrast-[1.02] transition-transform duration-500 group-hover:scale-[1.02]"
+                  className="w-full h-full object-cover object-center filter contrast-[1.02] transition-transform duration-500 group-hover:scale-[1.02]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none opacity-30" />
               </div>
